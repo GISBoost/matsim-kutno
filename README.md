@@ -9,4 +9,4 @@ Projekt w fazie specyfikacji. Kod jeszcze nie istnieje.
 - `docs/research/` — research Łódź v2 i podsumowanie kursu TU Berlin (tło metodyczne).
 - `docs/PRZENIESIONE_NA_G.md` — gdzie leżą nagrania kursu (dysk G:).
 
-Ocena twierdzeń z archiwum: `FACT_CHECK.md` (w przygotowaniu).
+Zacznij od `CLAUDE.md`. Decyzje: `DECISIONS.md`, fakty: `FACT_CHECK.md`, plan: `TASKS.md`, stan: `PROGRESS.md`.

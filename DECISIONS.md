@@ -14,9 +14,14 @@ Format: data · decyzja · uzasadnienie · konsekwencje. Zmiana decyzji = nowy w
 | D6 | 2026-10-16 | **Wszyscy pracujący z zakresu D3 jadą samochodem** (brak współczynnika car share). | Świadome uproszczenie MVP. | **Ruch jest zawyżony** o pieszych, rowerzystów i PT. Wyników nie interpretujemy jako natężeń. Mechanizm car share do dodania później. |
 | D7 | 2026-10-16 | **Miejsca pracy: OSM landuse (industrial/commercial/retail) + budynki niemieszkalne, ważone powierzchnią.** | Bez kluczy API, ten sam PBF co sieć. | Przybliżenie rozkładu zatrudnienia. REGON jako przyszła podmiana. |
 | D8 | 2026-10-16 | **Skala: 10 agentów (sieć syntetyczna) → 10% Kutna → 100%.** | Ok. 24 tys. agentów to mały scenariusz; przy 100% nie ma skalowania przepustowości. | `flow/storageCapacityFactor` = frakcja próbki (0,1, potem 1,0). Wnioski tylko z 100%. |
+| D9 | 2026-10-16 | **Przyjeżdżający: sieć obejmuje powiat kutnowski (+ bufor); dom = losowy budynek mieszkalny OSM w gminie źródłowej. Gminy spoza powiatu startują na najbliższym wjeździe na granicy sieci.** | Większość dojazdów pochodzi z gmin powiatu (FACT_CHECK #14). | Zasięg sieci = powiat kutnowski. Gminę miejsko-wiejską trzeba złożyć z kodów 4/5 (np. Krośniewice, Żychlin). |
+| D10 | 2026-10-16 | **Godziny: smoke test stałe (07:00, 8 h); prototyp = rozkład ze źródła do znalezienia, do tego czasu jawne ZAŁOŻENIE w configu.** | Brak danych lokalnych. | Zadanie researchowe w TASKS. |
+| D11 | 2026-10-16 | **Domy mieszkańców: liczba pracujących per obwód BREC (232) → losowy budynek mieszkalny OSM w obwodzie, ważony powierzchnią.** Obwód bez budynków → losowy punkt + wpis do raportu. | Najdrobniejsza dostępna geografia + realna zabudowa. | Wymaga złączenia obwodów tabela ↔ geometria (232 vs 233, FACT_CHECK #13). |
+| D12 | 2026-10-16 | **Uprawnienia agenta bez pytania:** lokalny venv `uv` w projekcie, pobieranie danych < 500 MB, lokalny commit po zaliczonej fazie (bez push), build `mvnw` i runy MATSim (`-Xmx10g`). | Zgoda użytkownika. | Wszystko inne (push, instalacje globalne, > 500 MB, usuwanie danych) wymaga pytania. |
 
 ## Otwarte
 
-- Reprezentacja przyjeżdżających (punkt wjazdu na granicy bufora / centroid gminy źródłowej / losowy punkt w gminie źródłowej).
-- Rozkład godzin wyjazdu i czasu pracy (źródło).
-- Lokalizacja domów (obwód/rejon BREC + budynki OSM/BDOT10k).
+- Źródło rozkładu godzin wyjazdu i czasu pracy (D10).
+- Szerokość bufora sieci poza powiatem (dobór w Fazie 2 na podstawie dróg wjazdowych).
+- Parametry scoringu (domyślne MATSim do czasu decyzji; kalibracja poza MVP).
+- Car share (D6), REGON (D7), wyjeżdżający (D3): poza MVP.
