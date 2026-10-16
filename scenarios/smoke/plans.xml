@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plans SYSTEM "http://www.matsim.org/files/dtd/plans_v4.dtd">
+<!-- F1: 10 osób, home 07:00 -> car -> work 8 h -> car -> home. Bez linków i tras: MATSim dowiąże i wyznaczy sam. -->
+<plans>
+<person id="p1">
+	<plan>
+		<act type="home" x="523500" y="484250" end_time="07:00:00" />
+		<leg mode="car" />
+		<act type="work" x="525500" y="485250" dur="08:00:00" />
+		<leg mode="car" />
+		<act type="home" x="523500" y="484250" />
+	</plan>
+</person>
+<person id="p2">
+	<plan>
+		<act type="home" x="523500" y="484250" end_time="07:00:00" />
+		<leg mode="car" />
+		<act type="work" x="525500" y="485250" dur="08:00:00" />
+		<leg mode="car" />
+		<act type="home" x="523500" y="484250" />
+	</plan>
+</person>
+<person id="p3">
+	<plan>
+		<act type="home" x="523500" y="484250" end_time="07:00:00" />
+		<leg mode="car" />
+		<act type="work" x="525500" y="485250" dur="08:00:00" />
+		<leg mode="car" />
+		<act type="home" x="523500" y="484250" />
+	</plan>
+</person>
+<person id="p4">
+	<plan>
+		<act type="home" x="523500" y="484250" end_time="07:00:00" />
+		<leg mode="car" />
+		<act type="work" x="525500" y="485250" dur="08:00:00" />
+		<leg mode="car" />
+		<act type="home" x="523500" y="484250" />
+	</plan>
+</person>
+<person id="p5">
+	<plan>
+		<act type="home" x="523500" y="484250" end_time="07:00:00" />
+		<leg mode="car" />
+		<act type="work" x="525500" y="485250" dur="08:00:00" />
+		<leg mode="car" />
+		<act type="home" x="523500" y="484250" />
+	</plan>
+</person>
+<person id="p6">
+	<plan>
+		<act type="home" x="523500" y="484250" end_time="07:00:00" />
+		<leg mode="car" />
+		<act type="work" x="525500" y="485250" dur="08:00:00" />
+		<leg mode="car" />
+		<act type="home" x="523500" y="484250" />
+	</plan>
+</person>
+<person id="p7">
+	<plan>
+		<act type="home" x="523500" y="484250" end_time="07:00:00" />
+		<leg mode="car" />
+		<act type="work" x="525500" y="485250" dur="08:00:00" />
+		<leg mode="car" />
+		<act type="home" x="523500" y="484250" />
+	</plan>
+</person>
+<person id="p8">
+	<plan>
+		<act type="home" x="523500" y="484250" end_time="07:00:00" />
+		<leg mode="car" />
+		<act type="work" x="525500" y="485250" dur="08:00:00" />
+		<leg mode="car" />
+		<act type="home" x="523500" y="484250" />
+	</plan>
+</person>
+<person id="p9">
+	<plan>
+		<act type="home" x="523500" y="484250" end_time="07:00:00" />
+		<leg mode="car" />
+		<act type="work" x="525500" y="485250" dur="08:00:00" />
+		<leg mode="car" />
+		<act type="home" x="523500" y="484250" />
+	</plan>
+</person>
+<person id="p10">
+	<plan>
+		<act type="home" x="523500" y="484250" end_time="07:00:00" />
+		<leg mode="car" />
+		<act type="work" x="525500" y="485250" dur="08:00:00" />
+		<leg mode="car" />
+		<act type="home" x="523500" y="484250" />
+	</plan>
+</person>
+</plans>
