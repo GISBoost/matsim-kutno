@@ -16,3 +16,4 @@ __pycache__/
 *.jar
 dependency-reduced-pom.xml
 scenarios/kutno/*.xml.gz
+scenarios/kutno/plans_*.csv

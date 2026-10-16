@@ -1,0 +1,50 @@
+{
+  "plans": "scenarios\\kutno\\plans.xml.gz",
+  "sha256": "94e17e044c9b551efd8ac823c41c0704c1f03275fbcc63ae7ce7f7732e3cb9be",
+  "sha256_rerun": "94e17e044c9b551efd8ac823c41c0704c1f03275fbcc63ae7ce7f7732e3cb9be",
+  "deterministic": true,
+  "persons": 2573,
+  "expected": 2573,
+  "bad_chain": [],
+  "bad_chain_n": 0,
+  "home_outside_area": 0,
+  "work_outside_gmina": 0,
+  "return_home_differs": 0,
+  "by_kind": {
+    "resident": 1762,
+    "commuter": 811
+  },
+  "home_source": {
+    "osm": 2361,
+    "entry": 206,
+    "random": 6
+  },
+  "random_point_homes_keys": [
+    "6509902"
+  ],
+  "distinct_work_buildings": 473,
+  "top5_work_buildings_share": 0.131,
+  "entry_links_used": {
+    "3107258420023r": 40,
+    "2902403630001f": 36,
+    "1885522040087f": 35,
+    "2473952100003r": 29,
+    "3751421790011f": 20,
+    "3890128470001r": 16,
+    "15488949440000f": 11,
+    "3796965080015f": 7,
+    "15488949430000f": 6,
+    "2445763210015f": 3,
+    "943199780001f": 3
+  },
+  "home_work_crowfly_km_median": {
+    "commuter": 13.0,
+    "resident": 3.8
+  },
+  "times": {
+    "home_end_time": "07:00:00",
+    "work_max_dur": "08:00:00",
+    "status": "ZAŁOŻENIE (D10)"
+  },
+  "ok": true
+}
