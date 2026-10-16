@@ -30,7 +30,7 @@ area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[
 gmina = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
 powiat = gpd.read_file("scenarios/kutno/area/powiat.geojson").geometry.iloc[0]
 
-persons, bad_chain = [], []
+persons, bad_chain, dep = [], [], []
 with gzip.open(path, "rb") as f:
     for _, el in etree.iterparse(f, tag="person"):
         plans = el.findall("plan")
@@ -42,6 +42,7 @@ with gzip.open(path, "rb") as f:
             bad_chain.append(el.get("id"))
         else:
             h, w = (Point(float(a.get("x")), float(a.get("y"))) for a in acts[:2])
+            dep.append(acts[0].get("end_time"))
             persons.append(dict(id=el.get("id"), h=h, w=w, same_home=acts[0].get("x") == acts[2].get("x")
                                 and acts[0].get("y") == acts[2].get("y")))
         el.clear()
@@ -55,6 +56,7 @@ with tempfile.TemporaryDirectory() as d:
     sha2 = hashlib.sha256((Path(d) / "plans.xml.gz").read_bytes()).hexdigest()
 
 meta = pd.read_csv(path.parent / "plans_meta.csv")
+meta["dep_h"] = [int(t[:2]) + int(t[3:5]) / 60 for t in dep]
 meta["dist_km"] = ((meta.home_x - meta.work_x) ** 2 + (meta.home_y - meta.work_y) ** 2) ** .5 / 1000
 report = {
     "plans": str(path), "sha256": sha, "sha256_rerun": sha2, "deterministic": sha == sha2,
@@ -69,7 +71,8 @@ report = {
     "top5_work_buildings_share": round(meta.work_src.value_counts().head(5).sum() / len(meta), 3),
     "entry_links_used": meta[meta.home_src == "entry"].groupby("home_link").size().sort_values(ascending=False).to_dict(),
     "home_work_crowfly_km_median": {k: round(v, 1) for k, v in meta.groupby("kind").dist_km.median().items()},
-    "times": {"home_end_time": P["home_end_time"], "work_max_dur": P["work_max_dur"], "status": "ZAŁOŻENIE (D10)"},
+    "times": {"departure_profile": P["departure_profile"], "work_max_dur": P["work_max_dur"],
+              "departure_by_hour": meta.dep_h.astype(int).value_counts().sort_index().to_dict()},
 }
 report["ok"] = (report["deterministic"] and not bad_chain and report["persons"] == expected
                 and report["home_outside_area"] == 0 and report["work_outside_gmina"] == 0 and report["return_home_differs"] == 0)
@@ -100,11 +103,16 @@ ax2.set_aspect("equal"); ax2.set_axis_off()
 ax2.set_title(f"miejsca pracy w Kutnie: {report['distinct_work_buildings']} budynków\n"
               f"(wielkość = liczba agentów; top 5 budynków = {report['top5_work_buildings_share']:.0%})", fontsize=10)
 
-ax3 = fig.add_axes([0.84, 0.55, 0.14, 0.35])
+ax3 = fig.add_axes([0.84, 0.62, 0.14, 0.28])
 for kind, col in (("resident", "#2e86ab"), ("commuter", "#7b2cbf")):
     ax3.hist(meta[meta.kind == kind].dist_km, bins=range(0, 41), color=col, alpha=0.6, label=kind)
 ax3.set_title("odl. dom-praca w linii prostej [km]", fontsize=9); ax3.legend(fontsize=7); ax3.tick_params(labelsize=7)
-ax4 = fig.add_axes([0.81, 0.08, 0.14, 0.35]); ax4.set_axis_off()
+ax5 = fig.add_axes([0.84, 0.32, 0.14, 0.22])
+prof = pd.read_csv(P["departure_profile"])
+ax5.hist(meta.dep_h, bins=[h / 4 for h in range(0, 97)], color="#2e86ab", density=True, label="plans")
+ax5.stairs(prof.share_pct / 100 / (prof.to_h - prof.from_h), [*prof.from_h, 24], color="#d1495b", label="GBR Rys. 46")
+ax5.set_xlim(3, 14); ax5.set_title("wyjazd z domu [h]", fontsize=9); ax5.legend(fontsize=7); ax5.tick_params(labelsize=7)
+ax4 = fig.add_axes([0.81, 0.02, 0.14, 0.26]); ax4.set_axis_off()
 ax4.text(0, 1, "\n".join([
     f"osoby: {report['persons']} (oczekiwane {expected})",
     f"łańcuch h-car-w-car-h: {'OK' if not bad_chain else len(bad_chain)}",
@@ -112,8 +120,8 @@ ax4.text(0, 1, "\n".join([
     f"praca poza gm. Kutno: {report['work_outside_gmina']}",
     f"sha256 powtórzony: {'OK' if report['deterministic'] else 'RÓŻNY'}",
     f"domy losowe (brak bud.): {report['home_source'].get('random', 0)}",
-    f"godziny: wyjazd {P['home_end_time']}, praca {P['work_max_dur']}",
-    "(ZAŁOŻENIE D10)",
+    f"wyjazd: GBR 2022 Rys. 46",
+f"praca: {P['work_max_dur']} (ZAŁOŻENIE)",
 ]), va="top", fontsize=8, family="monospace")
 fig.suptitle(f"F4 plans {P['sample']:.0%} ({P['variant']}) | {'ZALICZONA' if report['ok'] else 'NIE ZALICZONA'}", fontsize=12)
 fig.savefig("reports/f4_plans.png", dpi=120)

@@ -12,8 +12,10 @@ network_buffer_m = 3000
 seed = 4711
 sample = 0.1                # D8: 10% -> potem 1.0
 variant = "base"            # D5: "base" albo "low" (kolumny work_in_kutno_* z F3)
-# ZAŁOŻENIE (D10): stałe godziny do czasu rozkładu ze źródła (R1: kandydat GBR 2022 Rys. 46, nieprzeniesiony).
-home_end_time = "07:00:00"
+# D10: godzina wyjazdu z domu = rozkład „dom - praca” z GBR Gdańsk 2022, Raport 3a, Rys. 46 (godzinowy,
+# punkty krzywej wektorowej odczytane przez pipeline/digitize_gbr.py, data/manifest.csv). Udziały normalizowane do 100%.
+# ZAŁOŻENIE: jednostajnie wewnątrz przedziału. Gdańsk (metropolia) != Kutno: przeniesienie rozkładu to też ZAŁOŻENIE.
+departure_profile = "config/departure_home_work_gbr2022.csv"
 work_max_dur = "08:00:00"   # GUS BCL 2013: 8 h 11 min średnio dla najemnych; zaokrąglone ZAŁOŻENIE
 
 # ZAŁOŻENIE (D11, D9): budynki mieszkalne = te typy OSM + building=yes wewnątrz landuse=residential.

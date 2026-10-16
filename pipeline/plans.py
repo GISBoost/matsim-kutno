@@ -135,6 +135,11 @@ meta = pd.DataFrame(people, columns=["person", "kind", "key", "home_x", "home_y"
 w = pick_buildings(work_b, len(meta))
 meta["work_x"], meta["work_y"], meta["work_src"] = w.pt.x.to_numpy(), w.pt.y.to_numpy(), [f"osm_{i}" for i in w.osm_id]
 
+# --- godzina wyjazdu (D10): przedział z udziałem z profilu, jednostajnie w przedziale ---------------------
+prof = pd.read_csv(P["departure_profile"])
+k = rng.choice(len(prof), size=len(meta), p=(prof.share_pct / prof.share_pct.sum()).to_numpy())
+meta["dep_s"] = (prof.from_h.to_numpy()[k] * 3600 + rng.uniform(0, 1, len(meta)) * (prof.to_h - prof.from_h).to_numpy()[k] * 3600).astype(int)
+
 # --- plans.xml.gz (bez tras; mtime=0, żeby sha256 był powtarzalny) ------------------------------------
 root = etree.Element("population")
 for r in meta.itertuples():
@@ -142,7 +147,7 @@ for r in meta.itertuples():
     home = dict(type="home", x=f"{r.home_x:.1f}", y=f"{r.home_y:.1f}")
     if isinstance(r.home_link, str):
         home["link"] = r.home_link
-    etree.SubElement(plan, "activity", **home, end_time=P["home_end_time"])
+    etree.SubElement(plan, "activity", **home, end_time=f"{r.dep_s // 3600:02d}:{r.dep_s // 60 % 60:02d}:{r.dep_s % 60:02d}")
     etree.SubElement(plan, "leg", mode="car")
     etree.SubElement(plan, "activity", type="work", x=f"{r.work_x:.1f}", y=f"{r.work_y:.1f}", max_dur=P["work_max_dur"])
     etree.SubElement(plan, "leg", mode="car")

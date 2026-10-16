@@ -11,7 +11,7 @@ Skrypty: `pipeline/osm_features.py` (budynki + landuse z PBF), `pipeline/plans.p
 | domy w obszarze sieci | 0 poza |
 | praca w gminie Kutno | 0 poza |
 | powrót do tego samego domu | 2 573/2 573 |
-| sha256 przy ponownym uruchomieniu | identyczny (`94e17e04…b9be`; gzip z `mtime=0`) |
+| sha256 przy ponownym uruchomieniu | identyczny (`525ed292…9538` po D14; gzip z `mtime=0`) |
 
 ## Jak powstały lokalizacje
 
@@ -26,7 +26,7 @@ Skrypty: `pipeline/osm_features.py` (budynki + landuse z PBF), `pipeline/plans.p
 - **Praca (D7):** wszyscy w gminie Kutno. Budynek niemieszkalny z wagą powierzchni obrysu: typ z listy w configu, tag amenity/shop/office albo `building=yes` w landuse industrial/commercial/retail.
   - 1 103 kandydatów, wylosowano 473 budynki.
   - Top 5 budynków skupia 13% agentów (duże hale w strefie wschodniej).
-- **Godziny (D10, ZAŁOŻENIE):** wyjazd 07:00, praca 8 h (`max_dur`) dla wszystkich. To jest jeszcze nie rozkład ze źródła. R1 wskazuje GBR Gdańsk 2022 Rys. 46 (do digitalizacji), decyzja użytkownika.
+- **Godziny (D14, aktualizacja po F4):** wyjazd z rozkładu GBR Gdańsk 2022 Rys. 46 „dom - praca”, jednostajnie w godzinie (`config/departure_home_work_gbr2022.csv`); praca 8 h (`max_dur`, ZAŁOŻENIE). Pierwotnie 07:00 dla wszystkich.
 
 ## Liczby kontrolne
 
@@ -37,4 +37,3 @@ Skrypty: `pipeline/osm_features.py` (budynki + landuse z PBF), `pipeline/plans.p
 
 - Wagi powierzchnią: magazyny i hale są przeszacowane jako miejsca pracy, a bloki niedoszacowane względem domów jednorodzinnych (piętra nieuwzględnione).
 - Przyjeżdżający spoza powiatu nie mają odcinka poza siecią. Ich czas podróży jest zaniżony o dojazd do granicy.
-- Wszyscy wyjeżdżają o 07:00. W F5 spowoduje to sztuczny szczyt. Rozkład godzin to otwarta decyzja D10.
