@@ -1,0 +1,135 @@
+home,home_name,n,in_powiat,in_lodzkie
+1002062,Kutno,1831,True,True
+1002052,Krzyżanów,662,True,True
+1002102,Strzelce,533,True,True
+1002114,Żychlin - miasto,493,True,True
+1002082,Nowe Ostrowy,446,True,True
+1002022,Bedlno,437,True,True
+1002044,Krośniewice - miasto,373,True,True
+1002092,Oporów,355,True,True
+1002045,Krośniewice - obszar wiejski,323,True,True
+1002072,Łanięta,297,True,True
+1002115,Żychlin - obszar wiejski,218,True,True
+1061011,Łódź,202,False,True
+1404011,Gostynin,188,False,False
+1004082,Witonia,172,False,True
+1404022,Gostynin,141,False,False
+1404052,Szczawin Kościelny,109,False,False
+1002032,Dąbrowice,82,True,True
+3009032,Chodów,77,False,False
+1004011,Łęczyca,63,False,True
+1004022,Daszyna,61,False,True
+1462011,Płock,56,False,False
+0418115,Lubień Kujawski - obszar wiejski,54,False,False
+1004052,Łęczyca,54,False,True
+3009064,Kłodawa - miasto,45,False,False
+1004065,Piątek - obszar wiejski,40,False,True
+1005011,Łowicz,38,False,True
+1005102,Zduny,34,False,True
+0464011,Włocławek,29,False,False
+1465011,M.st.Warszawa,27,False,False
+3009065,Kłodawa - obszar wiejski,27,False,False
+1404032,Pacyna,24,False,False
+1005022,Bielawy,24,False,True
+1004042,Grabów,23,False,True
+3062011,Konin,23,False,False
+1020031,Zgierz,23,False,True
+1020021,Ozorków,19,False,True
+1419072,Łąck,18,False,False
+1004064,Piątek - miasto,18,False,True
+0418065,Chodecz - obszar wiejski,17,False,False
+1020062,Ozorków,17,False,True
+3010092,Skulsk,16,False,False
+1004032,Góra Świętej Małgorzaty,16,False,True
+1005072,Łowicz,15,False,True
+3009011,Koło,14,False,False
+0418052,Choceń,14,False,False
+1063011,Skierniewice,13,False,True
+1020092,Zgierz,13,False,True
+0418022,Baruchowo,12,False,False
+1428011,Sochaczew,12,False,False
+3009092,Olszówka,11,False,False
+1005092,Nieborów,11,False,True
+3009115,Przedecz - obszar wiejski,11,False,False
+3027011,Turek,10,False,False
+1419065,Gąbin - obszar wiejski,9,False,False
+0463011,Toruń,9,False,False
+1008021,Pabianice,8,False,True
+1404045,Sanniki - obszar wiejski,8,False,False
+3009102,Osiek Mały,7,False,False
+1005052,Kiernozia,7,False,True
+1020044,Aleksandrów Łódzki - miasto,7,False,True
+0418032,Boniewo,7,False,False
+0461011,Bydgoszcz,7,False,False
+3064011,Poznań,7,False,False
+1419064,Gąbin - miasto,7,False,False
+1020011,Głowno,6,False,True
+1006022,Andrespol,6,False,True
+1005042,Domaniewice,5,False,True
+3262011,Szczecin,5,False,False
+3009052,Grzegorzew,5,False,False
+1003024,Łask - miasto,5,False,True
+1004072,Świnice Warckie,5,False,True
+3009022,Babiak,5,False,False
+3027092,Władysławów,5,False,False
+1419132,Stara Biała,5,False,False
+1419092,Nowy Duninów,5,False,False
+1006082,Nowosolna,5,False,True
+1011034,Poddębice - miasto,5,False,True
+0418114,Lubień Kujawski - miasto,5,False,False
+1062011,Piotrków Trybunalski,5,False,True
+1419055,Drobin - obszar wiejski,5,False,False
+1020045,Aleksandrów Łódzki - obszar wiejski,5,False,True
+0418092,Kowal,4,False,False
+0408075,Skępe - obszar wiejski,4,False,False
+0418085,Izbica Kujawska - obszar wiejski,4,False,False
+0418084,Izbica Kujawska - miasto,4,False,False
+3010125,Ślesin - obszar wiejski,4,False,False
+1419142,Staroźreby,4,False,False
+1419022,Bodzanów,4,False,False
+1419112,Słubice,4,False,False
+1427011,Sierpc,4,False,False
+1428022,Brochów,4,False,False
+3009072,Koło,4,False,False
+1428072,Sochaczew,4,False,False
+2061011,Białystok,4,False,False
+1006074,Koluszki - miasto,4,False,True
+1011035,Poddębice - obszar wiejski,4,False,True
+1011052,Wartkowice,4,False,True
+0408032,Chrostkowo,3,False,False
+0418011,Kowal,3,False,False
+0410015,Kcynia - obszar wiejski,3,False,False
+0264011,Wrocław,3,False,False
+1001011,Bełchatów,3,False,True
+1015062,Maków,3,False,True
+1016011,Tomaszów Mazowiecki,3,False,True
+1016072,Rokiciny,3,False,True
+1019011,Zduńska Wola,3,False,True
+1008052,Ksawerów,3,False,True
+1008011,Konstantynów Łódzki,3,False,True
+1015012,Bolimów,3,False,True
+1015052,Lipce Reymontowskie,3,False,True
+1005062,Kocierzew Południowy,3,False,True
+0663011,Lublin,3,False,False
+0462011,Grudziądz,3,False,False
+0418064,Chodecz - miasto,3,False,False
+1020052,Głowno,3,False,True
+1020085,Stryków - obszar wiejski,3,False,True
+1402035,Glinojeck - obszar wiejski,3,False,False
+1402072,Opinogóra Górna,3,False,False
+1419122,Słupno,3,False,False
+1419032,Brudzeń Duży,3,False,False
+1406055,Grójec - obszar wiejski,3,False,False
+1020072,Parzęczew,3,False,True
+1021011,Brzeziny,3,False,True
+1261011,Kraków,3,False,False
+2261011,Gdańsk,3,False,False
+2862011,Olsztyn,3,False,False
+3009044,Dąbie - miasto,3,False,False
+3010062,Krzymów,3,False,False
+3010022,Grodziec,3,False,False
+3010052,Kramsk,3,False,False
+3010142,Wilczyn,3,False,False
+3017011,Ostrów Wielkopolski,3,False,False
+3027022,Brudzew,3,False,False
+3061011,Kalisz,3,False,False

@@ -1,0 +1,44 @@
+{
+  "population_gmina_row": 42255,
+  "population_sum_obwody": 42255,
+  "obwody_table": 232,
+  "obwody_geometry": 233,
+  "obwody_geometry_only": [
+    6509213
+  ],
+  "join_rule": "obwod_id = rejon_id * 10 + nr_obwodu",
+  "rates_source": "NSP 2021 Ludność na rynku pracy, TABL. 5, Miasta ogółem, Łódzkie (przed.: woj. 15-17 / 0-17)",
+  "rates": {
+    "prod": {
+      "low": 0.7227,
+      "base": 0.7802
+    },
+    "poprod": {
+      "low": 0.1358,
+      "base": 0.137
+    },
+    "przed": {
+      "low": 0.0088,
+      "base": 0.0088
+    }
+  },
+  "employed_residents": {
+    "low": 18836,
+    "base": 20215
+  },
+  "outgoing_employees": 2669,
+  "residents_working_in_kutno": {
+    "low": 16167,
+    "base": 17546
+  },
+  "inbound_total": 8186,
+  "inbound_gminy": 134,
+  "inbound_in_powiat": 6050,
+  "inbound_outside_powiat_in_lodzkie": 979,
+  "inbound_outside_lodzkie": 1157,
+  "agents_100pct": {
+    "low": 24353,
+    "base": 25732
+  },
+  "ok": true
+}
