@@ -92,3 +92,10 @@ Wnioski:
 - **Przepustowość 1 500 poj./h na pas drogi miejskiej jest w typowym zakresie.** To pas bez sygnalizacji. Problemem jest więc popyt (D6: wszyscy autem; D7: dużo pracy w hali na wschodzie), a nie błąd sieci.
 - **Drogi lokalne mają 600 poj./h na pas** (domyślne Supersonic dla tertiary i residential). Józefów i Wschodnia to dojazdy do strefy przemysłowej, więc to jest konserwatywne, ale zgodne z klasą drogi w OSM.
 - **Nie porównano z pomiarem ruchu.** Nie znalazłem szybko danych GPR GDDKiA dla DK92 w Kutnie (stacje są na generalnypomiarruchu.pl). Porównanie z pomiarami to kalibracja, poza zakresem MVP (D2).
+
+## Korekta po recenzji R3 (2026-10-16)
+
+Zob. `docs/research/R3_ocena_modelu.md`. Ten raport zawiera trzy nieuprawnione sformułowania:
+- **„Score stabilizuje się”** to artefakt `fractionOfIterationsToDisableInnovation=0.8`, nie dowód zbieżności. 20 iteracji to za mało na równowagę.
+- **„10% dobrze odwzorowuje 100%”** dotyczy wyłącznie zagregowanych rozkładów. Przy 10% `storageCapacityFactor` powinien wynosić ok. 0,18, a nie 0,1 (FAQ MATSim).
+- **Ranking wąskich gardeł** wynika z niezbiegniętego runu i z założeń D6/D7. Nie jest to wynik o ulicach Kutna.

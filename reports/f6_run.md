@@ -70,3 +70,10 @@ Te same okolice co w F5: dojazd do wschodniej strefy pracy. Kolejność odcinkó
 
 - `reports/f6_run.png`, `reports/f6_delay.png`, `reports/f6_compare.png`, `reports/f6_plans.png`.
 - Wykresy MATSim w `output/f6_100pct/`: `scorestats.png`, `modestats.png`, `traveldistancestats*.png`, `stopwatch.png`.
+
+## Korekta po recenzji R3 (2026-10-16)
+
+Zob. `docs/research/R3_ocena_modelu.md`. Ten raport zawiera trzy nieuprawnione sformułowania:
+- **„Score stabilizuje się”** to artefakt `fractionOfIterationsToDisableInnovation=0.8`, nie dowód zbieżności. 20 iteracji to za mało na równowagę.
+- **„10% dobrze odwzorowuje 100%”** dotyczy wyłącznie zagregowanych rozkładów. Przy 10% `storageCapacityFactor` powinien wynosić ok. 0,18, a nie 0,1 (FAQ MATSim).
+- **Ranking wąskich gardeł** wynika z niezbiegniętego runu i z założeń D6/D7. Nie jest to wynik o ulicach Kutna.
