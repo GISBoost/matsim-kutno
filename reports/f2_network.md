@@ -1,8 +1,8 @@
 # F2 — sieć OSM, powiat kutnowski + bufor 3 km (2026-10-16)
 
-**Status: TOPOLOGIA ZALICZONA · PRĘDKOŚCI DO DECYZJI (faza otwarta)**
+**Status: ZALICZONA** (prędkości wg D13)
 
-Ścieżka: `pipeline/make_area.py` (BREC 2021 → gmina / powiat / obszar sieci w EPSG:2180) → `org.matsim.kutno.CreateKutnoNetwork` (SupersonicOsmNetworkReader 2026.0, WGS84 → EPSG:2180, filtr obszaru, tylko `car`, NetworkCleaner) → `pipeline/validate_network.py`.
+Ścieżka: `pipeline/make_area.py` (BREC 2021 → gmina / powiat / obszar sieci / miasta w EPSG:2180) → `org.matsim.kutno.CreateKutnoNetwork` (SupersonicOsmNetworkReader 2026.0, WGS84 → EPSG:2180, filtr obszaru, tylko `car`, NetworkCleaner) → `pipeline/validate_network.py`.
 Wejście: `data/raw/osm/lodzkie-261015.osm.pbf` (Geofabrik, dane do 2026-10-15T20:21Z, sha256 w `data/manifest.csv`). Konwersja trwa 7 s.
 
 | Test | Wynik |
@@ -17,7 +17,7 @@ Wejście: `data/raw/osm/lodzkie-261015.osm.pbf` (Geofabrik, dane do 2026-10-15T2
 
 Mapa: `reports/f2_network.png` (kolor = freespeed).
 
-## Problem: domyślne prędkości (blokuje F4–F5, nie blokuje F3)
+## Prędkości: problem (pierwsza wersja) → decyzja D13
 
 Linki bez tagu `maxspeed` dostają domyślne prędkości Supersonic (wartości VSP, kalibrowane na miasta niemieckie):
 
@@ -30,7 +30,20 @@ Linki bez tagu `maxspeed` dostają domyślne prędkości Supersonic (wartości V
 | primary | 204 | 60 km/h |
 | motorway | 18 | 140 km/h |
 
-Ok. 3 000 km dróg lokalnych, w większości wiejskich (limit ustawowy 90 km/h poza terenem zabudowanym), jedzie 15–25 km/h. Skutek: centrum → skraj powiatu 52–65 min. Bez korekty czasy dojazdu przyjeżdżających będą kilkukrotnie zawyżone.
+Ok. 3 000 km dróg lokalnych, w większości wiejskich (limit ustawowy 90 km/h poza terenem zabudowanym), jedzie 15–25 km/h. Skutek: centrum → skraj powiatu 52–65 min. Bez korekty czasy dojazdu przyjeżdżających byłyby kilkukrotnie zawyżone.
+
+**Po D13** (tag `maxspeed` > limit ustawowy × 0,8; `config/network_speeds.properties`):
+
+| źródło prędkości | km |
+|---|---|
+| domyślne poza miastem (90 → 72 km/h) | 2 729 |
+| residential (50 → 40) | 996 |
+| tag OSM `maxspeed` | 632 |
+| domyślne w mieście (50 → 40) | 44 |
+| living_street / motorway | 21 / 4 |
+
+Czas z centrum Kutna do skrajnych węzłów (N/S/E/W): **28 / 22 / 35 / 33 min** (wcześniej 63 / 54 / 65 / 52). Topologia bez zmian, 90/90 tras. Regresja smoke po przebudowie: ok.
+Capacity: domyślne Supersonic (np. 600 poj./h/pas dla dróg lokalnych). Bez weryfikacji, istotne dopiero przy analizie kongestii.
 
 ## Ograniczenia
 - PBF obejmuje tylko woj. łódzkie. Bufor 3 km po stronie mazowieckiej nie zawiera dróg spoza województwa, więc wjazdy kończą się na granicy województwa.

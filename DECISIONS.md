@@ -18,6 +18,7 @@ Format: data · decyzja · uzasadnienie · konsekwencje. Zmiana decyzji = nowy w
 | D10 | 2026-10-16 | **Godziny: smoke test stałe (07:00, 8 h); prototyp = rozkład ze źródła do znalezienia, do tego czasu jawne ZAŁOŻENIE w configu.** | Brak danych lokalnych. | Zadanie researchowe w TASKS. |
 | D11 | 2026-10-16 | **Domy mieszkańców: liczba pracujących per obwód BREC (232) → losowy budynek mieszkalny OSM w obwodzie, ważony powierzchnią.** Obwód bez budynków → losowy punkt + wpis do raportu. | Najdrobniejsza dostępna geografia + realna zabudowa. | Wymaga złączenia obwodów tabela ↔ geometria (232 vs 233, FACT_CHECK #13). |
 | D12 | 2026-10-16 | **Uprawnienia agenta bez pytania:** lokalny venv `uv` w projekcie, pobieranie danych < 500 MB, lokalny commit po zaliczonej fazie (bez push), build `mvnw` i runy MATSim (`-Xmx10g`). | Zgoda użytkownika. | Wszystko inne (push, instalacje globalne, > 500 MB, usuwanie danych) wymaga pytania. |
+| D13 | 2026-10-16 | **Prędkości sieci: tag OSM `maxspeed` > limity ustawowe (PoRD art. 20: miasto 50, poza 90, residential 50, living_street 20, motorway 140, trunk 100) × factor 0,8.** Miasta = gm. miejska / miasto gm. miejsko-wiejskiej z BREC. | Domyślne Supersonic (VSP, Niemcy) dawały 15–25 km/h na ok. 3 000 km dróg wiejskich (F2). | Parametry w `config/network_speeds.properties`. Factor 0,8 i „wsie jak drogi zamiejskie” to ZAŁOŻENIA. Capacity zostaje domyślne Supersonic. |
 
 ## Otwarte
 

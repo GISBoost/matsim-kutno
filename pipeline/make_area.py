@@ -40,5 +40,9 @@ import geopandas as gpd
 for name, geom in [("gmina", g_geom), ("powiat", p_geom), ("network_area", area_geom)]:
     gpd.GeoSeries([geom], crs="EPSG:2180").to_file(out / f"{name}.geojson", driver="GeoJSON")
 (out / "network_area.wkt").write_text(area_geom.simplify(10).wkt)
+# miasta (TERYT rodzaj 1 = gm. miejska, 4 = miasto w gm. miejsko-wiejskiej): obszar zabudowany dla prędkości (D13)
+towns = powiat[powiat["teryt"].str[-1].isin(["1", "4"])]
+(out / "towns.wkt").write_text(towns.union_all().simplify(5).wkt)
+stats["towns_teryt"] = sorted(towns["teryt"].unique())
 Path("reports/f2_area.json").write_text(json.dumps(stats, indent=2, ensure_ascii=False))
 print(json.dumps(stats, indent=2, ensure_ascii=False))

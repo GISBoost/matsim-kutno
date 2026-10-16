@@ -12,39 +12,15 @@
   "nodes_outside_area": 69,
   "nodes_outside_max_m": 3988,
   "network_km_by_freespeed_kmh": {
-    "10": 22,
-    "11": 3,
-    "12": 3,
-    "13": 4,
-    "14": 6,
-    "15": 3077,
-    "16": 5,
-    "17": 7,
-    "18": 6,
-    "19": 4,
-    "20": 5,
-    "21": 5,
-    "22": 3,
-    "23": 4,
-    "24": 8,
-    "25": 544,
-    "27": 8,
-    "28": 1,
-    "30": 44,
-    "35": 1,
-    "36": 23,
-    "40": 1,
-    "43": 1,
-    "45": 290,
-    "46": 1,
-    "47": 1,
-    "55": 1,
-    "60": 3,
-    "70": 23,
-    "80": 20,
-    "90": 266,
-    "100": 4,
-    "140": 18
+    "16": 23,
+    "24": 5,
+    "32": 22,
+    "40": 1330,
+    "48": 3,
+    "56": 23,
+    "72": 2995,
+    "80": 4,
+    "112": 21
   },
   "kutno_centre_nearest_node_m": 35,
   "links_bad_attrs": 0,
@@ -62,45 +38,45 @@
     "tertiary_link": 6
   },
   "km_and_median_freespeed_kmh_by_type": {
-    "motorway": [
-      18,
-      140
+    "secondary": [
+      117,
+      72
     ],
     "primary_link": [
       5,
-      36
-    ],
-    "motorway_link": [
-      6,
-      80
-    ],
-    "tertiary_link": [
-      0,
-      45
-    ],
-    "unclassified": [
-      2109,
-      15
+      48
     ],
     "primary": [
       204,
-      60
+      72
     ],
-    "living_street": [
-      22,
-      10
-    ],
-    "secondary": [
-      117,
-      45
-    ],
-    "tertiary": [
-      840,
-      25
+    "motorway": [
+      18,
+      112
     ],
     "residential": [
       1105,
-      15
+      40
+    ],
+    "living_street": [
+      22,
+      16
+    ],
+    "tertiary_link": [
+      0,
+      40
+    ],
+    "tertiary": [
+      840,
+      72
+    ],
+    "unclassified": [
+      2109,
+      72
+    ],
+    "motorway_link": [
+      6,
+      112
     ]
   },
   "total_length_km": 4426,
@@ -149,15 +125,23 @@
   "routes_ok": 90,
   "routes_failed": [],
   "route_minutes_centrum_to": {
-    "N": 62.5,
-    "S": 53.6,
-    "E": 65.2,
-    "W": 51.6,
-    "los0": 32.4,
-    "los1": 43.9,
-    "los2": 1.6,
-    "los3": 41.6,
-    "los4": 11.6
+    "N": 27.9,
+    "S": 21.6,
+    "E": 34.5,
+    "W": 32.6,
+    "los0": 21.2,
+    "los1": 27.2,
+    "los2": 1.5,
+    "los3": 22.5,
+    "los4": 11.7
+  },
+  "km_by_speed_source": {
+    "default_rural": 2729,
+    "default_residential": 996,
+    "tag": 632,
+    "default_urban": 44,
+    "default_living_street": 21,
+    "default_motorway": 4
   },
   "ok": true
 }

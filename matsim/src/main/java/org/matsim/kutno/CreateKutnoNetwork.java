@@ -5,32 +5,48 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.prep.PreparedGeometry;
 import org.locationtech.jts.geom.prep.PreparedGeometryFactory;
 import org.locationtech.jts.io.WKTReader;
+import org.matsim.api.core.v01.Coord;
 import org.matsim.api.core.v01.TransportMode;
+import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.contrib.osm.networkReader.SupersonicOsmNetworkReader;
 import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.network.algorithms.NetworkCleaner;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 /**
  * F2: OSM PBF -> sieć MATSim (car) w EPSG:2180, przycięta do obszaru z make_area.py.
- * Użycie: java -cp <jar> org.matsim.kutno.CreateKutnoNetwork <osm.pbf> <area_EPSG2180.wkt> <network.xml.gz>
+ * Użycie: java -cp <jar> org.matsim.kutno.CreateKutnoNetwork <osm.pbf> <area.wkt> <towns.wkt> <speeds.properties> <network.xml.gz>
  * Transformacja WGS84 -> EPSG:2180 dzieje się tylko tutaj (parser Supersonic, przed filtrem obszaru).
+ * Prędkości (D13): tag maxspeed > limit ustawowy wg typu drogi i położenia (miasto/poza) ; freespeed = limit x factor.
  */
 public final class CreateKutnoNetwork {
 
+	private static final GeometryFactory GF = new GeometryFactory();
+
 	public static void main(String[] args) throws Exception {
-		PreparedGeometry area = PreparedGeometryFactory.prepare(new WKTReader().read(Files.readString(Path.of(args[1]))));
-		GeometryFactory gf = new GeometryFactory();
+		PreparedGeometry area = readWkt(args[1]);
+		PreparedGeometry towns = readWkt(args[2]);
+		Properties speeds = new Properties();
+		try (Reader r = Files.newBufferedReader(Path.of(args[3]))) {
+			speeds.load(r);
+		}
+		double factor = Double.parseDouble(speeds.getProperty("factor"));
 
 		Network network = new SupersonicOsmNetworkReader.Builder()
 				.setCoordinateTransformation(TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, "EPSG:2180"))
-				.setIncludeLinkAtCoordWithHierarchy((coord, level) -> area.contains(gf.createPoint(new Coordinate(coord.getX(), coord.getY()))))
-				.setAfterLinkCreated((link, tags, direction) -> link.setAllowedModes(Set.of(TransportMode.car)))
+				.setIncludeLinkAtCoordWithHierarchy((coord, level) -> contains(area, coord))
+				.setAfterLinkCreated((link, tags, direction) -> {
+					link.setAllowedModes(Set.of(TransportMode.car));
+					setSpeed(link, tags, towns, speeds, factor);
+				})
 				.build()
 				.read(args[0]);
 
@@ -38,6 +54,50 @@ public final class CreateKutnoNetwork {
 		new NetworkCleaner().run(network);
 		System.out.printf("F2 network: before cleaner nodes=%d links=%d, after nodes=%d links=%d%n",
 				nodes, links, network.getNodes().size(), network.getLinks().size());
-		NetworkUtils.writeNetwork(network, args[2]);
+		NetworkUtils.writeNetwork(network, args[4]);
+	}
+
+	private static void setSpeed(Link link, Map<String, String> tags, PreparedGeometry towns, Properties speeds, double factor) {
+		String highway = tags.get("highway").replace("_link", "");
+		Double kmh = parseMaxspeed(tags.get("maxspeed"), speeds);
+		String source = "tag";
+		if (kmh == null) {
+			Coord mid = new Coord((link.getFromNode().getCoord().getX() + link.getToNode().getCoord().getX()) / 2,
+					(link.getFromNode().getCoord().getY() + link.getToNode().getCoord().getY()) / 2);
+			if (speeds.containsKey(highway)) {
+				kmh = Double.parseDouble(speeds.getProperty(highway));
+				source = "default_" + highway;
+			} else if (contains(towns, mid)) {
+				kmh = Double.parseDouble(speeds.getProperty("urban"));
+				source = "default_urban";
+			} else {
+				kmh = Double.parseDouble(speeds.getProperty("rural"));
+				source = "default_rural";
+			}
+		}
+		link.setFreespeed(kmh * factor / 3.6);
+		link.getAttributes().putAttribute(NetworkUtils.ALLOWED_SPEED, kmh / 3.6);
+		link.getAttributes().putAttribute("speed_source", source);
+	}
+
+	/** Liczba km/h, "N mph" albo kod "PL:..." z pliku properties; null gdy brak lub nieczytelne (np. "none", "signals"). */
+	static Double parseMaxspeed(String tag, Properties speeds) {
+		if (tag == null) return null;
+		String t = tag.split(";")[0].trim();
+		if (speeds.containsKey(t)) return Double.parseDouble(speeds.getProperty(t));
+		try {
+			if (t.endsWith("mph")) return Double.parseDouble(t.replace("mph", "").trim()) * 1.609;
+			return Double.parseDouble(t);
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
+
+	private static boolean contains(PreparedGeometry g, Coord c) {
+		return g.contains(GF.createPoint(new Coordinate(c.getX(), c.getY())));
+	}
+
+	private static PreparedGeometry readWkt(String path) throws Exception {
+		return PreparedGeometryFactory.prepare(new WKTReader().read(Files.readString(Path.of(path))));
 	}
 }

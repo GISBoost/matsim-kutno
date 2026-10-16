@@ -31,7 +31,7 @@ with gzip.open(path, "rb") as f:
             attrs = {a.get("name"): a.text for a in el.iter("attribute")}
             links.append(dict(id=el.get("id"), a=el.get("from"), b=el.get("to"), length=float(el.get("length")),
                               speed=float(el.get("freespeed")), cap=float(el.get("capacity")),
-                              lanes=float(el.get("permlanes")), modes=el.get("modes"), hw=attrs.get("type")))
+                              lanes=float(el.get("permlanes")), modes=el.get("modes"), hw=attrs.get("type"), src=attrs.get("speed_source")))
         el.clear()
 
 area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[0]
@@ -98,6 +98,8 @@ report = {
 km = collections.Counter()
 for l in links:
     km[round(l["speed"] * 3.6)] += l["length"] / 1000
+report["km_by_speed_source"] = {k: round(v) for k, v in collections.Counter(
+    {src: sum(l["length"] for l in links if l["src"] == src) / 1000 for src in {l["src"] for l in links}}).most_common()}
 report["network_km_by_freespeed_kmh"] = {k: round(v) for k, v in sorted(km.items()) if v >= 1}
 report["ok"] = (not failed and not bad and not non_car and report["nodes_outside_max_m"] <= OUTSIDE_MAX_M
                 and report["scc_largest_nodes_share"] > 0.98 and report["kutno_centre_nearest_node_m"] < 300)
@@ -126,5 +128,5 @@ ax.set_xlabel("E [m] EPSG:2180"); ax.set_ylabel("N [m]"); ax.set_aspect("equal")
 fig.tight_layout(); fig.savefig("reports/f2_network.png", dpi=130)
 print(json.dumps({k: report[k] for k in ("nodes", "links", "scc_largest_nodes_share", "nodes_outside_area",
                   "nodes_outside_max_m", "kutno_centre_nearest_node_m", "links_bad_attrs", "routes_ok", "routes_failed",
-    "km_and_median_freespeed_kmh_by_type", "route_minutes_centrum_to", "ok")}, indent=1, ensure_ascii=False))
+    "km_and_median_freespeed_kmh_by_type", "km_by_speed_source", "route_minutes_centrum_to", "ok")}, indent=1, ensure_ascii=False))
 sys.exit(0 if report["ok"] else 1)
