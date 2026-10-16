@@ -1,0 +1,26 @@
+{
+  "events_file": "output/f6_100pct/output_events.xml.zst",
+  "event_types": {
+    "actend": 154392,
+    "departure": 154392,
+    "travelled": 102928,
+    "arrival": 154392,
+    "actstart": 154392,
+    "PersonEntersVehicle": 51464,
+    "vehicle enters traffic": 51464,
+    "left link": 2618772,
+    "entered link": 2618772,
+    "vehicle leaves traffic": 51464,
+    "PersonLeavesVehicle": 51464
+  },
+  "persons_departing": 25732,
+  "departures": 154392,
+  "departures_by_mode": {
+    "walk": 102928,
+    "car": 51464
+  },
+  "arrivals": 154392,
+  "stuck": 0,
+  "persons_dep_ne_arr": [],
+  "ok": true
+}

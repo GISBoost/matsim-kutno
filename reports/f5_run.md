@@ -72,3 +72,23 @@ Suma odczytu to 100,17%, normalizowana do 100%. Wewnątrz przedziału rozkład j
 ## Gotcha znalezione w tej fazie
 
 - **`controller.outputDirectory` jest rozwiązywany względem katalogu roboczego, a nie configu.** Pierwszy run zapisał wynik do `C:\Users\Michal\output`. Wynik przeniesiono, a run powtórzono z `output/f5_10pct`, uruchamiając z katalogu projektu.
+
+## Wąskie gardło SE: sprawdzenie (2026-10-16)
+
+Linki z największym opóźnieniem zmapowane na drogi OSM (id linku = id drogi OSM + nr segmentu + kierunek):
+
+| link | droga OSM | tagi OSM | w sieci | pojazdy (10%) | śr. opóźnienie |
+|---|---|---|---|---|---|
+| 2001576790001r | ul. **Sklęczkowska, DK92** (way 200157679) | primary, 1+1 pas, maxspeed 70 | 1 pas, 1 500 poj./h | 685 | 499 s |
+| 2568527430000r | Sklęczkowska, DK92 (256852743) | primary, 2 pasy, 70 | 1 pas, 1 500 | 674 | 325 s |
+| 2446692260002r | Sklęczkowska, DK92 (244669226) | primary, 5 pasów (3/2), 70 | 2 pasy, 3 000 | 685 | 245 s |
+| 2347118000007r | ul. Wschodnia (234711800) | tertiary, 2 pasy, 90 | 1 pas, 600 | 238 | 351 s |
+| 2001586890001r, 2069211670002f | ul. Józefów | residential, 2 pasy | 1 pas, 600 | 331–335 | 220–235 s |
+
+Wnioski:
+
+- **Wąskim gardłem jest sam odcinek, a nie kolejka cofająca się z dalszej drogi.** Następny link (410884360002f) ma średnie opóźnienie 1 s. Kolejka powstaje tam, gdzie Sklęczkowska zwęża się z 2 pasów (w kierunku NE) do 1. Atrybuty sieci zgadzają się z tagami OSM.
+- **Opóźnienie występuje tylko rano.** Wjazdy na link: 157 / 171 / 171 pojazdów w godzinach 6, 7 i 8 przy 10%, czyli około 1 600–1 700 poj./h przy 100%. Odcinek ma 1 pas o przepustowości 1 500 poj./h. Popołudniowy powrót jedzie w przeciwną stronę, a ten kierunek się nie korkuje.
+- **Przepustowość 1 500 poj./h na pas drogi miejskiej jest w typowym zakresie.** To pas bez sygnalizacji. Problemem jest więc popyt (D6: wszyscy autem; D7: dużo pracy w hali na wschodzie), a nie błąd sieci.
+- **Drogi lokalne mają 600 poj./h na pas** (domyślne Supersonic dla tertiary i residential). Józefów i Wschodnia to dojazdy do strefy przemysłowej, więc to jest konserwatywne, ale zgodne z klasą drogi w OSM.
+- **Nie porównano z pomiarem ruchu.** Nie znalazłem szybko danych GPR GDDKiA dla DK92 w Kutnie (stacje są na generalnypomiarruchu.pl). Porównanie z pomiarami to kalibracja, poza zakresem MVP (D2).

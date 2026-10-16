@@ -1,9 +1,9 @@
 """F4: walidacja plans.xml.gz + mapa kontrolna.
 
-Użycie: uv run python -W ignore pipeline/validate_plans.py scenarios/kutno/plans.xml.gz
+Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> [sample]
 Test (TASKS F4): każda osoba ma dokładnie home-car-work-car-home; współrzędne w obszarze sieci; praca w gminie Kutno;
 liczba osób = round(sample x (pracujący w Kutnie + przyjeżdżający)); ten sam sha256 po ponownym uruchomieniu plans.py.
-Wyjście: reports/f4_plans.json, reports/f4_plans.png. Kod 1, gdy test nie przechodzi.
+Wyjście: reports/f4_plans.{json,png} (sample < 1) albo reports/f6_plans.{json,png} (sample = 1). Kod 1, gdy test nie przechodzi.
 """
 import gzip
 import hashlib
@@ -25,6 +25,9 @@ import matplotlib.pyplot as plt
 
 path = Path(sys.argv[1])
 P = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))["plans"]
+if len(sys.argv) > 2:  # sample jak w plans.py
+    P["sample"] = float(sys.argv[2])
+PHASE = "f4" if P["sample"] < 1 else "f6"
 f3 = json.load(open("reports/f3_demand.json", encoding="utf-8"))
 area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[0]
 gmina = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
@@ -51,11 +54,11 @@ df = pd.DataFrame(persons)
 expected = round(P["sample"] * f3["agents_100pct"][P["variant"]])
 sha = hashlib.sha256(path.read_bytes()).hexdigest()
 with tempfile.TemporaryDirectory() as d:
-    subprocess.run([sys.executable, "-W", "ignore", "pipeline/plans.py", str(Path(d) / "plans.xml.gz")], check=True,
+    subprocess.run([sys.executable, "-W", "ignore", "pipeline/plans.py", str(Path(d) / "plans.xml.gz"), str(P["sample"])], check=True,
                    capture_output=True)
     sha2 = hashlib.sha256((Path(d) / "plans.xml.gz").read_bytes()).hexdigest()
 
-meta = pd.read_csv(path.parent / "plans_meta.csv")
+meta = pd.read_csv(path.with_name(path.name.removesuffix(".xml.gz") + "_meta.csv"))
 meta["dep_h"] = [int(t[:2]) + int(t[3:5]) / 60 for t in dep]
 meta["dist_km"] = ((meta.home_x - meta.work_x) ** 2 + (meta.home_y - meta.work_y) ** 2) ** .5 / 1000
 report = {
@@ -76,7 +79,7 @@ report = {
 }
 report["ok"] = (report["deterministic"] and not bad_chain and report["persons"] == expected
                 and report["home_outside_area"] == 0 and report["work_outside_gmina"] == 0 and report["return_home_differs"] == 0)
-json.dump(report, open("reports/f4_plans.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
+json.dump(report, open(f"reports/{PHASE}_plans.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
 # --- mapa: domy, praca, wjazdy -------------------------------------------------------------------------
 fig = plt.figure(figsize=(16, 8))
@@ -123,7 +126,7 @@ ax4.text(0, 1, "\n".join([
     f"wyjazd: GBR 2022 Rys. 46",
 f"praca: {P['work_max_dur']} (ZAŁOŻENIE)",
 ]), va="top", fontsize=8, family="monospace")
-fig.suptitle(f"F4 plans {P['sample']:.0%} ({P['variant']}) | {'ZALICZONA' if report['ok'] else 'NIE ZALICZONA'}", fontsize=12)
-fig.savefig("reports/f4_plans.png", dpi=120)
+fig.suptitle(f"{PHASE.upper()} plans {P['sample']:.0%} ({P['variant']}) | {'ZALICZONA' if report['ok'] else 'NIE ZALICZONA'}", fontsize=12)
+fig.savefig(f"reports/{PHASE}_plans.png", dpi=120)
 print(json.dumps(report, indent=1, ensure_ascii=False))
 sys.exit(0 if report["ok"] else 1)

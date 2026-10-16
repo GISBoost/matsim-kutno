@@ -1,7 +1,7 @@
 """F4: lokalizacje (D7, D9, D11) i plans.xml.gz (home-car-work-car-home) z seeda.
 
 Wejścia: F2 (sieć, obszar), F3 (scenarios/kutno/demand/*.csv), OSM (osm_features.py), BREC 2021 (obwody łódzkie, rejony PL).
-Uruchom: uv run python -W ignore pipeline/plans.py [plans.xml.gz]
+Uruchom: uv run python -W ignore pipeline/plans.py [plans.xml.gz [sample]]   (sample nadpisuje config, np. 1.0 dla F6)
 Wyjścia: scenarios/kutno/plans.xml.gz (domyślnie), scenarios/kutno/plans_meta.csv (osoba -> źródło, obwód/gmina, budynki).
 """
 import gzip
@@ -19,6 +19,8 @@ from shapely.geometry import Point
 cfg = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))
 A, P = cfg["area"], cfg["plans"]
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("scenarios/kutno/plans.xml.gz")
+if len(sys.argv) > 2:
+    P["sample"] = float(sys.argv[2])
 rng = np.random.default_rng(P["seed"])
 KUTNO_CENTRE = Point(524805, 485023)  # FACT_CHECK #17
 
@@ -156,7 +158,8 @@ xml = etree.tostring(root, xml_declaration=True, encoding="utf-8", pretty_print=
                      doctype='<!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">')
 with open(OUT, "wb") as f, gzip.GzipFile(fileobj=f, mode="wb", mtime=0, filename="") as gz:
     gz.write(xml)
-meta.to_csv(OUT.parent / "plans_meta.csv", index=False)
-strata.to_csv(OUT.parent / "plans_strata.csv", index=False)
+stem = OUT.name.removesuffix(".xml.gz")
+meta.to_csv(OUT.with_name(stem + "_meta.csv"), index=False)
+strata.to_csv(OUT.with_name(stem + "_strata.csv"), index=False)
 print(f"{OUT}: {len(meta)} osób (cel {target}); budynki mieszk. {len(homes_b)}, pracy {len(work_b)}, "
       f"linki wjazdowe {len(entry)}; źródła domów: {meta.home_src.str.split('_').str[0].value_counts().to_dict()}")

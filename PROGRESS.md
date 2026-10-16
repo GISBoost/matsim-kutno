@@ -36,3 +36,10 @@
 ## 2026-10-16 — F5 zaliczona (run 10%)
 - D14: godziny wyjazdu z GBR Gdańsk 2022 Rys. 46 (punkty wektorowe PDF), plans F4 przegenerowane (sha256 `525ed292…`, test F4 ok).
 - Run 10%, 20 iteracji, 2,5 min: 5 146 nóg car = 2N, 0 stuck. Czas podróży mediana: mieszkańcy 17,3 min, przyjeżdżający 25,6 min. Kongestia 624 poj.-h, wąskie gardło: ciąg primary SE od centrum. Dowód: `reports/f5_run.md`, `f5_events.json`, `f5_run.png`, `f5_delay.png`.
+
+## 2026-10-16 — F5: sprawdzenie wąskiego gardła
+- Główne wąskie gardło F5 to ul. Sklęczkowska (DK92), zwężenie z 2 do 1 pasa w kierunku NE. Rano popyt wynosi około 1 700 poj./h przy przepustowości 1 500. Atrybuty sieci zgadzają się z OSM, więc przyczyną jest popyt (D6/D7), a nie błąd sieci. `reports/f5_run.md`.
+
+## 2026-10-16 — F6 zaliczona (100%)
+- 25 732 osoby, 51 464 nogi car = 2N, 0 stuck, 4 min 9 s na 20 iteracji, RAM maks. około 1 GB. Rozkłady czasu podróży zgodne z F5 (mediana 16,8 vs 17,3 min dla mieszkańców). Kongestia 6 830 poj.-h: DK92 i ulice lokalne do wschodniej strefy pracy. Dowód: `reports/f6_run.md`, `f6_events.json`, `f6_compare.png`, `f6_delay.png`.
+- MVP (F0–F6) technicznie zamknięte. Wyniki nie są prognozą ruchu (D2, D6).
