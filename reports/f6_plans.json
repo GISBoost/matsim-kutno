@@ -1,7 +1,7 @@
 {
   "plans": "scenarios\\kutno\\plans_100pct.xml.gz",
-  "sha256": "2021b05e9fbd173568345bedb855f3e0cffee0aa41a16fd64e1c246947eb3c2d",
-  "sha256_rerun": "2021b05e9fbd173568345bedb855f3e0cffee0aa41a16fd64e1c246947eb3c2d",
+  "sha256": "63034af049c9286e8b8578b9d79c939bc16dc94b515f1b0f202cea19bcc4dd97",
+  "sha256_rerun": "63034af049c9286e8b8578b9d79c939bc16dc94b515f1b0f202cea19bcc4dd97",
   "deterministic": true,
   "persons": 25732,
   "expected": 25732,
@@ -10,6 +10,10 @@
   "home_outside_area": 0,
   "work_outside_gmina": 0,
   "return_home_differs": 0,
+  "activities_on_excluded_link_types": 0,
+  "activity_links_missing": 0,
+  "entry_start_offset_min_median": 13.9,
+  "start_after_departure_ok": true,
   "by_kind": {
     "resident": 17546,
     "commuter": 8186
@@ -22,8 +26,8 @@
   "random_point_homes_keys": [
     "6509902"
   ],
-  "distinct_work_buildings": 833,
-  "top5_work_buildings_share": 0.128,
+  "distinct_work_buildings": 828,
+  "top5_work_buildings_share": 0.126,
   "entry_links_used": {
     "3107258420023r": 392,
     "1885522040087f": 370,

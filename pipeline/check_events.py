@@ -46,7 +46,7 @@ def main():
     ap.add_argument("--expect-car-legs", type=int)
     a = ap.parse_args()
     types, dep, arr, modes = count(a.events)
-    stuck = types.get("stuck", 0)
+    stuck = sum(n for t, n in types.items() if "stuck" in t.lower())  # "stuck" i "stuckAndAbort" (MATSim 2026)
     result = {
         "events_file": a.events,
         "event_types": dict(types),

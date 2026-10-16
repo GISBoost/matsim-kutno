@@ -20,6 +20,8 @@ for o in fp:
         continue
     tags = dict(o.tags)
     b, lu = tags.get("building"), tags.get("landuse")
+    if b == "no":  # building=no to obszar, nie budynek (np. plac komisu z shop=car, 3,6 ha) -> R3
+        b = None
     if not b and lu not in LANDUSE:
         continue
     try:

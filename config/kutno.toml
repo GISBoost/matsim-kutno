@@ -30,3 +30,11 @@ work_landuse = ["industrial", "commercial", "retail"]
 # zaczynający się w strefie granicy sieci (boundary_zone_m z config/network.properties) i skierowany do Kutna.
 entry_road_types = ["motorway", "trunk", "primary", "secondary"]
 entry_zone_m = 1000
+# R3/E5: aktywności przypinane do najbliższego linku z pominięciem tych typów (inaczej MATSim przypina dom do jezdni A1).
+# Wjazdy graniczne (D9) zachowują swój link.
+snap_exclude_types = ["motorway", "motorway_link", "trunk", "trunk_link", "boundary_turnaround"]
+# R3/E1, ZAŁOŻENIE: przyjeżdżający spoza powiatu startują z wjazdu później o szacowany czas dojazdu z gminy do granicy
+# = odległość centroid gminy -> link wjazdowy w linii prostej x krętość / prędkość.
+# Prędkość = 90 km/h (limit poza terenem zabudowanym) x 0,8 jak w D13. Krętość 1,3 = ZAŁOŻENIE.
+entry_detour_factor = 1.3
+entry_speed_kmh = 72

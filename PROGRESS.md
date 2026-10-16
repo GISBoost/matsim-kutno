@@ -43,3 +43,23 @@
 ## 2026-10-16 — F6 zaliczona (100%)
 - 25 732 osoby, 51 464 nogi car = 2N, 0 stuck, 4 min 9 s na 20 iteracji, RAM maks. około 1 GB. Rozkłady czasu podróży zgodne z F5 (mediana 16,8 vs 17,3 min dla mieszkańców). Kongestia 6 830 poj.-h: DK92 i ulice lokalne do wschodniej strefy pracy. Dowód: `reports/f6_run.md`, `f6_events.json`, `f6_compare.png`, `f6_delay.png`.
 - MVP (F0–F6) technicznie zamknięte. Wyniki nie są prognozą ruchu (D2, D6).
+
+## 2026-10-16 — R3: naprawy techniczne (częściowo policzone, przerwane przez użytkownika)
+- W kodzie, plany 10/25/100% zwalidowane:
+  - E1: start z wjazdu później o dojazd do granicy (mediana 13–14 min);
+  - E5: aktywności przypięte do sieci bez motorway/trunk/łącznic (0 naruszeń);
+  - poprawka OSM `building=no` (plac komisu był największym miejscem pracy);
+  - `qsim.endTime` 48 h;
+  - SimWrapper włączony (atrybut `subpopulation`);
+  - `check_events.py` liczy `stuckAndAbort`;
+  - skrypty `convergence.py`, `select_link.py`.
+- MATSim 2026 odrzuca storage ≠ flow, więc E3 z R3 wycofane (`reports/r3_storage_factor_rejected.log`).
+- **Policzony tylko 25%, seed 4711, 100 iteracji:**
+  - 12 866 nóg car = 2N, 0 stuck, 13 min;
+  - czas podróży: mediana 15,5 / 24,1 min (mieszkańcy / przyjeżdżający), p90 35,0 / 36,8;
+  - opóźnienie 1 130 poj.-h;
+  - wąskie gardło DK92 Sklęczkowska (zwężenie do 1 pasa) z kolejką cofającą się na odcinek 6 000 poj./h;
+  - select-link: 38% agentów jedzie tym odcinkiem.
+  - `reports/r3_25pct_*`, `r3_compare.*`.
+- **Nie zrobione:** seedy 1 i 2 (przerwane), porównanie seedów i `convergence.py` na runach 25%, raport R3.
+- Lekcje z błędów tej sesji: `ERRORS.md` i reguły 7–11 w Workflow `CLAUDE.md`.

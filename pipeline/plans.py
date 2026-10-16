@@ -14,7 +14,8 @@ import numpy as np
 import pandas as pd
 import pyogrio
 from lxml import etree
-from shapely.geometry import Point
+from shapely import STRtree
+from shapely.geometry import LineString, Point
 
 cfg = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))
 A, P = cfg["area"], cfg["plans"]
@@ -93,7 +94,7 @@ def random_point(poly):
 
 
 # --- wjazdy na granicy sieci (D9) --------------------------------------------------------------------
-nodes, entry = {}, []
+nodes, entry, snap = {}, [], []
 with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
     for _, el in etree.iterparse(f, tag=("node", "link")):
         if el.tag == "node":
@@ -102,7 +103,18 @@ with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
             t = {a.get("name"): a.text for a in el.iter("attribute")}.get("type")
             if t in P["entry_road_types"]:
                 entry.append((el.get("id"), el.get("from"), el.get("to")))
+            if t not in P["snap_exclude_types"]:
+                snap.append((el.get("id"), el.get("from"), el.get("to")))
         el.clear()
+snap_ids = [l for l, _, _ in snap]
+snap_tree = STRtree([LineString([nodes[a_], nodes[b_]]) for _, a_, b_ in snap])
+
+
+def snap_links(xs, ys):
+    """R3/E5: najbliższy link sieci bez autostrad, ekspresówek i łącznic (zamiast przypinania przez MATSim)."""
+    src, dst = snap_tree.query_nearest([Point(x, y) for x, y in zip(xs, ys)], all_matches=False)
+    assert (src == np.arange(len(src))).all()
+    return [snap_ids[i] for i in dst]
 interior = area.buffer(-P["entry_zone_m"])
 entry = pd.DataFrame([dict(link=l, x=nodes[b_].x, y=nodes[b_].y) for l, a_, b_ in entry
                       if not interior.contains(nodes[a_]) and area.contains(nodes[b_])
@@ -111,7 +123,7 @@ assert len(entry), "brak linków wjazdowych"
 
 # --- osoby -------------------------------------------------------------------------------------------
 powiat = A["teryt_powiat"]
-people = []  # (id, kind, key, home_x, home_y, home_link, home_src)
+people = []  # (id, kind, key, home_x, home_y, home_link, home_src, border_m)
 for s in strata[strata.agents > 0].itertuples():
     if s.kind == "resident":
         poly = obwody[int(s.key)]
@@ -123,35 +135,42 @@ for s in strata[strata.agents > 0].itertuples():
         c = gmina_geom(s.key).centroid
         e = entry.iloc[((entry.x - c.x) ** 2 + (entry.y - c.y) ** 2).idxmin()]
         for k in range(s.agents):
-            people.append((f"c{s.key}_{k}", s.kind, s.key, e.x, e.y, e.link, "entry"))
+            people.append((f"c{s.key}_{k}", s.kind, s.key, e.x, e.y, e.link, "entry", c.distance(Point(e.x, e.y))))
         continue
     if len(cands):
         for k, h in enumerate(pick_buildings(cands, s.agents).itertuples()):
-            people.append((f"{s.kind[0]}{s.key}_{k}", s.kind, s.key, h.pt.x, h.pt.y, None, f"osm_{h.osm_id}"))
+            people.append((f"{s.kind[0]}{s.key}_{k}", s.kind, s.key, h.pt.x, h.pt.y, None, f"osm_{h.osm_id}", 0.0))
     else:
         for k in range(s.agents):
             p = random_point(poly)
-            people.append((f"{s.kind[0]}{s.key}_{k}", s.kind, s.key, p.x, p.y, None, "random_point"))
+            people.append((f"{s.kind[0]}{s.key}_{k}", s.kind, s.key, p.x, p.y, None, "random_point", 0.0))
 
-meta = pd.DataFrame(people, columns=["person", "kind", "key", "home_x", "home_y", "home_link", "home_src"])
+meta = pd.DataFrame(people, columns=["person", "kind", "key", "home_x", "home_y", "home_link", "home_src", "border_m"])
 w = pick_buildings(work_b, len(meta))
 meta["work_x"], meta["work_y"], meta["work_src"] = w.pt.x.to_numpy(), w.pt.y.to_numpy(), [f"osm_{i}" for i in w.osm_id]
+own = meta.home_link.isna()
+meta.loc[own, "home_link"] = snap_links(meta.home_x[own], meta.home_y[own])
+meta["work_link"] = snap_links(meta.work_x, meta.work_y)
 
 # --- godzina wyjazdu (D10): przedział z udziałem z profilu, jednostajnie w przedziale ---------------------
 prof = pd.read_csv(P["departure_profile"])
 k = rng.choice(len(prof), size=len(meta), p=(prof.share_pct / prof.share_pct.sum()).to_numpy())
 meta["dep_s"] = (prof.from_h.to_numpy()[k] * 3600 + rng.uniform(0, 1, len(meta)) * (prof.to_h - prof.from_h).to_numpy()[k] * 3600).astype(int)
+# R3/E1: start z wjazdu = wyjazd z domu + dojazd do granicy (0 dla domów w sieci)
+meta["start_s"] = meta.dep_s + (meta.border_m * P["entry_detour_factor"] / (P["entry_speed_kmh"] / 3.6)).round().astype(int)
 
 # --- plans.xml.gz (bez tras; mtime=0, żeby sha256 był powtarzalny) ------------------------------------
 root = etree.Element("population")
 for r in meta.itertuples():
-    plan = etree.SubElement(etree.SubElement(root, "person", id=r.person), "plan", selected="yes")
-    home = dict(type="home", x=f"{r.home_x:.1f}", y=f"{r.home_y:.1f}")
-    if isinstance(r.home_link, str):
-        home["link"] = r.home_link
-    etree.SubElement(plan, "activity", **home, end_time=f"{r.dep_s // 3600:02d}:{r.dep_s // 60 % 60:02d}:{r.dep_s % 60:02d}")
+    person = etree.SubElement(root, "person", id=r.person)
+    attrs = etree.SubElement(person, "attributes")  # subpopulation wymagana przez TripAnalysis (SimWrapper)
+    for name, val in (("subpopulation", "person"), ("kind", r.kind)):
+        etree.SubElement(attrs, "attribute", name=name, **{"class": "java.lang.String"}).text = val
+    plan = etree.SubElement(person, "plan", selected="yes")
+    home = dict(type="home", link=r.home_link, x=f"{r.home_x:.1f}", y=f"{r.home_y:.1f}")
+    etree.SubElement(plan, "activity", **home, end_time=f"{r.start_s // 3600:02d}:{r.start_s // 60 % 60:02d}:{r.start_s % 60:02d}")
     etree.SubElement(plan, "leg", mode="car")
-    etree.SubElement(plan, "activity", type="work", x=f"{r.work_x:.1f}", y=f"{r.work_y:.1f}", max_dur=P["work_max_dur"])
+    etree.SubElement(plan, "activity", type="work", link=r.work_link, x=f"{r.work_x:.1f}", y=f"{r.work_y:.1f}", max_dur=P["work_max_dur"])
     etree.SubElement(plan, "leg", mode="car")
     etree.SubElement(plan, "activity", **home)
 xml = etree.tostring(root, xml_declaration=True, encoding="utf-8", pretty_print=True,

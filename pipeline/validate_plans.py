@@ -3,7 +3,7 @@
 Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> [sample]
 Test (TASKS F4): każda osoba ma dokładnie home-car-work-car-home; współrzędne w obszarze sieci; praca w gminie Kutno;
 liczba osób = round(sample x (pracujący w Kutnie + przyjeżdżający)); ten sam sha256 po ponownym uruchomieniu plans.py.
-Wyjście: reports/f4_plans.{json,png} (sample < 1) albo reports/f6_plans.{json,png} (sample = 1). Kod 1, gdy test nie przechodzi.
+Wyjście: reports/f4_plans.* (sample 0,1), f6_plans.* (1,0), inaczej r3_<N>pct_plans.*. Kod 1, gdy test nie przechodzi.
 """
 import gzip
 import hashlib
@@ -27,13 +27,13 @@ path = Path(sys.argv[1])
 P = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))["plans"]
 if len(sys.argv) > 2:  # sample jak w plans.py
     P["sample"] = float(sys.argv[2])
-PHASE = "f4" if P["sample"] < 1 else "f6"
+PHASE = {0.1: "f4", 1.0: "f6"}.get(P["sample"], f"r3_{round(P['sample'] * 100)}pct")
 f3 = json.load(open("reports/f3_demand.json", encoding="utf-8"))
 area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[0]
 gmina = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
 powiat = gpd.read_file("scenarios/kutno/area/powiat.geojson").geometry.iloc[0]
 
-persons, bad_chain, dep = [], [], []
+persons, bad_chain = [], []
 with gzip.open(path, "rb") as f:
     for _, el in etree.iterparse(f, tag="person"):
         plans = el.findall("plan")
@@ -45,7 +45,6 @@ with gzip.open(path, "rb") as f:
             bad_chain.append(el.get("id"))
         else:
             h, w = (Point(float(a.get("x")), float(a.get("y"))) for a in acts[:2])
-            dep.append(acts[0].get("end_time"))
             persons.append(dict(id=el.get("id"), h=h, w=w, same_home=acts[0].get("x") == acts[2].get("x")
                                 and acts[0].get("y") == acts[2].get("y")))
         el.clear()
@@ -59,7 +58,17 @@ with tempfile.TemporaryDirectory() as d:
     sha2 = hashlib.sha256((Path(d) / "plans.xml.gz").read_bytes()).hexdigest()
 
 meta = pd.read_csv(path.with_name(path.name.removesuffix(".xml.gz") + "_meta.csv"))
-meta["dep_h"] = [int(t[:2]) + int(t[3:5]) / 60 for t in dep]
+meta["dep_h"] = meta.dep_s / 3600  # wyjazd z domu (profil D14); start z wjazdu granicznego jest późniejszy (R3/E1)
+link_type = {}
+with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
+    for _, el in etree.iterparse(f, tag="link"):
+        link_type[el.get("id")] = {a.get("name"): a.text for a in el.iter("attribute")}.get("type")
+        el.clear()
+own = meta.home_src != "entry"
+bad_snap = int(meta[own].home_link.map(link_type).isin(P["snap_exclude_types"]).sum()
+               + meta.work_link.map(link_type).isin(P["snap_exclude_types"]).sum())
+missing_link = int((~meta.home_link.isin(link_type.keys())).sum() + (~meta.work_link.isin(link_type.keys())).sum())
+start_ok = bool((meta.start_s >= meta.dep_s).all() and (meta[own].start_s == meta[own].dep_s).all())
 meta["dist_km"] = ((meta.home_x - meta.work_x) ** 2 + (meta.home_y - meta.work_y) ** 2) ** .5 / 1000
 report = {
     "plans": str(path), "sha256": sha, "sha256_rerun": sha2, "deterministic": sha == sha2,
@@ -67,6 +76,9 @@ report = {
     "home_outside_area": int((~df.h.apply(area.contains)).sum()),
     "work_outside_gmina": int((~df.w.apply(gmina.contains)).sum()),
     "return_home_differs": int((~df.same_home).sum()),
+    "activities_on_excluded_link_types": bad_snap, "activity_links_missing": missing_link,
+    "entry_start_offset_min_median": round(float((meta.start_s - meta.dep_s)[~own].median() / 60), 1) if (~own).any() else 0,
+    "start_after_departure_ok": start_ok,
     "by_kind": meta.kind.value_counts().to_dict(),
     "home_source": meta.home_src.str.split("_").str[0].value_counts().to_dict(),
     "random_point_homes_keys": sorted(meta[meta.home_src == "random_point"].key.astype(str).unique().tolist()),
@@ -78,7 +90,8 @@ report = {
               "departure_by_hour": meta.dep_h.astype(int).value_counts().sort_index().to_dict()},
 }
 report["ok"] = (report["deterministic"] and not bad_chain and report["persons"] == expected
-                and report["home_outside_area"] == 0 and report["work_outside_gmina"] == 0 and report["return_home_differs"] == 0)
+                and report["home_outside_area"] == 0 and report["work_outside_gmina"] == 0 and report["return_home_differs"] == 0
+                and bad_snap == 0 and missing_link == 0 and start_ok)
 json.dump(report, open(f"reports/{PHASE}_plans.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
 # --- mapa: domy, praca, wjazdy -------------------------------------------------------------------------
