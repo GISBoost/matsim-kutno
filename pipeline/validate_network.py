@@ -101,7 +101,10 @@ for l in links:
 report["km_by_speed_source"] = {k: round(v) for k, v in collections.Counter(
     {src: sum(l["length"] for l in links if l["src"] == src) / 1000 for src in {l["src"] for l in links}}).most_common()}
 report["network_km_by_freespeed_kmh"] = {k: round(v) for k, v in sorted(km.items()) if v >= 1}
-report["ok"] = (not failed and not bad and not non_car and report["nodes_outside_max_m"] <= OUTSIDE_MAX_M
+report["motorway_km"] = round(sum(l["length"] for l in links if l["hw"] == "motorway") / 1000, 1)
+report["turnaround_links"] = sum(1 for l in links if l["hw"] == "boundary_turnaround")
+MOTORWAY_MIN_KM = 60  # A1 przecina powiat N-S: ~2 jezdnie x ~35 km (OSM PBF ma 94 km jezdni A1 w bbox obszaru)
+report["ok"] = (report["motorway_km"] >= MOTORWAY_MIN_KM and not failed and not bad and not non_car and report["nodes_outside_max_m"] <= OUTSIDE_MAX_M
                 and report["scc_largest_nodes_share"] > 0.98 and report["kutno_centre_nearest_node_m"] < 300)
 json.dump(report, open("reports/f2_network.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
@@ -128,5 +131,5 @@ ax.set_xlabel("E [m] EPSG:2180"); ax.set_ylabel("N [m]"); ax.set_aspect("equal")
 fig.tight_layout(); fig.savefig("reports/f2_network.png", dpi=130)
 print(json.dumps({k: report[k] for k in ("nodes", "links", "scc_largest_nodes_share", "nodes_outside_area",
                   "nodes_outside_max_m", "kutno_centre_nearest_node_m", "links_bad_attrs", "routes_ok", "routes_failed",
-    "km_and_median_freespeed_kmh_by_type", "km_by_speed_source", "route_minutes_centrum_to", "ok")}, indent=1, ensure_ascii=False))
+    "km_and_median_freespeed_kmh_by_type", "km_by_speed_source", "motorway_km", "turnaround_links", "route_minutes_centrum_to", "ok")}, indent=1, ensure_ascii=False))
 sys.exit(0 if report["ok"] else 1)

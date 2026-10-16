@@ -1,8 +1,8 @@
 # F2 — sieć OSM, powiat kutnowski + bufor 3 km (2026-10-16)
 
-**Status: ZALICZONA** (prędkości wg D13)
+**Status: ZALICZONA** (prędkości wg D13, poprawka A1: zawrotki na granicy)
 
-Ścieżka: `pipeline/make_area.py` (BREC 2021 → gmina / powiat / obszar sieci / miasta w EPSG:2180) → `org.matsim.kutno.CreateKutnoNetwork` (SupersonicOsmNetworkReader 2026.0, WGS84 → EPSG:2180, filtr obszaru, tylko `car`, NetworkCleaner) → `pipeline/validate_network.py`.
+Ścieżka: `pipeline/make_area.py` (BREC 2021 → gmina / powiat / obszar sieci / miasta w EPSG:2180) → `org.matsim.kutno.CreateKutnoNetwork` (SupersonicOsmNetworkReader 2026.0, WGS84 → EPSG:2180, filtr obszaru, tylko `car`, zawrotki na granicy, NetworkCleaner; parametry w `config/network.properties`) → `pipeline/validate_network.py`.
 Wejście: `data/raw/osm/lodzkie-261015.osm.pbf` (Geofabrik, dane do 2026-10-15T20:21Z, sha256 w `data/manifest.csv`). Konwersja trwa 7 s.
 
 | Test | Wynik |
@@ -47,3 +47,10 @@ Capacity: domyślne Supersonic (np. 600 poj./h/pas dla dróg lokalnych). Bez wer
 
 ## Ograniczenia
 - PBF obejmuje tylko woj. łódzkie. Bufor 3 km po stronie mazowieckiej nie zawiera dróg spoza województwa, więc wjazdy kończą się na granicy województwa.
+
+## Poprawka: A1 ucięta przez NetworkCleaner (zgłoszenie użytkownika, porównanie z Google Maps)
+
+**Objaw:** na mapie A1 była widoczna tylko na ok. 9 km między dwoma węzłami w okolicy Kutna, a w rzeczywistości przecina cały powiat N–S.
+**Diagnoza:** PBF zawiera 94 km jezdni A1 w zasięgu obszaru, więc dane są kompletne. Każda jezdnia autostrady jest jednokierunkowa. Po przycięciu do obszaru jezdnia wyjazdowa kończy się ślepo, a wjazdowa zaczyna znikąd. `NetworkCleaner` zostawia tylko silnie spójną składową, więc usunął obie jezdnie aż do najbliższych węzłów wewnątrz powiatu.
+**Poprawka:** przed cleanerem w strefie 1 km od krawędzi obszaru każdy węzeł-ujście dostaje połączenie z najbliższym węzłem-źródłem (≤ 300 m) wirtualnym linkiem `type=boundary_turnaround` (30 km/h, 5000 poj./h). Powstały 2 takie linki (północny i południowy koniec A1). To jednocześnie punkty wjazdu dla przyjeżdżających z Łodzi i Płocka (D9).
+**Po poprawce:** motorway **87,8 km** (było 18), 4 534 węzły, 10 383 linki, SCC 100%, 90/90 tras, centrum → N 20 min (było 28). Nowy test w walidatorze: `motorway_km ≥ 60`. Regresja smoke: ok.

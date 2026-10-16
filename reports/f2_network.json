@@ -1,26 +1,26 @@
 {
   "network": "scenarios/kutno/network.xml.gz",
-  "nodes": 4453,
-  "links": 10296,
+  "nodes": 4534,
+  "links": 10383,
   "scc_largest_nodes_share": 1.0,
   "bbox_EN": [
     497056,
     467371,
     558820,
-    505124
+    507985
   ],
-  "nodes_outside_area": 69,
+  "nodes_outside_area": 73,
   "nodes_outside_max_m": 3988,
   "network_km_by_freespeed_kmh": {
     "16": 23,
     "24": 5,
-    "32": 22,
+    "32": 23,
     "40": 1330,
     "48": 3,
     "56": 23,
     "72": 2995,
     "80": 4,
-    "112": 21
+    "112": 92
   },
   "kutno_centre_nearest_node_m": 35,
   "links_bad_attrs": 0,
@@ -32,35 +32,16 @@
     "primary": 882,
     "secondary": 367,
     "living_street": 308,
-    "motorway_link": 42,
+    "motorway": 95,
+    "motorway_link": 48,
     "primary_link": 31,
-    "motorway": 16,
-    "tertiary_link": 6
+    "tertiary_link": 6,
+    "boundary_turnaround": 2
   },
   "km_and_median_freespeed_kmh_by_type": {
-    "secondary": [
-      117,
-      72
-    ],
-    "primary_link": [
-      5,
-      48
-    ],
-    "primary": [
-      204,
-      72
-    ],
-    "motorway": [
-      18,
+    "motorway_link": [
+      7,
       112
-    ],
-    "residential": [
-      1105,
-      40
-    ],
-    "living_street": [
-      22,
-      16
     ],
     "tertiary_link": [
       0,
@@ -74,20 +55,44 @@
       2109,
       72
     ],
-    "motorway_link": [
-      6,
+    "motorway": [
+      88,
       112
+    ],
+    "boundary_turnaround": [
+      0,
+      30
+    ],
+    "living_street": [
+      22,
+      16
+    ],
+    "secondary": [
+      117,
+      72
+    ],
+    "primary": [
+      204,
+      72
+    ],
+    "primary_link": [
+      5,
+      48
+    ],
+    "residential": [
+      1105,
+      40
     ]
   },
-  "total_length_km": 4426,
+  "total_length_km": 4497,
   "test_points": {
     "centrum": [
       524839,
       485030
     ],
     "N": [
-      519104,
-      505124
+      516671,
+      507985
     ],
     "S": [
       523291,
@@ -102,46 +107,49 @@
       495492
     ],
     "los0": [
-      537591,
-      474898
+      542498,
+      473139
     ],
     "los1": [
       550218,
       488339
     ],
     "los2": [
-      524154,
-      485301
+      523509,
+      488122
     ],
     "los3": [
-      505725,
-      484688
+      526311,
+      484271
     ],
     "los4": [
-      532727,
-      483105
+      526753,
+      491530
     ]
   },
   "routes_ok": 90,
   "routes_failed": [],
   "route_minutes_centrum_to": {
-    "N": 27.9,
+    "N": 20.1,
     "S": 21.6,
     "E": 34.5,
     "W": 32.6,
-    "los0": 21.2,
+    "los0": 27.4,
     "los1": 27.2,
-    "los2": 1.5,
-    "los3": 22.5,
-    "los4": 11.7
+    "los2": 5.4,
+    "los3": 2.8,
+    "los4": 9.3
   },
   "km_by_speed_source": {
     "default_rural": 2729,
     "default_residential": 996,
-    "tag": 632,
+    "tag": 703,
     "default_urban": 44,
     "default_living_street": 21,
-    "default_motorway": 4
+    "default_motorway": 4,
+    "boundary_turnaround": 0
   },
+  "motorway_km": 87.8,
+  "turnaround_links": 2,
   "ok": true
 }

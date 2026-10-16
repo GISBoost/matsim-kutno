@@ -6,9 +6,11 @@ import org.locationtech.jts.geom.prep.PreparedGeometry;
 import org.locationtech.jts.geom.prep.PreparedGeometryFactory;
 import org.locationtech.jts.io.WKTReader;
 import org.matsim.api.core.v01.Coord;
+import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.TransportMode;
 import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
+import org.matsim.api.core.v01.network.Node;
 import org.matsim.contrib.osm.networkReader.SupersonicOsmNetworkReader;
 import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.network.algorithms.NetworkCleaner;
@@ -23,9 +25,10 @@ import java.util.Set;
 
 /**
  * F2: OSM PBF -> sieć MATSim (car) w EPSG:2180, przycięta do obszaru z make_area.py.
- * Użycie: java -cp <jar> org.matsim.kutno.CreateKutnoNetwork <osm.pbf> <area.wkt> <towns.wkt> <speeds.properties> <network.xml.gz>
+ * Użycie: java -cp <jar> org.matsim.kutno.CreateKutnoNetwork <osm.pbf> <area.wkt> <towns.wkt> <network.properties> <network.xml.gz>
  * Transformacja WGS84 -> EPSG:2180 dzieje się tylko tutaj (parser Supersonic, przed filtrem obszaru).
  * Prędkości (D13): tag maxspeed > limit ustawowy wg typu drogi i położenia (miasto/poza) ; freespeed = limit x factor.
+ * Zawrotki na granicy: ślepe końce jezdni jednokierunkowych (np. A1) łączone przed NetworkCleaner (inaczej giną).
  */
 public final class CreateKutnoNetwork {
 
@@ -51,10 +54,49 @@ public final class CreateKutnoNetwork {
 				.read(args[0]);
 
 		int nodes = network.getNodes().size(), links = network.getLinks().size();
+		int turnarounds = addBoundaryTurnarounds(network, speeds, PreparedGeometryFactory.prepare(
+				new WKTReader().read(Files.readString(Path.of(args[1]))).buffer(-Double.parseDouble(speeds.getProperty("boundary_zone_m")))));
 		new NetworkCleaner().run(network);
+		System.out.printf("F2 network: boundary turnarounds added=%d%n", turnarounds);
 		System.out.printf("F2 network: before cleaner nodes=%d links=%d, after nodes=%d links=%d%n",
 				nodes, links, network.getNodes().size(), network.getLinks().size());
 		NetworkUtils.writeNetwork(network, args[4]);
+	}
+
+	/** Łączy węzły-ujścia (tylko wjazdy) z najbliższymi węzłami-źródłami (tylko wyjazdy) w strefie granicy sieci. */
+	private static int addBoundaryTurnarounds(Network network, Properties p, PreparedGeometry interior) {
+		double maxDist = Double.parseDouble(p.getProperty("boundary_turnaround_max_m"));
+		double speed = Double.parseDouble(p.getProperty("boundary_turnaround_speed")) / 3.6;
+		double capacity = Double.parseDouble(p.getProperty("boundary_turnaround_capacity"));
+		// tylko strefa przy granicy: ślepe końce w środku sieci to błędy OSM, nie efekt przycięcia
+		var edge = network.getNodes().values().stream().filter(n -> !contains(interior, n.getCoord())).toList();
+		var sources = edge.stream().filter(n -> n.getInLinks().isEmpty() && !n.getOutLinks().isEmpty()).toList();
+		var sinks = edge.stream().filter(n -> n.getOutLinks().isEmpty() && !n.getInLinks().isEmpty()).toList();
+		int added = 0;
+		for (Node sink : sinks) {
+			Node best = null;
+			double bestDist = maxDist;
+			for (Node src : sources) {
+				double d = NetworkUtils.getEuclideanDistance(sink.getCoord(), src.getCoord());
+				if (d <= bestDist) {
+					best = src;
+					bestDist = d;
+				}
+			}
+			if (best == null) continue;
+			Link l = network.getFactory().createLink(Id.createLinkId("turnaround_" + sink.getId() + "_" + best.getId()), sink, best);
+			l.setLength(Math.max(bestDist, 10));
+			l.setFreespeed(speed);
+			l.setCapacity(capacity);
+			l.setNumberOfLanes(1);
+			l.setAllowedModes(Set.of(TransportMode.car));
+			l.getAttributes().putAttribute(NetworkUtils.TYPE, "boundary_turnaround");
+			l.getAttributes().putAttribute("speed_source", "boundary_turnaround");
+			network.addLink(l);
+			added++;
+		}
+		System.out.printf("F2 network: sinks=%d sources=%d%n", sinks.size(), sources.size());
+		return added;
 	}
 
 	private static void setSpeed(Link link, Map<String, String> tags, PreparedGeometry towns, Properties speeds, double factor) {
