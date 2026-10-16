@@ -56,8 +56,17 @@ fig, ax = plt.subplots(figsize=(10, 9))
 for lk, l in L.items():
     (x1, y1), (x2, y2) = nodes[l["a"]], nodes[l["b"]]
     avg = delay[lk] / n[lk] if n[lk] else 0
-    ax.plot([x1, x2], [y1, y2], color=plt.cm.inferno_r(min(avg / 300, 1)) if avg > 10 else "0.85",
-            lw=0.4 + 3 * min(avg / 300, 1), zorder=2 if avg > 10 else 1)
+    if not n[lk]:  # nikt nie przejechał
+        style = dict(color="0.88", lw=0.4, zorder=1)
+    elif avg <= 10:  # ruch bez opóźnienia (≤ 10 s)
+        style = dict(color="#7fb3d5", lw=0.8, zorder=2)
+    else:
+        style = dict(color=plt.cm.inferno_r(min(avg / 300, 1)), lw=0.8 + 3 * min(avg / 300, 1), zorder=3)
+    ax.plot([x1, x2], [y1, y2], **style)
+ax.plot([], [], color="0.88", label=f"bez ruchu ({sum(1 for lk in L if not n[lk])} linków)")
+ax.plot([], [], color="#7fb3d5", label=f"ruch, opóźnienie ≤ 10 s ({sum(1 for lk in L if n[lk] and delay[lk] / n[lk] <= 10)})")
+ax.plot([], [], color="#c0392b", lw=2, label=f"opóźnienie > 10 s ({sum(1 for lk in L if n[lk] and delay[lk] / n[lk] > 10)})")
+ax.legend(loc="lower right", fontsize=8)
 for i, r in enumerate(report["top_links"][:5]):
     ax.annotate(str(i + 1), r["coord_EN"], fontsize=9, color="#0b3c5d", weight="bold", xytext=(4, 4), textcoords="offset points")
 ax.text(0.01, 0.99, "\n".join(f"{i + 1}: {r['type']}, śr. {r['avg_delay_s']} s, {r['vehicles']} poj."

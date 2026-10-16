@@ -56,13 +56,14 @@ vmax = max(volume.values(), default=1)
 for lid, (a, b) in links.items():
     v = volume.get(lid, 0)
     (x1, y1), (x2, y2) = nodes[a], nodes[b]
-    ax.plot([x1, x2], [y1, y2], color="#d1495b" if v else "0.8", lw=0.4 + 4 * v / vmax, zorder=2 if v else 1)
-for typ, col in (("home", "#2e86ab"), ("work", "#f18f01")):
+    ax.plot([x1, x2], [y1, y2], color="#d1495b" if v else "0.85", lw=0.3 + 5 * v / vmax, zorder=3 if v else 1)
+# kropki pod linkami z ruchem, żeby ich nie zasłaniały
+for typ, col, lab in (("home", "#2e86ab", "dom = start 1. i koniec 2. podróży"), ("work", "#f18f01", "praca")):
     pts = {(float(r["coord_x"]), float(r["coord_y"])) for r in acts if r["activity_type"] == typ}
     if pts:
         xs, ys = zip(*pts)
-        ax.scatter(xs, ys, s=18, color=col, label=f"{typ} ({len(pts)} pkt)", zorder=3)
-ax.set_aspect("equal"); ax.legend(loc="best", fontsize=8)
+        ax.scatter(xs, ys, s=3, color=col, alpha=0.5, lw=0, label=f"{lab} ({len(pts)} pkt)", zorder=2)
+ax.set_aspect("equal"); ax.legend(loc="best", fontsize=8, markerscale=4)
 ax.set_title(f"aktywności i przejazdy po linkach (grubość = liczba wjazdów, max {vmax})", fontsize=9)
 ax.ticklabel_format(useOffset=False, style="plain"); ax.tick_params(labelsize=7)
 
