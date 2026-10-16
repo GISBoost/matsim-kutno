@@ -1,0 +1,15 @@
+# dane surowe i duże pliki (manifest z SHA-256 trafia do repo, same pliki nie)
+data/raw/
+*.pbf
+*.zip
+*.xlsx
+*.gpkg
+# wyniki symulacji
+output/
+**/output/
+# Java / Python
+target/
+.venv/
+__pycache__/
+*.class
+.idea/
