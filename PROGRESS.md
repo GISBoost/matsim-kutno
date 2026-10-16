@@ -16,3 +16,8 @@
 ## 2026-10-16 — F1 zaliczona
 - `scenarios/smoke/` (10 agentów, EPSG:2180): 20 nóg car, 0 stuck, współrzędne bez zamiany osi. Dowód: `reports/f1_smoke.md`, `reports/f1_smoke_events.json`.
 - Scenariusz zostaje testem regresyjnym.
+
+## 2026-10-16 — F2: topologia zaliczona, prędkości do decyzji
+- Sieć powiat + 3 km: 4 453 węzły, 10 296 linków, SCC 100%, 90/90 tras testowych. Dowód: `reports/f2_network.md`, `.json`, `.png`.
+- Otwarte: domyślne prędkości Supersonic (15 km/h na ~3 000 km dróg lokalnych), decyzja użytkownika.
+- Wizualizacje wsteczne: `reports/f0_equil.png`, `reports/f1_smoke.png` (`pipeline/plot_run.py`). Regresja smoke po przebudowie jara: ok.

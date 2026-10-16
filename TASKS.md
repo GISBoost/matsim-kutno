@@ -1,6 +1,8 @@
 # TASKS — fazy MVP
 
-Każda faza: wejścia → działania → wyjścia → test → kryterium zaliczenia → stop. Bez zaliczenia nie przechodzimy dalej. Blocker = wpis w `ERRORS.md` i pytanie do użytkownika.
+Każda faza: wejścia → działania → wyjścia → test → kryterium zaliczenia → **wizualizacja** → stop.
+
+**Wizualizacja po każdej fazie (prośba użytkownika, 2026-10-16):** faza kończy się obrazem `reports/fN_*.png`, który pokazuje to, co faza testowała (mapa, przejazdy, rozkłady). Obraz trafia do użytkownika razem z listą wykresów, które MATSim sam generuje w `output/<run>/` (`modestats.png`, `scorestats.png`, `traveldistancestats*.png`, `stopwatch.png`). Dla runów MATSim: `uv run python pipeline/plot_run.py <output_dir> reports/fN_run.png "tytuł"`. Bez zaliczenia nie przechodzimy dalej. Blocker = wpis w `ERRORS.md` i pytanie do użytkownika.
 
 ## F0 — Środowisko MATSim
 - **Wejścia:** `matsim-example-project` (branch master, parent `matsim 2026.0`), Java 25.

@@ -1,0 +1,9 @@
+# Parametry pipeline'u Kutno. Każda wartość ma źródło albo jest jawnym ZAŁOŻENIEM.
+
+[area]
+teryt_gmina = "1002011"     # gm. miejska Kutno (FACT_CHECK #7)
+teryt_powiat = "1002"       # powiat kutnowski, zasięg sieci (D9)
+# ZAŁOŻENIE: bufor sieci poza granicą powiatu. Zatrzymuje drogi wjazdowe aż do
+# pierwszych węzłów za granicą, żeby przyjeżdżający spoza powiatu mieli gdzie
+# wjechać (D9). Wartość do weryfikacji w raporcie F2.
+network_buffer_m = 3000
