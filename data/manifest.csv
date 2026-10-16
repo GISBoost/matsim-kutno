@@ -1,0 +1,6 @@
+path,url,downloaded_utc,bytes,sha256
+data/raw/gus/ludnosc_rejony_obwody_nsp2021.xlsx,https://stat.gov.pl/download/gfx/portalinformacyjny/pl/defaultaktualnosci/6536/12/1/1/ludnosc_w_rejonach_statystycznych_i_obwodach_spisowych_nsp_2021.xlsx,2026-10-16T16:55Z,27012607,72bcef42c30f307249097cd03657d7f46ec06b1203cf82122d9a7415e49c4ce8
+data/raw/gus/macierz_przeplywow_nsp2021.xlsx,https://stat.gov.pl/download/gfx/portalinformacyjny/pl/defaultaktualnosci/6536/9/2/1/macierz_przeplywow_ludnosci_zwiazanych_z_zatrudnieniem.xlsx,2026-10-16T16:55Z,2916382,55b6c4ea92242734ee0ac6b565232678b9afe4ab47b4acddf1297ab76a296983
+data/raw/brec/AreaStatisticalUnit_10_2021.zip,https://geo.stat.gov.pl/atom-web/download/?fileId=4a9e575237bcbcdc829d7d908926f5f1&name=AreaStatisticalUnit_10.zip,2026-10-16,22792730,2a351d252c89553fc9aab835a42ee43da2b3d9db09370d0b2a7c7504b829cd28
+data/raw/gtfs/kutno.zip,https://cdn.zbiorkom.live/gtfs/kutno.zip,2026-10-16,160558,3df08df96ff0491062084afe83cc6c0b01af24f5225a89631cf091960524ac60
+data/raw/gus/rynek_pracy_nsp2021_tablice.xlsx,https://stat.gov.pl/download/gfx/portalinformacyjny/pl/defaultaktualnosci/6536/11/2/1/ludnosc_na_rynku_pracy_w_swietle_wynikow_narodowego_spisu_powszechnego_ludnosci_i_mieszkan_2021._tablice_w_formacie_xlsx.xlsx,2026-10-16,526648,168f35d3e508f771962f69123f00fe796de0056f1e8ac7adf6c5ec30f14f083b

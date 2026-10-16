@@ -1,0 +1,26 @@
+{
+  "events_file": "output/f0_equil/output_events.xml.zst",
+  "event_types": {
+    "actend": 603,
+    "departure": 603,
+    "travelled": 402,
+    "arrival": 603,
+    "actstart": 603,
+    "PersonEntersVehicle": 201,
+    "vehicle enters traffic": 201,
+    "left link": 700,
+    "entered link": 700,
+    "vehicle leaves traffic": 201,
+    "PersonLeavesVehicle": 201
+  },
+  "persons_departing": 100,
+  "departures": 603,
+  "departures_by_mode": {
+    "walk": 402,
+    "car": 201
+  },
+  "arrivals": 603,
+  "stuck": 0,
+  "persons_dep_ne_arr": [],
+  "ok": true
+}
