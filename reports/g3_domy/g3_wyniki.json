@@ -1,0 +1,628 @@
+{
+ "bdot": {
+  "n_all": 47314,
+  "n_eksploatowany": 45859,
+  "wersja": "2025-12-09 00:00:00",
+  "funkcja_ogolna": {
+   "budynki mieszkalne": 19644,
+   "budynki produkcyjne, usługowe i gospodarcze dla rolnictwa": 19623,
+   "pozostałe budynki niemieszkalne": 2763,
+   "budynki transportu i łączności": 1378,
+   "budynki handlowo-usługowe": 651,
+   "budynki przemysłowe": 572,
+   "zbiorniki, silosy i budynki magazynowe": 519,
+   "budynki biurowe": 388,
+   "budynki oświaty, nauki i kultury oraz budynki sportowe": 253,
+   "budynki szpitali i inne budynki opieki zdrowotnej": 68
+  },
+  "przewazajaca_mieszkalne": {
+   "budynek jednorodzinny": 18425,
+   "budynek wielorodzinny": 1095,
+   "dom letniskowy": 40,
+   "dom parafialny": 27,
+   "dom opieki społecznej": 25,
+   "dom dziecka": 10,
+   "internat lub bursa szkolna": 8,
+   "placówka opiekuńczo-wychowawcza": 5,
+   "leśniczówka": 5,
+   "klasztor": 2,
+   "koszary": 2
+  },
+  "kondygnacje_wypelnione_pct": 99.92585970038597,
+  "kondygnacje_mieszkalne_hist": {
+   "1.0": 12805,
+   "2.0": 5754,
+   "3.0": 706,
+   "4.0": 86,
+   "5.0": 274,
+   "6.0": 13,
+   "7.0": 5,
+   "8.0": 1
+  },
+  "zrodlo_geometrii": {
+   "EGiB": 27822,
+   "ortofotomapa": 18035,
+   "BDOT500": 2
+  }
+ },
+ "pokrycie": [
+  {
+   "zakres": "gm. Kutno",
+   "bdot_budynki": 9343,
+   "bdot_mieszk": 5252,
+   "bdot_mieszk_km2": 0.796282289399975,
+   "bdot_mieszk_kond_km2": 1.9362106991000096,
+   "osm_budynki": 10159,
+   "osm_obecny_mieszk": 7447,
+   "osm_obecny_km2": 0.9144265118275654,
+   "osm_r5": 8625,
+   "osm_r5_km2": 1.4274739233330442,
+   "osm_r5plus": 8147,
+   "osm_r5plus_km2": 1.0993762960375724
+  },
+  {
+   "zakres": "powiat 1002",
+   "bdot_budynki": 45859,
+   "bdot_mieszk": 19644,
+   "bdot_mieszk_km2": 2.514699229649912,
+   "bdot_mieszk_kond_km2": 4.355880745499907,
+   "osm_budynki": 48220,
+   "osm_obecny_mieszk": 22415,
+   "osm_obecny_km2": 2.7185305774731465,
+   "osm_r5": 29788,
+   "osm_r5_km2": 4.357567709989902,
+   "osm_r5plus": 29251,
+   "osm_r5plus_km2": 4.012703338267716
+  }
+ ],
+ "zgodnosc_osm_bdot_gm_kutno": {
+  "osm_budynki": 10159,
+  "z_odpowiednikiem_w_bdot": 8709,
+  "bez_odpowiednika_wg_tagu": {
+   "yes": 886,
+   "retail": 235,
+   "outbuilding": 79,
+   "farm_auxiliary": 76,
+   "greenhouse": 43,
+   "roof": 34,
+   "construction": 20,
+   "silo": 18,
+   "industrial": 9,
+   "house": 9,
+   "detached": 7,
+   "storage_tank": 5
+  }
+ },
+ "zgodnosc_konfuzja": [
+  {
+   "wariant": "cur",
+   "osm_mieszk_i_bdot_mieszk": 5015,
+   "osm_mieszk_bdot_niemieszk": 1719,
+   "osm_niemieszk_bdot_mieszk": 212,
+   "oba_niemieszk": 1763,
+   "precision": 0.7447282447282447,
+   "recall": 0.9594413621580257,
+   "fp_pow_m2": 180997.97131273907,
+   "fn_pow_m2": 72207.21838883508
+  },
+  {
+   "wariant": "r5",
+   "osm_mieszk_i_bdot_mieszk": 5184,
+   "osm_mieszk_bdot_niemieszk": 2530,
+   "osm_niemieszk_bdot_mieszk": 43,
+   "oba_niemieszk": 952,
+   "precision": 0.6720248898107337,
+   "recall": 0.9917734838339392,
+   "fp_pow_m2": 601125.0157293929,
+   "fn_pow_m2": 30926.641488231722
+  },
+  {
+   "wariant": "r5p",
+   "osm_mieszk_i_bdot_mieszk": 5175,
+   "osm_mieszk_bdot_niemieszk": 2133,
+   "osm_niemieszk_bdot_mieszk": 52,
+   "oba_niemieszk": 1349,
+   "precision": 0.708128078817734,
+   "recall": 0.9900516548689496,
+   "fp_pow_m2": 296077.2439547959,
+   "fn_pow_m2": 32944.758456964926
+  }
+ ],
+ "fp_wg_funkcji_bdot_r5": {
+  "pozostałe budynki niemieszkalne": 827,
+  "budynki produkcyjne, usługowe i gospodarcze dla rolnictwa": 539,
+  "budynki transportu i łączności": 385,
+  "budynki handlowo-usługowe": 234,
+  "budynki przemysłowe": 196,
+  "zbiorniki, silosy i budynki magazynowe": 135,
+  "budynki biurowe": 133,
+  "budynki oświaty, nauki i kultury oraz budynki sportowe": 49,
+  "budynki szpitali i inne budynki opieki zdrowotnej": 32
+ },
+ "fp_wg_tagu_osm_r5": {
+  "yes": 2498,
+  "basilica": 11,
+  "house": 8,
+  "apartments": 6,
+  "detached": 4,
+  "fire_station": 2,
+  "townhall": 1
+ },
+ "fn_wg_tagu_osm_cur": {
+  "yes": 163,
+  "construction": 16,
+  "school": 5,
+  "collapsed": 4,
+  "outbuilding": 4,
+  "commercial": 3,
+  "bunker": 3,
+  "basilica": 3
+ },
+ "osm_tag_vs_kond": {
+  "yes_mieszk_bdot_kond": {
+   "1.0": 1593,
+   "2.0": 2103,
+   "3.0": 226,
+   "4.0": 19,
+   "5.0": 19
+  },
+  "apartments_kond": {
+   "1.0": 3,
+   "2.0": 6,
+   "3.0": 78,
+   "4.0": 55,
+   "5.0": 212,
+   "6.0": 14,
+   "7.0": 5,
+   "8.0": 1
+  }
+ },
+ "r5_obwody": {
+  "n_obwodow": 233,
+  "cur_m2_suma": 914426.5118275655,
+  "r5_m2_suma": 1099376.2960375724,
+  "obwody_bez_domu_cur": 1,
+  "obwody_bez_domu_r5": 1,
+  "obwody_bez_domu_cur_ale_z_pracujacymi": 1,
+  "pracujacy_w_obwodach_bez_domu_cur": 57.84,
+  "pracujacy_w_obwodach_bez_domu_r5": 57.84,
+  "obwody_zmiana_ponad_20pct": 34,
+  "obwody_zmiana_ponad_50pct": 22,
+  "top10_przyrost_m2": {
+   "6511303": 30970.0,
+   "6509026": 18411.0,
+   "6511403": 15107.0,
+   "6511001": 9823.0,
+   "6511306": 8653.0,
+   "6509025": 8464.0,
+   "6509211": 7374.0,
+   "6511504": 7209.0,
+   "6511501": 6603.0,
+   "6509021": 5724.0
+  },
+  "top10_przyrost_pct": {
+   "6511303": 1108.8,
+   "6511403": 833.6,
+   "6509213": 461.7,
+   "6511306": 435.8,
+   "6509025": 287.8,
+   "6509221": 275.4,
+   "6509543": 269.0,
+   "6509214": 245.6,
+   "6509026": 190.2,
+   "6511305": 135.0
+  },
+  "udzial_nowej_powierzchni_w_puli_wazony_pracujacymi_pct": 6.7318517527463335
+ },
+ "r5_gminy": {
+  "1002011": {
+   "cur_m2": 914426.5,
+   "r5_m2": 1099376.3,
+   "cur_n": 7447,
+   "r5_n": 8147,
+   "bdot_m2": 770431.7,
+   "delta_m2": 184949.8,
+   "delta_pct": 20.2,
+   "udzial_nowej_w_puli_pct": 16.8
+  },
+  "1002022": {
+   "cur_m2": 217659.3,
+   "r5_m2": 319434.0,
+   "cur_n": 1840,
+   "r5_n": 2475,
+   "bdot_m2": 205092.9,
+   "delta_m2": 101774.7,
+   "delta_pct": 46.8,
+   "udzial_nowej_w_puli_pct": 31.9
+  },
+  "1002032": {
+   "cur_m2": 95224.5,
+   "r5_m2": 106205.0,
+   "cur_n": 772,
+   "r5_n": 834,
+   "bdot_m2": 63662.1,
+   "delta_m2": 10980.5,
+   "delta_pct": 11.5,
+   "udzial_nowej_w_puli_pct": 10.3
+  },
+  "1002044": {
+   "cur_m2": 94031.3,
+   "r5_m2": 162106.3,
+   "cur_n": 992,
+   "r5_n": 1312,
+   "bdot_m2": 84294.5,
+   "delta_m2": 68075.1,
+   "delta_pct": 72.4,
+   "udzial_nowej_w_puli_pct": 42.0
+  },
+  "1002045": {
+   "cur_m2": 97144.7,
+   "r5_m2": 335863.7,
+   "cur_n": 804,
+   "r5_n": 2323,
+   "bdot_m2": 134148.1,
+   "delta_m2": 238719.0,
+   "delta_pct": 245.7,
+   "udzial_nowej_w_puli_pct": 71.1
+  },
+  "1002052": {
+   "cur_m2": 163163.3,
+   "r5_m2": 197666.5,
+   "cur_n": 1372,
+   "r5_n": 1484,
+   "bdot_m2": 150993.9,
+   "delta_m2": 34503.2,
+   "delta_pct": 21.1,
+   "udzial_nowej_w_puli_pct": 17.5
+  },
+  "1002062": {
+   "cur_m2": 409502.1,
+   "r5_m2": 483767.1,
+   "cur_n": 3341,
+   "r5_n": 3626,
+   "bdot_m2": 366419.0,
+   "delta_m2": 74265.0,
+   "delta_pct": 18.1,
+   "udzial_nowej_w_puli_pct": 15.4
+  },
+  "1002072": {
+   "cur_m2": 96489.0,
+   "r5_m2": 135799.9,
+   "cur_n": 804,
+   "r5_n": 950,
+   "bdot_m2": 72642.1,
+   "delta_m2": 39311.0,
+   "delta_pct": 40.7,
+   "udzial_nowej_w_puli_pct": 28.9
+  },
+  "1002082": {
+   "cur_m2": 82304.3,
+   "r5_m2": 173390.3,
+   "cur_n": 711,
+   "r5_n": 1358,
+   "bdot_m2": 102705.9,
+   "delta_m2": 91086.0,
+   "delta_pct": 110.7,
+   "udzial_nowej_w_puli_pct": 52.5
+  },
+  "1002092": {
+   "cur_m2": 83437.9,
+   "r5_m2": 212690.0,
+   "cur_n": 713,
+   "r5_n": 1634,
+   "bdot_m2": 91728.2,
+   "delta_m2": 129252.1,
+   "delta_pct": 154.9,
+   "udzial_nowej_w_puli_pct": 60.8
+  },
+  "1002102": {
+   "cur_m2": 171385.2,
+   "r5_m2": 343614.1,
+   "cur_n": 1280,
+   "r5_n": 2123,
+   "bdot_m2": 128622.6,
+   "delta_m2": 172228.9,
+   "delta_pct": 100.5,
+   "udzial_nowej_w_puli_pct": 50.1
+  },
+  "1002114": {
+   "cur_m2": 173423.3,
+   "r5_m2": 266308.9,
+   "cur_n": 1220,
+   "r5_n": 1426,
+   "bdot_m2": 134715.5,
+   "delta_m2": 92885.6,
+   "delta_pct": 53.6,
+   "udzial_nowej_w_puli_pct": 34.9
+  },
+  "1002115": {
+   "cur_m2": 120339.2,
+   "r5_m2": 176481.0,
+   "cur_n": 1119,
+   "r5_n": 1559,
+   "bdot_m2": 119433.7,
+   "delta_m2": 56141.9,
+   "delta_pct": 46.7,
+   "udzial_nowej_w_puli_pct": 31.8
+  }
+ },
+ "r5_przyrost_wg_tagu_powiat": {
+  "yes": {
+   "count": 6772,
+   "sum": 1283273.0
+  },
+  "fire_station": {
+   "count": 39,
+   "sum": 8274.0
+  },
+  "basilica": {
+   "count": 14,
+   "sum": 797.0
+  },
+  "presbytery": {
+   "count": 3,
+   "sum": 778.0
+  },
+  "convent": {
+   "count": 1,
+   "sum": 553.0
+  },
+  "townhall": {
+   "count": 1,
+   "sum": 291.0
+  },
+  "library": {
+   "count": 1,
+   "sum": 231.0
+  },
+  "elevator": {
+   "count": 5,
+   "sum": 39.0
+  },
+  "wayside_shrine": {
+   "count": 1,
+   "sum": 14.0
+  }
+ },
+ "r5_przyrost_yes_poza_landuse_res_powiat": 6772,
+ "r5_przyrost_wg_bdot_funkcji_gm_kutno": {
+  "budynki mieszkalne": 160,
+  "brak w BDOT": 126,
+  "budynki produkcyjne, usługowe i gospodarcze dla rolnictwa": 99,
+  "pozostałe budynki niemieszkalne": 86,
+  "zbiorniki, silosy i budynki magazynowe": 48,
+  "budynki biurowe": 45,
+  "budynki handlowo-usługowe": 37,
+  "budynki transportu i łączności": 33,
+  "budynki przemysłowe": 31,
+  "budynki oświaty, nauki i kultury oraz budynki sportowe": 28,
+  "budynki szpitali i inne budynki opieki zdrowotnej": 7
+ },
+ "r5_przyrost_m2_bdot_mieszk_vs_nie_gm_kutno": {
+  "bdot_mieszk": 39262.45993187015,
+  "bdot_niemieszk_lub_brak": 145687.32427813666
+ },
+ "gus_250": {
+  "komorek_w_bbox_powiatu": 30800,
+  "suma_TOT": 134848.0,
+  "nan": 0,
+  "min": 0.0,
+  "max": 1445.0,
+  "male_1_4": 2794,
+  "suma_TOT_gm_kutno_centroidy": 42052.0
+ },
+ "gus_1km": {
+  "komorek": 2034,
+  "suma_RES": 141765.0
+ },
+ "agenci": {
+  "n": 5900,
+  "rezydenci": 4390,
+  "dojezdzajacy_z_domem_osm": 1510,
+  "random_point": 14
+ },
+ "korelacje_250m": [
+  {
+   "zakres": "gm. Kutno, rezydenci (agenci)",
+   "zmienna": "agenci",
+   "n_komorek": 285,
+   "pearson": 0.972,
+   "spearman": 0.885
+  },
+  {
+   "zakres": "gm. Kutno, rezydenci (agenci)",
+   "zmienna": "osm_cur_m2",
+   "n_komorek": 285,
+   "pearson": 0.681,
+   "spearman": 0.843
+  },
+  {
+   "zakres": "gm. Kutno, rezydenci (agenci)",
+   "zmienna": "osm_r5_m2",
+   "n_komorek": 285,
+   "pearson": 0.664,
+   "spearman": 0.828
+  },
+  {
+   "zakres": "gm. Kutno, rezydenci (agenci)",
+   "zmienna": "bdot_m2",
+   "n_komorek": 285,
+   "pearson": 0.735,
+   "spearman": 0.889
+  },
+  {
+   "zakres": "gm. Kutno, rezydenci (agenci)",
+   "zmienna": "bdot_kond_m2",
+   "n_komorek": 285,
+   "pearson": 0.926,
+   "spearman": 0.921
+  },
+  {
+   "zakres": "gm. Kutno, rezydenci (agenci)",
+   "zmienna": "bdot_n",
+   "n_komorek": 285,
+   "pearson": 0.292,
+   "spearman": 0.747
+  },
+  {
+   "zakres": "powiat, wszyscy agenci z domem w OSM",
+   "zmienna": "agenci",
+   "n_komorek": 8452,
+   "pearson": 0.884,
+   "spearman": 0.304
+  },
+  {
+   "zakres": "powiat, wszyscy agenci z domem w OSM",
+   "zmienna": "osm_cur_m2",
+   "n_komorek": 8452,
+   "pearson": 0.686,
+   "spearman": 0.33
+  },
+  {
+   "zakres": "powiat, wszyscy agenci z domem w OSM",
+   "zmienna": "osm_r5_m2",
+   "n_komorek": 8452,
+   "pearson": 0.625,
+   "spearman": 0.345
+  },
+  {
+   "zakres": "powiat, wszyscy agenci z domem w OSM",
+   "zmienna": "bdot_m2",
+   "n_komorek": 8452,
+   "pearson": 0.746,
+   "spearman": 0.309
+  },
+  {
+   "zakres": "powiat, wszyscy agenci z domem w OSM",
+   "zmienna": "bdot_kond_m2",
+   "n_komorek": 8452,
+   "pearson": 0.918,
+   "spearman": 0.304
+  },
+  {
+   "zakres": "powiat, wszyscy agenci z domem w OSM",
+   "zmienna": "bdot_n",
+   "n_komorek": 8452,
+   "pearson": 0.485,
+   "spearman": 0.298
+  }
+ ],
+ "korelacje_1km": [
+  {
+   "zakres": "1 km, gm. Kutno, rezydenci",
+   "zmienna": "agenci",
+   "n_komorek": 32,
+   "pearson": 0.998,
+   "spearman": 0.975
+  },
+  {
+   "zakres": "1 km, gm. Kutno, rezydenci",
+   "zmienna": "osm_cur_m2",
+   "n_komorek": 32,
+   "pearson": 0.888,
+   "spearman": 0.957
+  },
+  {
+   "zakres": "1 km, gm. Kutno, rezydenci",
+   "zmienna": "osm_r5_m2",
+   "n_komorek": 32,
+   "pearson": 0.881,
+   "spearman": 0.94
+  },
+  {
+   "zakres": "1 km, gm. Kutno, rezydenci",
+   "zmienna": "bdot_m2",
+   "n_komorek": 32,
+   "pearson": 0.881,
+   "spearman": 0.93
+  },
+  {
+   "zakres": "1 km, gm. Kutno, rezydenci",
+   "zmienna": "bdot_kond_m2",
+   "n_komorek": 32,
+   "pearson": 0.976,
+   "spearman": 0.96
+  },
+  {
+   "zakres": "1 km, powiat, agenci z domem w powiecie",
+   "zmienna": "agenci",
+   "n_komorek": 1813,
+   "pearson": 0.925,
+   "spearman": 0.376
+  },
+  {
+   "zakres": "1 km, powiat, agenci z domem w powiecie",
+   "zmienna": "osm_cur_m2",
+   "n_komorek": 1813,
+   "pearson": 0.862,
+   "spearman": 0.367
+  },
+  {
+   "zakres": "1 km, powiat, agenci z domem w powiecie",
+   "zmienna": "osm_r5_m2",
+   "n_komorek": 1813,
+   "pearson": 0.813,
+   "spearman": 0.365
+  },
+  {
+   "zakres": "1 km, powiat, agenci z domem w powiecie",
+   "zmienna": "bdot_m2",
+   "n_komorek": 1813,
+   "pearson": 0.871,
+   "spearman": 0.309
+  },
+  {
+   "zakres": "1 km, powiat, agenci z domem w powiecie",
+   "zmienna": "bdot_kond_m2",
+   "n_komorek": 1813,
+   "pearson": 0.957,
+   "spearman": 0.307
+  }
+ ],
+ "kondygnacje": {
+  "srednia_kond_wazona_powierzchnia_cur_gm_kutno": 2.19568657018577,
+  "udzial_cur_z_kond_w_bdot_pct": 90.4256747683631,
+  "obwody_ratio_min_max": [
+   1.0,
+   6.486510223651853
+  ],
+  "apartments_cur_powierzchnia_udzial_pct": 20.906427040009167,
+  "apartments_cur_udzial_po_kond_pct": 43.16658996915647,
+  "TV_rozkladu_budynkow_w_obwodzie_sr_wazona_pracujacymi_pct": 12.139714200068196
+ },
+ "oczekiwany_rozklad_vs_gus_250m": [
+  {
+   "wariant": "OSM obecny",
+   "pearson": 0.9770676093940839,
+   "spearman": 0.918131008604453,
+   "MAE_udzialow_pp": 10.276948125649135
+  },
+  {
+   "wariant": "OSM jak R5 (bez pracy/amenity)",
+   "pearson": 0.9730744210991761,
+   "spearman": 0.9010425442317002,
+   "MAE_udzialow_pp": 11.612630268670916
+  },
+  {
+   "wariant": "BDOT mieszkalne, pow.",
+   "pearson": 0.9793117573698664,
+   "spearman": 0.9353243263191132,
+   "MAE_udzialow_pp": 9.373687968204989
+  },
+  {
+   "wariant": "BDOT mieszkalne, pow. × kond.",
+   "pearson": 0.9815657867668475,
+   "spearman": 0.9391396044545035,
+   "MAE_udzialow_pp": 8.493134645793054
+  },
+  {
+   "wariant": "BDOT mieszkalne, liczba budynków",
+   "pearson": 0.9665088890485437,
+   "spearman": 0.9183664670588322,
+   "MAE_udzialow_pp": 11.693448188569542
+  }
+ ],
+ "obwod_bez_domu_cur": {
+  "6509902": 57.84
+ }
+}

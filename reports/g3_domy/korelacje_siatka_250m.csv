@@ -1,0 +1,13 @@
+zakres,zmienna,n_komorek,pearson,spearman
+"gm. Kutno, rezydenci (agenci)",agenci,285,0.972326908066259,0.8848169013294157
+"gm. Kutno, rezydenci (agenci)",osm_cur_m2,285,0.6814889072601169,0.8428593022301006
+"gm. Kutno, rezydenci (agenci)",osm_r5_m2,285,0.6642867629483455,0.8281249281165736
+"gm. Kutno, rezydenci (agenci)",bdot_m2,285,0.7350061490162234,0.8888945393090456
+"gm. Kutno, rezydenci (agenci)",bdot_kond_m2,285,0.9257425078612157,0.9206487717201528
+"gm. Kutno, rezydenci (agenci)",bdot_n,285,0.29187296692679776,0.7474522368552247
+"powiat, wszyscy agenci z domem w OSM",agenci,8452,0.8842270948877294,0.3040493890272941
+"powiat, wszyscy agenci z domem w OSM",osm_cur_m2,8452,0.6861294332734952,0.3301408704293983
+"powiat, wszyscy agenci z domem w OSM",osm_r5_m2,8452,0.6247040675676662,0.34482126610574054
+"powiat, wszyscy agenci z domem w OSM",bdot_m2,8452,0.7462332392956965,0.30855899121452113
+"powiat, wszyscy agenci z domem w OSM",bdot_kond_m2,8452,0.9178132884589981,0.3042638681702957
+"powiat, wszyscy agenci z domem w OSM",bdot_n,8452,0.48458234475463796,0.2977579186531499

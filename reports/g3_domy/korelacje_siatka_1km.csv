@@ -1,0 +1,11 @@
+zakres,zmienna,n_komorek,pearson,spearman
+"1 km, gm. Kutno, rezydenci",agenci,32,0.9976884191213299,0.9751491167150471
+"1 km, gm. Kutno, rezydenci",osm_cur_m2,32,0.8884977345562348,0.9570119156736939
+"1 km, gm. Kutno, rezydenci",osm_r5_m2,32,0.8807675673968319,0.939785541477955
+"1 km, gm. Kutno, rezydenci",bdot_m2,32,0.8812929322835195,0.9297039723768651
+"1 km, gm. Kutno, rezydenci",bdot_kond_m2,32,0.9755632476682419,0.959582077167368
+"1 km, powiat, agenci z domem w powiecie",agenci,1813,0.9254461736215159,0.37625638825363655
+"1 km, powiat, agenci z domem w powiecie",osm_cur_m2,1813,0.862060177374251,0.36746081954419807
+"1 km, powiat, agenci z domem w powiecie",osm_r5_m2,1813,0.8126620614216369,0.36538004807236035
+"1 km, powiat, agenci z domem w powiecie",bdot_m2,1813,0.8710899474299478,0.30863692556072625
+"1 km, powiat, agenci z domem w powiecie",bdot_kond_m2,1813,0.9566498931628922,0.30654343578017423
