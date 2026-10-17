@@ -18,7 +18,8 @@ import pyogrio
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-cfg = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))["area"]
+CFG = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))
+cfg = CFG["area"]
 GMINA, POWIAT = cfg["teryt_gmina"], cfg["teryt_powiat"]
 RAW = Path("data/raw")
 OUT = Path("scenarios/kutno/demand")
@@ -71,14 +72,20 @@ outgoing = int(m.loc[m.home == GMINA, "n"].sum())
 inb = (m[m.work == GMINA].groupby(["home", "home_name"], as_index=False)["n"].sum().sort_values("n", ascending=False))
 inb["in_powiat"] = inb.home.str.startswith(POWIAT)
 inb["in_lodzkie"] = inb.home.str.startswith("10")
-inb.to_csv(OUT / "inbound_by_gmina.csv", index=False)
+inb.to_csv(OUT / "inbound_by_gmina.csv", index=False, lineterminator="\n")
+# D17/O1: wyjeżdżający z Kutna per gmina pracy
+outb = m[m.home == GMINA].groupby(["work", "work_name"], as_index=False)["n"].sum().sort_values("n", ascending=False)
+outb.to_csv(OUT / "outbound_by_gmina.csv", index=False, lineterminator="\n")
 
 # pracujący mieszkańcy, którzy pracują w Kutnie: odejmujemy wyjeżdżających proporcjonalnie we wszystkich obwodach
 # (rozkład wyjeżdżających po obwodach nieznany). Macierz liczy tylko pracowników najemnych -> to dolna granica odpływu.
 for v in ("low", "base"):
     tot = ob[f"employed_{v}"].sum()
     ob[f"work_in_kutno_{v}"] = ob[f"employed_{v}"] * (tot - outgoing) / tot
-ob.round(2).to_csv(OUT / "workers_by_obwod.csv", index=False)
+# D17/B: suma pracujących mieszkańców z rejestru P4507, rozkład na obwody jak D5 (base)
+reg = CFG["demand"]["employed_residents_reg"]
+ob["work_in_kutno_reg"] = ob.employed_base * (reg - outgoing) / ob.employed_base.sum()
+ob.round(2).to_csv(OUT / "workers_by_obwod.csv", index=False, lineterminator="\n")
 
 # --- 4. geometria + kontrola złączenia ------------------------------------------------------------------
 g = pyogrio.read_dataframe(RAW / "brec/gml/AreaStatisticalUnit_10.xml",
@@ -104,11 +111,12 @@ report = {
     "inbound_in_powiat": int(inb[inb.in_powiat].n.sum()),
     "inbound_outside_powiat_in_lodzkie": int(inb[~inb.in_powiat & inb.in_lodzkie].n.sum()),
     "inbound_outside_lodzkie": int(inb[~inb.in_lodzkie].n.sum()),
-    "agents_100pct": {v: S(f"work_in_kutno_{v}") + int(inb.n.sum()) for v in ("low", "base")},
+    "agents_100pct": {v: S(f"work_in_kutno_{v}") + int(inb.n.sum()) for v in ("low", "base", "reg")},
+    "employed_residents_reg_p4507": reg, "outbound_gminy": len(outb),
 }
 report["ok"] = (report["population_sum_obwody"] == gmina_pop == 42255 and report["inbound_total"] == 8186
                 and not tab_only)
-json.dump(report, open("reports/f3_demand/f3_demand.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
+json.dump(report, open("reports/f3_demand/f3_demand.json", "w", encoding="utf-8", newline="\n"), indent=2, ensure_ascii=False)
 
 # --- 5. wizualizacja ---------------------------------------------------------------------------------
 gob = geo_ob.merge(ob, left_on="uid", right_on="obwod_id", how="left")

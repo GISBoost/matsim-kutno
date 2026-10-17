@@ -28,7 +28,8 @@ for label, d in runs.items():
     d = Path(d)
     trips = rd(d / "output_trips.csv.zst")
     car = [l for l in rd(d / "output_legs.csv.zst") if l["mode"] == "car"]
-    tt = {k: [hms(t["trav_time"]) / 60 for t in trips if t["person"][0] == k] for k in ("r", "c")}
+    tt = {k: [hms(t["trav_time"]) / 60 for t in trips if t["person"][0] == k] for k in ("r", "c", "o")}
+    tt = {k: v for k, v in tt.items() if v}  # o = wyjeżdżający (D17), tylko gdy są w planach
     speed_h = {}
     for l in car:
         if hms(l["trav_time"]) > 0:
@@ -42,15 +43,17 @@ for label, d in runs.items():
         "car_speed_kmh_median_by_dep_hour": {h: round(st.median(v), 1) for h, v in sorted(speed_h.items()) if len(v) >= 20},
         "score_avg_executed_first_last": [round(score[0], 1), round(score[-1], 1)],
     }
-json.dump(stats, open(png.removesuffix(".png") + ".json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
+json.dump(stats, open(png.removesuffix(".png") + ".json", "w", encoding="utf-8", newline="\n"), indent=2, ensure_ascii=False)
 
 fig, axs = plt.subplots(1, 3, figsize=(16, 5))
 cols = ["#2e86ab", "#d1495b", "#f6c85f", "#6fcf97"]
 for (label, dd), c in zip(data.items(), cols):
-    for k, ls in (("r", "-"), ("c", "--")):
+    for k, ls in (("r", "-"), ("c", "--"), ("o", ":")):
+        if k not in dd["tt"]:
+            continue
         xs = sorted(dd["tt"][k])
         axs[0].plot(xs, [i / len(xs) for i in range(len(xs))], color=c, ls=ls,
-                    label=f"{label}: {'mieszkańcy' if k == 'r' else 'przyjeżdżający'}")
+                    label=f"{label}: {dict(r='mieszkańcy', c='przyjeżdżający', o='wyjeżdżający')[k]}")
     hs = [h for h, v in sorted(dd["speed_h"].items()) if len(v) >= 20]
     axs[1].plot(hs, [st.median(dd["speed_h"][h]) for h in hs], "o-", color=c, label=label)
     axs[2].plot(dd["score"], color=c, label=label)

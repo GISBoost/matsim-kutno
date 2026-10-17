@@ -1,0 +1,26 @@
+{
+  "events_file": "output/g2c_10pct_s4711/output_events.xml.zst",
+  "event_types": {
+    "actend": 11982,
+    "departure": 11982,
+    "travelled": 7988,
+    "arrival": 11982,
+    "actstart": 11982,
+    "PersonEntersVehicle": 3994,
+    "vehicle enters traffic": 3994,
+    "left link": 216146,
+    "entered link": 216146,
+    "vehicle leaves traffic": 3994,
+    "PersonLeavesVehicle": 3994
+  },
+  "persons_departing": 1997,
+  "departures": 11982,
+  "departures_by_mode": {
+    "walk": 7988,
+    "car": 3994
+  },
+  "arrivals": 11982,
+  "stuck": 0,
+  "persons_dep_ne_arr": [],
+  "ok": true
+}

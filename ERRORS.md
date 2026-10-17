@@ -28,3 +28,6 @@ Każdy wpis: co się stało → koszt → reguła na przyszłość. Najważniejs
 
 ## 2026-10-17
 13. **GEH między seedami liczyłem na natężeniach próbki 25%,** co zaniża GEH o połowę (pierwszy wynik: max 5,1 zamiast 10,2). → `convergence.py` skaluje teraz × 1/sampleSize z `output_config.xml`. **Każdą miarę zależną od wartości bezwzględnych (GEH, poj.-h) liczyć lub opisywać w skali 100%.**
+14. **G2/D17: nowy rodzaj agenta (wyjeżdżający) trafił do gałęzi przyjeżdżających spoza powiatu** w pętli `plans.py` (warunek `kind == "outbound"` stał za `else: ... continue`). Skutek: 168 osób z domem na wjeździe i 79 zduplikowanych id. Walidator złapał to przez `work_outside_gmina = 168`. → Gałąź nowego rodzaju na początku pętli, `assert meta.person.is_unique` w `plans.py`. **Przy dodawaniu rodzaju agenta: osobne testy per rodzaj w walidatorze** (dom/praca w lub poza gminą).
+15. **`sed` z `"\n"` w zamianie wstawił prawdziwy znak nowej linii do kodu Pythona** (SyntaxError w `demand.py`). → Zmiany z `\n` w stringach rób narzędziem Edit (jak lekcja 11).
+16. **`A && (B) & (C) & wait` uruchomiło walidację C równolegle z generowaniem planów** (`&` wiąże słabiej niż `&&`), więc walidator porównał stary plik z nowym i zgłosił brak determinizmu. → Sekwencję grupuj nawiasami: `A && { (B) & (C) & wait; }`.

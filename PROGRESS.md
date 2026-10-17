@@ -77,3 +77,11 @@
 - Plany 10/25/100%: walidacja ok, sha256 powtarzalny (`reports/d16_przyjezdzajacy/plans_*.json`).
 - Run 25%, 3 seedy równolegle (14 min): 12 842 nóg car, 0 stuck. Wskaźniki zbiorcze bez zmian poza rozrzutem seedów. Raport: `reports/d16_przyjezdzajacy/d16_przyjezdzajacy.md`.
 - Porządki: `reports/` w folderach faz, spis w `reports/README.md`. 3 seedy 10% vs 25%: `reports/r3_ocena/r3_10_vs_25pct.md`.
+
+## 2026-10-17: G2 / D17, liczba miejsc pracy i wyjeżdżający
+
+- D17 w `DECISIONS.md`: B (rejestr P4507) jako baza, C (skalowanie do P4508 = 17 486) jako wariant wrażliwości, wyjeżdżający O1 z odcięciem > 100 km, rok 2024.
+- `demand.py`: kolumna `work_in_kutno_reg` (14 586 w 100%), `outbound_by_gmina.csv` (83 gminy, 2 669 os.). `plans.py`: rodzaj `outbound` (dom w budynku w Kutnie, praca w budynku gminy powiatu albo na linku wyjazdowym; 31 linków wyjazdowych), `jobs_total` do wariantu C (nadpisanie z linii poleceń `jobs_total=17486`).
+- Odcięte > 100 km: 30 gmin, 235 os. w 100% (47 przyjeżdżających, 188 wyjeżdżających). Warszawa (457) zostaje, wyjazd na A1.
+- Plany 10%: B 2 521 os. (1 465 mieszk., 808 przyjeżdż., 248 wyjeżdż.), C 1 997 os. (1 133 / 616 / 248). Walidacja ok, sha256 powtarzalny (`reports/g2_miejsca_pracy/{B,C}/plans_10pct_plans.json`). Pierwsza wersja nie przeszła walidacji (ERRORS 14).
+- Runy 10% × 3 seedy dla B i C (6 równolegle, po 2 wątki, 11 min): nogi car zgodne z planami (5 042 / 3 994), 0 stuck. Opóźnienia [poj.-h próbki]: B 370–405, C 146–166, wobec 540–567 w starych runach 10% (A). GEH < 5 w szczycie między seedami: B 93–95%, C 96%. Raport: `reports/g2_miejsca_pracy/g2_miejsca_pracy.md`.

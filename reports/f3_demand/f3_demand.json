@@ -38,7 +38,10 @@
   "inbound_outside_lodzkie": 1157,
   "agents_100pct": {
     "low": 24353,
-    "base": 25732
+    "base": 25732,
+    "reg": 22772
   },
+  "employed_residents_reg_p4507": 17255,
+  "outbound_gminy": 83,
   "ok": true
 }

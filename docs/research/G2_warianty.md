@@ -1,6 +1,6 @@
 # G2: warianty liczby miejsc pracy i wyjeżdżających
 
-Data: 2026-10-17. Do decyzji użytkownika (przyszły wpis D17). Liczby są w skali 100%.
+Data: 2026-10-17. Liczby są w skali 100%. **Rozstrzygnięte w D17:** B baza, C wariant wrażliwości, O1, rok 2024, odcięcie > 100 km. Wyniki: `reports/g2_miejsca_pracy/g2_miejsca_pracy.md`.
 
 ## Bilans źródeł (gm. miejska Kutno, 1002011)
 

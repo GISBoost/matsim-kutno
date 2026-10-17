@@ -70,6 +70,7 @@ MVP (F0–F6) jest zamknięty. Każda faza G zmienia zakres lub dane, więc prze
 - **Dane:** suma kontrolna z BDL lub NSP dla gm. Kutno (uwaga na próg > 9 osób); rozkład wewnątrz gminy z REGON (adres, PKD, ewentualnie klasa zatrudnienia) albo z typu budynku. Statystyczne punkty adresowe GUS do sprawdzenia.
 - **Działania:** nowe wagi budynków pracy; porównanie z wagami według powierzchni (top-20 celów, rozkład na mapie).
 - **Test:** suma pracy zgodna z kotwicą; top-10 celów to realne zakłady; mapa zmian.
+- **Stan (2026-10-17):** suma zrobiona (D17: B = 22 725 baza, C = 17 486 wrażliwość, wyjeżdżający O1). Runy 10% × 3 seedy w `reports/g2_miejsca_pracy/`. Otwarte: rozkład wewnątrz gminy (wagi budynków pracy, REGON).
 
 ## G3 — Domy (D11)
 - **Dane:** kod R5 (`dasymetric_pop.py`, ta sama metoda); BDOT10k (funkcja budynku, ewentualnie kondygnacje); siatki ludności GUS jako kontrola.

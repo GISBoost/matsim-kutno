@@ -1,0 +1,124 @@
+{
+  "plans": "scenarios\\kutno\\plans_g2c_10pct.xml.gz",
+  "sha256": "6aa4078babd5db5ce688ad8dc92f0b00e13555415bad78ed2e7e33941808fa12",
+  "sha256_rerun": "6aa4078babd5db5ce688ad8dc92f0b00e13555415bad78ed2e7e33941808fa12",
+  "deterministic": true,
+  "persons": 1997,
+  "expected": 1997,
+  "bad_chain": [],
+  "bad_chain_n": 0,
+  "home_outside_area": 0,
+  "work_outside_gmina": 0,
+  "outbound": {
+    "persons": 248,
+    "home_outside_gmina": 0,
+    "work_inside_gmina": 0,
+    "work_source": {
+      "exit": 168,
+      "osm": 80
+    },
+    "exit_links_used": {
+      "3890128470001f": 58,
+      "4918991020015f": 48,
+      "2473952100003f": 16,
+      "2902403630001r": 13,
+      "3751421790011r": 11,
+      "1931760520082f": 10,
+      "15488949440000r": 4,
+      "15488949470000r": 4,
+      "3107258420023f": 2,
+      "3796965080015r": 1,
+      "943199780001r": 1
+    },
+    "excluded_persons_100pct": 188
+  },
+  "jobs_in_kutno_100pct": 17486,
+  "jobs_total_override": 17486,
+  "variant": "reg",
+  "return_home_differs": 0,
+  "activities_on_excluded_link_types": 0,
+  "activity_links_missing": 0,
+  "start_equals_profile_time_ok": true,
+  "excluded_gminas_gt_max_border_km": {
+    "max_border_km": 100,
+    "gminas": 30,
+    "persons_100pct": 235,
+    "top": [
+      "3064011: 45 os., 152 km",
+      "0264011: 23 os., 190 km",
+      "1262011: 16 os., 289 km",
+      "2262011: 15 os., 236 km",
+      "1261011: 14 os., 229 km",
+      "2261011: 13 os., 218 km",
+      "3262011: 8 os., 327 km",
+      "2469011: 8 os., 211 km",
+      "0461011: 7 os., 111 km",
+      "3021072: 7 os., 160 km"
+    ]
+  },
+  "max_border_km_included": 98.7,
+  "by_kind": {
+    "resident": 1133,
+    "commuter": 616,
+    "outbound": 248
+  },
+  "home_source": {
+    "osm": 1842,
+    "entry": 150,
+    "random": 5
+  },
+  "random_point_homes_keys": [
+    "1061011",
+    "6509902"
+  ],
+  "distinct_work_buildings": 459,
+  "top5_work_buildings_share": 0.183,
+  "entry_links_used": {
+    "1885522040087f": 27,
+    "3107258420023r": 27,
+    "2902403630001f": 26,
+    "2473952100003r": 22,
+    "3751421790011f": 13,
+    "3890128470001r": 12,
+    "15488949440000f": 7,
+    "3796965080015f": 6,
+    "15488949430000f": 5,
+    "2445763210015f": 3,
+    "943199780001f": 2
+  },
+  "home_work_crowfly_km_median": {
+    "commuter": 13.1,
+    "outbound": 18.0,
+    "resident": 3.6
+  },
+  "times": {
+    "departure_profile": "config/departure_home_work_gbr2022.csv",
+    "work_max_dur": "08:00:00",
+    "departure_by_hour": {
+      "0": 3,
+      "1": 2,
+      "2": 4,
+      "3": 3,
+      "4": 8,
+      "5": 183,
+      "6": 534,
+      "7": 649,
+      "8": 298,
+      "9": 132,
+      "10": 47,
+      "11": 14,
+      "12": 40,
+      "13": 46,
+      "14": 5,
+      "15": 6,
+      "16": 3,
+      "17": 8,
+      "18": 2,
+      "19": 2,
+      "21": 1,
+      "22": 2,
+      "23": 5
+    }
+  },
+  "ok": true
+}

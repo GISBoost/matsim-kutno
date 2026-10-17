@@ -1,6 +1,7 @@
 """F4: walidacja plans.xml.gz + mapa kontrolna.
 
-Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> [sample [out_dir]]   (out_dir: gdzie zapisać raport, domyślnie folder fazy)
+Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> [sample [out_dir [klucz=wartość ...]]]
+  (out_dir: gdzie zapisać raport, domyślnie folder fazy; klucz=wartość jak w plans.py, np. jobs_total=17486)
 Test (TASKS F4): każda osoba ma dokładnie home-car-work-car-home; współrzędne w obszarze sieci; praca w gminie Kutno;
 liczba osób = round(sample x (pracujący w Kutnie + przyjeżdżający)); ten sam sha256 po ponownym uruchomieniu plans.py.
 Wyjście: reports/f4_plans/f4_plans.* (sample 0,1), reports/f6_run_100pct/f6_plans.* (1,0), inaczej reports/r3_ocena/wyniki_<N>pct/r3_<N>pct_plans.*. Kod 1, gdy test nie przechodzi.
@@ -28,7 +29,13 @@ path = Path(sys.argv[1])
 P = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))["plans"]
 if len(sys.argv) > 2:  # sample jak w plans.py
     P["sample"] = float(sys.argv[2])
+OVR = sys.argv[4:]
+for kv in OVR:
+    k, v = kv.split("=")
+    P[k] = type(P[k])(v)
 PHASE = {0.1: "f4", 1.0: "f6"}.get(P["sample"], f"r3_{round(P['sample'] * 100)}pct")
+if len(sys.argv) > 3:
+    PHASE = f"plans_{round(P['sample'] * 100)}pct"
 OUT = sys.argv[3] if len(sys.argv) > 3 else {"f4": "reports/f4_plans", "f6": "reports/f6_run_100pct"}.get(PHASE, f"reports/r3_ocena/wyniki_{PHASE[3:]}")
 f3 = json.load(open("reports/f3_demand/f3_demand.json", encoding="utf-8"))
 area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[0]
@@ -52,13 +59,19 @@ with gzip.open(path, "rb") as f:
         el.clear()
 
 df = pd.DataFrame(persons)
+df["outbound"] = df.id.str.startswith("o")  # D17/O1: id wyjeżdżających = o<gmina pracy>_<k>
 strata = pd.read_csv(path.with_name(path.name.removesuffix(".xml.gz") + "_strata.csv"), dtype={"key": str})
-assert abs(strata.n.sum() - f3["agents_100pct"][P["variant"]]) < 1, "strata != F3"
-excluded = strata[strata.excluded]  # D16/B
-expected = round(P["sample"] * (f3["agents_100pct"][P["variant"]] - excluded.n.sum()))
+outb_total = strata.n[strata.kind == "outbound"].sum()  # D17/O1
+assert abs(strata.n.sum() - f3["agents_100pct"][P["variant"]] - outb_total) < 1, "strata != F3"
+assert outb_total == f3["outgoing_employees"]
+excluded = strata[strata.excluded]  # D16/B, D17/O1
+excl_out = excluded.n[excluded.kind == "outbound"].sum()
+jobs_100 = P["jobs_total"] or f3["agents_100pct"][P["variant"]] - (excluded.n.sum() - excl_out)  # D17/C
+assert abs(strata.n_model[strata.kind != "outbound"].sum() - jobs_100) < 1
+expected = round(P["sample"] * (jobs_100 + outb_total - excl_out))
 sha = hashlib.sha256(path.read_bytes()).hexdigest()
 with tempfile.TemporaryDirectory() as d:
-    subprocess.run([sys.executable, "-W", "ignore", "pipeline/plans.py", str(Path(d) / "plans.xml.gz"), str(P["sample"])], check=True,
+    subprocess.run([sys.executable, "-W", "ignore", "pipeline/plans.py", str(Path(d) / "plans.xml.gz"), str(P["sample"]), *OVR], check=True,
                    capture_output=True)
     sha2 = hashlib.sha256((Path(d) / "plans.xml.gz").read_bytes()).hexdigest()
 
@@ -71,7 +84,7 @@ with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
         el.clear()
 own = meta.home_src != "entry"
 bad_snap = int(meta[own].home_link.map(link_type).isin(P["snap_exclude_types"]).sum()
-               + meta.work_link.map(link_type).isin(P["snap_exclude_types"]).sum())
+               + meta[meta.work_src != "exit"].work_link.map(link_type).isin(P["snap_exclude_types"]).sum())
 missing_link = int((~meta.home_link.isin(link_type.keys())).sum() + (~meta.work_link.isin(link_type.keys())).sum())
 start_ok = bool((meta.start_s == meta.dep_s).all())  # D16/A
 meta["dist_km"] = ((meta.home_x - meta.work_x) ** 2 + (meta.home_y - meta.work_y) ** 2) ** .5 / 1000
@@ -79,7 +92,13 @@ report = {
     "plans": str(path), "sha256": sha, "sha256_rerun": sha2, "deterministic": sha == sha2,
     "persons": len(df) + len(bad_chain), "expected": expected, "bad_chain": bad_chain[:10], "bad_chain_n": len(bad_chain),
     "home_outside_area": int((~df.h.apply(area.contains)).sum()),
-    "work_outside_gmina": int((~df.w.apply(gmina.contains)).sum()),
+    "work_outside_gmina": int((~df[~df.outbound].w.apply(gmina.contains)).sum()),
+    "outbound": {"persons": int(df.outbound.sum()), "home_outside_gmina": int((~df[df.outbound].h.apply(gmina.contains)).sum()),
+                 "work_inside_gmina": int(df[df.outbound].w.apply(gmina.contains).sum()),
+                 "work_source": meta[meta.kind == "outbound"].work_src.str.split("_").str[0].value_counts().to_dict(),
+                 "exit_links_used": meta[meta.work_src == "exit"].groupby("work_link").size().sort_values(ascending=False).to_dict(),
+                 "excluded_persons_100pct": round(float(excl_out))},
+    "jobs_in_kutno_100pct": round(float(jobs_100)), "jobs_total_override": P["jobs_total"], "variant": P["variant"],
     "return_home_differs": int((~df.same_home).sum()),
     "activities_on_excluded_link_types": bad_snap, "activity_links_missing": missing_link,
     "start_equals_profile_time_ok": start_ok,
@@ -100,6 +119,7 @@ report = {
 }
 report["ok"] = (report["deterministic"] and not bad_chain and report["persons"] == expected
                 and report["home_outside_area"] == 0 and report["work_outside_gmina"] == 0 and report["return_home_differs"] == 0
+                and report["outbound"]["home_outside_gmina"] == 0 and report["outbound"]["work_inside_gmina"] == 0
                 and bad_snap == 0 and missing_link == 0 and start_ok)
 json.dump(report, open(f"{OUT}/{PHASE}_plans.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
@@ -109,6 +129,11 @@ ax = fig.add_axes([0.01, 0.05, 0.47, 0.86])
 gpd.GeoSeries([area]).boundary.plot(ax=ax, color="0.6", lw=1, ls="--")
 gpd.GeoSeries([powiat]).boundary.plot(ax=ax, color="0.7", lw=1.2)
 gpd.GeoSeries([gmina]).plot(ax=ax, color="#3b2f1e", edgecolor="#c47f17", lw=1)
+o = meta[(meta.kind == "outbound") & (meta.work_src != "exit")]
+ax.scatter(o.work_x, o.work_y, s=3, color="#3ddc97", alpha=0.6, label=f"praca wyjeżdżającego w powiecie ({len(o)})")
+x = meta[meta.work_src == "exit"].groupby(["work_x", "work_y"]).size().reset_index(name="n")
+ax.scatter(x.work_x, x.work_y, s=x.n * 4, color="#3ddc97", marker="s", edgecolor="w", lw=0.5, zorder=5,
+           label=f"wyjazd poza powiat ({int(x.n.sum())} os., {len(x)} punktów)")
 for kind, col in (("resident", "#2e86ab"), ("commuter", "#7b2cbf")):
     m = meta[(meta.kind == kind) & (meta.home_src != "entry")]
     ax.scatter(m.home_x, m.home_y, s=3, color=col, alpha=0.5, label=f"dom: {'mieszkaniec' if kind == 'resident' else 'przyjeżdżający z powiatu'} ({len(m)})")
@@ -122,14 +147,14 @@ ax.set_title("domy agentów i punkty wjazdu", fontsize=10)
 
 ax2 = fig.add_axes([0.5, 0.3, 0.3, 0.62])
 gpd.GeoSeries([gmina]).plot(ax=ax2, color="#3b2f1e", edgecolor="#c47f17", lw=1)
-wc = meta.groupby(["work_x", "work_y"]).size().reset_index(name="n")
+wc = meta[meta.kind != "outbound"].groupby(["work_x", "work_y"]).size().reset_index(name="n")
 ax2.scatter(wc.work_x, wc.work_y, s=wc.n * 2, color="#f18f01", alpha=0.6, edgecolor="w", lw=0.2)
 ax2.set_aspect("equal"); ax2.set_axis_off()
 ax2.set_title(f"miejsca pracy w Kutnie: {report['distinct_work_buildings']} budynków\n"
               f"(wielkość = liczba agentów; top 5 budynków = {report['top5_work_buildings_share']:.0%})", fontsize=10)
 
 ax3 = fig.add_axes([0.84, 0.62, 0.14, 0.28])
-for kind, col in (("resident", "#2e86ab"), ("commuter", "#7b2cbf")):
+for kind, col in (("resident", "#2e86ab"), ("commuter", "#7b2cbf"), ("outbound", "#3ddc97")):
     ax3.hist(meta[meta.kind == kind].dist_km, bins=range(0, 41), color=col, alpha=0.6, label=kind)
 ax3.set_title("odl. dom-praca w linii prostej [km]", fontsize=9); ax3.legend(fontsize=7); ax3.tick_params(labelsize=7)
 ax5 = fig.add_axes([0.84, 0.32, 0.14, 0.22])
@@ -148,7 +173,7 @@ ax4.text(0, 1, "\n".join([
     f"wyjazd: GBR 2022 Rys. 46",
 f"praca: {P['work_max_dur']} (ZAŁOŻENIE)",
 ]), va="top", fontsize=8, family="monospace")
-fig.suptitle(f"{PHASE.upper()} plans {P['sample']:.0%} ({P['variant']}) | {'ZALICZONA' if report['ok'] else 'NIE ZALICZONA'}", fontsize=12)
+fig.suptitle(f"{PHASE.upper()} plans {P['sample']:.0%} ({P['variant']}, miejsca pracy {jobs_100:.0f}) | {'ZALICZONA' if report['ok'] else 'NIE ZALICZONA'}", fontsize=12)
 fig.savefig(f"{OUT}/{PHASE}_plans.png", dpi=120)
 print(json.dumps(report, indent=1, ensure_ascii=False))
 sys.exit(0 if report["ok"] else 1)
