@@ -15,6 +15,7 @@ from lxml import etree
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+plt.style.use("dark_background")  # mapy w ciemnym motywie (prośba użytkownika)
 
 out_dir, meta_csv, prefix, sel = Path(sys.argv[1]), sys.argv[2], sys.argv[3], set(sys.argv[4:])
 z = lambda p: zstandard.ZstdDecompressor().stream_reader(open(p, "rb"))
@@ -63,10 +64,10 @@ vmax = max(vol.values())
 for lid, (a, b) in links.items():
     (x1, y1), (x2, y2) = nodes[a], nodes[b]
     v = vol.get(lid, 0)
-    ax.plot([x1, x2], [y1, y2], color="#d1495b" if v else "0.88", lw=0.3 + 5 * v / vmax, zorder=2 if v else 1)
+    ax.plot([x1, x2], [y1, y2], color="#d1495b" if v else "0.3", lw=0.3 + 5 * v / vmax, zorder=2 if v else 1)
 for lid in sel:
     (x1, y1), (x2, y2) = nodes[links[lid][0]], nodes[links[lid][1]]
-    ax.plot([x1, x2], [y1, y2], color="k", lw=4, zorder=3)
+    ax.plot([x1, x2], [y1, y2], color="#00e5ff", lw=4, zorder=3)
 ax.set_aspect("equal"); ax.ticklabel_format(useOffset=False, style="plain"); ax.tick_params(labelsize=7)
 ax.set_title(f"select-link: {len(hits)} nóg przez {len(sel)} wybrane linki (czarne); grubość = ile z nich jedzie linkiem",
              fontsize=9)

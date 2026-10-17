@@ -61,5 +61,12 @@
   - wąskie gardło DK92 Sklęczkowska (zwężenie do 1 pasa) z kolejką cofającą się na odcinek 6 000 poj./h;
   - select-link: 38% agentów jedzie tym odcinkiem.
   - `reports/r3_25pct_*`, `r3_compare.*`.
-- **Nie zrobione:** seedy 1 i 2 (przerwane), porównanie seedów i `convergence.py` na runach 25%, raport R3.
+- **Uzupełnione 2026-10-17:** seedy 1 i 2, zbieżność i porównanie seedów, raport `reports/r3_25pct.md`.
 - Lekcje z błędów tej sesji: `ERRORS.md` i reguły 7–11 w Workflow `CLAUDE.md`.
+
+## 2026-10-17: R3, wyniki z 25% (3 seedy, 100 iteracji)
+
+- Seedy 1 i 2 liczone równolegle (po 4 wątki, 13 min). Liczba wątków QSim nie skraca runu. Wyniki przy 4 i 8 wątkach są identyczne, przy 1 wątku się różnią.
+- Wszystkie 3 seedy: 12 866 nóg car, 0 stuck (`reports/r3_25pct_s*_events.json`).
+- GEH < 5 w szczycie 7–8 (natężenia przeskalowane do 100%): 98,9–99,5% linków. Mediany czasów różnią się o ≤ 0,4 min, suma opóźnień o 11%.
+- Raport: `reports/r3_25pct.md`. Mapy są teraz w ciemnym motywie (prośba użytkownika).

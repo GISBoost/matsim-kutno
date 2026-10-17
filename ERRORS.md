@@ -25,3 +25,6 @@ Każdy wpis: co się stało → koszt → reguła na przyszłość. Najważniejs
 10. **`controller.outputDirectory` jest względny do katalogu roboczego,** więc pierwszy run F5 trafił do `C:\Users\Michal\output`. → Uruchamiaj z katalogu projektu, ścieżki `output/...`.
 11. **`cat > plik;` bez heredoca zawiesił polecenie** (czekał na stdin). Heredoc w bashu rozwinął `\n` wewnątrz kodu Pythona. → Pliki pisz narzędziem Write. W heredocach unikaj sekwencji `\n` w stringach.
 12. **Brak danych o `building=no` w regułach klasyfikacji OSM.** → **Każdy filtr „klucz istnieje” (`building`, `shop`) sprawdź pod kątem wartości negatywnych** (`no`, `disused`, `construction`).
+
+## 2026-10-17
+13. **GEH między seedami liczyłem na natężeniach próbki 25%,** co zaniża GEH o połowę (pierwszy wynik: max 5,1 zamiast 10,2). → `convergence.py` skaluje teraz × 1/sampleSize z `output_config.xml`. **Każdą miarę zależną od wartości bezwzględnych (GEH, poj.-h) liczyć lub opisywać w skali 100%.**

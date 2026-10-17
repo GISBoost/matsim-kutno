@@ -15,6 +15,7 @@ import zstandard
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+plt.style.use("dark_background")  # mapy w ciemnym motywie (prośba użytkownika)
 
 png, runs = sys.argv[1], dict(a.split("=", 1) for a in sys.argv[2:])
 hms = lambda s: sum(int(x) * m for x, m in zip(s.split(":"), (3600, 60, 1)))
@@ -44,7 +45,7 @@ for label, d in runs.items():
 json.dump(stats, open(png.removesuffix(".png") + ".json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
 fig, axs = plt.subplots(1, 3, figsize=(16, 5))
-cols = ["#2e86ab", "#d1495b"]
+cols = ["#2e86ab", "#d1495b", "#f6c85f", "#6fcf97"]
 for (label, dd), c in zip(data.items(), cols):
     for k, ls in (("r", "-"), ("c", "--")):
         xs = sorted(dd["tt"][k])

@@ -3,6 +3,7 @@
 Użycie: uv run python pipeline/convergence.py <out_prefix> <output_dir> [<output_dir> ...]
   - dla każdego runu: zmiana natężeń top-50 linków między kolejnymi linkstats (co 10 it.), dobowo i w godz. 7-8;
     godziny w aucie (ph_modestats.csv) per iteracja;
+  - natężenia przeskalowane do 100% (1/sampleSize z output_config.xml);
   - dla >= 2 runów (różne seedy): GEH natężeń 7-8 i dobowych z ostatniej iteracji, udział linków z GEH < 5.
 Wyjście: <out_prefix>.json, <out_prefix>.png.
 """
@@ -10,6 +11,7 @@ import csv
 import io
 import json
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -18,17 +20,22 @@ import zstandard
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+plt.style.use("dark_background")  # mapy w ciemnym motywie (prośba użytkownika)
 
 TOP_N, PEAK = 50, "HRS7-8avg"
 prefix, dirs = sys.argv[1], [Path(d) for d in sys.argv[2:]]
 
 
+def sample_size(d):  # linkstats są w pojazdach próbki; GEH liczy się na wartościach pełnej populacji
+    return float(re.search(r'name="sampleSize" value="([^"]+)"', (d / "output_config.xml").read_text(encoding="utf-8")).group(1))
+
+
 def linkstats(d):
-    out = {}
+    out, k = {}, 1 / sample_size(d)
     for f in (d / "ITERS").glob("it.*/*.linkstats.txt.zst"):
         rows = csv.DictReader(io.TextIOWrapper(zstandard.ZstdDecompressor().stream_reader(open(f, "rb")), encoding="utf-8"),
                               delimiter="\t")
-        out[int(f.name.split(".")[0])] = {r["LINK"]: (float(r["HRS0-24avg"]), float(r[PEAK])) for r in rows}
+        out[int(f.name.split(".")[0])] = {r["LINK"]: (k * float(r["HRS0-24avg"]), k * float(r[PEAK])) for r in rows}
     return dict(sorted(out.items()))
 
 
@@ -62,7 +69,7 @@ if len(dirs) > 1:
     names = list(ls_all)
     finals = {n: ls_all[n][max(ls_all[n])] for n in names}
     ref = finals[names[0]]
-    used = [l for l in ref if ref[l][0] >= 100]  # linki z min. 100 poj./dobę w pierwszym runie
+    used = [l for l in ref if ref[l][0] >= 100]  # linki z min. 100 poj./dobę (100%) w pierwszym runie
     pairs = {}
     for i in range(len(names)):
         for j in range(i + 1, len(names)):
@@ -78,7 +85,7 @@ if len(dirs) > 1:
 
 axs[0].set_title(f"zmiana natężeń top-{TOP_N} linków vs poprzednie linkstats [%]", fontsize=9); axs[0].legend(fontsize=6)
 axs[1].set_title("godziny w aucie (ph_modestats) wg iteracji", fontsize=9); axs[1].legend(fontsize=6)
-axs[2].set_title("GEH natężeń 7-8 między seedami (linki >= 100 poj./d)", fontsize=9); axs[2].axvline(5, color="k", ls=":")
+axs[2].set_title("GEH natężeń 7-8 między seedami (linki >= 100 poj./d)", fontsize=9); axs[2].axvline(5, color="w", ls=":")
 if len(dirs) > 1:
     axs[2].legend(fontsize=6)
 fig.tight_layout(); fig.savefig(prefix + ".png", dpi=120)

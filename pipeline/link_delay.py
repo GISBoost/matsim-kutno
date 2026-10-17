@@ -14,6 +14,7 @@ from lxml import etree
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+plt.style.use("dark_background")  # mapy w ciemnym motywie (prośba użytkownika)
 
 out_dir, prefix = Path(sys.argv[1]), sys.argv[2]
 z = lambda p: zstandard.ZstdDecompressor().stream_reader(open(p, "rb"))
@@ -57,26 +58,26 @@ for lk, l in L.items():
     (x1, y1), (x2, y2) = nodes[l["a"]], nodes[l["b"]]
     avg = delay[lk] / n[lk] if n[lk] else 0
     if not n[lk]:  # nikt nie przejechał
-        style = dict(color="0.88", lw=0.4, zorder=1)
+        style = dict(color="0.3", lw=0.4, zorder=1)
     elif avg <= 10:  # ruch bez opóźnienia (≤ 10 s)
-        style = dict(color="#7fb3d5", lw=0.8, zorder=2)
+        style = dict(color="#2f5f7a", lw=0.8, zorder=2)
     else:
-        style = dict(color=plt.cm.inferno_r(min(avg / 300, 1)), lw=0.8 + 3 * min(avg / 300, 1), zorder=3)
+        style = dict(color=plt.cm.autumn_r(min(avg / 300, 1)), lw=0.8 + 3 * min(avg / 300, 1), zorder=3)
     ax.plot([x1, x2], [y1, y2], **style)
-ax.plot([], [], color="0.88", label=f"bez ruchu ({sum(1 for lk in L if not n[lk])} linków)")
-ax.plot([], [], color="#7fb3d5", label=f"ruch, opóźnienie ≤ 10 s ({sum(1 for lk in L if n[lk] and delay[lk] / n[lk] <= 10)})")
+ax.plot([], [], color="0.3", label=f"bez ruchu ({sum(1 for lk in L if not n[lk])} linków)")
+ax.plot([], [], color="#2f5f7a", label=f"ruch, opóźnienie ≤ 10 s ({sum(1 for lk in L if n[lk] and delay[lk] / n[lk] <= 10)})")
 ax.plot([], [], color="#c0392b", lw=2, label=f"opóźnienie > 10 s ({sum(1 for lk in L if n[lk] and delay[lk] / n[lk] > 10)})")
 ax.legend(loc="lower right", fontsize=8)
 for i, r in enumerate(report["top_links"][:5]):
-    ax.annotate(str(i + 1), r["coord_EN"], fontsize=9, color="#0b3c5d", weight="bold", xytext=(4, 4), textcoords="offset points")
+    ax.annotate(str(i + 1), r["coord_EN"], fontsize=9, color="#7fd3ff", weight="bold", xytext=(4, 4), textcoords="offset points")
 ax.text(0.01, 0.99, "\n".join(f"{i + 1}: {r['type']}, śr. {r['avg_delay_s']} s, {r['vehicles']} poj."
                                for i, r in enumerate(report["top_links"][:5])),
-        transform=ax.transAxes, va="top", fontsize=8, family="monospace", bbox=dict(fc="white", ec="0.7"))
+        transform=ax.transAxes, va="top", fontsize=8, family="monospace", bbox=dict(fc="0.12", ec="0.5"))
 hot = [nodes[L[lk]["b"]] for lk, d in delay.items() if d / n[lk] > 30]
 if hot:  # przybliżenie na obszar z opóźnieniami (+3 km)
     xs, ys = zip(*hot)
     ax.set_xlim(min(xs) - 3000, max(xs) + 3000); ax.set_ylim(min(ys) - 3000, max(ys) + 3000)
-sm = plt.cm.ScalarMappable(cmap="inferno_r", norm=plt.Normalize(0, 300))
+sm = plt.cm.ScalarMappable(cmap="autumn_r", norm=plt.Normalize(0, 300))
 fig.colorbar(sm, ax=ax, shrink=0.6, label="średnie opóźnienie na linku [s] (skala ucięta na 300)")
 ax.set_aspect("equal"); ax.ticklabel_format(useOffset=False, style="plain"); ax.tick_params(labelsize=7)
 ax.set_title(f"opóźnienie względem czasu swobodnego: razem {report['total_delay_veh_h']} poj.-h", fontsize=10)

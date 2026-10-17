@@ -15,6 +15,7 @@ from lxml import etree
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+plt.style.use("dark_background")  # mapy w ciemnym motywie (prośba użytkownika)
 
 
 def zopen(p):
@@ -56,7 +57,7 @@ vmax = max(volume.values(), default=1)
 for lid, (a, b) in links.items():
     v = volume.get(lid, 0)
     (x1, y1), (x2, y2) = nodes[a], nodes[b]
-    ax.plot([x1, x2], [y1, y2], color="#d1495b" if v else "0.85", lw=0.3 + 5 * v / vmax, zorder=3 if v else 1)
+    ax.plot([x1, x2], [y1, y2], color="#d1495b" if v else "0.3", lw=0.3 + 5 * v / vmax, zorder=3 if v else 1)
 # kropki pod linkami z ruchem, żeby ich nie zasłaniały
 for typ, col, lab in (("home", "#2e86ab", "dom = start 1. i koniec 2. podróży"), ("work", "#f18f01", "praca")):
     pts = {(float(r["coord_x"]), float(r["coord_y"])) for r in acts if r["activity_type"] == typ}
