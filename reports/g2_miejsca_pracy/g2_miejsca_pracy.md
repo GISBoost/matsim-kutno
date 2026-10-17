@@ -48,3 +48,21 @@ Data: 2026-10-17. Decyzja D17 (`DECISIONS.md`), warianty opisane w `docs/researc
 - `B/`, `C/`: plany (`plans_10pct_plans.*`), eventy (`events_s*.json`), opóźnienia (`delay_s*.{json,png}`), zbieżność i GEH między seedami (`convergence.*`), logi runów.
 - `porownanie_A_B_C_s4711.{png,json}`: dystrybuanty czasów (także wyjeżdżających), prędkość wg godziny, score.
 - Odtworzenie: `uv run python -W ignore pipeline/plans.py scenarios/kutno/plans_g2b_10pct.xml.gz 0.1` (C: dopisać `jobs_total=17486`), potem `TAG=g2b PLANS=plans_g2b_10pct.xml.gz THREADS=2 XMX=1500m LOGDIR=reports/g2_miejsca_pracy/B bash output/r3_runs.sh 10pct 4711 1 2`.
+
+## Wariant B na 25%: nowe wyniki referencyjne (`B_25pct/`)
+
+Od teraz to są wyniki referencyjne w miejsce `reports/d16_przyjezdzajacy/`. Domyślne `scenarios/kutno/plans_25pct.xml.gz` wygenerowane z D17/B: 6 302 osoby (3 647 mieszkańców, 2 041 przyjeżdżających, 614 wyjeżdżających). Walidacja ok, sha256 powtarzalny. Najpóźniejszy start to 23:52. Top-10 miejsc pracy to te same hale co w D16. Runy: 3 seedy równolegle po 4 wątki, 13 min.
+
+| | D16 (25%, A) | **D17/B (25%)** |
+|---|---|---|
+| nogi car, stuck | 12 842, 0 | 12 604, 0 (wszystkie 3 seedy) |
+| opóźnienie razem, 3 seedy [poj.-h próbki] | 1 076–1 091 | **754–777** (−30%) |
+| opóźnienie 7–8 / 16–17 [poj.-h, s4711] | 245 / 239 | 184 / 177 |
+| mediana czasu: mieszkańcy / przyjeżdżający / wyjeżdżający [min] (s4711) | 15,2 / 24,3 / – | 15,0 / 23,4 / 24,0 |
+| p90 mieszkańcy [min] | 34,1 | 28,9 |
+| mediana prędkości car, wyjazd 7:00 / 16:00 [km/h] | 31,5 / 29,5 | 34,4 / 33,5 |
+| GEH < 5 w szczycie 7–8 między seedami | 97,8–99,6% | 99,4–99,9% |
+
+- Dwa najbardziej obciążone linki są te same co w D16 (primary `5452223090000r` i `410250640002r`), ale z mniejszym opóźnieniem: 61 i 57 poj.-h zamiast 107 i 79. Mapa: `B_25pct/delay_s4711.png`.
+- Na 10% B dało ok. −28% opóźnień wobec starych runów 10%, na 25% wychodzi −30% wobec D16. Kierunek i skala efektu są zgodne między próbkami.
+- Pliki: `B_25pct/plans_25pct_plans.*`, `events_s*.json`, `delay_s*.*`, `convergence.*`, `d16_vs_B_25pct.{png,json}`, logi runów.

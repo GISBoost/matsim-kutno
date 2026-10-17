@@ -85,3 +85,4 @@
 - Odcięte > 100 km: 30 gmin, 235 os. w 100% (47 przyjeżdżających, 188 wyjeżdżających). Warszawa (457) zostaje, wyjazd na A1.
 - Plany 10%: B 2 521 os. (1 465 mieszk., 808 przyjeżdż., 248 wyjeżdż.), C 1 997 os. (1 133 / 616 / 248). Walidacja ok, sha256 powtarzalny (`reports/g2_miejsca_pracy/{B,C}/plans_10pct_plans.json`). Pierwsza wersja nie przeszła walidacji (ERRORS 14).
 - Runy 10% × 3 seedy dla B i C (6 równolegle, po 2 wątki, 11 min): nogi car zgodne z planami (5 042 / 3 994), 0 stuck. Opóźnienia [poj.-h próbki]: B 370–405, C 146–166, wobec 540–567 w starych runach 10% (A). GEH < 5 w szczycie między seedami: B 93–95%, C 96%. Raport: `reports/g2_miejsca_pracy/g2_miejsca_pracy.md`.
+- B na 25% × 3 seedy (nowe wyniki referencyjne, domyślne `plans_25pct.xml.gz` z D17/B): 6 302 osoby, 12 604 nóg car, 0 stuck. Opóźnienia 754–777 poj.-h próbki (D16: 1 076–1 091, −30%), GEH < 5 w szczycie między seedami 99,4–99,9%. `reports/g2_miejsca_pracy/B_25pct/`.

@@ -1,0 +1,212 @@
+{
+  "total_delay_veh_h": 777.0,
+  "delay_veh_h_by_hour": {
+    "0": 0.1,
+    "1": 0.1,
+    "2": 0.1,
+    "3": 0.1,
+    "4": 0.2,
+    "5": 6.7,
+    "6": 53.3,
+    "7": 215.7,
+    "8": 167.2,
+    "9": 17.1,
+    "10": 1.8,
+    "11": 0.5,
+    "12": 1.0,
+    "13": 5.2,
+    "14": 24.2,
+    "15": 53.4,
+    "16": 149.4,
+    "17": 74.2,
+    "18": 2.8,
+    "19": 0.7,
+    "20": 0.7,
+    "21": 1.0,
+    "22": 0.6,
+    "23": 0.2,
+    "25": 0.1
+  },
+  "top_links": [
+    {
+      "link": "5452223090000r",
+      "type": "primary",
+      "capacity": 6000.0,
+      "vehicles": 1629,
+      "delay_veh_h": 88.5,
+      "avg_delay_s": 196,
+      "coord_EN": [
+        526007,
+        483269
+      ]
+    },
+    {
+      "link": "2446692260002r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1629,
+      "delay_veh_h": 29.3,
+      "avg_delay_s": 65,
+      "coord_EN": [
+        526126,
+        483350
+      ]
+    },
+    {
+      "link": "410250640002r",
+      "type": "primary",
+      "capacity": 1500.0,
+      "vehicles": 1412,
+      "delay_veh_h": 27.7,
+      "avg_delay_s": 71,
+      "coord_EN": [
+        526942,
+        483905
+      ]
+    },
+    {
+      "link": "2446231250007f",
+      "type": "primary",
+      "capacity": 4500.0,
+      "vehicles": 1547,
+      "delay_veh_h": 27.3,
+      "avg_delay_s": 64,
+      "coord_EN": [
+        525983,
+        483253
+      ]
+    },
+    {
+      "link": "2131914840011r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 520,
+      "delay_veh_h": 26.8,
+      "avg_delay_s": 186,
+      "coord_EN": [
+        527318,
+        482287
+      ]
+    },
+    {
+      "link": "1736639920004r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 561,
+      "delay_veh_h": 22.3,
+      "avg_delay_s": 143,
+      "coord_EN": [
+        525934,
+        483373
+      ]
+    },
+    {
+      "link": "14641980450008r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 681,
+      "delay_veh_h": 20.6,
+      "avg_delay_s": 109,
+      "coord_EN": [
+        530873,
+        485309
+      ]
+    },
+    {
+      "link": "5899320000001r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1533,
+      "delay_veh_h": 19.2,
+      "avg_delay_s": 45,
+      "coord_EN": [
+        526736,
+        483765
+      ]
+    },
+    {
+      "link": "2347118000007r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 521,
+      "delay_veh_h": 19.1,
+      "avg_delay_s": 132,
+      "coord_EN": [
+        527738,
+        482407
+      ]
+    },
+    {
+      "link": "8181625600000r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1381,
+      "delay_veh_h": 18.2,
+      "avg_delay_s": 47,
+      "coord_EN": [
+        525991,
+        483258
+      ]
+    },
+    {
+      "link": "1736639920004f",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 660,
+      "delay_veh_h": 17.6,
+      "avg_delay_s": 96,
+      "coord_EN": [
+        525885,
+        483340
+      ]
+    },
+    {
+      "link": "2131623890016r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 714,
+      "delay_veh_h": 15.5,
+      "avg_delay_s": 78,
+      "coord_EN": [
+        529018,
+        485563
+      ]
+    },
+    {
+      "link": "2568527430000r",
+      "type": "primary",
+      "capacity": 1500.0,
+      "vehicles": 1568,
+      "delay_veh_h": 14.8,
+      "avg_delay_s": 34,
+      "coord_EN": [
+        526607,
+        483677
+      ]
+    },
+    {
+      "link": "383845230002r",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 676,
+      "delay_veh_h": 14.7,
+      "avg_delay_s": 78,
+      "coord_EN": [
+        526829,
+        483828
+      ]
+    },
+    {
+      "link": "2446692080002r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1416,
+      "delay_veh_h": 14.1,
+      "avg_delay_s": 36,
+      "coord_EN": [
+        526829,
+        483828
+      ]
+    }
+  ]
+}
