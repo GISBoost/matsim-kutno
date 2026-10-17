@@ -73,3 +73,10 @@ Pełne raporty: `docs/research/G2_miejsca_pracy.md`, `G3_domy.md`, `G4_tryby.md`
 | OSM rower (G4) | POLICZONE | W gm. Kutno ok. 23 km dedykowanej infrastruktury rowerowej (cycleway i path z `bicycle=designated`), 165 km chodników. | — | G4 |
 | MATSim 2026 w naszym jarze (G4, `unzip -l`) | SPRAWDZONE | Są: `SubtourModeChoice`, `ChangeSingleTripMode`, `transit-from-gtfs` (contrib application), SwissRailRaptor, contrib bicycle. **Nie ma pt2matsim.** | Opisy opcji pochodzą z WebFetch, więc trzeba je potwierdzić przez `--help` i test 2 iteracji. | G4 |
 | Prototyp Blendera (G6) | DZIAŁA | `pipeline/g6_bake.py` przetwarza 06–09 w 12 s (4 822 przejazdy, max 755 pojazdów jednocześnie). `blender/g6_load.py` w Blenderze 4.4: ok. 1 s na klatkę 1280×720, animacja 10 s w 57 s. Test na 3 pojazdach przechodzi. | Pojazdy to sześciany powiększone ×8, bez pasów i bez podkładu. | G6 |
+
+## 6. Konfiguracje referencyjne MATSim (2026-10-17)
+
+| źródło | status | co daje | ograniczenia | gdzie |
+|---|---|---|---|---|
+| matsim-berlin v6.3 config (`raw.githubusercontent.com/matsim-scenarios/matsim-berlin/6.x/input/v6.3/berlin-v6.3.config.xml`) | SPRAWDZONE (curl) | qsim: `stuckTime` 30, `trafficDynamics` kinematicWaves, `flowCapacityFactor` 0,1 | Inna skala (metropolia). Nie pobrane do `data/raw`. | D18 |
+| matsim-kelheim v3.1 config (`raw.githubusercontent.com/matsim-scenarios/matsim-kelheim/master/input/v3.1/kelheim-v3.1-config.xml`) | SPRAWDZONE (curl) | qsim: `stuckTime` 30, kinematicWaves, próbka 25% (małe miasto, najbliższy analog Kutna) | Nie pobrane do `data/raw`. | D18 |

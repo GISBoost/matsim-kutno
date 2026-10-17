@@ -12,7 +12,8 @@ Każdy folder to jedna faza. Raport główny to plik `.md` w folderze. Obok leż
 | `f5_run_10pct/` | pierwszy run 10%, 20 it. (przed naprawami R3) | `f5_run.md` |
 | `f6_run_100pct/` | run 100%, 20 it. (przed naprawami R3) | `f6_run.md` |
 | `r3_ocena/` | ocena modelu i naprawy, runy 100 it. | niżej |
-| `g2_miejsca_pracy/` | **wyniki referencyjne (25%, 3 seedy) w `B_25pct/`** po D17; porównanie B (22 725, baza) i C (17 486) na 10%, wyjeżdżający O1 | `g2_miejsca_pracy.md` |
+| `g6_kolejki/` | **wyniki referencyjne (25%, 3 seedy) w `d18_25pct/`**: diagnoza kolejek z G6, test stuckTime/kinematicWaves, poprawka D18 | `g6_kolejki.md` |
+| `g2_miejsca_pracy/` | wyniki 25% po D17 w `B_25pct/` (przed D18); porównanie B (22 725, baza) i C (17 486) na 10%, wyjeżdżający O1 | `g2_miejsca_pracy.md` |
 | `d16_przyjezdzajacy/` | wyniki 25%, 3 seedy po D16 (przed D17): wjazd o godzinie z profilu, odcięcie gmin > 100 km | `d16_przyjezdzajacy.md` |
 
 Folder `r3_ocena/`:

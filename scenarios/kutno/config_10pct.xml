@@ -36,6 +36,10 @@
 		<!-- R3/E3 sprawdzone: MATSim 2026 odrzuca storage != flow ("no longer needed since the qsim became a lot more
 		     deterministic", reports/r3_ocena/testy/r3_test.log). Rada z FAQ (flow^0.75) jest nieaktualna dla tej wersji. -->
 		<param name="storageCapacityFactor" value="0.1" />
+		<!-- D18: stuckTime 30 s jak w scenariuszach VSP (matsim-berlin v6.3, matsim-kelheim v3.1, 25%). Domyślne 10 s przy
+		     removeStuckVehicles=false wpychało pojazdy na pełne krótkie linki (82 pojazdy na linku o pojemności 1,2; reports/g6_kolejki/).
+		     Test na tych samych trasach: suma opóźnień +3%, przepełnione linki 13 -> 6, 0 stuck. trafficDynamics zostaje queue (kinematicWaves: +56% opóźnień, decyzja w G5). -->
+		<param name="stuckTime" value="30.0" />
 		<!-- wyjazdy do 23:59 (GBR Rys. 46) + 8 h pracy + powrót; od D16 start z wjazdu bez doliczania dojazdu, 48 h to zapas.
 		     36:00 przerwało agenta z Krakowa (reports/r3_ocena/run_100pct_przerwany/r3_100pct_s4711_events.json, stuckAndAbort). -->
 		<param name="endTime" value="48:00:00" />

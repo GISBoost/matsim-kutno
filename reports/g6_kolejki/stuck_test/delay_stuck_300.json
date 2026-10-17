@@ -1,0 +1,212 @@
+{
+  "total_delay_veh_h": 806.4,
+  "delay_veh_h_by_hour": {
+    "0": 0.1,
+    "1": 0.1,
+    "2": 0.1,
+    "3": 0.1,
+    "4": 0.2,
+    "5": 6.4,
+    "6": 44.3,
+    "7": 190.4,
+    "8": 134.6,
+    "9": 11.2,
+    "10": 1.8,
+    "11": 0.5,
+    "12": 1.0,
+    "13": 5.1,
+    "14": 27.5,
+    "15": 73.6,
+    "16": 208.3,
+    "17": 94.0,
+    "18": 3.0,
+    "19": 0.7,
+    "20": 0.7,
+    "21": 1.0,
+    "22": 0.6,
+    "23": 0.2,
+    "25": 0.1
+  },
+  "top_links": [
+    {
+      "link": "2456705530013r",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 481,
+      "delay_veh_h": 49.3,
+      "avg_delay_s": 369,
+      "coord_EN": [
+        526875,
+        483764
+      ]
+    },
+    {
+      "link": "2446692260002r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1582,
+      "delay_veh_h": 21.7,
+      "avg_delay_s": 49,
+      "coord_EN": [
+        526126,
+        483350
+      ]
+    },
+    {
+      "link": "2069860800009r",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 257,
+      "delay_veh_h": 19.9,
+      "avg_delay_s": 279,
+      "coord_EN": [
+        526900,
+        483785
+      ]
+    },
+    {
+      "link": "2446231250007f",
+      "type": "primary",
+      "capacity": 4500.0,
+      "vehicles": 1501,
+      "delay_veh_h": 19.9,
+      "avg_delay_s": 48,
+      "coord_EN": [
+        525983,
+        483253
+      ]
+    },
+    {
+      "link": "2131623890008f",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 760,
+      "delay_veh_h": 18.2,
+      "avg_delay_s": 86,
+      "coord_EN": [
+        529018,
+        485563
+      ]
+    },
+    {
+      "link": "5899320000001r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1551,
+      "delay_veh_h": 17.9,
+      "avg_delay_s": 42,
+      "coord_EN": [
+        526736,
+        483765
+      ]
+    },
+    {
+      "link": "4535781890001f",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 712,
+      "delay_veh_h": 14.5,
+      "avg_delay_s": 74,
+      "coord_EN": [
+        531011,
+        485419
+      ]
+    },
+    {
+      "link": "2568527430000r",
+      "type": "primary",
+      "capacity": 1500.0,
+      "vehicles": 1591,
+      "delay_veh_h": 14.2,
+      "avg_delay_s": 32,
+      "coord_EN": [
+        526607,
+        483677
+      ]
+    },
+    {
+      "link": "14641980450008r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 689,
+      "delay_veh_h": 14.0,
+      "avg_delay_s": 73,
+      "coord_EN": [
+        530873,
+        485309
+      ]
+    },
+    {
+      "link": "2307087560003r",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 220,
+      "delay_veh_h": 14.0,
+      "avg_delay_s": 228,
+      "coord_EN": [
+        527215,
+        483955
+      ]
+    },
+    {
+      "link": "2131623890016r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 726,
+      "delay_veh_h": 13.9,
+      "avg_delay_s": 69,
+      "coord_EN": [
+        529018,
+        485563
+      ]
+    },
+    {
+      "link": "2131623760012r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 693,
+      "delay_veh_h": 13.6,
+      "avg_delay_s": 71,
+      "coord_EN": [
+        530924,
+        485605
+      ]
+    },
+    {
+      "link": "2446692080002r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1461,
+      "delay_veh_h": 12.6,
+      "avg_delay_s": 31,
+      "coord_EN": [
+        526829,
+        483828
+      ]
+    },
+    {
+      "link": "1315541380004r",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 259,
+      "delay_veh_h": 11.9,
+      "avg_delay_s": 166,
+      "coord_EN": [
+        527399,
+        483219
+      ]
+    },
+    {
+      "link": "2020517410007r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 685,
+      "delay_veh_h": 11.7,
+      "avg_delay_s": 61,
+      "coord_EN": [
+        530873,
+        485309
+      ]
+    }
+  ]
+}

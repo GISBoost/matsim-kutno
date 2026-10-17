@@ -1,0 +1,212 @@
+{
+  "total_delay_veh_h": 735.4,
+  "delay_veh_h_by_hour": {
+    "0": 0.1,
+    "1": 0.1,
+    "2": 0.1,
+    "3": 0.1,
+    "4": 0.2,
+    "5": 6.3,
+    "6": 42.2,
+    "7": 175.8,
+    "8": 161.3,
+    "9": 15.6,
+    "10": 1.8,
+    "11": 0.5,
+    "12": 1.0,
+    "13": 5.4,
+    "14": 24.9,
+    "15": 81.8,
+    "16": 140.6,
+    "17": 70.7,
+    "18": 2.9,
+    "19": 0.7,
+    "20": 0.7,
+    "21": 1.0,
+    "22": 0.6,
+    "23": 0.2,
+    "25": 0.1
+  },
+  "top_links": [
+    {
+      "link": "3176338800019r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 709,
+      "delay_veh_h": 30.8,
+      "avg_delay_s": 156,
+      "coord_EN": [
+        528159,
+        482548
+      ]
+    },
+    {
+      "link": "2347118000007r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 585,
+      "delay_veh_h": 28.1,
+      "avg_delay_s": 173,
+      "coord_EN": [
+        527738,
+        482407
+      ]
+    },
+    {
+      "link": "2446692260002r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1448,
+      "delay_veh_h": 24.0,
+      "avg_delay_s": 60,
+      "coord_EN": [
+        526126,
+        483350
+      ]
+    },
+    {
+      "link": "2020517410007r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 703,
+      "delay_veh_h": 21.4,
+      "avg_delay_s": 110,
+      "coord_EN": [
+        530873,
+        485309
+      ]
+    },
+    {
+      "link": "2446231250007f",
+      "type": "primary",
+      "capacity": 4500.0,
+      "vehicles": 1344,
+      "delay_veh_h": 19.7,
+      "avg_delay_s": 53,
+      "coord_EN": [
+        525983,
+        483253
+      ]
+    },
+    {
+      "link": "2131623890008f",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 793,
+      "delay_veh_h": 19.1,
+      "avg_delay_s": 87,
+      "coord_EN": [
+        529018,
+        485563
+      ]
+    },
+    {
+      "link": "5899320000001f",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1358,
+      "delay_veh_h": 14.8,
+      "avg_delay_s": 39,
+      "coord_EN": [
+        526829,
+        483828
+      ]
+    },
+    {
+      "link": "3738904020013r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 301,
+      "delay_veh_h": 14.4,
+      "avg_delay_s": 172,
+      "coord_EN": [
+        527155,
+        482308
+      ]
+    },
+    {
+      "link": "3048714920005f",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 615,
+      "delay_veh_h": 13.8,
+      "avg_delay_s": 81,
+      "coord_EN": [
+        527354,
+        482295
+      ]
+    },
+    {
+      "link": "5899320000001r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1471,
+      "delay_veh_h": 13.6,
+      "avg_delay_s": 33,
+      "coord_EN": [
+        526736,
+        483765
+      ]
+    },
+    {
+      "link": "2446692220000f",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1450,
+      "delay_veh_h": 13.2,
+      "avg_delay_s": 33,
+      "coord_EN": [
+        526385,
+        483526
+      ]
+    },
+    {
+      "link": "14641980450008r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 673,
+      "delay_veh_h": 13.0,
+      "avg_delay_s": 70,
+      "coord_EN": [
+        530873,
+        485309
+      ]
+    },
+    {
+      "link": "383845230002r",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 695,
+      "delay_veh_h": 12.6,
+      "avg_delay_s": 66,
+      "coord_EN": [
+        526829,
+        483828
+      ]
+    },
+    {
+      "link": "2568527430000r",
+      "type": "primary",
+      "capacity": 1500.0,
+      "vehicles": 1508,
+      "delay_veh_h": 12.4,
+      "avg_delay_s": 30,
+      "coord_EN": [
+        526607,
+        483677
+      ]
+    },
+    {
+      "link": "4535781890001f",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 661,
+      "delay_veh_h": 11.5,
+      "avg_delay_s": 62,
+      "coord_EN": [
+        531011,
+        485419
+      ]
+    }
+  ]
+}

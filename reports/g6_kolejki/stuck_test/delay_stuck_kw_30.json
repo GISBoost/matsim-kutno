@@ -1,0 +1,213 @@
+{
+  "total_delay_veh_h": 1177.1,
+  "delay_veh_h_by_hour": {
+    "0": 0.1,
+    "1": 0.1,
+    "2": 0.2,
+    "3": 0.2,
+    "4": 0.2,
+    "5": 8.1,
+    "6": 52.8,
+    "7": 216.4,
+    "8": 162.9,
+    "9": 15.8,
+    "10": 2.5,
+    "11": 0.8,
+    "12": 1.3,
+    "13": 6.3,
+    "14": 35.4,
+    "15": 108.8,
+    "16": 253.4,
+    "17": 214.3,
+    "18": 86.1,
+    "19": 7.2,
+    "20": 1.0,
+    "21": 1.4,
+    "22": 0.9,
+    "23": 0.2,
+    "25": 0.2,
+    "30": 0.1
+  },
+  "top_links": [
+    {
+      "link": "2000682620008r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 591,
+      "delay_veh_h": 129.5,
+      "avg_delay_s": 789,
+      "coord_EN": [
+        525566,
+        485359
+      ]
+    },
+    {
+      "link": "2000758630002f",
+      "type": "tertiary",
+      "capacity": 1200.0,
+      "vehicles": 591,
+      "delay_veh_h": 93.3,
+      "avg_delay_s": 568,
+      "coord_EN": [
+        525840,
+        485465
+      ]
+    },
+    {
+      "link": "383845230002r",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 605,
+      "delay_veh_h": 32.6,
+      "avg_delay_s": 194,
+      "coord_EN": [
+        526829,
+        483828
+      ]
+    },
+    {
+      "link": "2000682620002r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 709,
+      "delay_veh_h": 27.0,
+      "avg_delay_s": 137,
+      "coord_EN": [
+        525460,
+        485322
+      ]
+    },
+    {
+      "link": "2456705380001r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 476,
+      "delay_veh_h": 25.3,
+      "avg_delay_s": 192,
+      "coord_EN": [
+        525856,
+        483305
+      ]
+    },
+    {
+      "link": "1728934640003f",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 806,
+      "delay_veh_h": 22.6,
+      "avg_delay_s": 101,
+      "coord_EN": [
+        525876,
+        485496
+      ]
+    },
+    {
+      "link": "1728934640007f",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 789,
+      "delay_veh_h": 20.6,
+      "avg_delay_s": 94,
+      "coord_EN": [
+        525869,
+        485483
+      ]
+    },
+    {
+      "link": "2446231250007f",
+      "type": "primary",
+      "capacity": 4500.0,
+      "vehicles": 1501,
+      "delay_veh_h": 20.4,
+      "avg_delay_s": 49,
+      "coord_EN": [
+        525983,
+        483253
+      ]
+    },
+    {
+      "link": "2069860800022f",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 235,
+      "delay_veh_h": 20.1,
+      "avg_delay_s": 309,
+      "coord_EN": [
+        527561,
+        484325
+      ]
+    },
+    {
+      "link": "2131623760012r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 693,
+      "delay_veh_h": 19.6,
+      "avg_delay_s": 102,
+      "coord_EN": [
+        530924,
+        485605
+      ]
+    },
+    {
+      "link": "2020517410007r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 685,
+      "delay_veh_h": 18.0,
+      "avg_delay_s": 95,
+      "coord_EN": [
+        530873,
+        485309
+      ]
+    },
+    {
+      "link": "2131623890008f",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 760,
+      "delay_veh_h": 17.3,
+      "avg_delay_s": 82,
+      "coord_EN": [
+        529018,
+        485563
+      ]
+    },
+    {
+      "link": "2347118000007r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 555,
+      "delay_veh_h": 16.2,
+      "avg_delay_s": 105,
+      "coord_EN": [
+        527738,
+        482407
+      ]
+    },
+    {
+      "link": "2446692260002r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1582,
+      "delay_veh_h": 16.0,
+      "avg_delay_s": 36,
+      "coord_EN": [
+        526126,
+        483350
+      ]
+    },
+    {
+      "link": "5899320000001r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1551,
+      "delay_veh_h": 14.6,
+      "avg_delay_s": 34,
+      "coord_EN": [
+        526736,
+        483765
+      ]
+    }
+  ]
+}

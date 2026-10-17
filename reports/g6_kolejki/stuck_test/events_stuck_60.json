@@ -1,0 +1,26 @@
+{
+  "events_file": "output/stuck_60/output_events.xml.zst",
+  "event_types": {
+    "actend": 37812,
+    "departure": 37812,
+    "travelled": 25208,
+    "arrival": 37812,
+    "actstart": 37812,
+    "PersonEntersVehicle": 12604,
+    "vehicle enters traffic": 12604,
+    "left link": 671244,
+    "entered link": 671244,
+    "vehicle leaves traffic": 12604,
+    "PersonLeavesVehicle": 12604
+  },
+  "persons_departing": 6302,
+  "departures": 37812,
+  "departures_by_mode": {
+    "walk": 25208,
+    "car": 12604
+  },
+  "arrivals": 37812,
+  "stuck": 0,
+  "persons_dep_ne_arr": [],
+  "ok": true
+}
