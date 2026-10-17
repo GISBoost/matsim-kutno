@@ -48,3 +48,48 @@ Każda faza: wejścia → działania → wyjścia → test → kryterium zalicze
 ## Research równoległy (nie blokuje F0–F3)
 - R1: źródło rozkładu godzin wyjazdu do pracy i czasu pracy w PL (D10).
 - R2: czy BDL ma dane NSP 2021 o pracujących na poziomie gminy (lepsza kotwica dla D5).
+
+---
+
+# Etap 2: od prototypu do modelu (od 2026-10-17)
+
+MVP (F0–F6) jest zamknięty. Każda faza G zmienia zakres lub dane, więc przed startem wymaga wpisu w `DECISIONS.md`. Obowiązują te same zasady co w F0–F6:
+- kontrakt fazy: wejścia → działania → test → zaliczenie → wizualizacja;
+- runy: 25%, 3 seedy, maks. 100 iteracji;
+- źródła w `docs/ZRODLA.md`, pobrania w `data/manifest.csv`;
+- wyniki w `reports/gN_*/`.
+
+**Etap 2a (bieżący): zbieranie danych.** Każde źródło trafia do `docs/ZRODLA.md` ze statusem, ograniczeniami i liczbami, które z niego wiemy. Model nie zmienia się, dopóki dane do fazy nie są zebrane i ocenione.
+
+## G1 — Skrzyżowania (odłożone przez użytkownika 2026-10-17, „implementacja później”)
+- **Stan:** węzeł QSim bez sygnalizacji, pierwszeństwa, konfliktów i zakazów skrętu. Przepustowość daje tylko link (domyślne wartości Supersonic na pas). 36 węzłów `traffic_signals` w OSM w gm. Kutno.
+- **Działania (kolejno):** test wrażliwości przepustowości (DK92, wloty do sygnalizacji); redukcja przepustowości wlotów do węzłów z sygnalizacją (ZAŁOŻENIE z wariantami); zakazy skrętu z relacji OSM jako `DisallowedNextLinks`; ewentualnie contrib `signals` i `lanes` dla kluczowych skrzyżowań.
+- **Test:** różnica opóźnień i natężeń względem bazy, większa niż rozrzut seedów.
+
+## G2 — Miejsca pracy (D7)
+- **Dane:** suma kontrolna z BDL lub NSP dla gm. Kutno (uwaga na próg > 9 osób); rozkład wewnątrz gminy z REGON (adres, PKD, ewentualnie klasa zatrudnienia) albo z typu budynku. Statystyczne punkty adresowe GUS do sprawdzenia.
+- **Działania:** nowe wagi budynków pracy; porównanie z wagami według powierzchni (top-20 celów, rozkład na mapie).
+- **Test:** suma pracy zgodna z kotwicą; top-10 celów to realne zakłady; mapa zmian.
+
+## G3 — Domy (D11)
+- **Dane:** kod R5 (`dasymetric_pop.py`, ta sama metoda); BDOT10k (funkcja budynku, ewentualnie kondygnacje); siatki ludności GUS jako kontrola.
+- **Działania:** ujednolicić dobór budynków mieszkalnych z R5 (lista wykluczeń zamiast listy typów; 9 817 budynków `yes` poza `landuse=residential`); decyzja o kondygnacjach (w R5 świadomie pominięte).
+- **Test:** suma per obwód bez zmian; mniej domów w losowych punktach; porównanie z siatką GUS.
+
+## G4 — Tryby (car / pt / bike / walk) — zmiana zakresu, wymaga decyzji
+- **Dane:** GUS Mobilność 2024, tabl. 13 (łódzkie, wszystkie cele), tabl. 1 (praca z domu 7,3%); GTFS Kutno (licencja do wyjaśnienia); sieć rowerowa i piesza z OSM.
+- **Działania:** `SubtourModeChoice` i atrybut `carAvail` (wzór: Medina Godoy, MUM 2026); PT z GTFS (pt2matsim albo gtfs2matsim); kalibracja ASC na podział modalny.
+- **Otwarte:** podział modalny ze źródła dotyczy wszystkich celów i całego województwa, a nie dojazdów do pracy w Kutnie. Trzeba zdecydować, czy to wystarczy jako cel kalibracji, czy szukamy lepszego źródła.
+- **Test:** podział modalny w granicach błędu szacunku GUS (tabl. 32).
+
+## G5 — Ruch tła i walidacja
+- **Dane:** GPR (GDDKiA) na DK92 i DK60; ewentualne pomiary miejskie; macierz dostępności GUS do walidacji czasów przejazdu między gminami.
+- **Działania:** tranzyt i ciężarówki na drogach krajowych i A1; porównanie z pomiarami (GEH względem pomiarów, a nie między seedami).
+
+## G6 — Wizualizacja w Blenderze
+- **Wzór:** Bell (MUM 2026). Eventy → pozycje pojazdów na klatkę (`.npz`) → handler klatki w Blenderze → Geometry Nodes → render.
+- **Działania:** skrypt bake w Pythonie (sieć EPSG:2180 → współrzędne sceny; eventy 25% → `.npz`); skrypt ładujący dla Blendera 4.3/4.4; scena bazowa (sieć, budynki OSM, ciemny motyw).
+- **Test:** pojazd z eventów jedzie w Blenderze po swojej trasie (porównanie 3 losowych pojazdów); render 1 min doby porannego szczytu.
+
+## G7 — Przeniesienie na Łódź
+- Po G2–G5. Wymaga decyzji o skali (Łódź ponad 600 tys. mieszkańców) i zasobach (16 GB RAM).
