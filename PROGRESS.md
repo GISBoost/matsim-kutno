@@ -104,4 +104,4 @@
 - `digitize_lisica.py`: profil godzinowy dnia roboczego (lekkie i ciężkie, sumy 100%).
 - R1 (D18 + K1-1, 25% × 3 seedy): 7 478 nóg car, 0 stuck, opóźnienia 106–113 poj.-h próbki (D18: 735–854). Model / GPR: A1 3%, DK w mieście 30%.
 - `background_od.py`: odcinki dopasowania ok, ale walidacja w mieście daje 140–173% GPR na Sklęczkowskiej i 155–168% na Objazdowej. Luka A1 nie rozróżnia tranzytu od relacji z Kutnem. Opcje W1–W3 w `docs/research/G5_plan_kalibracji.md` §4. Czeka na decyzję. Agentów tła jeszcze nie ma w planach.
-- W2 (decyzja użytkownika): Sklęczkowska w dopasowaniu. Tło ok. 62 tys. podróży/dobę w 100%. Walidacja poza próbą na trasach swobodnych: Objazdowa 141%, Bitwy pod Kutnem 94%. Sesja zakończona przed symulacją z tłem; dalsze kroki w `docs/research/G5_plan_kalibracji.md` §5.
+- W2 (decyzja użytkownika): Sklęczkowska w dopasowaniu. Tło 59 879 podróży/dobę w 100% (tranzyt 21 428, granica–gmina 30 590, gmina–gmina 7 861). Walidacja poza próbą na trasach swobodnych: Objazdowa 141%, Bitwy pod Kutnem 94%. Sesja zakończona przed symulacją z tłem; dalsze kroki w `docs/research/G5_plan_kalibracji.md` §5.

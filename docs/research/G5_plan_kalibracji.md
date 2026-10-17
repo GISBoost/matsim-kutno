@@ -133,5 +133,5 @@ Sklęczkowska 91869 wchodzi do dopasowania. Wariant: τ = 30 min, waga wjazdu = 
    - Liczba = trips_day × sample (największe reszty).
 2. Configi: `activityParams` dla `tlo_start`/`tlo_end` (ZAŁOŻENIE w komentarzu) oraz strategie ChangeExpBeta i ReRoute dla `subpopulation=tlo`.
 3. `validate_plans.py`: osobny test dla `tlo` (liczba = suma OD × próbka, łańcuch, linki istnieją).
-4. Test 2 iteracji, potem **R2 = R1 + tło, 25%, 1 seed** (runy pośrednie na 1 seedzie, 3 seedy tylko dla wyników referencyjnych). W próbce 25% to ok. 15,5 tys. agentów tła plus 3,7 tys. pracujących, więc run będzie kilka razy dłuższy. Czas trzeba oszacować po teście.
+4. Test 2 iteracji, potem **R2 = R1 + tło, 25%, 1 seed** (runy pośrednie na 1 seedzie, 3 seedy tylko dla wyników referencyjnych). W próbce 25% to ok. 15 tys. agentów tła (59 879 × 0,25) plus 3,7 tys. pracujących, więc run będzie kilka razy dłuższy. Czas trzeba oszacować po teście.
 5. Porównanie R2 z GPR (`g5_baseline.py`): Objazdowa i Bitwy pod Kutnem poza próbą, do tego opóźnienia i kolejki (`queues.py`).
