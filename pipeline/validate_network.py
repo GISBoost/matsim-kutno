@@ -1,7 +1,7 @@
 """F2: walidacja sieci MATSim + mapa kontrolna.
 
 Użycie: uv run python pipeline/validate_network.py scenarios/kutno/network.xml.gz
-Wyjście: reports/f2_network.json, reports/f2_network.png. Kod 1, gdy test nie przechodzi.
+Wyjście: reports/f2_network/f2_network.json, reports/f2_network/f2_network.png. Kod 1, gdy test nie przechodzi.
 """
 import collections
 import gzip
@@ -106,7 +106,7 @@ report["turnaround_links"] = sum(1 for l in links if l["hw"] == "boundary_turnar
 MOTORWAY_MIN_KM = 60  # A1 przecina powiat N-S: ~2 jezdnie x ~35 km (OSM PBF ma 94 km jezdni A1 w bbox obszaru)
 report["ok"] = (report["motorway_km"] >= MOTORWAY_MIN_KM and not failed and not bad and not non_car and report["nodes_outside_max_m"] <= OUTSIDE_MAX_M
                 and report["scc_largest_nodes_share"] > 0.98 and report["kutno_centre_nearest_node_m"] < 300)
-json.dump(report, open("reports/f2_network.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
+json.dump(report, open("reports/f2_network/f2_network.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
 # mapa kontrolna
 fig, ax = plt.subplots(figsize=(11, 9))
@@ -128,7 +128,7 @@ ax.set_title(f"F2 sieć car — {len(links)} linków, {report['total_length_km']
              fontsize=10)
 sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(0, 100)); fig.colorbar(sm, ax=ax, shrink=0.6, label="freespeed [km/h]")
 ax.set_xlabel("E [m] EPSG:2180"); ax.set_ylabel("N [m]"); ax.set_aspect("equal")
-fig.tight_layout(); fig.savefig("reports/f2_network.png", dpi=130)
+fig.tight_layout(); fig.savefig("reports/f2_network/f2_network.png", dpi=130)
 print(json.dumps({k: report[k] for k in ("nodes", "links", "scc_largest_nodes_share", "nodes_outside_area",
                   "nodes_outside_max_m", "kutno_centre_nearest_node_m", "links_bad_attrs", "routes_ok", "routes_failed",
     "km_and_median_freespeed_kmh_by_type", "km_by_speed_source", "motorway_km", "turnaround_links", "route_minutes_centrum_to", "ok")}, indent=1, ensure_ascii=False))

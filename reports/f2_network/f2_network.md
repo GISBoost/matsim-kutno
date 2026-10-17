@@ -15,7 +15,7 @@ Wejście: `data/raw/osm/lodzkie-261015.osm.pbf` (Geofabrik, dane do 2026-10-15T2
 | Atrybuty | 0 linków z capacity/freespeed/length/lanes ≤ 0; 0 linków bez `car` |
 | Węzły poza obszarem | 69, max 4,0 km (końce odcinków do najbliższego skrzyżowania; tolerancja 5 km) |
 
-Mapa: `reports/f2_network.png` (kolor = freespeed).
+Mapa: `reports/f2_network/f2_network.png` (kolor = freespeed).
 
 ## Prędkości: problem (pierwsza wersja) → decyzja D13
 

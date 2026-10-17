@@ -35,7 +35,7 @@
 		<param name="flowCapacityFactor" value="1.0" />
 		<param name="storageCapacityFactor" value="1.0" />
 		<!-- wyjazdy do 23:59 (GBR Rys. 46) + dojazd do granicy dla dalekich gmin (R3/E1: do ok. 6 h, np. Szczecin) + 8 h pracy + powrót.
-		     36:00 przerwało agenta z Krakowa (reports/r3_100pct_s4711_events.json, stuckAndAbort). -->
+		     36:00 przerwało agenta z Krakowa (reports/r3_ocena/run_100pct_przerwany/r3_100pct_s4711_events.json, stuckAndAbort). -->
 		<param name="endTime" value="48:00:00" />
 		<param name="numberOfThreads" value="8" />
 	</module>

@@ -13,11 +13,11 @@ Seedy 4711, 1, 2. Seedy 1 i 2 liczone równolegle po 4 wątki, każdy run ok. 13
 
 | seed | nogi car | stuck | test |
 |---|---|---|---|
-| 4711 | 12 866 | 0 | `r3_25pct_s4711_events.json` ok |
-| 1 | 12 866 | 0 | `r3_25pct_s1_events.json` ok |
-| 2 | 12 866 | 0 | `r3_25pct_s2_events.json` ok |
+| 4711 | 12 866 | 0 | `reports/r3_ocena/wyniki_25pct/r3_25pct_s4711_events.json` ok |
+| 1 | 12 866 | 0 | `reports/r3_ocena/wyniki_25pct/r3_25pct_s1_events.json` ok |
+| 2 | 12 866 | 0 | `reports/r3_ocena/wyniki_25pct/r3_25pct_s2_events.json` ok |
 
-## Zbieżność (`r3_25pct_convergence.json/png`)
+## Zbieżność (`reports/r3_ocena/wyniki_25pct/r3_25pct_convergence.json/png`)
 
 - **Godziny w aucie (próbka 25%):** w iteracji 0 jest 11 624 h (wszyscy jadą trasą najszybszą przy pustej sieci). Po ok. 5 iteracjach spada do ok. 3 800 h. Do 80. iteracji waha się ±5%, po wyłączeniu innowacji wynosi 3 312–3 432 h. Rozrzut z ostatnich 10 iteracji to 0,7–1,3%.
 - **Natężenia top-50 linków (zmiana co 10 iteracji, średnia z 5):**
@@ -28,6 +28,7 @@ Seedy 4711, 1, 2. Seedy 1 i 2 liczone równolegle po 4 wątki, każdy run ok. 13
 
 ## Zgodność między seedami
 
+- **Uwaga: GEH porównuje tu dwa runy modelu (stabilność względem losowości), nie model z pomiarami.** Walidacja wymaga pomiarów ruchu, których jeszcze nie mamy.
 - **GEH na natężeniach przeskalowanych do 100%** (× 1/0,25), linki z ≥ 100 poj./dobę (3 046 linków):
 
 | para | GEH < 5, szczyt 7–8 | GEH < 5, średnia godzinowa doby | max GEH 7–8 |
@@ -36,7 +37,7 @@ Seedy 4711, 1, 2. Seedy 1 i 2 liczone równolegle po 4 wątki, każdy run ok. 13
 | 4711 vs 2 | 98,9% | 100% | 9,3 |
 | 1 vs 2 | 99,4% | 100% | 10,2 |
 
-- **Wskaźniki zbiorcze (`r3_25pct_seeds.json/png`):**
+- **Wskaźniki zbiorcze (`reports/r3_ocena/wyniki_25pct/r3_25pct_seeds.json/png`):**
 
 | seed | mediana czasu podróży, mieszkańcy / przyjeżdżający [min] | p90 [min] | opóźnienie razem [poj.-h próbki] |
 |---|---|---|---|
@@ -51,7 +52,7 @@ Seedy 4711, 1, 2. Seedy 1 i 2 liczone równolegle po 4 wątki, każdy run ok. 13
   - 410250640002r (Sklęczkowska, DK92): 101 / 50 / 58 poj.-h.
 - Opóźnienie na pojedynczym linku zmienia się między seedami nawet dwukrotnie. **Wniosków o pojedynczych linkach nie wolno opierać na jednym seedzie.** Ranking wąskich gardeł jest stabilny.
 
-## Select-link DK92 (seed 4711, `r3_25pct_select_dk92.*`)
+## Select-link DK92 (seed 4711, `reports/r3_ocena/wyniki_25pct/r3_25pct_select_dk92.*`)
 
 - Przez Sklęczkowską jedzie 2 463 z 6 433 osób, głównie z gm. wiejskiej Kutno (1002062) i z obwodów 65115–65117.
 - Ten wynik pochodzi z jednego seeda. Ranking źródeł należy potwierdzić na pozostałych seedach.

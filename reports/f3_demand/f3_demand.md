@@ -2,7 +2,7 @@
 
 **Status: ZALICZONA**
 
-Skrypt: `pipeline/demand.py` (wskaźniki liczone wprost z XLSX, bez liczb wpisanych w kod). Wyjścia: `scenarios/kutno/demand/workers_by_obwod.csv`, `inbound_by_gmina.csv`, `reports/f3_demand.json`, `.png`.
+Skrypt: `pipeline/demand.py` (wskaźniki liczone wprost z XLSX, bez liczb wpisanych w kod). Wyjścia: `scenarios/kutno/demand/workers_by_obwod.csv`, `inbound_by_gmina.csv`, `reports/f3_demand/f3_demand.json`, `.png`.
 
 | Test | Wynik |
 |---|---|
@@ -43,4 +43,4 @@ ZAŁOŻENIA: (1) wyjeżdżających odejmujemy proporcjonalnie we wszystkich obwo
 
 **Do rozwiązania w F4:** 2 136 przyjeżdżających spoza powiatu startuje na wjeździe na granicy sieci. Kierunek wjazdu wymaga położenia gminy źródłowej. Dla łódzkiego mamy geometrię BREC, dla 1 157 osób spoza województwa trzeba dobrać geometrię (BREC GML mazowieckie 40 MB, kujawsko-pomorskie 14 MB, w limicie D12) albo przypisać kierunek po kodzie województwa.
 
-Mapa: `reports/f3_demand.png`.
+Mapa: `reports/f3_demand/f3_demand.png`.

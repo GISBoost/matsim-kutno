@@ -15,8 +15,8 @@
 
 Polecenie: `java -Xmx10g -jar matsim-example-project-0.0.1-SNAPSHOT.jar run --config scenarios\equil\config-2026.xml --output ..\output\f0_equil --iterations 1`
 
-- Kod wyjścia 0, czas 10 s, iteracje 0 i 1 zakończone (`reports/f0_equil_run.log`).
-- `pipeline/check_events.py --expect-car-legs 201` → `ok: true` (`reports/f0_equil_events.json`): 201 nóg car, 402 walk, departure = arrival = 603, 0 stuck, liczba `vehicle enters traffic` = 201. Wartość 201 wynika z planów: 99 osób × 2 + 1 osoba × 3.
+- Kod wyjścia 0, czas 10 s, iteracje 0 i 1 zakończone (`reports/f0_env/f0_equil_run.log`).
+- `pipeline/check_events.py --expect-car-legs 201` → `ok: true` (`reports/f0_env/f0_equil_events.json`): 201 nóg car, 402 walk, departure = arrival = 603, 0 stuck, liczba `vehicle enters traffic` = 201. Wartość 201 wynika z planów: 99 osób × 2 + 1 osoba × 3.
 
 ## Ustalenia (nowe gotchas)
 

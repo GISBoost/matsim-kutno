@@ -24,15 +24,15 @@ java -Xmx10g -jar matsim/matsim-example-project-0.0.1-SNAPSHOT.jar run --config 
 - `config_100pct.xml` różni się od `config_10pct.xml` tylko plikiem planów, katalogiem wyjściowym i factors 1,0.
 - Wynik: kod 0, **4 min 9 s** dla 20 iteracji (11–17 s na iterację).
 - RAM: maks. „used RAM” z MemoryObserver to **1 017 MB** (próbkowane co minutę) przy `-Xmx10g`, więc kryterium < 10 GB jest spełnione z dużym zapasem.
-- Log: `reports/f6_run.log`. Jedyny wyjątek to nieszkodliwe ostrzeżenie Guice/ASM.
+- Log: `reports/f6_run_100pct/f6_run.log`. Jedyny wyjątek to nieszkodliwe ostrzeżenie Guice/ASM.
 
 | Test | Wynik |
 |---|---|
-| departure car = arrival = 2N | 51 464 = 2 × 25 732 (`reports/f6_events.json`) |
+| departure car = arrival = 2N | 51 464 = 2 × 25 732 (`reports/f6_run_100pct/f6_events.json`) |
 | stuck | 0 |
 | każda osoba: odjazdy = przyjazdy | tak |
 
-## Porównanie z F5 (`pipeline/compare_runs.py` → `reports/f6_compare.png`, `.json`)
+## Porównanie z F5 (`pipeline/compare_runs.py` → `reports/f6_run_100pct/f6_compare.png`, `.json`)
 
 | | F5 10% | F6 100% |
 |---|---|---|
@@ -47,7 +47,7 @@ java -Xmx10g -jar matsim/matsim-example-project-0.0.1-SNAPSHOT.jar run --config 
 - **Różnice widać na poziomie godzin i linków.** Przy 10% szczyt poranny jest głębszy, a popołudniowy płytszy niż przy 100%. Przyczyną jest dyskretyzacja (10% = mało pojazdów na link, przepustowość 0,1) i inny wynik wyboru tras. Wnioski o konkretnych odcinkach wyciągamy tylko ze 100% (D8).
 - Przy 100% pojawiają się też odjazdy po 24:00. To powroty z pracy osób, które wyjechały wieczorem lub w nocy (rozkład GBR, przedział 20–24).
 
-## Kongestia przy 100% (`reports/f6_delay.json`, `.png`)
+## Kongestia przy 100% (`reports/f6_run_100pct/f6_delay.json`, `.png`)
 
 Te same okolice co w F5: dojazd do wschodniej strefy pracy. Kolejność odcinków jest jednak inna.
 
@@ -68,7 +68,7 @@ Te same okolice co w F5: dojazd do wschodniej strefy pracy. Kolejność odcinkó
 
 ## Wykresy
 
-- `reports/f6_run.png`, `reports/f6_delay.png`, `reports/f6_compare.png`, `reports/f6_plans.png`.
+- `reports/f6_run_100pct/f6_run.png`, `reports/f6_run_100pct/f6_delay.png`, `reports/f6_run_100pct/f6_compare.png`, `reports/f6_run_100pct/f6_plans.png`.
 - Wykresy MATSim w `output/f6_100pct/`: `scorestats.png`, `modestats.png`, `traveldistancestats*.png`, `stopwatch.png`.
 
 ## Korekta po recenzji R3 (2026-10-16)

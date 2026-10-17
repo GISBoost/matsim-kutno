@@ -9,12 +9,12 @@ java -Xmx10g -jar matsim/matsim-example-project-0.0.1-SNAPSHOT.jar run --config 
 ```
 
 - Wynik: kod 0, ok. 2,5 min, 20 iteracji.
-- Log: `reports/f5_run.log`. Jedyny wyjątek w logu to nieszkodliwe ostrzeżenie Guice/ASM.
+- Log: `reports/f5_run_10pct/f5_run.log`. Jedyny wyjątek w logu to nieszkodliwe ostrzeżenie Guice/ASM.
 - Output: `output/f5_10pct/`.
 
 | Test | Wynik |
 |---|---|
-| departure car = arrival = 2N | 5 146 = 2 × 2 573 (`reports/f5_events.json`, `check_events.py --expect-car-legs 5146`) |
+| departure car = arrival = 2N | 5 146 = 2 × 2 573 (`reports/f5_run_10pct/f5_events.json`, `check_events.py --expect-car-legs 5146`) |
 | stuck | 0 |
 | każda osoba: odjazdy = przyjazdy | 2 573/2 573 |
 | udział car (`modestats.csv`) | 1,0 we wszystkich iteracjach (D6) |
@@ -49,7 +49,7 @@ Suma odczytu to 100,17%, normalizowana do 100%. Wewnątrz przedziału rozkład j
 - Mediana prędkości car według godziny wyjazdu: 44 km/h o 5:00, **27 km/h o 7:00**, 41 km/h o 9:00, 34 km/h o 15:00, **26 km/h o 17:00**. Szczyty są widoczne.
 - Score (avg executed): 114,2 w iteracji 0, 133,2 w 10 i 134,7 w 20. Stabilizuje się po wyłączeniu innowacji.
 
-## Kongestia (`pipeline/link_delay.py` → `reports/f5_delay.json`, `.png`)
+## Kongestia (`pipeline/link_delay.py` → `reports/f5_run_10pct/f5_delay.json`, `.png`)
 
 - Opóźnienie względem czasu swobodnego wynosi łącznie 624 poj.-h, średnio 7,3 min na nogę car. Prawie całość przypada na 6–9 i 14–18.
 - Największe opóźnienia leżą na jednym ciągu dróg primary na SE od centrum (okolice E 526 000, N 483 500).
@@ -65,8 +65,8 @@ Suma odczytu to 100,17%, normalizowana do 100%. Wewnątrz przedziału rozkład j
 
 ## Wykresy
 
-- `reports/f5_run.png`: aktywności, obciążenia, odjazdy w ciągu doby, czasy podróży.
-- `reports/f5_delay.png`: mapa opóźnień.
+- `reports/f5_run_10pct/f5_run.png`: aktywności, obciążenia, odjazdy w ciągu doby, czasy podróży.
+- `reports/f5_run_10pct/f5_delay.png`: mapa opóźnień.
 - Wykresy MATSim w `output/f5_10pct/`: `scorestats.png`, `modestats.png`, `traveldistancestatslegs.png`, `traveldistancestatstrips.png`, `stopwatch.png`, `ph_modestats.png`, `pkm_modestats.png`.
 
 ## Gotcha znalezione w tej fazie

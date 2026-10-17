@@ -139,7 +139,7 @@ Szczytowy ruch aut jest więc prawdopodobnie zawyżony o kilkadziesiąt procent 
    - dla 10% `storageCapacityFactor=0.18`;
    - włączyć `writeLinkStatsInterval`.
 3. **E5:** przypinać aktywności do podsieci bez motorway, trunk i łącznic.
-4. **Raporty:** przeformułować wnioski F5/F6 („10% ≈ 100%”, „stabilizacja score”, ranking wąskich gardeł). Dopisane jako korekty w `reports/f5_run.md` i `f6_run.md`.
+4. **Raporty:** przeformułować wnioski F5/F6 („10% ≈ 100%”, „stabilizacja score”, ranking wąskich gardeł). Dopisane jako korekty w `reports/f5_run_10pct/f5_run.md` i `reports/f6_run_100pct/f6_run.md`.
 5. **Narzędzia:**
    - włączyć `SimWrapperModule` (TrafficDashboard, TripDashboard);
    - select-link dla DK92.

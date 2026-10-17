@@ -2,7 +2,7 @@
 
 **Status: ZALICZONA** (test automatyczny). Czeka na kontrolę człowieka w QGIS (próbka domów i miejsc pracy).
 
-Skrypty: `pipeline/osm_features.py` (budynki + landuse z PBF), `pipeline/plans.py` (lokalizacje + `plans.xml.gz`), `pipeline/validate_plans.py` (test + mapa). Parametry i ZAŁOŻENIA: `config/kutno.toml` `[plans]`. Log: `reports/f4_plans.log`, wynik: `reports/f4_plans.json`, `.png`.
+Skrypty: `pipeline/osm_features.py` (budynki + landuse z PBF), `pipeline/plans.py` (lokalizacje + `plans.xml.gz`), `pipeline/validate_plans.py` (test + mapa). Parametry i ZAŁOŻENIA: `config/kutno.toml` `[plans]`. Log: `reports/f4_plans/f4_plans.log`, wynik: `reports/f4_plans/f4_plans.json`, `.png`.
 
 | Test | Wynik |
 |---|---|

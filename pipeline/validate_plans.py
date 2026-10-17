@@ -3,7 +3,7 @@
 Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> [sample]
 Test (TASKS F4): każda osoba ma dokładnie home-car-work-car-home; współrzędne w obszarze sieci; praca w gminie Kutno;
 liczba osób = round(sample x (pracujący w Kutnie + przyjeżdżający)); ten sam sha256 po ponownym uruchomieniu plans.py.
-Wyjście: reports/f4_plans.* (sample 0,1), f6_plans.* (1,0), inaczej r3_<N>pct_plans.*. Kod 1, gdy test nie przechodzi.
+Wyjście: reports/f4_plans/f4_plans.* (sample 0,1), reports/f6_run_100pct/f6_plans.* (1,0), inaczej reports/r3_ocena/wyniki_<N>pct/r3_<N>pct_plans.*. Kod 1, gdy test nie przechodzi.
 """
 import gzip
 import hashlib
@@ -28,7 +28,8 @@ P = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))["plans"
 if len(sys.argv) > 2:  # sample jak w plans.py
     P["sample"] = float(sys.argv[2])
 PHASE = {0.1: "f4", 1.0: "f6"}.get(P["sample"], f"r3_{round(P['sample'] * 100)}pct")
-f3 = json.load(open("reports/f3_demand.json", encoding="utf-8"))
+OUT = {"f4": "reports/f4_plans", "f6": "reports/f6_run_100pct"}.get(PHASE, f"reports/r3_ocena/wyniki_{PHASE[3:]}")
+f3 = json.load(open("reports/f3_demand/f3_demand.json", encoding="utf-8"))
 area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[0]
 gmina = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
 powiat = gpd.read_file("scenarios/kutno/area/powiat.geojson").geometry.iloc[0]
@@ -92,7 +93,7 @@ report = {
 report["ok"] = (report["deterministic"] and not bad_chain and report["persons"] == expected
                 and report["home_outside_area"] == 0 and report["work_outside_gmina"] == 0 and report["return_home_differs"] == 0
                 and bad_snap == 0 and missing_link == 0 and start_ok)
-json.dump(report, open(f"reports/{PHASE}_plans.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
+json.dump(report, open(f"{OUT}/{PHASE}_plans.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
 # --- mapa: domy, praca, wjazdy -------------------------------------------------------------------------
 fig = plt.figure(figsize=(16, 8))
@@ -140,6 +141,6 @@ ax4.text(0, 1, "\n".join([
 f"praca: {P['work_max_dur']} (ZAŁOŻENIE)",
 ]), va="top", fontsize=8, family="monospace")
 fig.suptitle(f"{PHASE.upper()} plans {P['sample']:.0%} ({P['variant']}) | {'ZALICZONA' if report['ok'] else 'NIE ZALICZONA'}", fontsize=12)
-fig.savefig(f"reports/{PHASE}_plans.png", dpi=120)
+fig.savefig(f"{OUT}/{PHASE}_plans.png", dpi=120)
 print(json.dumps(report, indent=1, ensure_ascii=False))
 sys.exit(0 if report["ok"] else 1)

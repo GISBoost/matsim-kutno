@@ -1,0 +1,26 @@
+{
+  "events_file": "output/r3_10pct_s4711/output_events.xml.zst",
+  "event_types": {
+    "actend": 15438,
+    "departure": 15438,
+    "travelled": 10292,
+    "arrival": 15438,
+    "actstart": 15438,
+    "PersonEntersVehicle": 5146,
+    "vehicle enters traffic": 5146,
+    "left link": 265164,
+    "entered link": 265164,
+    "vehicle leaves traffic": 5146,
+    "PersonLeavesVehicle": 5146
+  },
+  "persons_departing": 2573,
+  "departures": 15438,
+  "departures_by_mode": {
+    "walk": 10292,
+    "car": 5146
+  },
+  "arrivals": 15438,
+  "stuck": 0,
+  "persons_dep_ne_arr": [],
+  "ok": true
+}
