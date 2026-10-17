@@ -2,6 +2,8 @@
 
 Data badania: 2026-10-17. Zakres: tylko zbieranie danych i ocena; model (D7) bez zmian. Pliki w `data/raw/g2/`, skrypty `pipeline/g2_*.py`.
 
+> **Sprostowanie (2026-10-17, sesja główna).** Pkt 3 poniżej jest nieścisły. F3 już odejmuje wyjeżdżających: 20 215 pracujących mieszkańców (D5, wariant bazowy) − 2 669 wyjeżdżających z macierzy = 17 546 (`reports/f3_demand/f3_demand.md`, wiersze 28–30). Wyjeżdżający nie są więc „wszyscy w Kutnie”, tylko usunięci z popytu bez symulowania ich ruchu. P4507 (17 255) to mieszkańcy pracujący gdziekolwiek, i należy go porównywać z 20 215, a nie z 17 546. Warianty G2 są w `docs/research/G2_warianty.md`.
+
 ## 1. Wynik w skrócie
 
 1. **Jest kotwica liczby miejsc pracy dla samego Kutna, nowsza i lepsza niż w ZRODLA.md zakładano.** BDL GUS ma od 2023 r. tablicę **„Pracujący w gospodarce narodowej wg płci i siedziby pracy głównej” (P4508)** na poziomie gminy. Kutno (miasto, TERC 1002011, BDL `051011902011`): **17 486 (2024), 17 251 (2025)**. Dane z rejestrów ZUS/KRUS, więc obejmują też podmioty ≤ 9 osób i rolników ubezpieczonych w KRUS.
