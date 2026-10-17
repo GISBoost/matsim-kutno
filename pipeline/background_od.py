@@ -4,7 +4,7 @@ Użycie: uv run python -W ignore pipeline/background_od.py <tau_min> <out_tag> <
 Strefy: wjazdy (początek) i wyjazdy (koniec) na granicy sieci (`scenarios/kutno/demand/border_links.csv`, z plans.py) oraz
 gminy powiatu kutnowskiego (punkt = węzeł najbliższy środkowi ciężkości powierzchni budynków gminy).
 Liczniki (cel): GPR SDRDR (DW: SDRR) × udział lekkich × kierunek (jak g5_baseline.py) MINUS natężenie modelu bez tła.
-Do dopasowania tylko odcinki poza miastem; 91124, 91866, 91869 (miasto) zostają do walidacji poza próbą (D19/K4).
+Do dopasowania odcinki poza miastem i Sklęczkowska 91869; 91124 i 91866 zostają do walidacji poza próbą (D19/K4, W2).
 Metoda: trasy swobodne (length/freespeed), pary O-D, których trasa przechodzi przez co najmniej jeden licznik dopasowania,
 macierz a priori grawitacyjna T0_ij = w_o · w_d · exp(−t_ij / tau), potem mnożnikowa korekta:
 T_ij *= exp(średnia log(cel_l / przypisane_l) po licznikach na trasie).
@@ -30,7 +30,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 plt.style.use("dark_background")  # ciemny motyw (prośba użytkownika)
 
-CITY = [91124, 91866, 91869]  # D19/K4: walidacja poza próbą
+CITY = [91124, 91866]  # D19/K4, W2: walidacja poza próbą (Sklęczkowska 91869 w dopasowaniu)
 TAU, TAG = float(sys.argv[1]), sys.argv[2]
 BORDER_W = TAG.endswith("_cap")  # wariant: waga wjazdu/wyjazdu = capacity linku / średnia (A1 >> DW)
 runs = [Path(a) for a in sys.argv[3:]]

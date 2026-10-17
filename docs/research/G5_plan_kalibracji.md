@@ -118,3 +118,20 @@ Prawdziwa kalibracja sieci wymaga danych, których nie ma publicznie: pomiarów 
 - **W1:** dopasowanie do wszystkich 19 odcinków. Miasto pasuje z konstrukcji, ale nie zostaje nic do walidacji.
 - **W2 (rekomendacja):** Sklęczkowska (91869) wchodzi do dopasowania, bo jako jedyna wiąże ruch z węzła A1 Kutno Wsch. Objazdowa (91124) i Bitwy pod Kutnem (91866) zostają do walidacji poza próbą.
 - **W3:** zostać przy 3 odcinkach poza próbą i szukać innego a priori (np. udział tranzytu na A1 z innego źródła, którego teraz nie mam).
+
+## 5. W2 (decyzja użytkownika, 2026-10-17) i plan na następną sesję
+
+Sklęczkowska 91869 wchodzi do dopasowania. Wariant: τ = 30 min, waga wjazdu = capacity linku. Plik `scenarios/kutno/demand/background_od_r1_w2_cap.csv`, raport `reports/g5_kalibracja/k2_od_r1_w2_cap.{json,png}`.
+- Walidacja poza próbą na trasach swobodnych, przed MATSim: **Objazdowa 91124: 141% GPR** (bez W2: 155%), **Bitwy pod Kutnem 91866: 94%**.
+- Niedopasowane odcinki: 91121 DK92 Chodów–Krośniewice = 0, bo żadna trasa O-D nie przechodzi przez ten link. 10045 DW583 Żychlin i 91122 Krośniewice ≈ 0,5, bo to ruch wewnątrz gmin, którego strefa-gmina z jednym węzłem nie oddaje. 91119 = 1,5.
+
+**Do zrobienia (start jutro, przed pierwszą symulacją z tłem):**
+1. plans.py: agenci tła z `background_od_r1_w2_cap.csv`.
+   - Subpopulacja `tlo`, łańcuch `tlo_start` – car – `tlo_end`.
+   - Wjazd i wyjazd na linkach granicznych, w gminie losowy budynek wg powierzchni.
+   - Godzina z `hourly_profile_lisica2025.csv` (lekkie).
+   - Liczba = trips_day × sample (największe reszty).
+2. Configi: `activityParams` dla `tlo_start`/`tlo_end` (ZAŁOŻENIE w komentarzu) oraz strategie ChangeExpBeta i ReRoute dla `subpopulation=tlo`.
+3. `validate_plans.py`: osobny test dla `tlo` (liczba = suma OD × próbka, łańcuch, linki istnieją).
+4. Test 2 iteracji, potem **R2 = R1 + tło, 25%, 1 seed** (runy pośrednie na 1 seedzie, 3 seedy tylko dla wyników referencyjnych). W próbce 25% to ok. 15,5 tys. agentów tła plus 3,7 tys. pracujących, więc run będzie kilka razy dłuższy. Czas trzeba oszacować po teście.
+5. Porównanie R2 z GPR (`g5_baseline.py`): Objazdowa i Bitwy pod Kutnem poza próbą, do tego opóźnienia i kolejki (`queues.py`).
