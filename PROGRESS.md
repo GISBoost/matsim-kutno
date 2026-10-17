@@ -92,3 +92,8 @@
 - `pipeline/queues.py`: diagnoza na eventach (przejazdy linków, przyczyna: capacity / spillback / węzeł, przepełnienie). Run B 25%: 26% czasu pojazdów w opóźnieniu (zgodne z 26% klatek w G6). 51% opóźnień na ulicach tertiary z 600 poj./h/pas, 44% to kolejka spod zwężenia Sklęczkowskiej (2 → 1 pas).
 - Artefakt: `stuckTime` 10 s → 82 pojazdy na linku o pojemności 1,2. Test na tych samych trasach (stuckTime 10/30/60/300, kinematicWaves 30/300): przy queue suma opóźnień ±7%, przy kinematicWaves +56%, a z 300 s gridlock.
 - D18: stuckTime 30 (Berlin v6.3, Kelheim v3.1). Run 25% × 3 seedy: 12 604 nóg car, 0 stuck, opóźnienia 735–854 poj.-h próbki, przepełnione linki 4–7 zamiast 13, GEH < 5 w szczycie 98,8–100%. Raport: `reports/g6_kolejki/g6_kolejki.md`. Nowe wyniki referencyjne: `reports/g6_kolejki/d18_25pct/`.
+
+## 2026-10-17: G5, punkt startowy i plan kalibracji
+
+- `pipeline/g5_baseline.py`: model D18 (25%, 3 seedy) vs GPR 2025 (lekkie, SDRDR, na kierunek). A1 7%, DK w Kutnie 56% (Sklęczkowska 71%, Objazdowa 65%, Bitwy pod Kutnem 28%), pozostałe DK 16%, DW 7%. `reports/g5_kalibracja/g5_0_baseline.*`.
+- Plan z wariantami (K1 dojazdy autem, K2 tło, K3 profil, K4 walidacja z 3 odcinkami miejskimi poza próbą, K5 wrażliwość sieci): `docs/research/G5_plan_kalibracji.md`. Czeka na decyzje użytkownika, runów nie ma.
