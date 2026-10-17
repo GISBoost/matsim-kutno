@@ -34,7 +34,7 @@
 		<!-- D8: przepustowość skalowana do frakcji próbki -->
 		<param name="flowCapacityFactor" value="0.25" />
 		<param name="storageCapacityFactor" value="0.25" />
-		<!-- wyjazdy do 23:59 (GBR Rys. 46) + dojazd do granicy dla dalekich gmin (R3/E1: do ok. 6 h, np. Szczecin) + 8 h pracy + powrót.
+		<!-- wyjazdy do 23:59 (GBR Rys. 46) + 8 h pracy + powrót; od D16 start z wjazdu bez doliczania dojazdu, 48 h to zapas.
 		     36:00 przerwało agenta z Krakowa (reports/r3_ocena/run_100pct_przerwany/r3_100pct_s4711_events.json, stuckAndAbort). -->
 		<param name="endTime" value="48:00:00" />
 		<param name="numberOfThreads" value="8" />

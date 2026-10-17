@@ -12,12 +12,13 @@ Każdy folder to jedna faza. Raport główny to plik `.md` w folderze. Obok leż
 | `f5_run_10pct/` | pierwszy run 10%, 20 it. (przed naprawami R3) | `f5_run.md` |
 | `f6_run_100pct/` | run 100%, 20 it. (przed naprawami R3) | `f6_run.md` |
 | `r3_ocena/` | ocena modelu i naprawy, runy 100 it. | niżej |
+| `d16_przyjezdzajacy/` | **wyniki referencyjne (25%, 3 seedy)** po D16: wjazd o godzinie z profilu, odcięcie gmin > 100 km | `d16_przyjezdzajacy.md` |
 
 Folder `r3_ocena/`:
 
 | podfolder / plik | co zawiera |
 |---|---|
-| `wyniki_25pct/` | **wyniki referencyjne:** 3 seedy, zbieżność, opóźnienia, select-link DK92. Raport: `r3_25pct.md` |
+| `wyniki_25pct/` | wyniki przed D16: 3 seedy, zbieżność, opóźnienia, select-link DK92. Raport: `r3_25pct.md` |
 | `wyniki_10pct/` | 3 seedy 10%, do porównania |
 | `r3_10_vs_25pct.md` (+ `.json`/`.png`) | porównanie próbek 10% i 25% |
 | `run_100pct_przerwany/` | run 100% przerwany na prośbę użytkownika (dowód `stuckAndAbort` przy endTime 36:00) |

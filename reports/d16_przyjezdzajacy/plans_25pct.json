@@ -1,0 +1,96 @@
+{
+  "plans": "scenarios\\kutno\\plans_25pct.xml.gz",
+  "sha256": "8003d911143c7e373b10e6a75bd2ff1649c2ec91fb2fde3d99bc329b41d3a76c",
+  "sha256_rerun": "8003d911143c7e373b10e6a75bd2ff1649c2ec91fb2fde3d99bc329b41d3a76c",
+  "deterministic": true,
+  "persons": 6421,
+  "expected": 6421,
+  "bad_chain": [],
+  "bad_chain_n": 0,
+  "home_outside_area": 0,
+  "work_outside_gmina": 0,
+  "return_home_differs": 0,
+  "activities_on_excluded_link_types": 0,
+  "activity_links_missing": 0,
+  "start_equals_profile_time_ok": true,
+  "excluded_gminas_gt_max_border_km": {
+    "max_border_km": 100,
+    "gminas": 12,
+    "persons_100pct": 47,
+    "top": [
+      "0461011: 7 os., 113 km",
+      "3064011: 7 os., 151 km",
+      "3262011: 5 os., 327 km",
+      "2061011: 4 os., 251 km",
+      "0410015: 3 os., 135 km",
+      "0264011: 3 os., 190 km",
+      "0663011: 3 os., 220 km",
+      "0462011: 3 os., 126 km",
+      "1261011: 3 os., 231 km",
+      "2261011: 3 os., 225 km"
+    ]
+  },
+  "max_border_km_included": 98.7,
+  "by_kind": {
+    "resident": 4390,
+    "commuter": 2031
+  },
+  "home_source": {
+    "osm": 5886,
+    "entry": 521,
+    "random": 14
+  },
+  "random_point_homes_keys": [
+    "6509902"
+  ],
+  "distinct_work_buildings": 635,
+  "top5_work_buildings_share": 0.12,
+  "entry_links_used": {
+    "3107258420023r": 92,
+    "1885522040087f": 91,
+    "2902403630001f": 86,
+    "2473952100003r": 73,
+    "3751421790011f": 46,
+    "3890128470001r": 45,
+    "15488949440000f": 31,
+    "3796965080015f": 22,
+    "15488949430000f": 15,
+    "2445763210015f": 11,
+    "943199780001f": 9
+  },
+  "home_work_crowfly_km_median": {
+    "commuter": 13.1,
+    "resident": 3.7
+  },
+  "times": {
+    "departure_profile": "config/departure_home_work_gbr2022.csv",
+    "work_max_dur": "08:00:00",
+    "departure_by_hour": {
+      "0": 20,
+      "1": 18,
+      "2": 23,
+      "3": 24,
+      "4": 14,
+      "5": 645,
+      "6": 1569,
+      "7": 2095,
+      "8": 1038,
+      "9": 448,
+      "10": 144,
+      "11": 40,
+      "12": 113,
+      "13": 127,
+      "14": 21,
+      "15": 11,
+      "16": 19,
+      "17": 6,
+      "18": 9,
+      "19": 10,
+      "20": 8,
+      "21": 4,
+      "22": 9,
+      "23": 6
+    }
+  },
+  "ok": true
+}

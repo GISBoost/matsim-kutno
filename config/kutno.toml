@@ -33,8 +33,9 @@ entry_zone_m = 1000
 # R3/E5: aktywności przypinane do najbliższego linku z pominięciem tych typów (inaczej MATSim przypina dom do jezdni A1).
 # Wjazdy graniczne (D9) zachowują swój link.
 snap_exclude_types = ["motorway", "motorway_link", "trunk", "trunk_link", "boundary_turnaround"]
-# R3/E1, ZAŁOŻENIE: przyjeżdżający spoza powiatu startują z wjazdu później o szacowany czas dojazdu z gminy do granicy
-# = odległość centroid gminy -> link wjazdowy w linii prostej x krętość / prędkość.
-# Prędkość = 90 km/h (limit poza terenem zabudowanym) x 0,8 jak w D13. Krętość 1,3 = ZAŁOŻENIE.
-entry_detour_factor = 1.3
-entry_speed_kmh = 72
+# D16/A: przyjeżdżający spoza powiatu pojawiają się na wjeździe granicznym o godzinie z departure_profile
+# (bez doliczania dojazdu z gminy; zastępuje R3/E1 z 72 km/h i krętością 1,3).
+# D16/B, ZAŁOŻENIE (decyzja użytkownika 2026-10-17): gminy spoza powiatu z centroidem dalej niż max_border_km od najbliższego
+# wjazdu są pomijane: codzienny dojazd autem z takiej odległości uznajemy za nierealny (relacje w macierzy GUS
+# to raczej adres pracodawcy, CLAUDE.md gotchas). Warszawa (~89 km) zostaje; próg to parametr do wariantów.
+max_border_km = 100

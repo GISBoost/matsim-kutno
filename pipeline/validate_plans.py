@@ -1,6 +1,6 @@
 """F4: walidacja plans.xml.gz + mapa kontrolna.
 
-Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> [sample]
+Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> [sample [out_dir]]   (out_dir: gdzie zapisać raport, domyślnie folder fazy)
 Test (TASKS F4): każda osoba ma dokładnie home-car-work-car-home; współrzędne w obszarze sieci; praca w gminie Kutno;
 liczba osób = round(sample x (pracujący w Kutnie + przyjeżdżający)); ten sam sha256 po ponownym uruchomieniu plans.py.
 Wyjście: reports/f4_plans/f4_plans.* (sample 0,1), reports/f6_run_100pct/f6_plans.* (1,0), inaczej reports/r3_ocena/wyniki_<N>pct/r3_<N>pct_plans.*. Kod 1, gdy test nie przechodzi.
@@ -22,13 +22,14 @@ from shapely.geometry import Point
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+plt.style.use("dark_background")  # mapy w ciemnym motywie (prośba użytkownika)
 
 path = Path(sys.argv[1])
 P = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))["plans"]
 if len(sys.argv) > 2:  # sample jak w plans.py
     P["sample"] = float(sys.argv[2])
 PHASE = {0.1: "f4", 1.0: "f6"}.get(P["sample"], f"r3_{round(P['sample'] * 100)}pct")
-OUT = {"f4": "reports/f4_plans", "f6": "reports/f6_run_100pct"}.get(PHASE, f"reports/r3_ocena/wyniki_{PHASE[3:]}")
+OUT = sys.argv[3] if len(sys.argv) > 3 else {"f4": "reports/f4_plans", "f6": "reports/f6_run_100pct"}.get(PHASE, f"reports/r3_ocena/wyniki_{PHASE[3:]}")
 f3 = json.load(open("reports/f3_demand/f3_demand.json", encoding="utf-8"))
 area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[0]
 gmina = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
@@ -51,7 +52,10 @@ with gzip.open(path, "rb") as f:
         el.clear()
 
 df = pd.DataFrame(persons)
-expected = round(P["sample"] * f3["agents_100pct"][P["variant"]])
+strata = pd.read_csv(path.with_name(path.name.removesuffix(".xml.gz") + "_strata.csv"), dtype={"key": str})
+assert abs(strata.n.sum() - f3["agents_100pct"][P["variant"]]) < 1, "strata != F3"
+excluded = strata[strata.excluded]  # D16/B
+expected = round(P["sample"] * (f3["agents_100pct"][P["variant"]] - excluded.n.sum()))
 sha = hashlib.sha256(path.read_bytes()).hexdigest()
 with tempfile.TemporaryDirectory() as d:
     subprocess.run([sys.executable, "-W", "ignore", "pipeline/plans.py", str(Path(d) / "plans.xml.gz"), str(P["sample"])], check=True,
@@ -59,7 +63,7 @@ with tempfile.TemporaryDirectory() as d:
     sha2 = hashlib.sha256((Path(d) / "plans.xml.gz").read_bytes()).hexdigest()
 
 meta = pd.read_csv(path.with_name(path.name.removesuffix(".xml.gz") + "_meta.csv"))
-meta["dep_h"] = meta.dep_s / 3600  # wyjazd z domu (profil D14); start z wjazdu granicznego jest późniejszy (R3/E1)
+meta["dep_h"] = meta.dep_s / 3600  # wyjazd z domu albo wjazd na granicę (profil D14, D16/A)
 link_type = {}
 with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
     for _, el in etree.iterparse(f, tag="link"):
@@ -69,7 +73,7 @@ own = meta.home_src != "entry"
 bad_snap = int(meta[own].home_link.map(link_type).isin(P["snap_exclude_types"]).sum()
                + meta.work_link.map(link_type).isin(P["snap_exclude_types"]).sum())
 missing_link = int((~meta.home_link.isin(link_type.keys())).sum() + (~meta.work_link.isin(link_type.keys())).sum())
-start_ok = bool((meta.start_s >= meta.dep_s).all() and (meta[own].start_s == meta[own].dep_s).all())
+start_ok = bool((meta.start_s == meta.dep_s).all())  # D16/A
 meta["dist_km"] = ((meta.home_x - meta.work_x) ** 2 + (meta.home_y - meta.work_y) ** 2) ** .5 / 1000
 report = {
     "plans": str(path), "sha256": sha, "sha256_rerun": sha2, "deterministic": sha == sha2,
@@ -78,8 +82,12 @@ report = {
     "work_outside_gmina": int((~df.w.apply(gmina.contains)).sum()),
     "return_home_differs": int((~df.same_home).sum()),
     "activities_on_excluded_link_types": bad_snap, "activity_links_missing": missing_link,
-    "entry_start_offset_min_median": round(float((meta.start_s - meta.dep_s)[~own].median() / 60), 1) if (~own).any() else 0,
-    "start_after_departure_ok": start_ok,
+    "start_equals_profile_time_ok": start_ok,
+    "excluded_gminas_gt_max_border_km": {"max_border_km": P["max_border_km"], "gminas": len(excluded),
+                                         "persons_100pct": round(float(excluded.n.sum())),
+                                         "top": excluded.sort_values("n", ascending=False).head(10)
+                                         .apply(lambda r: f"{r.key}: {r.n:.0f} os., {r.border_km:.0f} km", axis=1).tolist()},
+    "max_border_km_included": round(float(strata[~strata.excluded].border_km.max()), 1),
     "by_kind": meta.kind.value_counts().to_dict(),
     "home_source": meta.home_src.str.split("_").str[0].value_counts().to_dict(),
     "random_point_homes_keys": sorted(meta[meta.home_src == "random_point"].key.astype(str).unique().tolist()),
@@ -99,13 +107,13 @@ json.dump(report, open(f"{OUT}/{PHASE}_plans.json", "w", encoding="utf-8"), inde
 fig = plt.figure(figsize=(16, 8))
 ax = fig.add_axes([0.01, 0.05, 0.47, 0.86])
 gpd.GeoSeries([area]).boundary.plot(ax=ax, color="0.6", lw=1, ls="--")
-gpd.GeoSeries([powiat]).boundary.plot(ax=ax, color="0.3", lw=1.2)
-gpd.GeoSeries([gmina]).plot(ax=ax, color="#fde9c9", edgecolor="#c47f17", lw=1)
+gpd.GeoSeries([powiat]).boundary.plot(ax=ax, color="0.7", lw=1.2)
+gpd.GeoSeries([gmina]).plot(ax=ax, color="#3b2f1e", edgecolor="#c47f17", lw=1)
 for kind, col in (("resident", "#2e86ab"), ("commuter", "#7b2cbf")):
     m = meta[(meta.kind == kind) & (meta.home_src != "entry")]
     ax.scatter(m.home_x, m.home_y, s=3, color=col, alpha=0.5, label=f"dom: {'mieszkaniec' if kind == 'resident' else 'przyjeżdżający z powiatu'} ({len(m)})")
 e = meta[meta.home_src == "entry"].groupby(["home_x", "home_y"]).size().reset_index(name="n")
-ax.scatter(e.home_x, e.home_y, s=e.n * 4, color="#d1495b", edgecolor="k", lw=0.5, zorder=5,
+ax.scatter(e.home_x, e.home_y, s=e.n * 4, color="#d1495b", edgecolor="w", lw=0.5, zorder=5,
            label=f"wjazd spoza powiatu ({int(e.n.sum())} os., {len(e)} punktów)")
 for r in e.itertuples():
     ax.annotate(str(r.n), (r.home_x, r.home_y), xytext=(5, 3), textcoords="offset points", fontsize=7, color="#d1495b")
@@ -113,9 +121,9 @@ ax.set_aspect("equal"); ax.set_axis_off(); ax.legend(loc="lower left", fontsize=
 ax.set_title("domy agentów i punkty wjazdu", fontsize=10)
 
 ax2 = fig.add_axes([0.5, 0.3, 0.3, 0.62])
-gpd.GeoSeries([gmina]).plot(ax=ax2, color="#fde9c9", edgecolor="#c47f17", lw=1)
+gpd.GeoSeries([gmina]).plot(ax=ax2, color="#3b2f1e", edgecolor="#c47f17", lw=1)
 wc = meta.groupby(["work_x", "work_y"]).size().reset_index(name="n")
-ax2.scatter(wc.work_x, wc.work_y, s=wc.n * 2, color="#f18f01", alpha=0.6, edgecolor="k", lw=0.2)
+ax2.scatter(wc.work_x, wc.work_y, s=wc.n * 2, color="#f18f01", alpha=0.6, edgecolor="w", lw=0.2)
 ax2.set_aspect("equal"); ax2.set_axis_off()
 ax2.set_title(f"miejsca pracy w Kutnie: {report['distinct_work_buildings']} budynków\n"
               f"(wielkość = liczba agentów; top 5 budynków = {report['top5_work_buildings_share']:.0%})", fontsize=10)

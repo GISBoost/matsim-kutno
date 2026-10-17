@@ -25,20 +25,6 @@ if len(sys.argv) > 2:
 rng = np.random.default_rng(P["seed"])
 KUTNO_CENTRE = Point(524805, 485023)  # FACT_CHECK #17
 
-# --- liczebności: largest remainder, żeby suma = round(sample x całość) --------------------------------
-ob = pd.read_csv("scenarios/kutno/demand/workers_by_obwod.csv")
-inb = pd.read_csv("scenarios/kutno/demand/inbound_by_gmina.csv", dtype={"home": str})
-strata = pd.concat([
-    pd.DataFrame({"kind": "resident", "key": ob.obwod_id.astype(str), "n": ob[f"work_in_kutno_{P['variant']}"]}),
-    pd.DataFrame({"kind": "commuter", "key": inb.home, "n": inb.n.astype(float)}),
-], ignore_index=True)
-exact = strata.n * P["sample"]
-strata["agents"] = np.floor(exact).astype(int)
-target = round(exact.sum())
-rest = (exact - strata.agents).sort_values(ascending=False, kind="stable")
-strata.loc[rest.index[:target - strata.agents.sum()], "agents"] += 1
-assert strata.agents.sum() == target
-
 # --- geometrie --------------------------------------------------------------------------------------
 area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[0]
 gmina_kutno = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
@@ -121,6 +107,32 @@ entry = pd.DataFrame([dict(link=l, x=nodes[b_].x, y=nodes[b_].y) for l, a_, b_ i
                       and nodes[b_].distance(KUTNO_CENTRE) < nodes[a_].distance(KUTNO_CENTRE)])
 assert len(entry), "brak linków wjazdowych"
 
+# --- liczebności: largest remainder, żeby suma = round(sample x całość) --------------------------------
+ob = pd.read_csv("scenarios/kutno/demand/workers_by_obwod.csv")
+inb = pd.read_csv("scenarios/kutno/demand/inbound_by_gmina.csv", dtype={"home": str})
+strata = pd.concat([
+    pd.DataFrame({"kind": "resident", "key": ob.obwod_id.astype(str), "n": ob[f"work_in_kutno_{P['variant']}"]}),
+    pd.DataFrame({"kind": "commuter", "key": inb.home, "n": inb.n.astype(float)}),
+], ignore_index=True)
+
+
+# D16/B: gminy spoza powiatu z centroidem dalej niż max_border_km od najbliższego wjazdu nie dojeżdżają codziennie
+def border_dist(code):
+    c = gmina_geom(code).centroid
+    return float(np.sqrt((entry.x - c.x) ** 2 + (entry.y - c.y) ** 2).min())
+
+
+ext = (strata.kind == "commuter") & ~strata.key.str.startswith(A["teryt_powiat"])
+strata["border_km"] = 0.0
+strata.loc[ext, "border_km"] = [border_dist(k) / 1000 for k in strata.key[ext]]
+strata["excluded"] = strata.border_km > P["max_border_km"]
+exact = strata.n.where(~strata.excluded, 0) * P["sample"]
+strata["agents"] = np.floor(exact).astype(int)
+target = round(exact.sum())
+rest = (exact - strata.agents).sort_values(ascending=False, kind="stable")
+strata.loc[rest.index[:target - strata.agents.sum()], "agents"] += 1
+assert strata.agents.sum() == target
+
 # --- osoby -------------------------------------------------------------------------------------------
 powiat = A["teryt_powiat"]
 people = []  # (id, kind, key, home_x, home_y, home_link, home_src, border_m)
@@ -156,8 +168,8 @@ meta["work_link"] = snap_links(meta.work_x, meta.work_y)
 prof = pd.read_csv(P["departure_profile"])
 k = rng.choice(len(prof), size=len(meta), p=(prof.share_pct / prof.share_pct.sum()).to_numpy())
 meta["dep_s"] = (prof.from_h.to_numpy()[k] * 3600 + rng.uniform(0, 1, len(meta)) * (prof.to_h - prof.from_h).to_numpy()[k] * 3600).astype(int)
-# R3/E1: start z wjazdu = wyjazd z domu + dojazd do granicy (0 dla domów w sieci)
-meta["start_s"] = meta.dep_s + (meta.border_m * P["entry_detour_factor"] / (P["entry_speed_kmh"] / 3.6)).round().astype(int)
+# D16/A: przyjeżdżający spoza powiatu dostają godzinę z profilu jako moment wjazdu na granicę sieci (bez doliczania dojazdu)
+meta["start_s"] = meta.dep_s
 
 # --- plans.xml.gz (bez tras; mtime=0, żeby sha256 był powtarzalny) ------------------------------------
 root = etree.Element("population")
@@ -181,4 +193,5 @@ stem = OUT.name.removesuffix(".xml.gz")
 meta.to_csv(OUT.with_name(stem + "_meta.csv"), index=False)
 strata.to_csv(OUT.with_name(stem + "_strata.csv"), index=False)
 print(f"{OUT}: {len(meta)} osób (cel {target}); budynki mieszk. {len(homes_b)}, pracy {len(work_b)}, "
-      f"linki wjazdowe {len(entry)}; źródła domów: {meta.home_src.str.split('_').str[0].value_counts().to_dict()}")
+      f"linki wjazdowe {len(entry)}; odcięte gminy > {P['max_border_km']} km: {int(strata.excluded.sum())} "
+      f"({strata.n[strata.excluded].sum():.0f} os. w 100%); źródła domów: {meta.home_src.str.split('_').str[0].value_counts().to_dict()}")

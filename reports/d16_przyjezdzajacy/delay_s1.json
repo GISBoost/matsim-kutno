@@ -1,0 +1,210 @@
+{
+  "total_delay_veh_h": 1091.4,
+  "delay_veh_h_by_hour": {
+    "1": 0.1,
+    "2": 0.1,
+    "3": 0.2,
+    "5": 6.6,
+    "6": 61.6,
+    "7": 245.1,
+    "8": 190.7,
+    "9": 14.5,
+    "10": 1.8,
+    "11": 0.6,
+    "12": 0.8,
+    "13": 5.3,
+    "14": 26.0,
+    "15": 94.5,
+    "16": 249.5,
+    "17": 186.7,
+    "18": 3.4,
+    "19": 0.8,
+    "20": 0.6,
+    "21": 0.9,
+    "22": 0.6,
+    "23": 0.2,
+    "24": 0.1
+  },
+  "top_links": [
+    {
+      "link": "410250640002r",
+      "type": "primary",
+      "capacity": 1500.0,
+      "vehicles": 1508,
+      "delay_veh_h": 103.0,
+      "avg_delay_s": 246,
+      "coord_EN": [
+        526942,
+        483905
+      ]
+    },
+    {
+      "link": "5452223090000r",
+      "type": "primary",
+      "capacity": 6000.0,
+      "vehicles": 1647,
+      "delay_veh_h": 101.3,
+      "avg_delay_s": 221,
+      "coord_EN": [
+        526007,
+        483269
+      ]
+    },
+    {
+      "link": "2020517410007r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 738,
+      "delay_veh_h": 62.6,
+      "avg_delay_s": 305,
+      "coord_EN": [
+        530873,
+        485309
+      ]
+    },
+    {
+      "link": "2131914840011r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 567,
+      "delay_veh_h": 48.3,
+      "avg_delay_s": 307,
+      "coord_EN": [
+        527318,
+        482287
+      ]
+    },
+    {
+      "link": "14641980450008r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 681,
+      "delay_veh_h": 34.4,
+      "avg_delay_s": 182,
+      "coord_EN": [
+        530873,
+        485309
+      ]
+    },
+    {
+      "link": "2347118000007r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 580,
+      "delay_veh_h": 30.2,
+      "avg_delay_s": 188,
+      "coord_EN": [
+        527738,
+        482407
+      ]
+    },
+    {
+      "link": "2446692260002r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1647,
+      "delay_veh_h": 28.3,
+      "avg_delay_s": 62,
+      "coord_EN": [
+        526126,
+        483350
+      ]
+    },
+    {
+      "link": "5899320000001r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1679,
+      "delay_veh_h": 28.3,
+      "avg_delay_s": 61,
+      "coord_EN": [
+        526736,
+        483765
+      ]
+    },
+    {
+      "link": "2446692080002r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1511,
+      "delay_veh_h": 27.3,
+      "avg_delay_s": 65,
+      "coord_EN": [
+        526829,
+        483828
+      ]
+    },
+    {
+      "link": "2716270800000r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 676,
+      "delay_veh_h": 23.7,
+      "avg_delay_s": 126,
+      "coord_EN": [
+        530519,
+        484500
+      ]
+    },
+    {
+      "link": "3738904020013r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 378,
+      "delay_veh_h": 20.9,
+      "avg_delay_s": 199,
+      "coord_EN": [
+        527155,
+        482308
+      ]
+    },
+    {
+      "link": "2446231250007f",
+      "type": "primary",
+      "capacity": 4500.0,
+      "vehicles": 1595,
+      "delay_veh_h": 20.8,
+      "avg_delay_s": 47,
+      "coord_EN": [
+        525983,
+        483253
+      ]
+    },
+    {
+      "link": "3176338800019r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 666,
+      "delay_veh_h": 19.7,
+      "avg_delay_s": 107,
+      "coord_EN": [
+        528159,
+        482548
+      ]
+    },
+    {
+      "link": "8181625600000r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1340,
+      "delay_veh_h": 18.9,
+      "avg_delay_s": 51,
+      "coord_EN": [
+        525991,
+        483258
+      ]
+    },
+    {
+      "link": "3048714920005f",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 624,
+      "delay_veh_h": 18.3,
+      "avg_delay_s": 105,
+      "coord_EN": [
+        527354,
+        482295
+      ]
+    }
+  ]
+}

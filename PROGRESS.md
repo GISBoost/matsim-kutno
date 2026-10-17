@@ -70,3 +70,10 @@
 - Wszystkie 3 seedy: 12 866 nóg car, 0 stuck (`reports/r3_25pct_s*_events.json`).
 - GEH < 5 w szczycie 7–8 (natężenia przeskalowane do 100%): 98,9–99,5% linków. Mediany czasów różnią się o ≤ 0,4 min, suma opóźnień o 11%.
 - Raport: `reports/r3_ocena/wyniki_25pct/r3_25pct.md`. Mapy są teraz w ciemnym motywie (prośba użytkownika).
+
+## 2026-10-17: D16, przyjeżdżający spoza powiatu
+
+- A: start z wjazdu = godzina z profilu GBR (bez doliczania dojazdu). B: gminy dalej niż 100 km od wjazdu pominięte (12 gmin, 47 osób w 100%).
+- Plany 10/25/100%: walidacja ok, sha256 powtarzalny (`reports/d16_przyjezdzajacy/plans_*.json`).
+- Run 25%, 3 seedy równolegle (14 min): 12 842 nóg car, 0 stuck. Wskaźniki zbiorcze bez zmian poza rozrzutem seedów. Raport: `reports/d16_przyjezdzajacy/d16_przyjezdzajacy.md`.
+- Porządki: `reports/` w folderach faz, spis w `reports/README.md`. 3 seedy 10% vs 25%: `reports/r3_ocena/r3_10_vs_25pct.md`.

@@ -1,0 +1,26 @@
+{
+  "events_file": "output/d16_25pct_s4711/output_events.xml.zst",
+  "event_types": {
+    "actend": 38526,
+    "departure": 38526,
+    "travelled": 25684,
+    "arrival": 38526,
+    "actstart": 38526,
+    "PersonEntersVehicle": 12842,
+    "vehicle enters traffic": 12842,
+    "left link": 640461,
+    "entered link": 640461,
+    "vehicle leaves traffic": 12842,
+    "PersonLeavesVehicle": 12842
+  },
+  "persons_departing": 6421,
+  "departures": 38526,
+  "departures_by_mode": {
+    "walk": 25684,
+    "car": 12842
+  },
+  "arrivals": 38526,
+  "stuck": 0,
+  "persons_dep_ne_arr": [],
+  "ok": true
+}
