@@ -92,3 +92,29 @@ Prawdziwa kalibracja sieci wymaga danych, których nie ma publicznie: pomiarów 
 3. **K3:** digitalizacja Lisica (rekomendacja) czy podział 3-okresowy.
 4. **Walidacja poza próbą:** zgoda, żeby 3 odcinki miejskie nie brały udziału w dopasowaniu.
 5. **Dane miejskie:** czy przygotować wnioski o pomiary (UM Kutno, ZDP, GDDKiA Rejon Kutno). Wysyła użytkownik.
+
+## 4. Stan po krokach bez MATSim (2026-10-17, D19)
+
+- **K1-1:** `car_share = 0.64` i `work_from_home = 0.073` w `config/kutno.toml`, plans.py skaluje popyt o 0,593. Plany 25%: 3 739 osób, walidacja ok.
+- **Run R1** (D18 + K1-1, 25% × 3 seedy, `reports/g5_kalibracja/r1/`): 7 478 nóg car, 0 stuck.
+  - Opóźnienia 106–113 poj.-h próbki wobec 735–854 w D18. 41% mniej ruchu daje o 86% mniej opóźnień, więc kongestia jest silnie nieliniowa.
+  - Model / GPR: A1 3%, DK w mieście 30%, pozostałe DK 8%, DW 4%.
+- **K3-2:** `pipeline/digitize_lisica.py` → `config/hourly_profile_lisica2025.csv`. Lekkie i ciężkie, dzień roboczy, sumy 100,0%. Udział godzin 6–18 dla lekkich to 77,7%, szczyt 15–16: 8,3%.
+- **K2-2:** `pipeline/background_od.py` (estymacja O-D z 16 odcinków poza miastem):
+  - 13 gmin powiatu, 31 wjazdów i 31 wyjazdów; ok. 62–64 tys. podróży tła na dobę w 100%;
+  - odcinki dopasowania wychodzą 1,00 poza kilkoma: 91121 = 0, 10045 i 91122 = 0,5, 91119 = 1,5;
+  - **walidacja poza próbą nie przechodzi:**
+
+| wariant a priori | Objazdowa 91124 | Bitwy pod Kutnem 91866 | Sklęczkowska 91869 |
+|---|---|---|---|
+| płaska (τ = ∞), na D18 | 207% | 87% | 201% |
+| grawitacja τ = 15 / 30 / 60 min, na D18 | 166 / 184 / 193% | 90–92% | 207–214% |
+| grawitacja τ = 30, na R1 | 168% | 93% | 173% |
+| τ = 30 + waga wjazdu = capacity linku, na R1 | 155% | 94% | 140% |
+
+**Przyczyna:** luka na A1 (ok. 22 tys. poj. lekkich na kierunek) dzieli się między tranzyt A1 i relacje A1 ↔ Kutno przez węzeł Kutno Wsch. i Sklęczkowską. Podobnie luka na DK92 do Krośniewic (91123) dzieli się na relacje Krośniewice ↔ Kutno i Krośniewice ↔ dalej przez Kutno. Żaden licznik poza miastem nie rozróżnia tych relacji, a wtedy ruch przez miasto wynika tylko z założeń a priori.
+
+**Opcje (decyzja):**
+- **W1:** dopasowanie do wszystkich 19 odcinków. Miasto pasuje z konstrukcji, ale nie zostaje nic do walidacji.
+- **W2 (rekomendacja):** Sklęczkowska (91869) wchodzi do dopasowania, bo jako jedyna wiąże ruch z węzła A1 Kutno Wsch. Objazdowa (91124) i Bitwy pod Kutnem (91866) zostają do walidacji poza próbą.
+- **W3:** zostać przy 3 odcinkach poza próbą i szukać innego a priori (np. udział tranzytu na A1 z innego źródła, którego teraz nie mam).

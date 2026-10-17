@@ -1,0 +1,206 @@
+{
+  "total_delay_veh_h": 105.5,
+  "delay_veh_h_by_hour": {
+    "5": 3.3,
+    "6": 11.9,
+    "7": 22.9,
+    "8": 10.1,
+    "9": 2.8,
+    "10": 0.9,
+    "11": 0.3,
+    "12": 0.6,
+    "13": 2.6,
+    "14": 8.7,
+    "15": 16.8,
+    "16": 16.6,
+    "17": 4.1,
+    "18": 1.5,
+    "19": 0.4,
+    "20": 0.4,
+    "21": 0.5,
+    "22": 0.3,
+    "23": 0.1
+  },
+  "top_links": [
+    {
+      "link": "2069211670002f",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 657,
+      "delay_veh_h": 3.1,
+      "avg_delay_s": 17,
+      "coord_EN": [
+        525782,
+        484178
+      ]
+    },
+    {
+      "link": "2001586890001r",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 656,
+      "delay_veh_h": 2.1,
+      "avg_delay_s": 12,
+      "coord_EN": [
+        526211,
+        484031
+      ]
+    },
+    {
+      "link": "383845230002f",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 550,
+      "delay_veh_h": 2.1,
+      "avg_delay_s": 14,
+      "coord_EN": [
+        526859,
+        483787
+      ]
+    },
+    {
+      "link": "1736639920004f",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 429,
+      "delay_veh_h": 2.1,
+      "avg_delay_s": 18,
+      "coord_EN": [
+        525885,
+        483340
+      ]
+    },
+    {
+      "link": "2568527430000r",
+      "type": "primary",
+      "capacity": 1500.0,
+      "vehicles": 983,
+      "delay_veh_h": 2.1,
+      "avg_delay_s": 8,
+      "coord_EN": [
+        526607,
+        483677
+      ]
+    },
+    {
+      "link": "2001576790001r",
+      "type": "primary",
+      "capacity": 1500.0,
+      "vehicles": 935,
+      "delay_veh_h": 1.9,
+      "avg_delay_s": 7,
+      "coord_EN": [
+        526192,
+        483395
+      ]
+    },
+    {
+      "link": "14641980450008r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 413,
+      "delay_veh_h": 1.7,
+      "avg_delay_s": 15,
+      "coord_EN": [
+        530873,
+        485309
+      ]
+    },
+    {
+      "link": "2446692260002r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 935,
+      "delay_veh_h": 1.7,
+      "avg_delay_s": 7,
+      "coord_EN": [
+        526126,
+        483350
+      ]
+    },
+    {
+      "link": "383845230002r",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 558,
+      "delay_veh_h": 1.4,
+      "avg_delay_s": 9,
+      "coord_EN": [
+        526829,
+        483828
+      ]
+    },
+    {
+      "link": "2020517410007r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 440,
+      "delay_veh_h": 1.2,
+      "avg_delay_s": 10,
+      "coord_EN": [
+        530873,
+        485309
+      ]
+    },
+    {
+      "link": "2456705130020r",
+      "type": "residential",
+      "capacity": 600.0,
+      "vehicles": 553,
+      "delay_veh_h": 1.1,
+      "avg_delay_s": 7,
+      "coord_EN": [
+        526739,
+        483869
+      ]
+    },
+    {
+      "link": "2131623890016r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 423,
+      "delay_veh_h": 1.0,
+      "avg_delay_s": 8,
+      "coord_EN": [
+        529018,
+        485563
+      ]
+    },
+    {
+      "link": "1736639920004r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 396,
+      "delay_veh_h": 1.0,
+      "avg_delay_s": 9,
+      "coord_EN": [
+        525934,
+        483373
+      ]
+    },
+    {
+      "link": "2000682620002r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 432,
+      "delay_veh_h": 0.9,
+      "avg_delay_s": 8,
+      "coord_EN": [
+        525460,
+        485322
+      ]
+    },
+    {
+      "link": "2716270800000r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 407,
+      "delay_veh_h": 0.9,
+      "avg_delay_s": 8,
+      "coord_EN": [
+        530519,
+        484500
+      ]
+    }
+  ]
+}

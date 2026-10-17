@@ -1,0 +1,26 @@
+{
+  "events_file": "output/g5r1_25pct_s2/output_events.xml.zst",
+  "event_types": {
+    "actend": 22434,
+    "departure": 22434,
+    "travelled": 14956,
+    "arrival": 22434,
+    "actstart": 22434,
+    "PersonEntersVehicle": 7478,
+    "vehicle enters traffic": 7478,
+    "left link": 387116,
+    "entered link": 387116,
+    "vehicle leaves traffic": 7478,
+    "PersonLeavesVehicle": 7478
+  },
+  "persons_departing": 3739,
+  "departures": 22434,
+  "departures_by_mode": {
+    "walk": 14956,
+    "car": 7478
+  },
+  "arrivals": 22434,
+  "stuck": 0,
+  "persons_dep_ne_arr": [],
+  "ok": true
+}

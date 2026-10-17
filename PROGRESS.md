@@ -97,3 +97,10 @@
 
 - `pipeline/g5_baseline.py`: model D18 (25%, 3 seedy) vs GPR 2025 (lekkie, SDRDR, na kierunek). A1 7%, DK w Kutnie 56% (Sklęczkowska 71%, Objazdowa 65%, Bitwy pod Kutnem 28%), pozostałe DK 16%, DW 7%. `reports/g5_kalibracja/g5_0_baseline.*`.
 - Plan z wariantami (K1 dojazdy autem, K2 tło, K3 profil, K4 walidacja z 3 odcinkami miejskimi poza próbą, K5 wrażliwość sieci): `docs/research/G5_plan_kalibracji.md`. Czeka na decyzje użytkownika, runów nie ma.
+
+## 2026-10-17: G5 / D19, kroki bez MATSim i run R1
+
+- D19: K1-1 (popyt car × 0,593), K2-2 (tło lekkie z O-D estymowanego z GPR), K3-2 (profil Lisica), K4 (3 odcinki miejskie poza próbą).
+- `digitize_lisica.py`: profil godzinowy dnia roboczego (lekkie i ciężkie, sumy 100%).
+- R1 (D18 + K1-1, 25% × 3 seedy): 7 478 nóg car, 0 stuck, opóźnienia 106–113 poj.-h próbki (D18: 735–854). Model / GPR: A1 3%, DK w mieście 30%.
+- `background_od.py`: odcinki dopasowania ok, ale walidacja w mieście daje 140–173% GPR na Sklęczkowskiej i 155–168% na Objazdowej. Luka A1 nie rozróżnia tranzytu od relacji z Kutnem. Opcje W1–W3 w `docs/research/G5_plan_kalibracji.md` §4. Czeka na decyzję. Agentów tła jeszcze nie ma w planach.

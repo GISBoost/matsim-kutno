@@ -67,8 +67,9 @@ assert outb_total == f3["outgoing_employees"]
 excluded = strata[strata.excluded]  # D16/B, D17/O1
 excl_out = excluded.n[excluded.kind == "outbound"].sum()
 jobs_100 = P["jobs_total"] or f3["agents_100pct"][P["variant"]] - (excluded.n.sum() - excl_out)  # D17/C
-assert abs(strata.n_model[strata.kind != "outbound"].sum() - jobs_100) < 1
-expected = round(P["sample"] * (jobs_100 + outb_total - excl_out))
+car = P["car_share"] * (1 - P["work_from_home"])  # D19/K1-1
+assert abs(strata.n_model[strata.kind != "outbound"].sum() - jobs_100 * car) < 1
+expected = round(P["sample"] * car * (jobs_100 + outb_total - excl_out))
 sha = hashlib.sha256(path.read_bytes()).hexdigest()
 with tempfile.TemporaryDirectory() as d:
     subprocess.run([sys.executable, "-W", "ignore", "pipeline/plans.py", str(Path(d) / "plans.xml.gz"), str(P["sample"]), *OVR], check=True,
@@ -98,7 +99,7 @@ report = {
                  "work_source": meta[meta.kind == "outbound"].work_src.str.split("_").str[0].value_counts().to_dict(),
                  "exit_links_used": meta[meta.work_src == "exit"].groupby("work_link").size().sort_values(ascending=False).to_dict(),
                  "excluded_persons_100pct": round(float(excl_out))},
-    "jobs_in_kutno_100pct": round(float(jobs_100)), "jobs_total_override": P["jobs_total"], "variant": P["variant"],
+    "jobs_in_kutno_100pct": round(float(jobs_100)), "jobs_total_override": P["jobs_total"], "car_factor": round(car, 4), "variant": P["variant"],
     "return_home_differs": int((~df.same_home).sum()),
     "activities_on_excluded_link_types": bad_snap, "activity_links_missing": missing_link,
     "start_equals_profile_time_ok": start_ok,

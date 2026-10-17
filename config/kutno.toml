@@ -19,6 +19,11 @@ variant = "reg"             # D17/B: "reg" (rejestr P4507); D5: "base" albo "low
 # D17/C: 0 = bez skalowania (B); 17486 = suma miejsc pracy w Kutnie (mieszkańcy + przyjeżdżający) jak BDL P4508 2024,
 # zmienna 1735396. Nadpisanie: plans.py <out> <sample> jobs_total=17486.
 jobs_total = 0
+# D19/K1-1, ZAŁOŻENIE: popyt car = pracujący × udział auta dom–praca × obecność (nie praca z domu). Skala popytu, nie wybór trybu.
+# car_share: środek przedziału 61–67% dom–praca (Bochnia 2016, Radom 2022; docs/research/G4_tryby.md). Warianty: 0.61 / 0.67.
+# work_from_home: łódzkie, praca wyłącznie z domu 7,3% (GUS Mobilność 2024, tabl. 1). 1.0 / 0.0 = bez skalowania (stan do D18).
+car_share = 0.64
+work_from_home = 0.073
 # D10: godzina wyjazdu z domu = rozkład „dom - praca” z GBR Gdańsk 2022, Raport 3a, Rys. 46 (godzinowy,
 # punkty krzywej wektorowej odczytane przez pipeline/digitize_gbr.py, data/manifest.csv). Udziały normalizowane do 100%.
 # ZAŁOŻENIE: jednostajnie wewnątrz przedziału. Gdańsk (metropolia) != Kutno: przeniesienie rozkładu to też ZAŁOŻENIE.

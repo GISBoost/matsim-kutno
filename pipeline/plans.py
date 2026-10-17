@@ -117,6 +117,8 @@ exits = pd.DataFrame([dict(link=l, x=nodes[b_].x, y=nodes[b_].y) for l, a_, b_ i
                       if not interior.contains(nodes[b_]) and area.contains(nodes[a_])
                       and nodes[b_].distance(KUTNO_CENTRE) > nodes[a_].distance(KUTNO_CENTRE)])
 assert len(entry) and len(exits), "brak linków wjazdowych/wyjazdowych"
+pd.concat([entry.assign(kind="entry"), exits.assign(kind="exit")]).to_csv(  # D19/K2-2: strefy graniczne tła
+    "scenarios/kutno/demand/border_links.csv", index=False, lineterminator="\n")
 
 # --- liczebności: largest remainder, żeby suma = round(sample x całość) --------------------------------
 ob = pd.read_csv("scenarios/kutno/demand/workers_by_obwod.csv")
@@ -145,6 +147,8 @@ strata["n_model"] = strata.n.where(~strata.excluded, 0)
 jobs = strata.kind != "outbound"
 if P["jobs_total"]:
     strata.loc[jobs, "n_model"] *= P["jobs_total"] / strata.n_model[jobs].sum()
+# D19/K1-1: jadący autem w dzień roboczy = n × udział auta × (1 − praca z domu), wszystkie rodzaje jednakowo
+strata["n_model"] *= P["car_share"] * (1 - P["work_from_home"])
 exact = strata.n_model * P["sample"]
 strata["agents"] = np.floor(exact).astype(int)
 target = round(exact.sum())
