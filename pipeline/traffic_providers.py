@@ -48,7 +48,7 @@ TZ = "+02:00"
 # komercyjny; masa, nacisk osi i wysokość = 0 (ograniczenia nieuwzględniane), bo model ich nie ma. Wariant: masa 40 t.
 TRUCK = dict(vehicleMaxSpeed=80, vehicleLength=15, vehicleWidth=2.5, vehicleCommercial="true")
 QPS = {"tomtom": 5, "here": 5}  # TomTom FAQ: 5-50 zależnie od API; bierzemy dolną granicę dla obu endpointów
-BUDGET = 650  # prompt §6: 400 w pierwszym pobraniu; +250 na przebiegi z MAE, mapą i rozrzutem (prośba użytkownika 2026-10-18)
+BUDGET = 800  # prompt §6: 400 w pierwszym pobraniu; +400 na przebiegi z MAE, mapą, rozrzutem i metrykami % (prośby użytkownika 2026-10-18)
 
 
 def zread(p):

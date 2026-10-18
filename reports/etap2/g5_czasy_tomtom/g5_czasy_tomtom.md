@@ -8,9 +8,9 @@ Data: 2026-10-18 (niedziela). Zadanie: `prompt.md` w tym folderze, decyzja D22 (
 |---|---|
 | runy MATSim | R6, 5 runów 25% × 100 it.: `output/g5r6_25pct_s{4711,1,2}` (seedy MATSim), `output/g5r6p{1,2}_25pct_s4711` (seedy planów). Bez nowych runów |
 | zapytany dzień i godziny | **wtorek 2026-10-20, 07:30 / 12:30 / 15:30 CEST** (`departAt` w przyszłości, czyli typowy profil historyczny dnia tygodnia i godziny). Model to uśredniony dzień roboczy, nie data |
-| kiedy faktycznie wysłano | 2026-10-18 (niedziela wieczorem): 17:23–17:24, 17:59–18:00 i **18:02:51–18:03:51 UTC** (ostatni, w `przebieg_tomtom.json`) |
+| kiedy faktycznie wysłano | 2026-10-18 (niedziela wieczorem): 17:23–17:24, 17:59–18:00, 18:02–18:03 i **18:22:28–18:23:23 UTC** (ostatni, w `przebieg_tomtom.json`) |
 | zestaw tylko do walidacji | `split.csv`, zapisany przed policzeniem jakiegokolwiek błędu: 1/3 każdej warstwy, czyli 13 z 40 par i korytarzy oraz 8 z 25 segmentów. Nieużyty do propozycji |
-| requesty | **TomTom: 614** (budżet podniesiony z 400 do 650 na prośbę użytkownika o MAE, wykresy i mapę). 149 nieudanych w przebiegu 1 (401, klucz w cudzysłowie w `.env`, `ERRORS.md`), 18 testowych (`--test`), 3 × 149 właściwych (każdy: 148 × 200, 1 × 400 dla segmentu). Ostatni przebieg: 2026-10-18 18:02:51–18:03:51 UTC. Liczba w przebiegu = dry-run (149). **HERE: 0** (brak klucza) |
+| requesty | **TomTom: 763** (budżet podniesiony z 400 do 800 na prośby użytkownika o MAE, wykresy, mapę i metryki w %). 149 nieudanych w przebiegu 1 (401, klucz w cudzysłowie w `.env`, `ERRORS.md`), 18 testowych (`--test`), 4 × 149 właściwych (każdy: 148 × 200, 1 × 400 dla segmentu). Ostatni przebieg: 2026-10-18 18:22:28–18:23:23 UTC. Liczba w przebiegu = dry-run (149). **HERE: 0** (brak klucza) |
 | czego endpointy nie umieją | TomTom Routing dla przyszłej daty zwraca typowy profil, a nie predykcję konkretnego dnia. Flow Segment Data to stan z chwili zapytania, więc w niedzielę nie mierzy szczytu dnia roboczego (porównujemy tylko `freeFlowSpeed`). Szczegóły w §1 |
 | czego nie ma w repo | odpowiedzi TomTom (tylko w pamięci procesu), czasy i prędkości TomTom per para/segment, porównanie TomTom–HERE (regulamin, niżej) |
 
@@ -156,9 +156,9 @@ Do metryk weszło 16 z 25 segmentów: punkt odpowiedzi musi leżeć < 50 m od ś
 
 Analiza i walidacja zgadzają się kierunkiem i rzędem wielkości. **Freespeed modelu jest o 13–19% niższy od `freeFlowSpeed` TomTom na A1, DK i DW**, czyli dokładnie o współczynnik 0,8 z D13: TomTom podaje prędkość swobodną bliską limitowi (A1 129–130 przy 140, DK 87–89 przy 90).
 
-### 5.4 Błędy bezwzględne: MAE i RMSE, kryterium TAG (przebiegi 2 i 3)
+### 5.4 Błędy bezwzględne: MAE i RMSE, kryterium TAG (przebiegi 2–4)
 
-Wykres: `g5_czasy_tomtom_bledy.png` (agregaty). Przebiegi 2 i 3 (prośba użytkownika o MAE, wykresy i mapę) dały **identyczne mediany, MAPE i RMSE co przebieg 1**. Profil TomTom jest powtarzalny między zapytaniami.
+Wykres: `g5_czasy_tomtom_bledy.png` (agregaty). Przebiegi 2–4 (prośby użytkownika o MAE, wykresy, mapę i metryki w %, §11) dały **identyczne mediany, MAPE i RMSE co przebieg 1**. Profil TomTom jest powtarzalny między zapytaniami.
 
 | zestaw | porównanie | n | RMSE [s] | MAE [s] | w 15% lub 1 min (TAG tab. 3) | w 15% i 1 min (TAG C.3.10) |
 |---|---|---|---|---|---|---|
@@ -214,7 +214,7 @@ Segmenty: nachylenie bliskie 1 z przesunięciem +17 km/h, czyli TomTom jest stal
 
 | kontrola | wynik |
 |---|---|
-| liczba requestów = dry-run | 149 = 149 w każdym z 3 przebiegów ✔ (plus 149 nieudanych 401 i 18 testowych, łącznie 614 ≤ 650) |
+| liczba requestów = dry-run | 149 = 149 w każdym z 4 przebiegów ✔ (plus 149 nieudanych 401 i 18 testowych, łącznie 763 ≤ 800) |
 | klucz | brak w logu i plikach (asercja w kodzie; `fetch_tomtom.log` ma `key=%2A%2A%2A` (*** zakodowane w URL) we wszystkich 316 liniach; sprawdzone skryptem, że klucz nie występuje w żadnym pliku raportu ani kodu) ✔ |
 | początek i koniec trasy TomTom vs punkt zapytania | maks. 5,9 m / 3,4 m, 0 tras > 50 m ✔ |
 | kolejność osi | ✔ (jak wyżej; po zamianie osi odległości byłyby rzędu setek km) |
@@ -258,3 +258,58 @@ Rozbieżności mają jedno źródło. Współczynnik 0,8 z D13 obniża prędkoś
 
 - `uv run python pipeline/traffic_providers.py sample` (deterministyczne, sha256 powtarzalny), `uv run python pipeline/traffic_metrics.py model`, `uv run python pipeline/traffic_metrics.py selftest`, `uv run python pipeline/traffic_providers.py run tomtom [--dry-run|--test]`. `run` liczy wszystko w jednym procesie i zapisuje tylko agregaty. Przerywa przy pierwszym 401/403. Log: `fetch_tomtom.log` (bez klucza i treści), `przebieg_tomtom.log`.
 - **HERE: przygotowane, niepobrane.** Brak `HERE_API_KEY`. `run here --dry-run` = 149 requestów (Routing v8 `return=summary,polyline,typicalDuration`, truck `vehicle[speedCap]`; Flow v7 `circle` r = 30 m, prędkości m/s → km/h). Przed użyciem trzeba sprawdzić aktualne warunki HERE: AUP pkt 4 ogranicza „benchmarking” i „storing”. Bez zestawiania z TomTom (D22).
+
+## 11. Czy R6 jest skalibrowany i zwalidowany? (przebieg 4, metryki w procentach)
+
+### 11.1 Definicje (źródła pierwotne, `data/raw/g5/lit/`)
+
+- **TAG M3.1 §3.3.1** (DfT, maj 2026): każda zmiana modelu, która ma zmniejszyć różnicę model–pomiar, to **kalibracja**. **Walidacja** to porównanie z danymi niezależnymi od tych użytych w kalibracji.
+- **FHWA Travel Model Validation and Reasonableness Checking Manual, 2nd ed. (2010), rozdz. 1:**
+  - kalibracja to dopasowanie parametrów tak, żeby model odtwarzał obserwacje roku bazowego. FHWA dodaje, że często błędnie myli się ją z walidacją;
+  - walidacja to porównanie skalibrowanego modelu z obserwacjami, „idealnie” nieużytymi w kalibracji.
+- **Zestaw „analiza” i „walidacja” w tym raporcie:**
+  - **analiza** (2/3 próbki) to dane, na których wolno formułować wnioski i propozycje korekt; w uczeniu maszynowym odpowiada to zbiorowi uczącemu;
+  - **walidacja** (1/3) jest odłożona: nie służy do żadnej propozycji i sprawdza, czy wnioski z analizy przenoszą się na nowe trasy.
+
+  Na TomTomie niczego nie kalibrowaliśmy, więc dziś **oba zestawy są walidacją R6**. Podział zacznie działać, gdy z zestawu analizy powstanie korekta prędkości. Wtedy walidacja pokaże, czy korekta poprawia błąd na trasach, których nie widziała.
+
+### 11.2 Metryki w procentach
+
+Wartością odniesienia (`o`) jest TomTom, model to `m`. Dwie definicje:
+- **odchyłki względne** liczone dla każdej trasy, (m − o) / o: **MAPE** (MAE w %) i **RMSPE** (RMSE w %);
+- **FHWA 2010, rozdz. 9**: **%RMSE = RMSE / średnia(o)** i analogicznie %MAE. Tak FHWA liczy %RMSE dla natężeń.
+
+| zestaw | porównanie | n | MAPE | RMSPE | %MAE | %RMSE | w 15% lub 1 min (TAG) |
+|---|---|---|---|---|---|---|---|
+| analiza | czas swobodny | 27 | 20,2% | 29,1% | 14,4% | 18,1% | 37% |
+| analiza | rano 07:30 | 27 | 17,6% | 26,4% | 12,2% | 15,6% | 48% |
+| analiza | południe 12:30 | 27 | 17,0% | 26,7% | 12,3% | 16,3% | 63% |
+| analiza | popołudnie 15:30 | 27 | 17,3% | 26,6% | 12,4% | 16,0% | 63% |
+| walidacja | czas swobodny | 13 | 23,1% | 41,6% | 10,9% | 13,7% | 54% |
+| walidacja | rano 07:30 | 13 | 13,3% | 20,5% | 8,5% | 10,7% | 77% |
+| walidacja | południe 12:30 | 13 | 14,4% | 21,3% | 8,6% | 10,8% | 62% |
+| walidacja | popołudnie 15:30 | 13 | 14,7% | 22,5% | 8,4% | 10,3% | 62% |
+| analiza | segmenty: prędkość swobodna | 11 | 21,0% | 23,9% | 20,2% | 22,4% | – |
+| walidacja | segmenty: prędkość swobodna | 5 | 17,5% | 19,1% | 17,0% | 18,4% | – |
+
+RMSPE jest wyraźnie większe od MAPE, a %RMSE od %MAE, czyli o błędzie decydują pojedyncze trasy. Na przykład Krośniewice mają iloraz 2,0, a krótkie trasy w mieście 0,6–1,6. %MAE jest mniejsze od MAPE, bo długie trasy, które ważą najwięcej w średniej, mają mniejszy błąd względny.
+
+### 11.3 Odpowiedź
+
+**Skalibrowany: częściowo.** R6 skalibrowano tylko w popycie, do natężeń GPR (D19–D21: skala dojazdów 0,593 i estymacja macierzy O-D tła lekkiego i ciężkiego). Wynik: 12 z 15 odcinków w ±15%, A1 99% i 101%. Prędkości (D13), przepustowości i dynamika QSim nie były kalibrowane. Ta walidacja też niczego w modelu nie zmieniła.
+
+**Zwalidowany: nie w rozumieniu TAG.** Dowód jest w trzech punktach:
+1. **Natężenia:** liczniki GPR posłużyły do kalibracji, więc według TAG §3.3.1 i FHWA nie są walidacją. Niezależnych pomiarów natężeń w mieście nie ma (`podsumowanie.md`, otwarte 5).
+2. **Czasy przejazdu (TomTom, niezależne od kalibracji):** kryterium TAG tab. 3 (15% albo 1 min, wytyczna > 85% tras) spełnia **48% tras rano w zestawie analizy i 77% w walidacji**, w ruchu swobodnym 37% i 54%. **Wytyczna nie jest spełniona.** Wariant mikrosymulacyjny (15% **i** 60 s, TAG C.3.10) spełnia 22–38% tras.
+3. **Prędkości segmentów:** MAPE 17–21%, systematycznie model wolniejszy o ok. 17 km/h (factor 0,8). FHWA (rozdz. 9, Speed Checks) mówi, że prędkości na słabo obciążonych linkach powinny być bliskie swobodnym, a jeśli swobodne się nie zgadzają, wątpliwe są wejściowe prędkości swobodne. To nasz przypadek.
+
+**Zastrzeżenia, które osłabiają „nie”:**
+- TAG porównuje z czasem **pomierzonym** (przejazdy pomiarowe), a TomTom `historic` to model dostawcy. Nie wiemy, jak dokładny jest on sam, bo porównanie z HERE wypada (regulamin TomTom 11.6.10).
+- TAG §4.3.3 zaleca trasy walidacyjne 3–15 km. Część naszych tras jest dłuższa (przyjeżdżający, tło i ciężkie do 50 km), część krótsza (mieszkańcy od 2 km). Metryki dla tras 3–15 km nie zostały policzone osobno.
+- n jest małe: 27 + 13 tras, 11 + 5 segmentów.
+- FHWA 2010 (rozdz. 9) **odradza testy „zaliczony / niezaliczony”**, bo dają nieuzasadnione poczucie pewności, i zaleca miary skalowalne (RMSE, %RMSE, R²) i wykresy rozrzutu. TAG §3.3.2 też mówi, że kryteria służą do opisu zaufania do modelu, a nie jako cel, do którego model trzeba docisnąć.
+- **TAG M3.1 to wytyczne dla strategicznych modeli przypisania ruchu w Wielkiej Brytanii.** Polskich wytycznych (CUPT) z progami dla czasów nie zweryfikowałem w źródle.
+
+**Uczciwe sformułowanie stanu:** „Model R6 jest skalibrowany w popycie do natężeń GPR (dobowych, 15 odcinków) i niezwalidowany niezależnie dla natężeń. Względem typowych czasów TomTom błąd czasu przejazdu wynosi MAPE 13–18% (RMSPE 20–27%, %RMSE 11–16%) w oknach dnia roboczego. Kryterium TAG dla czasów przejazdu nie jest spełnione (48–77% tras wobec 85%). Prędkości swobodne sieci są systematycznie o ok. 15% niższe od `freeFlowSpeed` TomTom.”
+
+**Co by to zmieniło:** kalibracja prędkości (cruise speeds, TAG §5.2.3: „cruise speeds are therefore not free-flow speeds”) razem z opóźnieniami węzłów (G1), wykonana na zestawie analizy i sprawdzona na walidacji. Jest to propozycja z §9 i wymaga decyzji w `DECISIONS.md`.

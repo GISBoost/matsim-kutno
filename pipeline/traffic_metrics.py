@@ -199,8 +199,12 @@ def stats(d, a, b):
     """b = dostawca (wartość odniesienia). TAG M3.1 (DfT, maj 2026), tab. 3: czas modelu w 15% albo 1 min, jeśli to więcej;
     aneks C.3.10 (mikrosymulacja): w 15% i w 60 s jednocześnie. Kryterium wytycznych: > 85% tras."""
     r, e = d[a] / d[b], (d[a] - d[b]).abs()
+    rmse = math.sqrt((e ** 2).mean())
     return dict(n=len(d), mediana_model_do_dost=r.median(), MAPE_pct=(e / d[b]).mean() * 100,
-                RMSE_s=math.sqrt((e ** 2).mean()), MAE_s=e.mean(),
+                RMSPE_pct=math.sqrt(((e / d[b]) ** 2).mean()) * 100,  # RMSE z odchyłek względnych (m - o) / o
+                RMSE_s=rmse, MAE_s=e.mean(),
+                pRMSE_pct=rmse / d[b].mean() * 100, pMAE_pct=e.mean() / d[b].mean() * 100,  # FHWA 2010: RMSE / średnia obserwacji
+                srednia_dost_s=d[b].mean(),
                 TAG_15pct_lub_1min_pct=(e <= np.maximum(0.15 * d[b], 60)).mean() * 100,
                 TAG_15pct_i_1min_pct=((e <= 0.15 * d[b]) & (e <= 60)).mean() * 100)
 
@@ -270,6 +274,9 @@ def compare(provider, recs):
                                 roznica_kmh_mediana=(dk.model_kmh - dk.dost_free_kmh).median(),
                                 MAE_kmh=(dk.model_kmh - dk.dost_free_kmh).abs().mean(),
                                 RMSE_kmh=math.sqrt(((dk.model_kmh - dk.dost_free_kmh) ** 2).mean()),
+                                RMSPE_pct=math.sqrt((((dk.model_kmh - dk.dost_free_kmh) / dk.dost_free_kmh) ** 2).mean()) * 100,
+                                pRMSE_pct=math.sqrt(((dk.model_kmh - dk.dost_free_kmh) ** 2).mean()) / dk.dost_free_kmh.mean() * 100,
+                                pMAE_pct=(dk.model_kmh - dk.dost_free_kmh).abs().mean() / dk.dost_free_kmh.mean() * 100,
                                 model_kmh_mediana=dk.model_kmh.median(), dost_kmh_mediana=dk.dost_free_kmh.median()))
     Mt = pd.DataFrame(met)
     # kontrole §8 (agregaty, bez wartości dostawcy per obiekt)

@@ -226,3 +226,8 @@
   - TAG tab. 3 (15% lub 1 min, wytyczna > 85% tras): rano 48% i 77%, czyli niespełnione (TomTom historic to model dostawcy, nie pomiar).
   - Rozrzut segmentów: y = 0,972x + 17,26, R² 0,863.
   - Mapa i rozrzut per obiekt w `output/g5_czasy_tomtom/` (poza repo, D22). TAG M3.1 pobrany do `data/raw/g5/lit/` (manifest).
+- Uzupełnienie 2 (pytanie użytkownika o kalibrację i walidację): przebieg 4 TomTom (149 requestów, łącznie 763, budżet 800) z metrykami w %.
+  - Rano (analiza / walidacja): MAPE 17,6 / 13,3%, RMSPE 26,4 / 20,5%, %RMSE (FHWA) 15,6 / 10,7%.
+  - Segmenty: MAPE 21 / 17,5%.
+  - Ocena (TAG M3.1, FHWA 2010, pobrane do data/raw/g5/lit/): R6 skalibrowany tylko w popycie do GPR. Niezwalidowany wg TAG: kryterium czasów 15% lub 1 min spełnia 48–77% tras wobec wytycznej 85%, a TomTom to model dostawcy, nie pomiar.
+  - Raport: g5_czasy_tomtom.md §11.
