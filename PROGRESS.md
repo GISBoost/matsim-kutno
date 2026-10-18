@@ -198,3 +198,9 @@
 - Rozrzut per odcinek (mediana / maks.): seedy MATSim 0,4% / 1,8% (lekkie), seedy planów 9,3% / 40,7% (lekkie) i 11,8% / 47,1% (ciężkie). Opóźnienie 239–243 (seedy MATSim) i 243–298 poj.-h (seedy planów).
 - Mediana z 5 runów: A1 99% / 101%, DK w Kutnie 105% / 68%, 12/15 w ±15% dla obu klas. Raport: `reports/etap2/g5_kalibracja/g5_r6_ref.md`.
 
+## 2026-10-18: audyt G5, krok 9 (D21/D1–D9): drobne
+
+- D1/D2: konwencja z instrukcji GPR 2020 (P = rosnący pikietaż); A1 było odwrócone, DK mają udziały GPR zamiast 0,5 (wdrożone w kroku 6, macierze `r6b`).
+- D3: R3 to 13/14. D4: GEH Objazdowej w szczycie 6,7 (nie < 5). D5: tabele PCE odtwarzają się bit w bit. D6: krok 6. D7: okno 6–9 opisane przy liczbach. D8: `VehicleFlagEncoder.java` (main i v6.6.0 z 2021) w `data/raw/g5/ors/`, manifest, ZRODLA.
+- D9: ciągniki rolnicze 0,42% celu ciężkich (pomijalne). Długość pojazdu nie wpływa na QSim (15 vs 30 m: identyczne natężenia i opóźnienia). Raport: `reports/etap2/audyt_g5/poprawki/k9_drobne.md`.
+

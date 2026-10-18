@@ -19,6 +19,8 @@ Rozdziela je węzeł DK60/DK92/DW702, z którego na wschód wychodzi Sklęczkows
 
 GEH ze średniej godziny doby (orientacyjnie, GEH jest zdefiniowany dla godzin): Objazdowa 4,8, Bitwy pod Kutnem 2,9.
 
+> **Audyt D4 (2026-10-18):** średnia godzina doby zaniża GEH. W godzinie szczytu (udział 8% doby; Lisica, lekkie, 15–16: 8,3%) GEH wynosi: Objazdowa **6,7** (8,3%: 6,8), Bitwy pod Kutnem 4,0. Objazdowa przekracza więc próg 5, a „GEH < 5” nie jest argumentem za akceptacją 129%. Wariant A zostaje jako znana rozbieżność, ale z tym zastrzeżeniem (`reports/etap2/audyt_g5/poprawki/k9_drobne.md`).
+
 ## 1. Sieć vs OSM: zgodna
 
 - **Objazdowa:** primary, 2 pasy na kierunek przy pomiarze (capacity 3 000), `maxspeed=90` z OSM, czyli 72 km/h w modelu (× 0,8, D13). Krótkie odcinki 70 km/h.
@@ -44,7 +46,7 @@ GEH ze średniej godziny doby (orientacyjnie, GEH jest zdefiniowany dla godzin):
 
 | wariant | co | koszt | spodziewany efekt |
 |---|---|---|---|
-| **A (rekomendacja)** | zostawić; rozbieżność opisana, GEH < 5, suma węzła 104% | 0 | brak zmian; następny krok to R3 × 3 seedy jako referencja |
+| **A (rekomendacja)** | zostawić; rozbieżność opisana, GEH < 5 (*audyt D4: ze średniej godziny; w szczycie 6,7*), suma węzła 104% | 0 | brak zmian; następny krok to R3 × 3 seedy jako referencja |
 | B | wczytać zakazy skrętu z OSM do sieci (`DisallowedNextLinks` w `CreateKutnoNetwork`; część G1) | zmiana w Javie, test regresji, nowa sieć, nowe runy | poprawność modelu, ale ok. 1% przejazdów, więc na Objazdową wpływ znikomy |
 | C | Objazdowa do dopasowania, walidacja tylko na Bitwy pod Kutnem | 1 estymacja (sekundy) + run | Objazdowa ≈ 100% z konstrukcji; zostaje 1 odcinek walidacyjny |
 | D | sygnalizacja na węźle DK60/DK92/DW702 (G1, odłożone przez użytkownika) | duży (contrib signals, dane o fazach) | możliwy wpływ na skręty; brak danych o sygnalizacji |
