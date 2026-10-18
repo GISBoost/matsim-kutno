@@ -41,7 +41,7 @@ Dojazdy do pracy autem, `dom → praca → dom`.
 | G2 | miejsca pracy (suma z rejestru, wyjeżdżający) | ✅ suma (D17); otwarte: rozkład w gminie (REGON) | [g2](reports/etap2/g2_miejsca_pracy/g2_miejsca_pracy.md) |
 | G3 | domy (dobór budynków, BDOT10k) | 🔍 zbieranie danych | [G3_domy.md](docs/research/G3_domy.md) |
 | G4 | tryby: PT, rower, pieszo, wybór trybu | 🔍 research, poza modelem | [G4_tryby.md](docs/research/G4_tryby.md), [G4_beeline.md](docs/research/G4_beeline.md) |
-| **G5** | **ruch tła i kalibracja do GPR** | **🔧 w toku: poprawki po audycie** | niżej, §3 |
+| **G5** | **ruch tła i kalibracja do GPR** | **✅ baza R6 po audycie; otwarte rozbieżności w §3** | niżej, §3 |
 | G6 | kolejki (D18) i wizualizacja w Blenderze | ✅ D18; Blender w osobnej sesji | [g6_kolejki](reports/etap2/g6_kolejki/g6_kolejki.md), [G6_blender.md](docs/research/G6_blender.md) |
 | G7 | przeniesienie na Łódź | ⏸ po G2–G5 | [TASKS.md](TASKS.md) |
 
@@ -56,9 +56,10 @@ Historia G5, każdy krok z decyzją:
 | czasy, PCE | walidacja czasów z GUS, źródło PCE | [g5_czasy_pce.md](reports/etap2/g5_kalibracja/g5_czasy_pce.md) |
 | R4, R5 | dostawcze i ciężkie (D20); wybór R4 | [g5_r4.md](reports/etap2/g5_kalibracja/g5_r4.md), [decyzja](reports/etap2/g5_kalibracja/g5_r4_vs_r5_decyzja.md) |
 | audyt | niezależny audyt kodu, kalibracji i walidacji | [audyt_g5.md](reports/etap2/audyt_g5/audyt_g5.md) |
-| **poprawki** | **K1 ✅, K2 ✅, dalej I4 → estymacja → I1 → run → referencja** | **[plan_poprawek.md](reports/etap2/audyt_g5/plan_poprawek.md)** |
+| poprawki | K1, K2, I4, estymacja R6, I1, D6, I2, I3, D1–D9 ✅ | [plan_poprawek.md](reports/etap2/audyt_g5/plan_poprawek.md), [podsumowanie](reports/etap2/audyt_g5/poprawki/podsumowanie.md) |
+| **R6** | **baza po audycie, referencja 3 seedy MATSim + 2 seedy planów** | **[g5_r6.md](reports/etap2/g5_kalibracja/g5_r6.md), [g5_r6_ref.md](reports/etap2/g5_kalibracja/g5_r6_ref.md)** |
 
-Baza R4 jest nieaktualna do czasu nowej estymacji po I4.
+Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odcinki 91124 i 91866 są kontrolne (użyte w wyborze wariantów), nie walidacja niezależna. Otwarte: bilans stref DK91/DK92 wsch. (odcinki GPR poza siecią), liczniki lokalne, podział Objazdowa/Bitwy (K5), brak pomiarów miejskich (`podsumowanie.md`).
 
 ## 4. Dalsze plany (po zamknięciu G5)
 

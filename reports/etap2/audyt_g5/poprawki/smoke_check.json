@@ -1,0 +1,26 @@
+{
+  "events_file": "output/f1_smoke/output_events.xml.zst",
+  "event_types": {
+    "actend": 60,
+    "departure": 60,
+    "travelled": 40,
+    "arrival": 60,
+    "actstart": 60,
+    "PersonEntersVehicle": 20,
+    "vehicle enters traffic": 20,
+    "left link": 60,
+    "entered link": 60,
+    "vehicle leaves traffic": 20,
+    "PersonLeavesVehicle": 20
+  },
+  "persons_departing": 10,
+  "departures": 60,
+  "departures_by_mode": {
+    "walk": 40,
+    "car": 20
+  },
+  "arrivals": 60,
+  "stuck": 0,
+  "persons_dep_ne_arr": [],
+  "ok": true
+}

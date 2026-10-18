@@ -204,3 +204,7 @@
 - D3: R3 to 13/14. D4: GEH Objazdowej w szczycie 6,7 (nie < 5). D5: tabele PCE odtwarzają się bit w bit. D6: krok 6. D7: okno 6–9 opisane przy liczbach. D8: `VehicleFlagEncoder.java` (main i v6.6.0 z 2021) w `data/raw/g5/ors/`, manifest, ZRODLA.
 - D9: ciągniki rolnicze 0,42% celu ciężkich (pomijalne). Długość pojazdu nie wpływa na QSim (15 vs 30 m: identyczne natężenia i opóźnienia). Raport: `reports/etap2/audyt_g5/poprawki/k9_drobne.md`.
 
+## 2026-10-18: audyt G5, poprawki zakończone (D21, kroki 1–9)
+
+- Raport zbiorczy: `reports/etap2/audyt_g5/poprawki/podsumowanie.md` (przed → po, nowa baza R6, ZAŁOŻENIA, otwarte). Test smoke ok (20 nóg car, `reports/etap2/audyt_g5/poprawki/smoke_check.json`). CLAUDE.md i ROADMAP zaktualizowane: baza R6.
+
