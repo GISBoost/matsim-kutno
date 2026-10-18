@@ -46,13 +46,13 @@ def bake(run, t0, t1, step):
         if ty == "vehicle enters traffic":
             x0, y0, x1, y1 = seg[d["link"]]
             p = float(d.get("relativePosition", 1.0))
-            cur[v] = [(t, x0 + p * (x1 - x0), y0 + p * (y1 - y0))]
+            cur[v] = [(t, x0 + p * (x1 - x0), y0 + p * (y1 - y0), 0.0)]
         elif v not in cur:
             continue
         elif ty == "entered link":
-            cur[v].append((t, *seg[d["link"]][:2]))
+            cur[v].append((t, *seg[d["link"]][:2], 0.0))
         else:  # left link / leaves traffic: koniec linku
-            cur[v].append((t, *seg[d["link"]][2:]))
+            cur[v].append((t, *seg[d["link"]][2:], links[d["link"]][2]))   # 4. = dlugosc linku (do predkosci)
             if ty == "vehicle leaves traffic":
                 tracks.append((v, cur.pop(v)))
     tracks += list(cur.items())  # ucieta oknem
@@ -66,7 +66,7 @@ def bake(run, t0, t1, step):
         pos[:, j, 0] = np.interp(frames, tt, a[:, 1]); pos[:, j, 1] = np.interp(frames, tt, a[:, 2])
         vis[:, j] = (frames >= tt[0]) & (frames <= tt[-1])
         dx, dy, dt = np.diff(a[:, 1]), np.diff(a[:, 2]), np.diff(tt)
-        h = np.arctan2(dy, dx); s = np.hypot(dx, dy) / np.maximum(dt, 1e-3)
+        h = np.arctan2(dy, dx); s = np.where(a[1:, 3] > 0, a[1:, 3], np.hypot(dx, dy)) / np.maximum(dt, 1e-3); s = np.minimum(s, 30.0)   # predkosc wg dlugosci linku, nie cieciwy
         for i in range(1, len(h)):  # odcinek zerowy: dziedzicz kierunek
             if dx[i] == 0 and dy[i] == 0: h[i] = h[i - 1]
         i = np.clip(np.searchsorted(tt, frames, side="right") - 1, 0, len(h) - 1) if len(h) else None

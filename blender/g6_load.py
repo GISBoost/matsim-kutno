@@ -20,7 +20,7 @@ ap.add_argument("--view", type=float, default=7000)     # szerokosc widoku ortho
 ap.add_argument("--net-radius", type=float, default=9000)
 ap.add_argument("--net-width", type=float, default=12)
 ap.add_argument("--vmax", type=float, default=14)       # m/s, gorna granica skali koloru
-a = ap.parse_args(argv)
+a, _ = ap.parse_known_args(argv)   # nieznane (np. z g6_story.py) ignorujemy
 data = Path(a.data)
 
 V = np.load(data / "vehicles.npz"); POS, VIS, HEAD, SPD = V["pos"], V["visible"], V["heading"], V["speed"]
@@ -62,7 +62,7 @@ veh = bpy.data.objects.new("vehicles", pm); sc.collection.objects.link(veh)
 def update(frame):
     f = min(max(int(frame), 0), NF - 1)
     co = np.zeros((N, 3), np.float32); co[:, :2] = POS[f]; co[:, 2] = 3.0
-    co[~VIS[f], 2] = -1e4
+    co[~VIS[f]] = (1e7, 1e7, -1e4)   # poza kadrem (ortho ignoruje glebie: pod droga byloby widac w lukach na wezlach)
     pm.vertices.foreach_set("co", co.ravel())
     pm.attributes["heading"].data.foreach_set("value", HEAD[f])
     pm.attributes["speed"].data.foreach_set("value", SPD[f])
