@@ -70,7 +70,7 @@ cols = ["nr", "droga", "nazwa", "rola", "link", "base_kind", "gpr_all_dir", "lig
 t = g[cols].round(3)
 t.to_csv(out + ".csv", index=False, lineterminator="\n")
 
-sec = g.groupby(["nr", "droga"], sort=False).agg(nazwa=("nazwa", "first"), gpr=("gpr_light_dir", "sum"),
+sec = g.groupby(["nr", "droga"], sort=False).agg(nazwa=("nazwa", "first"), klasa=("klasa", "first"), gpr=("gpr_light_dir", "sum"),
                                                  model=("model_dir", "sum")).reset_index()
 sec["ratio"] = sec.model / sec.gpr
 sec["walidacja"] = sec.nr.isin([91124, 91866])  # D19/K4 W2: poza dopasowaniem tła
@@ -79,9 +79,9 @@ grp = lambda m: {"gpr": round(float(sec[m].gpr.sum())), "model": round(float(sec
 rep = {"runs": [str(d) for d in runs], "cls": CLS, "sections": len(sec),
        "A1": grp(sec.droga == "A1"),
        "DK_miejskie_Kutno": grp(sec.nr.isin([91124, 91866, 91869])),
-       "DK_pozostale": grp(~sec.droga.isin(["A1"]) & sec.droga.str.match(r"^\d") & ~sec.nr.isin([91124, 91866, 91869])
-                           & sec.nr.astype(str).str.startswith("9")),
-       "DW": grp(sec.nr < 20000),
+       # I4: grupy po klasie drogi (wcześniej po numerze odcinka: DW = nr < 20000, DK = nr 9xxxx; 11104 to DK60)
+       "DK_pozostale": grp((sec.klasa == "DK") & (sec.droga != "A1") & ~sec.nr.isin([91124, 91866, 91869])),
+       "DW": grp(sec.klasa == "DW"),
        "walidacja_poza_proba": {f"{r.droga} {r.nr}": round(float(r.ratio), 3) for r in sec[sec.walidacja].itertuples()},
        "dopasowanie": grp(~sec.walidacja),
        "per_section": sec.round(3).to_dict(orient="records")}

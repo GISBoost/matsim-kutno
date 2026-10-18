@@ -161,3 +161,10 @@
 - R4 vs poprawiony cel: lekkie A1 115%, DK w Kutnie 112%, 9/14; ciężkie A1 68%, DK w Kutnie 70%, 5/14; R3 A1 122%. Zgodne z audytem.
 - Nowy `g5_pce.py`: tryb `sdrr` odtwarza starą `pce_wrd13_gpr.csv` bit w bit; ze strukturą SDRDR A1 173%, DK w Kutnie 99%. Raport: `reports/etap2/audyt_g5/k2/k2_poprawka.md`.
 - Bez nowej estymacji i runu (czeka na I4).
+
+## 2026-10-18: audyt G5, poprawka I4 (D21, krok 3)
+
+- `pipeline/border_zones.py` (nowy): łańcuchy linków granicznych → 11 stref wjazdu i 11 wyjazdu per droga, id = link zewnętrzny (`border_zones.csv`). `background_od.py`: waga a priori strefy = natężenie klasy (SDRDR) w najbliższym punkcie GPR tej drogi, bez zawracania na tej samej drodze. `g5_gpr.py`: nowy cel 11104 (DK60 Kutno–Gostynin = SCPR Lisica) na wjeździe DK60 N; stare wiersze `gpr_linki.csv` bez zmian.
+- Udział wag wjazdów (lekkie): DK60 płd. 29,1% → 5,9%, A1 płn. 5,5% → 24,5%, A1 razem 57%; niezależna kontrola `c3_border_weights.py` zgodna do 0,1 pp.
+- Diagnostyczna estymacja (stary R1): tranzyt lekkich −39%, Objazdowa + Bitwy 117% → 99% (121% / 75%). Plany z macierzami diag.: walidator ok. Raport: `reports/etap2/audyt_g5/poprawki/k3_i4_strefy.md`.
+

@@ -14,7 +14,10 @@ Metoda: trasy swobodne (length/freespeed), pary O-D, których trasa przechodzi p
 macierz a priori grawitacyjna T0_ij = w_o · w_d · exp(−t_ij / tau), potem mnożnikowa korekta:
 T_ij *= exp(Σ_l f_ijl · log(cel_l / przypisane_l) / max(1, Σ_l f_ijl)), przypisane_l = Σ T_ij f_ijl. Średnia ważona (bez kroku ∝ f)
 dawała parom z f ≈ 0,05 mnożnik 20× i przeładowanie dróg bez liczników (Objazdowa 506%).
-w strefy-gminy = powierzchnia obrysów budynków gminy / średnia; w wjazdu/wyjazdu = 1.
+w strefy-gminy = powierzchnia obrysów budynków gminy / średnia. Audyt G5/I4: strefa graniczna = droga i kierunek
+(border_zones.py: łańcuch linków granicznych, id = link zewnętrzny), w = natężenie klasy CLS (SDRDR, DW: SDRR) w najbliższym
+punkcie GPR tej drogi / średnia stref granicznych. Wcześniej każdy link graniczny był strefą z wagą capacity (`_cap`), więc
+DK60 płd. (9 linków w łańcuchu) miała 28% wag wjazdów, a A1 płn. 6%. Pary wjazd -> wyjazd tej samej drogi są pomijane (zawracanie).
 ZAŁOŻENIE: postać a priori i tau (brak danych o O-D tła); tau podawane jako wariant (15/30/60 min), nie dobierane pod miasto.
 Płaska macierz (tau = inf) dała 2× za dużo na odcinkach miejskich. Pary bez licznika na trasie = 0 (tło tylko tam, gdzie zmierzone).
 D20: opcja cls= wybiera klasę pojazdów celu: light (domyślnie, D19: osobowe + mikrobusy + motocykle), lcv (light + dostawcze ≤ 3,5 t),
@@ -52,7 +55,6 @@ plt.style.use("dark_background")  # ciemny motyw (prośba użytkownika)
 
 CITY = [91124, 91866]  # D19/K4, W2: walidacja poza próbą (Sklęczkowska 91869 w dopasowaniu)
 TAU, TAG = float(sys.argv[1]), sys.argv[2]
-BORDER_W = TAG.endswith("_cap")  # wariant: waga wjazdu/wyjazdu = capacity linku / średnia (A1 >> DW)
 runs = [Path(a) for a in sys.argv[3:] if "=" not in a]
 OPT = dict(a.split("=", 1) for a in sys.argv[3:] if "=" in a)  # iters=N (wczesne zatrzymanie), drop=nr,nr (liczniki pominięte)
 ITERS = int(OPT.get("iters", 300))
@@ -68,7 +70,7 @@ P = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))
 POWIAT = P["area"]["teryt_powiat"]
 
 # --- sieć ---------------------------------------------------------------------------------------------
-nodes, G, ltype, lnodes, lcap = {}, nx.DiGraph(), {}, {}, {}
+nodes, G, ltype, lnodes = {}, nx.DiGraph(), {}, {}
 with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
     for _, el in etree.iterparse(f, tag=("node", "link")):
         if el.tag == "node":
@@ -78,7 +80,6 @@ with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
             t = float(el.get("length")) / min(float(el.get("freespeed")), VMAX)
             ltype[lid] = {x.get("name"): x.text for x in el.iter("attribute")}.get("type")
             lnodes[lid] = (a, b)
-            lcap[lid] = float(el.get("capacity"))
             if not G.has_edge(a, b) or G[a][b]["t"] > t:
                 G.add_edge(a, b, t=t, link=lid)
         el.clear()
@@ -87,14 +88,21 @@ with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
 rng = np.random.default_rng(P["plans"]["seed"])
 snap_ids = [l for l in lnodes if ltype[l] not in P["plans"]["snap_exclude_types"]]
 tree = STRtree([LineString([nodes[lnodes[l][0]], nodes[lnodes[l][1]]]) for l in snap_ids])
-bl = pd.read_csv("scenarios/kutno/demand/border_links.csv")
-zones = []  # kind, id, x, y, w, starts [(node)], ends [(node, last_link)]
-for r in bl.itertuples():
-    a, b = lnodes[r.link]
+bl = pd.read_csv("scenarios/kutno/demand/border_links.csv").set_index("link")
+bz = pd.read_csv("scenarios/kutno/demand/border_zones.csv", dtype={"gpr_nr": str}).drop_duplicates("zone")  # I4: strefa = droga i kierunek
+gp = pd.read_csv("scenarios/kutno/validation/gpr_punkty.csv", dtype={"nr": str}).drop_duplicates("nr").set_index("nr")
+gp_cls = gp[[c + "_dr" for c in ("motocykle", "osobowe", "mikrobusy", "lekkie_ciez", "ciez_bez_przycz", "ciez_z_przycz", "autobusy", "ciagniki")]]
+CLS_DR = {"light": ["motocykle_dr", "osobowe_dr", "mikrobusy_dr"], "lcv": ["motocykle_dr", "osobowe_dr", "mikrobusy_dr", "lekkie_ciez_dr"],
+          "heavy": ["ciez_bez_przycz_dr", "ciez_z_przycz_dr", "autobusy_dr", "ciagniki_dr"]}[CLS]
+assert bz.gpr_nr.notna().all(), "strefa graniczna bez punktu GPR w border_zones.csv: wagę trzeba ustalić jako ZAŁOŻENIE"
+zones = []  # kind, id, x, y, w, starts [(node)], ends [(node, last_link)], road
+for r in bz.itertuples():
+    a, b = lnodes[r.zone]
+    w = float(gp_cls.loc[r.gpr_nr, CLS_DR].sum())  # I4: natężenie klasy na tej drodze (SDRDR; DW: SDRR, ZAŁOŻENIE K2)
     if r.kind == "entry":   # start na końcu linku wjazdowego
-        zones.append(("entry", r.link, r.x, r.y, np.nan, [b] * K, None))
+        zones.append(("entry", r.zone, bl.x[r.zone], bl.y[r.zone], w, [b] * K, None, r.road))
     else:                   # koniec: wjazd na link wyjazdowy
-        zones.append(("exit", r.link, r.x, r.y, np.nan, None, [(a, r.link)] * K))
+        zones.append(("exit", r.zone, bl.x[r.zone], bl.y[r.zone], w, None, [(a, r.zone)] * K, r.road))
 rej = gpd.read_file("data/raw/brec/rej_pl/SU_BREC_2021_REJ.shp", columns=["GMINA"])
 gm = rej[rej.GMINA.str.startswith(POWIAT)].dissolve(by="GMINA").geometry
 bld = gpd.read_file("scenarios/kutno/osm/features.gpkg", layer="buildings")
@@ -105,13 +113,10 @@ for code, geom in gm.items():
     _, li = tree.query_nearest(list(pick.pt), all_matches=False)
     ls = [snap_ids[i] for i in li]
     zones.append(("gmina", code, float(np.average(inb.pt.x, weights=inb.a)), float(np.average(inb.pt.y, weights=inb.a)),
-                  inb.a.sum(), [lnodes[l][1] for l in ls], [(lnodes[l][0], l) for l in ls]))
-Z = pd.DataFrame(zones, columns=["kind", "id", "x", "y", "w", "starts", "ends"])
-Z["w"] = (Z.w / Z.w.mean()).fillna(1.0)
-if BORDER_W:
-    b = Z.kind != "gmina"
-    cap = Z[b].id.map(lcap)  # id strefy granicznej = link wjazdu/wyjazdu
-    Z.loc[b, "w"] = cap / cap.mean()
+                  inb.a.sum(), [lnodes[l][1] for l in ls], [(lnodes[l][0], l) for l in ls], code))
+Z = pd.DataFrame(zones, columns=["kind", "id", "x", "y", "w", "starts", "ends", "road"])
+for b in (Z.kind == "gmina", Z.kind != "gmina"):  # gminy i strefy graniczne: każda grupa ze średnią 1 (jak dotąd)
+    Z.loc[b, "w"] = Z.w[b] / Z.w[b].mean()
 O, D = Z[Z.kind != "exit"].reset_index(drop=True), Z[Z.kind != "entry"].reset_index(drop=True)
 
 # --- liczniki --------------------------------------------------------------------------------------------
@@ -144,8 +149,9 @@ for oi, o in O.iterrows():
     sp = {n: nx.single_source_dijkstra(G, n, weight="t") for n in set(o.starts)}
     for di, d in D.iterrows():
         same = o.kind == "gmina" and d.kind == "gmina" and o.id == d.id
-        if (same and o.id == P["area"]["teryt_gmina"]) or (not same and np.hypot(o.x - d.x, o.y - d.y) < 1500):
-            continue  # ruch wewnątrz Kutna to inne cele mieszkańców (poza tłem); zawracanie na tej samej granicy
+        if (same and o.id == P["area"]["teryt_gmina"]) or (not same and np.hypot(o.x - d.x, o.y - d.y) < 1500) \
+                or (o.kind == "entry" and o.road == d.road):
+            continue  # ruch wewnątrz Kutna to inne cele mieszkańców (poza tłem); zawracanie na tej samej granicy (I4: tej samej drodze)
         hits, tts, ok = {}, [], 0
         for k in range(K):
             dist, path = sp[o.starts[k]]
@@ -222,7 +228,8 @@ sec["ratio_before"], sec["ratio_after"] = sec.model / sec.gpr, sec.model_plus_bg
 geh = lambda m, c: np.sqrt(2 * (m - c) ** 2 / (m + c)) / np.sqrt(24)  # GEH godzinowy ze średniej godziny doby (orientacyjnie)
 sec["geh_hourly_mean"] = geh(sec.model_plus_bg, sec.gpr)
 kz = lambda k: od[(od.o_kind == k) | (od.d_kind == k)].trips_day.sum()
-rep = {"runs": [str(d) for d in runs], "cls": CLS, "routes": str(ROUTES), "init": OPT.get("init"), "pairs_with_route_incidence": route_pairs, "bound": OPT.get("bound"), "tau_min": TAU, "iters": ITERS, "dropped_counts": DROP, "zones": Z.kind.value_counts().to_dict(), "od_pairs_with_count": len(F),
+rep = {"runs": [str(d) for d in runs], "cls": CLS, "routes": str(ROUTES), "init": OPT.get("init"), "pairs_with_route_incidence": route_pairs, "bound": OPT.get("bound"), "tau_min": TAU, "iters": ITERS, "dropped_counts": DROP, "zones": Z.kind.value_counts().to_dict(),
+       "border_weights": {f"{r.kind} {r.road}": round(float(r.w), 3) for r in Z[Z.kind != "gmina"].itertuples()}, "od_pairs_with_count": len(F),
        "od_pairs_kept": len(od), "trips_day_100pct": round(float(od.trips_day.sum())),
        "trips_by_type": {"tranzyt_wjazd_wyjazd": round(float(od[(od.o_kind == "entry") & (od.d_kind == "exit")].trips_day.sum())),
                          "granica_gmina": round(float(od[(od.o_kind == "entry") & (od.d_kind == "gmina")].trips_day.sum()

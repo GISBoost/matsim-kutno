@@ -1,0 +1,181 @@
+{
+ "entries": [
+  {
+   "droga": "573#541",
+   "links": 1,
+   "cap": 800.0,
+   "gpr_nr": 14044,
+   "km": 3.2,
+   "nearest": "14044 (3.2 km)",
+   "lcv": 1340.0,
+   "heavy": 80.0,
+   "udz_cap": 1.1,
+   "udz_lcv": 1.9,
+   "udz_heavy": 0.3
+  },
+  {
+   "droga": "583#548",
+   "links": 1,
+   "cap": 800.0,
+   "gpr_nr": 14067,
+   "km": 4.1,
+   "nearest": "14067 (4.1 km)",
+   "lcv": 376.0,
+   "heavy": 46.0,
+   "udz_cap": 1.1,
+   "udz_lcv": 0.5,
+   "udz_heavy": 0.2
+  },
+  {
+   "droga": "60#520",
+   "links": 9,
+   "cap": 21000.0,
+   "gpr_nr": 91115,
+   "km": 4.6,
+   "nearest": "91115 (4.6 km)",
+   "lcv": 4293.0,
+   "heavy": 238.0,
+   "udz_cap": 29.1,
+   "udz_lcv": 5.9,
+   "udz_heavy": 0.8
+  },
+  {
+   "droga": "60#528",
+   "links": 1,
+   "cap": 1500.0,
+   "gpr_nr": 11104,
+   "km": 5.4,
+   "nearest": "11104 (5.4 km)",
+   "lcv": 7451.0,
+   "heavy": 2286.0,
+   "udz_cap": 2.1,
+   "udz_lcv": 10.3,
+   "udz_heavy": 7.5
+  },
+  {
+   "droga": "702#533",
+   "links": 6,
+   "cap": 5600.0,
+   "gpr_nr": 10049,
+   "km": 1.3,
+   "nearest": "10049 (1.3 km)",
+   "lcv": 3332.0,
+   "heavy": 395.0,
+   "udz_cap": 7.8,
+   "udz_lcv": 4.6,
+   "udz_heavy": 1.3
+  },
+  {
+   "droga": "91#509",
+   "links": 1,
+   "cap": 1500.0,
+   "gpr_nr": 71306,
+   "km": 1.5,
+   "nearest": "71306 (1.5 km)",
+   "lcv": 2040.0,
+   "heavy": 1189.0,
+   "udz_cap": 2.1,
+   "udz_lcv": 2.8,
+   "udz_heavy": 3.9
+  },
+  {
+   "droga": "91#512",
+   "links": 6,
+   "cap": 13500.0,
+   "gpr_nr": 91103,
+   "km": 9.8,
+   "nearest": "91103 (9.8 km)",
+   "lcv": 4482.0,
+   "heavy": 1109.0,
+   "udz_cap": 18.7,
+   "udz_lcv": 6.2,
+   "udz_heavy": 3.6
+  },
+  {
+   "droga": "92#506",
+   "links": 1,
+   "cap": 1500.0,
+   "gpr_nr": 91121,
+   "km": 0.7,
+   "nearest": "91121 (0.7 km)",
+   "lcv": 3104.0,
+   "heavy": 1635.0,
+   "udz_cap": 2.1,
+   "udz_lcv": 4.3,
+   "udz_heavy": 5.4
+  },
+  {
+   "droga": "92#551",
+   "links": 3,
+   "cap": 6000.0,
+   "gpr_nr": 91126,
+   "km": 3.1,
+   "nearest": "91126 (3.1 km)",
+   "lcv": 4715.0,
+   "heavy": 3108.0,
+   "udz_cap": 8.3,
+   "udz_lcv": 6.5,
+   "udz_heavy": 10.2
+  },
+  {
+   "droga": "A1#520",
+   "links": 1,
+   "cap": 4000.0,
+   "gpr_nr": 71410,
+   "km": 5.7,
+   "nearest": "71410 (5.7 km)",
+   "lcv": 17688.0,
+   "heavy": 10515.0,
+   "udz_cap": 5.5,
+   "udz_lcv": 24.5,
+   "udz_heavy": 34.6
+  },
+  {
+   "droga": "A1#534",
+   "links": 3,
+   "cap": 16000.0,
+   "gpr_nr": 91821,
+   "km": 12.2,
+   "nearest": "91822 (11.8 km)",
+   "lcv": 23402.0,
+   "heavy": 9814.0,
+   "udz_cap": 22.2,
+   "udz_lcv": 32.4,
+   "udz_heavy": 32.3
+  }
+ ],
+ "reports/etap2/audyt_g5/poprawki/k2_od_k3diag_lcv_gpr.json": {
+  "cls": "lcv",
+  "estimation_shares": {
+   "91 płd-zach": 6.21,
+   "A1 płn": 24.49,
+   "702 płd-wsch": 4.61,
+   "A1 płd-wsch": 32.4,
+   "60 płd-zach": 5.95,
+   "60 płn": 10.32,
+   "92 zach": 4.3,
+   "91 płn-zach": 2.83,
+   "573 płn-wsch": 1.85,
+   "583 wsch": 0.52,
+   "92 wsch": 6.53
+  },
+  "ok": true
+ },
+ "reports/etap2/audyt_g5/poprawki/k2_od_k3diag_heavy_gpr.json": {
+  "cls": "heavy",
+  "estimation_shares": {
+   "91 płd-zach": 3.65,
+   "A1 płn": 34.57,
+   "702 płd-wsch": 1.3,
+   "A1 płd-wsch": 32.26,
+   "60 płd-zach": 0.78,
+   "60 płn": 7.52,
+   "92 zach": 5.37,
+   "91 płn-zach": 3.91,
+   "573 płn-wsch": 0.26,
+   "583 wsch": 0.15,
+   "92 wsch": 10.22
+  },
+  "ok": true
+ }
+}

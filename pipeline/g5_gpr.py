@@ -121,10 +121,31 @@ def assign(p, g, maxd=60):
     return pd.DataFrame(out)
 
 
+# Audyt G5/I4: odcinek GPR poza siecią, którego początek sieć jednak ma, przypisany jawnie do pary linków tego odcinka.
+# 11104 DK60 „W. Kutno Płn. /A1/ - Gostynin”: punkt leży w mazowieckim (poza PBF), ale sieć ma DK60 od węzła A1 do ślepego
+# końca (K1). Drugi link od ślepego końca, 200–620 m (nie link wjazdu: na nim estymacja nie liczy startującego pojazdu).
+# Punkt GPR 11104 to stacja SCPR 14005 Lisica (kolumna miejsc), więc karta SCPR nie daje tu nowego pomiaru.
+# f = na południe (do Kutna), r = na północ; udział kierunku jak dla innych DK jednojezdniowych (0,5).
+EXPLICIT = {"11104": [("2934227590005f", "najblizszy"), ("2934227590005r", "przeciwny")]}
+
+
+def assign_explicit(p, g):
+    out = []
+    for nr, ls in EXPLICIT.items():
+        r = p[(p.klasa == "DK") & (p.nr == nr)].iloc[0]
+        for lid, how in ls:
+            l = g[g.link == lid].iloc[0]
+            out.append(dict(nr=nr, klasa="DK", strona="P", link=lid, osm_type=l.hw, origid=l.origid,
+                            dist_m=round(l.geometry.distance(Point(r.x, r.y)), 1), rola=how))
+    return pd.DataFrame(out)
+
+
 if __name__ == "__main__":
     p = values(points())
     g = links()
     a = assign(p, g)
+    assert not set(a.nr) & set(EXPLICIT)
+    a = pd.concat([a, assign_explicit(p, g)], ignore_index=True)
     p.drop(columns=["x", "y"]).assign(E=p.x.round(0), N=p.y.round(0)).to_csv(VAL + "gpr_punkty.csv", index=False)
     m = a.merge(p, on=["nr", "klasa", "strona"])
     # natężenie na kierunek: DK dwujezdniowe = udział kierunku z tabeli; reszta 50/50 (ZAŁOŻENIE, DW bez udziałów)
