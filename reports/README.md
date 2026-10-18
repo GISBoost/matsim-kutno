@@ -15,6 +15,12 @@ Każdy folder to jedna faza. Raport główny to plik `.md` w folderze. Obok leż
 | `g6_kolejki/` | **wyniki referencyjne (25%, 3 seedy) w `d18_25pct/`**: diagnoza kolejek z G6, test stuckTime/kinematicWaves, poprawka D18 | `g6_kolejki.md` |
 | `g2_miejsca_pracy/` | wyniki 25% po D17 w `B_25pct/` (przed D18); porównanie B (22 725, baza) i C (17 486) na 10%, wyjeżdżający O1 | `g2_miejsca_pracy.md` |
 | `d16_przyjezdzajacy/` | wyniki 25%, 3 seedy po D16 (przed D17): wjazd o godzinie z profilu, odcięcie gmin > 100 km | `d16_przyjezdzajacy.md` |
+| `g5_walidacja/` | punkty GPR przypisane do linków (`gpr_linki.csv` to **wejście kodu**, nie przenosić) | – |
+| `g5_kalibracja/` | runy R1–R5 vs GPR, czasy GUS, PCE, decyzja R4/R5 | `g5_r3.md` … `g5_r5.md`, `g5_r4_vs_r5_decyzja.md` |
+| `audyt_g5/` | audyt G5 i poprawki D21 (`k1/`, `k2/`) | `audyt_g5.md`, **`plan_poprawek.md`** |
+| `g3_domy/`, `g4_beeline/`, `g6_blender/` | materiały robocze faz G3, G4 i G6 (opisy w `docs/research/`) | – |
+
+Przegląd faz i dalszych planów: [`../ROADMAP.md`](../ROADMAP.md).
 
 Folder `r3_ocena/`:
 

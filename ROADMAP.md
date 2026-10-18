@@ -1,0 +1,88 @@
+# Mapa projektu MATSim Kutno
+
+Stan: 2026-10-18. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i miejsce każdej rzeczy w repo.
+
+## 1. Gdzie czego szukać
+
+| pytanie | plik |
+|---|---|
+| Na jakim etapie jesteśmy, co dalej? | **ten plik** |
+| Co zdecydowaliśmy i dlaczego? | [DECISIONS.md](DECISIONS.md) (D1–D21) |
+| Co zrobione, z jakim dowodem? | [PROGRESS.md](PROGRESS.md) (dziennik chronologiczny) |
+| Kontrakty faz (wejścia, test, zaliczenie) | [TASKS.md](TASKS.md) |
+| Jak działa model i jak go odtworzyć | [README.md](README.md) |
+| Skąd są dane i liczby | [docs/ZRODLA.md](docs/ZRODLA.md), [data/manifest.csv](data/manifest.csv), [FACT_CHECK.md](FACT_CHECK.md) |
+| Znane błędy i reguły pracy | [ERRORS.md](ERRORS.md), [CLAUDE.md](CLAUDE.md) |
+| Raporty faz (wyniki, wykresy) | [reports/README.md](reports/README.md) |
+| Tło metodyczne i research | [docs/research/](docs/research/) |
+
+## 2. Fazy
+
+### Etap 1: MVP (zamknięty)
+
+Dojazdy do pracy autem, `dom → praca → dom`.
+
+| faza | co | stan | raport |
+|---|---|---|---|
+| F0 | środowisko, build, run equil | ✅ | [f0_env](reports/f0_env/f0_env.md) |
+| F1 | sieć syntetyczna, 10 agentów (test regresyjny) | ✅ | [f1_smoke](reports/f1_smoke/f1_smoke.md) |
+| F2 | sieć z OSM (powiat + bufor) | ✅ | [f2_network](reports/f2_network/f2_network.md) |
+| F3 | popyt z GUS (pracujący per obwód, przyjeżdżający) | ✅ | [f3_demand](reports/f3_demand/f3_demand.md) |
+| F4 | plany (domy, praca, godziny) | ✅ | [f4_plans](reports/f4_plans/f4_plans.md) |
+| F5 / F6 | run 10% i 100% (przed naprawami R3) | ✅ | [f5](reports/f5_run_10pct/f5_run.md), [f6](reports/f6_run_100pct/f6_run.md) |
+| R3 | naprawy techniczne, wyniki 25% × 3 seedy (D15) | ✅ | [r3_ocena](reports/r3_ocena/wyniki_25pct/r3_25pct.md) |
+| D16 | przyjeżdżający spoza powiatu | ✅ | [d16](reports/d16_przyjezdzajacy/d16_przyjezdzajacy.md) |
+
+### Etap 2: rozszerzenia (G1–G7, każde wymaga decyzji w DECISIONS)
+
+| faza | co | stan | gdzie |
+|---|---|---|---|
+| G1 | skrzyżowania, sygnalizacja, zakazy skrętu | ⏸ odłożone przez użytkownika | [TASKS.md](TASKS.md) |
+| G2 | miejsca pracy (suma z rejestru, wyjeżdżający) | ✅ suma (D17); otwarte: rozkład w gminie (REGON) | [g2](reports/g2_miejsca_pracy/g2_miejsca_pracy.md) |
+| G3 | domy (dobór budynków, BDOT10k) | 🔍 zbieranie danych | [G3_domy.md](docs/research/G3_domy.md) |
+| G4 | tryby: PT, rower, pieszo, wybór trybu | 🔍 research, poza modelem | [G4_tryby.md](docs/research/G4_tryby.md), [G4_beeline.md](docs/research/G4_beeline.md) |
+| **G5** | **ruch tła i kalibracja do GPR** | **🔧 w toku: poprawki po audycie** | niżej, §3 |
+| G6 | kolejki (D18) i wizualizacja w Blenderze | ✅ D18; Blender w osobnej sesji | [g6_kolejki](reports/g6_kolejki/g6_kolejki.md), [G6_blender.md](docs/research/G6_blender.md) |
+| G7 | przeniesienie na Łódź | ⏸ po G2–G5 | [TASKS.md](TASKS.md) |
+
+## 3. Bieżąca praca: G5
+
+Historia G5, każdy krok z decyzją:
+
+| krok | co | raport |
+|---|---|---|
+| plan | metoda kalibracji (D19) | [G5_plan_kalibracji.md](docs/research/G5_plan_kalibracji.md) |
+| R1–R3 | dojazdy × 0,593, tło lekkie z estymacji O-D; R3 = 25% × 3 seedy | [g5_r3.md](reports/g5_kalibracja/g5_r3.md) |
+| czasy, PCE | walidacja czasów z GUS, źródło PCE | [g5_czasy_pce.md](reports/g5_kalibracja/g5_czasy_pce.md) |
+| R4, R5 | dostawcze i ciężkie (D20); wybór R4 | [g5_r4.md](reports/g5_kalibracja/g5_r4.md), [decyzja](reports/g5_kalibracja/g5_r4_vs_r5_decyzja.md) |
+| audyt | niezależny audyt kodu, kalibracji i walidacji | [audyt_g5.md](reports/audyt_g5/audyt_g5.md) |
+| **poprawki** | **K1 ✅, K2 ✅, dalej I4 → estymacja → I1 → run → referencja** | **[plan_poprawek.md](reports/audyt_g5/plan_poprawek.md)** |
+
+Baza R4 jest nieaktualna do czasu nowej estymacji po I4.
+
+## 4. Dalsze plany (po zamknięciu G5)
+
+| pomysł | stan | uwagi |
+|---|---|---|
+| Kalibracja czasów i prędkości z TomTom / HERE | 💡 propozycja użytkownika, bez decyzji | GPR daje natężenia, TomTom/HERE czasy; kalibrowałoby prędkości, przepustowości i kongestię. Po poprawkach popytu z audytu. Wymaga wpisu w DECISIONS i źródła w ZRODLA |
+| Transport publiczny i wybór trybu | G4 | GTFS, SubtourModeChoice, kalibracja ASC |
+| Inne aktywności (szkoła, zakupy, sprawy) | 💡 **brak fazy** | wykluczone z MVP (CLAUDE.md); wymaga nowej fazy w TASKS i decyzji |
+| Skrzyżowania | G1 | odłożone |
+| Łódź | G7 | po G2–G5 |
+
+## 5. Układ folderów
+
+| folder | zawartość | w gicie |
+|---|---|---|
+| `config/` | parametry pipeline'u (`kutno.toml`, profile godzinowe, prędkości) | tak |
+| `pipeline/` | Python: dane → popyt → plany → analizy | tak |
+| `matsim/` | Java: konwersja sieci i runner MATSim | tak (bez jar) |
+| `scenarios/kutno/` | wejścia MATSim: sieć, plany, configi XML, `demand/` (macierze) | częściowo |
+| `scenarios/smoke/` | test regresyjny (10 agentów) | tak |
+| `reports/` | raport na fazę, spis w [reports/README.md](reports/README.md) | tak |
+| `docs/` | źródła ([ZRODLA.md](docs/ZRODLA.md)) i research faz (`research/`) | tak |
+| `blender/` | skrypty wizualizacji G6 | tak |
+| `data/raw/` | pobrane źródła, tylko do odczytu | nie (manifest tak) |
+| `output/` | runy MATSim | nie |
+| `archiwum/` | stare raporty innych modeli AI, **nie są źródłem prawdy** | tak |
+| `references/` | filmy referencyjne | nie (nieśledzone) |
