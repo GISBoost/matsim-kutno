@@ -58,7 +58,7 @@ Historia G5, każdy krok z decyzją:
 | audyt | niezależny audyt kodu, kalibracji i walidacji | [audyt_g5.md](reports/etap2/audyt_g5/audyt_g5.md) |
 | poprawki | K1, K2, I4, estymacja R6, I1, D6, I2, I3, D1–D9 ✅ | [plan_poprawek.md](reports/etap2/audyt_g5/plan_poprawek.md), [podsumowanie](reports/etap2/audyt_g5/poprawki/podsumowanie.md) |
 | **R6** | **baza po audycie, referencja 3 seedy MATSim + 2 seedy planów** | **[g5_r6.md](reports/etap2/g5_kalibracja/g5_r6.md), [g5_r6_ref.md](reports/etap2/g5_kalibracja/g5_r6_ref.md)** |
-| czasy TomTom | walidacja czasów i prędkości R6 (D22, wariant A: tylko agregaty) | [g5_czasy_tomtom.md](reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md) |
+| czasy TomTom | walidacja czasów i prędkości R6 (D22, wariant A: tylko agregaty): skalibrowany tylko w popycie, niezwalidowany wg TAG (czasy 48–77% tras w kryterium) | [g5_czasy_tomtom.md](reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md), **[wnioski i plan](reports/etap2/g5_czasy_tomtom/wnioski_i_dalej.md)** |
 
 Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odcinki 91124 i 91866 są kontrolne (użyte w wyborze wariantów), nie walidacja niezależna. Otwarte: bilans stref DK91/DK92 wsch. (odcinki GPR poza siecią), liczniki lokalne, podział Objazdowa/Bitwy (K5), brak pomiarów miejskich (`podsumowanie.md`).
 
@@ -66,7 +66,9 @@ Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odci
 
 | pomysł | stan | uwagi |
 |---|---|---|
-| Kalibracja czasów i prędkości z TomTom / HERE | ✅ **walidacja TomTom zrobiona (D22)**, kalibracja bez decyzji; HERE przygotowane (brak klucza) | [g5_czasy_tomtom.md](reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md). Czas swobodny modelu jest o 8–18% dłuższy niż u TomTom (factor 0,8, D13), a czas w oknach zgadza się na 0–6%. Propozycja: freespeed ruszać tylko razem z G1, capacity nie ruszać |
+| **Prędkości sieci (cruise speeds) + ponowna walidacja TomTom** | ▶ **następny krok** | factor 0,8 (D13) zaniża prędkości o ok. 15% wobec TomTom, a czasy tras zgadzają się tylko przez brak opóźnień węzłów. Warianty, pułapki i procedura powtórki: [wnioski_i_dalej.md](reports/etap2/g5_czasy_tomtom/wnioski_i_dalej.md). Wymaga decyzji w DECISIONS |
+| Walidacja czasów TomTom (D22) | ✅ zrobiona dla R6; HERE przygotowane (brak klucza) | [g5_czasy_tomtom.md](reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md) |
+| Geometria linków z OSM | 💡 propozycja | potrzebna do zgodności tras i walidacji dróg tertiary/unclassified; przyda się w G6 |
 | Transport publiczny i wybór trybu | G4 | GTFS, SubtourModeChoice, kalibracja ASC |
 | Inne aktywności (szkoła, zakupy, sprawy) | 💡 **brak fazy** | wykluczone z MVP (CLAUDE.md); wymaga nowej fazy w TASKS i decyzji |
 | Skrzyżowania | G1 | odłożone |
