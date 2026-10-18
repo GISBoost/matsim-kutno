@@ -18,3 +18,5 @@ __pycache__/
 dependency-reduced-pom.xml
 scenarios/kutno/*.xml.gz
 scenarios/kutno/plans_*.csv
+.env# klucze API (TomTom, HERE) - nigdy do gita
+.env
