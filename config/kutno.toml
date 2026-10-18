@@ -34,6 +34,10 @@ background_profile = "config/hourly_profile_lisica2025.csv"
 heavy_od = "scenarios/kutno/demand/background_od_r4_heavy_cap.csv"  # D20: baza R4; "" = bez ciężkich
 # D20: pce typu pojazdu ciężkiego, WR-D-13-01 tab. 4.3.1 (zamiejski z przyczepą = miejski bez przyczepy). Wrażliwość: 3.0.
 heavy_pce = 2.5
+# Audyt G5/D9, ZAŁOŻENIE (D21, krok 4): końce ciężkich w gminach powiatu = budynki pracy (work_any w plans.py: typy work_buildings,
+# amenity/shop/office, building=yes w landuse work_landuse), wagą powierzchni; tak samo punkty estymacji i waga a priori gminy
+# w background_od.py cls=heavy. "all" = wszystkie budynki gminy (stan do R5: 19% końców w mieszkalnych i 31% w gospodarczych).
+heavy_ends = "work"
 # D10: godzina wyjazdu z domu = rozkład „dom - praca” z GBR Gdańsk 2022, Raport 3a, Rys. 46 (godzinowy,
 # punkty krzywej wektorowej odczytane przez pipeline/digitize_gbr.py, data/manifest.csv). Udziały normalizowane do 100%.
 # ZAŁOŻENIE: jednostajnie wewnątrz przedziału. Gdańsk (metropolia) != Kutno: przeniesienie rozkładu to też ZAŁOŻENIE.

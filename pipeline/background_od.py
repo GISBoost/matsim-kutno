@@ -23,6 +23,15 @@ Płaska macierz (tau = inf) dała 2× za dużo na odcinkach miejskich. Pary bez 
 D20: opcja cls= wybiera klasę pojazdów celu: light (domyślnie, D19: osobowe + mikrobusy + motocykle), lcv (light + dostawcze ≤ 3,5 t),
 heavy (ciężarowe > 3,5 t bez i z przyczepami, autobusy, ciągniki; model bez tła = 0, bo dojazdy to osobowe; trasy z prędkością
 ograniczoną do 80 km/h, Prawo o ruchu drogowym art. 20 ust. 3 pkt 2). Udział klasy ze struktury rodzajowej GPR (SDR).
+Krok 4 poprawek, wariant ODRZUCONY (zone_cnt=1; domyślnie 0): dodatkowy cel na linku każdej strefy granicznej = natężenie klasy odcinka GPR, na którym
+leży strefa (border_zones.gpr_nr), × 0,5 na kierunek (ZAŁOŻENIE: ruch przez granicę na tej drodze = ruch tego odcinka), tylko gdy
+ten odcinek nie ma licznika w sieci (DK91 płn.-zach., DK91 płd.-zach., DK92 wsch., DW573, DW583). Bez celu strefy ruch tych stref nie miał
+ograniczenia (R6 bez celu: DK91 płn.-zach. 4,3× GPR, DK91 płd.-zach. 0,16×). Cel na wszystkich strefach był sprzeczny z licznikiem
+91115 na tym samym odcinku DK60 płd. (zjazdy do wsi między strefą a licznikiem) i dał fantomową parę gmin 1002082 -> 1002052 (6 370/dobę).
+Wariant zawężony też przekracza progi od_warnings.py (S2 38% km po drogach bez licznika, S4 616, Objazdowa 162%): ruch dopisany do stref
+DK91 i DK92 wsch. nie ma licznika na trasie i rozchodzi się drogami lokalnymi (reports/etap2/audyt_g5/poprawki/k4_od.md).
+Model bez tła na linku strefy = vol_car R1 (left link: liczy start pracującego na wjeździe, nie liczy końca na wyjeździe; kilkaset poj.).
+Audyt D9 (kutno.toml heavy_ends = "work"): dla cls=heavy punkty i waga gminy tylko z budynków pracy (work_any jak plans.py).
 E1 (po R4): routes=<output_dir runu z tłem> init=<macierz O-D tego runu>: incydencja z tras wybranych planów w ostatniej
 iteracji (agenci t…/h… danej klasy, id = <prefiks><o>_<d>_<k>; udział agentów pary przejeżdżających przez licznik, bez linku
 startowego), dla par bez agentów w runie incydencja z tras swobodnych. Start z macierzy init (tylko jej pary), model bez tła
@@ -107,6 +116,12 @@ rej = gpd.read_file("data/raw/brec/rej_pl/SU_BREC_2021_REJ.shp", columns=["GMINA
 gm = rej[rej.GMINA.str.startswith(POWIAT)].dissolve(by="GMINA").geometry
 bld = gpd.read_file("scenarios/kutno/osm/features.gpkg", layer="buildings")
 bld["pt"], bld["a"] = bld.geometry.representative_point(), bld.geometry.area
+if CLS == "heavy" and P["plans"].get("heavy_ends", "all") == "work":  # audyt D9: końce ciężkich w budynkach pracy, jak plans.py work_any
+    lu = gpd.read_file("scenarios/kutno/osm/features.gpkg", layer="landuse")
+    in_lu = bld.index.isin(gpd.sjoin(bld.set_geometry("pt")[["pt"]], lu[lu.landuse.isin(P["plans"]["work_landuse"])][["geometry"]],
+                                     predicate="within").index)
+    bld = bld[bld.building.isin(P["plans"]["work_buildings"]) | bld.amenity.notna() | bld.shop.notna() | bld.office.notna()
+              | ((bld.building == "yes") & in_lu)]
 for code, geom in gm.items():
     inb = bld[bld.pt.within(geom)]
     pick = inb.iloc[rng.choice(len(inb), size=K, p=(inb.a / inb.a.sum()).to_numpy())]
@@ -122,6 +137,13 @@ O, D = Z[Z.kind != "exit"].reset_index(drop=True), Z[Z.kind != "entry"].reset_in
 # --- liczniki --------------------------------------------------------------------------------------------
 g = pd.read_csv("scenarios/kutno/validation/gpr_linki.csv", dtype={"link": str})
 g["gpr"] = g[[c + "_dr" for c in CLS_COLS]].sum(axis=1) * g.udzial_kier  # audyt K2: struktura SDRDR (DW: SDRR, ZAŁOŻENIE)
+ZONE_CNT = OPT.get("zone_cnt", "0") == "1"  # wariant odrzucony w kroku 4 (sygnały S2/S4), domyślnie wyłączony
+if ZONE_CNT:  # krok 4 poprawek: cel na każdej strefie granicznej = odcinek GPR, na którym leży (border_zones.gpr_nr) × 0,5 na kierunek
+    zb = Z[Z.kind != "gmina"].merge(bz[["zone", "gpr_nr"]], left_on="id", right_on="zone")
+    zb = zb[~zb.gpr_nr.astype(int).isin(g.nr)]  # tylko odcinki bez licznika w sieci (inaczej cel strefy i licznika są sprzeczne, DK60 płd.)
+    g = pd.concat([g, pd.DataFrame({"nr": 900001 + np.arange(len(zb)), "droga": [f"strefa {k} {r}" for k, r in zip(zb.kind, zb.road)],
+                                    "link": zb.id, "gpr": [float(gp_cls.loc[n, CLS_DR].sum()) * 0.5 for n in zb.gpr_nr]})],
+                  ignore_index=True)
 vol = []
 for d in runs:
     c = etree.parse(str(d / "output_config.xml"))
@@ -161,7 +183,7 @@ for oi, o in O.iterrows():
             ok += 1
             tts.append(dist[en])
             pth = path[en]
-            for l in [G[a][b]["link"] for a, b in zip(pth, pth[1:])] + [last]:
+            for l in ([o.id] if o.kind == "entry" else []) + [G[a][b]["link"] for a, b in zip(pth, pth[1:])] + [last]:  # link wjazdu: cel strefy
                 if l in cnt:
                     hits[cnt[l]] = hits.get(cnt[l], 0) + 1
         if ok:
@@ -228,7 +250,7 @@ sec["ratio_before"], sec["ratio_after"] = sec.model / sec.gpr, sec.model_plus_bg
 geh = lambda m, c: np.sqrt(2 * (m - c) ** 2 / (m + c)) / np.sqrt(24)  # GEH godzinowy ze średniej godziny doby (orientacyjnie)
 sec["geh_hourly_mean"] = geh(sec.model_plus_bg, sec.gpr)
 kz = lambda k: od[(od.o_kind == k) | (od.d_kind == k)].trips_day.sum()
-rep = {"runs": [str(d) for d in runs], "cls": CLS, "routes": str(ROUTES), "init": OPT.get("init"), "pairs_with_route_incidence": route_pairs, "bound": OPT.get("bound"), "tau_min": TAU, "iters": ITERS, "dropped_counts": DROP, "zones": Z.kind.value_counts().to_dict(),
+rep = {"runs": [str(d) for d in runs], "cls": CLS, "routes": str(ROUTES), "init": OPT.get("init"), "pairs_with_route_incidence": route_pairs, "bound": OPT.get("bound"), "tau_min": TAU, "iters": ITERS, "dropped_counts": DROP, "zone_cnt": ZONE_CNT, "zones": Z.kind.value_counts().to_dict(),
        "border_weights": {f"{r.kind} {r.road}": round(float(r.w), 3) for r in Z[Z.kind != "gmina"].itertuples()}, "od_pairs_with_count": len(F),
        "od_pairs_kept": len(od), "trips_day_100pct": round(float(od.trips_day.sum())),
        "trips_by_type": {"tranzyt_wjazd_wyjazd": round(float(od[(od.o_kind == "entry") & (od.d_kind == "exit")].trips_day.sum())),

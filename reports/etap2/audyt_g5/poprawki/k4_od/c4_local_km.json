@@ -1,0 +1,40 @@
+{
+ "output\\g5r1_25pct_s4711": {
+  "c": {
+   "km_sample": 42082,
+   "local_share": 0.578
+  },
+  "o": {
+   "km_sample": 16041,
+   "local_share": 0.408
+  },
+  "r": {
+   "km_sample": 23855,
+   "local_share": 0.692
+  },
+  "pracujacy": 0.578
+ },
+ "output\\g5r4_25pct_s4711": {
+  "c": {
+   "km_sample": 41820,
+   "local_share": 0.563
+  },
+  "h": {
+   "km_sample": 163999,
+   "local_share": 0.391
+  },
+  "o": {
+   "km_sample": 16016,
+   "local_share": 0.417
+  },
+  "r": {
+   "km_sample": 23895,
+   "local_share": 0.69
+  },
+  "t": {
+   "km_sample": 565605,
+   "local_share": 0.416
+  },
+  "pracujacy": 0.571
+ }
+}

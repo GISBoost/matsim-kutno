@@ -248,17 +248,17 @@ border = pd.concat([entry, exits]).drop_duplicates("link").set_index("link")
 _bld = {}
 
 
-def ends(kind, zone, n):
-    """n końców podróży w strefie: link graniczny albo budynek gminy (losowanie wagą powierzchni, jak D7/D11)."""
+def ends(kind, zone, n, pool=b):
+    """n końców podróży w strefie: link graniczny albo budynek gminy z puli (losowanie wagą powierzchni, jak D7/D11)."""
     if kind != "gmina":
         return [zone] * n, [border.x[zone]] * n, [border.y[zone]] * n
-    if zone not in _bld:
-        _bld[zone] = b[b.pt.within(gmina_geom(zone))].set_geometry("pt")
-    h = pick_buildings(_bld[zone], n)
+    if (zone, len(pool)) not in _bld:
+        _bld[(zone, len(pool))] = pool[pool.pt.within(gmina_geom(zone))].set_geometry("pt")
+    h = pick_buildings(_bld[(zone, len(pool))], n)
     return [None] * n, h.pt.x.tolist(), h.pt.y.tolist()
 
 
-def background(path, prefix, profile_col):
+def background(path, prefix, profile_col, pool=b):
     if not path:
         return pd.DataFrame(columns=BG_COLS)
     od = pd.read_csv(path, dtype={"o": str, "d": str})
@@ -268,8 +268,8 @@ def background(path, prefix, profile_col):
     od.loc[rest.index[:round(ex.sum()) - od.agents.sum()], "agents"] += 1
     rows = []
     for r in od[od.agents > 0].itertuples():
-        ol, ox, oy = ends(r.o_kind, r.o, r.agents)
-        dl, dx, dy = ends(r.d_kind, r.d, r.agents)
+        ol, ox, oy = ends(r.o_kind, r.o, r.agents, pool)
+        dl, dx, dy = ends(r.d_kind, r.d, r.agents, pool)
         rows += [(f"{prefix}{r.o}_{r.d}_{k}", r.o, r.d, ol[k], ox[k], oy[k], dl[k], dx[k], dy[k]) for k in range(r.agents)]
     bg = pd.DataFrame(rows, columns=BG_COLS[:-1])
     hp = pd.read_csv(P["background_profile"])
@@ -283,7 +283,7 @@ def background(path, prefix, profile_col):
 
 
 bg = background(P["background_od"], "t", "light_pct")
-hv = background(P["heavy_od"], "h", "heavy_pct")
+hv = background(P["heavy_od"], "h", "heavy_pct", b[b.work_any] if P.get("heavy_ends", "all") == "work" else b)  # audyt D9
 
 # --- plans.xml.gz (bez tras; mtime=0, żeby sha256 był powtarzalny) ------------------------------------
 root = etree.Element("population")

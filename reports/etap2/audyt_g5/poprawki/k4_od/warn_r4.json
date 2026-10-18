@@ -1,0 +1,281 @@
+{
+ "limits": {
+  "S1_density_vs_kutno": 10.0,
+  "S2_local_km_share": 0.35,
+  "S3_heavy_res_farm_share": 0.25,
+  "S4_trio_trips": 500
+ },
+ "lcv": {
+  "file": "scenarios/kutno/demand/background_od_r4_lcv_cap.csv",
+  "trips_day": 85203,
+  "S1_density_per_1000m2": {
+   "1002011": 2.421,
+   "1002022": 1.799,
+   "1002032": 108.433,
+   "1002044": 106.66,
+   "1002045": 13.769,
+   "1002052": 8.843,
+   "1002062": 7.833,
+   "1002072": 25.162,
+   "1002082": 11.005,
+   "1002092": 1.151,
+   "1002102": 7.382,
+   "1002114": 17.433,
+   "1002115": 2.056
+  },
+  "S1_density_vs_kutno": 44.8,
+  "S1_worst_gmina": "1002032",
+  "top10": [
+   {
+    "o_kind": "gmina",
+    "o": "1002032",
+    "d_kind": "gmina",
+    "d": "1002044",
+    "tt_min": 10.0,
+    "trips_day": 9454.31,
+    "area_o_tys_m2": 235.0,
+    "area_d_tys_m2": 200.0
+   },
+   {
+    "o_kind": "gmina",
+    "o": "1002044",
+    "d_kind": "gmina",
+    "d": "1002032",
+    "tt_min": 9.8,
+    "trips_day": 9276.86,
+    "area_o_tys_m2": 200.0,
+    "area_d_tys_m2": 235.0
+   },
+   {
+    "o_kind": "entry",
+    "o": "3107258420023r",
+    "d_kind": "gmina",
+    "d": "1002062",
+    "tt_min": 23.2,
+    "trips_day": 3429.44,
+    "area_o_tys_m2": NaN,
+    "area_d_tys_m2": 986.0
+   },
+   {
+    "o_kind": "gmina",
+    "o": "1002045",
+    "d_kind": "gmina",
+    "d": "1002032",
+    "tt_min": 12.9,
+    "trips_day": 2898.0,
+    "area_o_tys_m2": 488.0,
+    "area_d_tys_m2": 235.0
+   },
+   {
+    "o_kind": "gmina",
+    "o": "1002032",
+    "d_kind": "gmina",
+    "d": "1002045",
+    "tt_min": 13.2,
+    "trips_day": 2379.0,
+    "area_o_tys_m2": 235.0,
+    "area_d_tys_m2": 488.0
+   },
+   {
+    "o_kind": "entry",
+    "o": "4918991010000f",
+    "d_kind": "exit",
+    "d": "1931760520082f",
+    "tt_min": 18.6,
+    "trips_day": 2066.3,
+    "area_o_tys_m2": NaN,
+    "area_d_tys_m2": NaN
+   },
+   {
+    "o_kind": "entry",
+    "o": "1885522040087f",
+    "d_kind": "exit",
+    "d": "4918991030000f",
+    "tt_min": 18.6,
+    "trips_day": 1911.95,
+    "area_o_tys_m2": NaN,
+    "area_d_tys_m2": NaN
+   },
+   {
+    "o_kind": "gmina",
+    "o": "1002011",
+    "d_kind": "gmina",
+    "d": "1002044",
+    "tt_min": 19.3,
+    "trips_day": 1414.83,
+    "area_o_tys_m2": 2322.0,
+    "area_d_tys_m2": 200.0
+   },
+   {
+    "o_kind": "gmina",
+    "o": "1002072",
+    "d_kind": "exit",
+    "d": "2473952030015f",
+    "tt_min": 29.0,
+    "trips_day": 1233.63,
+    "area_o_tys_m2": 234.0,
+    "area_d_tys_m2": NaN
+   },
+   {
+    "o_kind": "entry",
+    "o": "2473952030015r",
+    "d_kind": "gmina",
+    "d": "1002072",
+    "tt_min": 29.2,
+    "trips_day": 1226.81,
+    "area_o_tys_m2": NaN,
+    "area_d_tys_m2": 234.0
+   }
+  ],
+  "S2_km_day_100pct": 2132912,
+  "S2_local_km_share": 0.402,
+  "S2_mostly_local_pairs_km_share": 0.341,
+  "S4_trio_trips": 24041,
+  "flags": [
+   "S1_density_vs_kutno",
+   "S2_local_km_share",
+   "S4_trio_trips"
+  ]
+ },
+ "heavy": {
+  "file": "scenarios/kutno/demand/background_od_r4_heavy_cap.csv",
+  "trips_day": 25312,
+  "S1_density_per_1000m2": {
+   "1002011": 0.59,
+   "1002022": 1.504,
+   "1002032": 41.873,
+   "1002044": 43.321,
+   "1002045": 4.073,
+   "1002052": 2.547,
+   "1002062": 2.045,
+   "1002072": 4.336,
+   "1002082": 3.047,
+   "1002092": 0.131,
+   "1002102": 1.055,
+   "1002114": 1.21,
+   "1002115": 0.455
+  },
+  "S1_density_vs_kutno": 73.39,
+  "S1_worst_gmina": "1002044",
+  "top10": [
+   {
+    "o_kind": "gmina",
+    "o": "1002032",
+    "d_kind": "gmina",
+    "d": "1002044",
+    "tt_min": 10.0,
+    "trips_day": 4399.39,
+    "area_o_tys_m2": 235.0,
+    "area_d_tys_m2": 200.0
+   },
+   {
+    "o_kind": "gmina",
+    "o": "1002044",
+    "d_kind": "gmina",
+    "d": "1002032",
+    "tt_min": 9.8,
+    "trips_day": 3805.39,
+    "area_o_tys_m2": 200.0,
+    "area_d_tys_m2": 235.0
+   },
+   {
+    "o_kind": "entry",
+    "o": "3107258420023r",
+    "d_kind": "gmina",
+    "d": "1002062",
+    "tt_min": 23.2,
+    "trips_day": 1321.02,
+    "area_o_tys_m2": NaN,
+    "area_d_tys_m2": 986.0
+   },
+   {
+    "o_kind": "gmina",
+    "o": "1002045",
+    "d_kind": "gmina",
+    "d": "1002032",
+    "tt_min": 12.9,
+    "trips_day": 1173.63,
+    "area_o_tys_m2": 488.0,
+    "area_d_tys_m2": 235.0
+   },
+   {
+    "o_kind": "entry",
+    "o": "4918991010000f",
+    "d_kind": "exit",
+    "d": "1931760520082f",
+    "tt_min": 26.0,
+    "trips_day": 608.87,
+    "area_o_tys_m2": NaN,
+    "area_d_tys_m2": NaN
+   },
+   {
+    "o_kind": "entry",
+    "o": "1885522040087f",
+    "d_kind": "exit",
+    "d": "4918991030000f",
+    "tt_min": 26.0,
+    "trips_day": 585.37,
+    "area_o_tys_m2": NaN,
+    "area_d_tys_m2": NaN
+   },
+   {
+    "o_kind": "entry",
+    "o": "1885522040087f",
+    "d_kind": "gmina",
+    "d": "1002022",
+    "tt_min": 29.0,
+    "trips_day": 448.7,
+    "area_o_tys_m2": NaN,
+    "area_d_tys_m2": 844.0
+   },
+   {
+    "o_kind": "gmina",
+    "o": "1002052",
+    "d_kind": "exit",
+    "d": "1931760520082f",
+    "tt_min": 23.9,
+    "trips_day": 429.73,
+    "area_o_tys_m2": 600.0,
+    "area_d_tys_m2": NaN
+   },
+   {
+    "o_kind": "entry",
+    "o": "1885522040087f",
+    "d_kind": "gmina",
+    "d": "1002052",
+    "tt_min": 22.9,
+    "trips_day": 398.22,
+    "area_o_tys_m2": NaN,
+    "area_d_tys_m2": 600.0
+   },
+   {
+    "o_kind": "gmina",
+    "o": "1002022",
+    "d_kind": "exit",
+    "d": "1931760520082f",
+    "tt_min": 29.1,
+    "trips_day": 327.96,
+    "area_o_tys_m2": 844.0,
+    "area_d_tys_m2": NaN
+   }
+  ],
+  "S2_km_day_100pct": 609849,
+  "S2_local_km_share": 0.397,
+  "S2_mostly_local_pairs_km_share": 0.324,
+  "S3_heavy_ends": "all",
+  "S3_heavy_end_share": {
+   "gospodarcze": 0.315,
+   "inne": 0.492,
+   "mieszkalne": 0.193
+  },
+  "S3_heavy_res_farm_share": 0.508,
+  "S4_trio_trips": 9523,
+  "flags": [
+   "S1_density_vs_kutno",
+   "S2_local_km_share",
+   "S3_heavy_res_farm_share",
+   "S4_trio_trips"
+  ]
+ },
+ "ok": false
+}

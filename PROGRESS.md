@@ -168,3 +168,10 @@
 - Udział wag wjazdów (lekkie): DK60 płd. 29,1% → 5,9%, A1 płn. 5,5% → 24,5%, A1 razem 57%; niezależna kontrola `c3_border_weights.py` zgodna do 0,1 pp.
 - Diagnostyczna estymacja (stary R1): tranzyt lekkich −39%, Objazdowa + Bitwy 117% → 99% (121% / 75%). Plany z macierzami diag.: walidator ok. Raport: `reports/etap2/audyt_g5/poprawki/k3_i4_strefy.md`.
 
+## 2026-10-18: audyt G5, krok 4 (D21): R1 po K1, estymacja R6, sygnały ostrzegawcze
+
+- R1 na planach po K1 (`plans_g5r1k1_25pct`, walidator ok): 3 seedy × 7 478 nóg car, 0 stuck. Zmiana tylko na wjazdach: A1 71410 568 → 72, DK60 N 11104 0 → 512 poj./dobę.
+- Estymacja `background_od_r6_{lcv,heavy}_gpr.csv`: lekkie 65 905, ciężkie 22 990 podróży/dobę (R4: 85 203 i 25 312); gmina–gmina lekkie 29 954 → 8 364. Odcinki dopasowania 100%; offline Objazdowa / Bitwy: lekkie 123% / 75%, ciężkie 29% / 78%.
+- Nowy `pipeline/od_warnings.py` (S1 gęstość gminy vs Kutno ≤ 10×, S2 km po drogach bez licznika ≤ 35%, S3 końce ciężkich w mieszk. + gosp. ≤ 25%, S4 trójka Dąbrowice/Krośniewice ≤ 500): R4 flagowane (S1 45×/73×, S4 24 041), R6 ok (5,1×, 30,5%, 0,0%, 142).
+- `heavy_ends = "work"` (ZAŁOŻENIE, D9): końce ciężkich w budynkach pracy (było 54% w mieszkalnych i gospodarczych). Wariant z celem GPR na strefach granicznych odrzucony (S2/S4, nowy fantom gmin). Raport: `reports/etap2/audyt_g5/poprawki/k4_od.md`.
+
