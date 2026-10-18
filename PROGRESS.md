@@ -186,3 +186,9 @@
 - Objazdowa 91124 i Bitwy 91866 opisane jako odcinki kontrolne użyte w wyborze wariantu (adnotacje w `g5_r3.md`, `g5_r4_vs_r5_decyzja.md`, D19, D20).
 - Niezależna walidacja w pobranych danych: tylko SCPR 30025 Dzięgielewo (DK92 za Kłodawą, częściowo niezależna): R6a 5 196 poj./dobę wobec 4,8–5,4 tys. w dni robocze. Pomiarów miejskich brak. Raport: `reports/etap2/audyt_g5/poprawki/k7_i2_walidacja.md`.
 
+## 2026-10-18: audyt G5, krok 6 (D21/D6): baza R6, run 25%
+
+- Configi 10/25/100% wskazują `plans_g5r6_*pct.xml.gz` i plik pojazdów (`vehiclesSource=fromVehiclesData`); `kutno.toml` wskazuje macierze `r6b` (z D1/D2). Plany 10/25/100% walidator ok, sha256 powtarzalny.
+- D1/D2 rozstrzygnięte w trakcie kroku (instrukcja GPR 2020: P = rosnący pikietaż; A1 było odwrócone): estymacja `r6b`, zmiana macierzy −0,2%. Run na macierzach sprzed D1/D2 to R6a.
+- R6 25% seed 4711 (`output/g5r6_25pct_s4711`): 29 660 nóg car, 0 stuck, inwarianty ok. Lekkie: A1 99%, DK w Kutnie 105%, 12/15 w ±15% (R4: 115%, 112%, 9/15). Ciężkie: A1 101%, DK w Kutnie 68%, 12/15 (R4: 69%, 70%, 5/15). Opóźnienie 243 poj.-h próbki (R4 540), 0 przepełnionych linków, korek pod Krośniewicami znika. Raport: `reports/etap2/g5_kalibracja/g5_r6.md`.
+

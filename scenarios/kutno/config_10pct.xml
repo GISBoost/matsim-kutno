@@ -11,7 +11,8 @@
 		<param name="inputNetworkFile" value="network.xml.gz" />
 	</module>
 	<module name="plans">
-		<param name="inputPlansFile" value="plans.xml.gz" />
+		<!-- audyt G5/D6 (D21, krok 6): baza R6, plany i pojazdy z pipeline/plans.py (config/kutno.toml), run wynika z samego configu -->
+		<param name="inputPlansFile" value="plans_g5r6_10pct.xml.gz" />
 	</module>
 	<module name="controller">
 		<!-- UWAGA: MATSim rozwiązuje outputDirectory względem katalogu roboczego, nie configu. Uruchamiaj z katalogu projektu. -->
@@ -44,10 +45,15 @@
 		     za ciężarowymi (80 km/h) jechały po A1 z medianą 80 km/h zamiast 110 (test 2 iteracji, reports/etap2/g5_kalibracja/r4/).
 		     Bez ciężkich wszystkie pojazdy mają tę samą prędkość maksymalną, więc kolejność jest jak w FIFO. -->
 		<param name="linkDynamics" value="PassingQ" />
+		<!-- D20/D6: pojazdy z pliku (osobowy pce 1; ciężki pce 2,5 i 80 km/h), każdy agent ma swój pojazd -->
+		<param name="vehiclesSource" value="fromVehiclesData" />
 		<!-- wyjazdy do 23:59 (GBR Rys. 46) + 8 h pracy + powrót; od D16 start z wjazdu bez doliczania dojazdu, 48 h to zapas.
 		     36:00 przerwało agenta z Krakowa (reports/etap1_mvp/r3_ocena/run_100pct_przerwany/r3_100pct_s4711_events.json, stuckAndAbort). -->
 		<param name="endTime" value="48:00:00" />
 		<param name="numberOfThreads" value="8" />
+	</module>
+	<module name="vehicles">
+		<param name="vehiclesFile" value="plans_g5r6_10pct_vehicles.xml.gz" />
 	</module>
 	<module name="scoring">
 		<!-- ZAŁOŻENIE: domyślne MATSim, bez openingTime (są zmiany nocne). Score tylko diagnostyczny (DECISIONS: otwarte). -->
@@ -95,8 +101,8 @@
 			<param name="subpopulation" value="tlo" />
 			<param name="weight" value="0.2" />
 		</parameterset>
-		<!-- D20: ciężkie jak tło lekkie (pojazd z pliku vehicles: pce 2,5, 80 km/h; przy uruchamianiu nadpisać
-		     qsim.vehiclesSource=fromVehiclesData i vehicles.vehiclesFile=<plans>_vehicles.xml.gz, zmienna VEH w output/r3_runs.sh). -->
+		<!-- D20: ciężkie jak tło lekkie (pojazd z pliku vehicles: pce 2,5, 80 km/h; plik w module vehicles, D6).
+		     Inne plany: PLANS i VEH w output/r3_runs.sh (bez VEH run używa pojazdów bazy, więc plany bez ciężkich wymagają VEH). -->
 		<parameterset type="strategysettings">
 			<param name="strategyName" value="ChangeExpBeta" />
 			<param name="subpopulation" value="ciezkie" />

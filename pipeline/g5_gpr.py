@@ -148,12 +148,25 @@ if __name__ == "__main__":
     a = pd.concat([a, assign_explicit(p, g)], ignore_index=True)
     p.drop(columns=["x", "y"]).assign(E=p.x.round(0), N=p.y.round(0)).to_csv(VAL + "gpr_punkty.csv", index=False)
     m = a.merge(p, on=["nr", "klasa", "strona"])
-    # natężenie na kierunek: DK dwujezdniowe = udział kierunku z tabeli; reszta 50/50 (ZAŁOŻENIE, DW bez udziałów)
+    # Audyt G5/D1-D2: udział kierunku DK z tabeli GPR (kol. 18-19), kierunek linku względem pikietażu odcinka.
+    # „Prawy” (P) = ruch zgodnie z rosnącym pikietażem, „lewy” (L) = z malejącym (Instrukcja GPR 2020 cz. 3, s. o karcie pomiaru,
+    # data/raw/g5/gpr2025/instrukcja_gpr2020_cz3.pdf). Linie odcinków w dk_odcpom_web.zip biegną zgodnie z pikietażem (koniec odcinka
+    # = początek następnego, te same pikietaże). Wcześniej: A1 „najbliższa jezdnia” = prawy (losowo, zamienione na 3 odcinkach),
+    # pozostałe DK 0,5. DW bez udziałów kierunkowych: 0,5 (ZAŁOŻENIE).
+    odc = gpd.read_file("zip://" + RAW + "dk_odcpom_web.zip")
+    odc = dict(zip(odc.NR2025.astype(str), odc.geometry))
+    lg = g.set_index("link").geometry
+
     def share(r):
-        if r.klasa == "DK" and r.droga.upper()[0] in "AS":
-            s = r.udz_prawy if r.rola == "najblizszy" else r.udz_lewy
-            return s if pd.notna(s) else 0.5
-        return 0.5
+        if r.klasa != "DK" or r.nr not in odc:
+            return 0.5
+        line, ln = odc[r.nr], lg[r.link]
+        a, b = Point(ln.coords[0]), Point(ln.coords[-1])
+        s = line.project(Point((a.x + b.x) / 2, (a.y + b.y) / 2))
+        p1, p2 = line.interpolate(max(s - 20, 0)), line.interpolate(min(s + 20, line.length))
+        rising = (p2.x - p1.x) * (b.x - a.x) + (p2.y - p1.y) * (b.y - a.y) > 0
+        v = r.udz_prawy if rising else r.udz_lewy
+        return v if pd.notna(v) else 0.5
     m["udzial_kier"] = m.apply(share, axis=1)
     m["sdrr_kier"] = m.sdr * m.udzial_kier
     m["sdrdr_kier"] = m.sdrdr * m.udzial_kier
