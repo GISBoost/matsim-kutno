@@ -231,3 +231,11 @@
   - Segmenty: MAPE 21 / 17,5%.
   - Ocena (TAG M3.1, FHWA 2010, pobrane do data/raw/g5/lit/): R6 skalibrowany tylko w popycie do GPR. Niezwalidowany wg TAG: kryterium czasów 15% lub 1 min spełnia 48–77% tras wobec wytycznej 85%, a TomTom to model dostawcy, nie pomiar.
   - Raport: g5_czasy_tomtom.md §11.
+
+## 2026-10-18: D23 krok 1: rozszerzenie próbki tras per grupa dróg
+
+- D23 (wariant a): `f_g` per grupa A–F, kalibrowane na zestawie analizy (plan `reports/etap2/g5_predkosci_d23/plan.md`, zaakceptowany przez użytkownika).
+- `traffic_providers.py sample_d23`: 74 nowe trasy (≥ 50% długości w grupie, 3–15 km; D i F od 2 km). Każda grupa ma teraz 12 tras w analizie i 6 w walidacji. `split.csv` dopisany przed requestem, stare wiersze bez zmian.
+- Czasy modelu R6 dla 114 tras (`model_times.csv`).
+- Budżet zmniejszony po informacji o limicie konta (2 500/dobę): krok 1 bez requestów, D23 razem ok. 620. Skrypt ma limit `BUDGET_DAY = 2000` (doba UTC, liczona z logu).
+- Raport: `reports/etap2/g5_predkosci_d23/krok1_probka.md`.

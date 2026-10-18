@@ -48,7 +48,8 @@ TZ = "+02:00"
 # komercyjny; masa, nacisk osi i wysokość = 0 (ograniczenia nieuwzględniane), bo model ich nie ma. Wariant: masa 40 t.
 TRUCK = dict(vehicleMaxSpeed=80, vehicleLength=15, vehicleWidth=2.5, vehicleCommercial="true")
 QPS = {"tomtom": 5, "here": 5}  # TomTom FAQ: 5-50 zależnie od API; bierzemy dolną granicę dla obu endpointów
-BUDGET = 800  # prompt §6: 400 w pierwszym pobraniu; +400 na przebiegi z MAE, mapą, rozrzutem i metrykami % (prośby użytkownika 2026-10-18)
+BUDGET = 1400  # łącznie: 763 do D22 + ok. 560 na D23 (plan §3) z zapasem; decyzje użytkownika 2026-10-18
+BUDGET_DAY = 2000  # limit konta TomTom: 2 500 non-tile na dobę (informacja użytkownika 2026-10-18), z zapasem
 
 
 def zread(p):
@@ -177,6 +178,94 @@ def cmd_sample():
 
 
 # ---------------------------------------------------------------- pobieranie
+GROUPS = ["A", "B", "C", "D", "E", "F"]  # D23, reports/etap2/g5_predkosci_d23/plan.md §1
+
+
+def speed_groups(L):
+    """Grupa D23 linku: typ OSM bez _link i położenie środka linku (miasto = towns.wkt, jak towns w CreateKutnoNetwork, D13)."""
+    towns = shapely.from_wkt(Path("scenarios/kutno/area/towns.wkt").read_text().strip())
+    urb = shapely.contains(towns, shapely.points((L.x0 + L.x1) / 2, (L.y0 + L.y1) / 2))
+    t = L.type.str.replace("_link", "")
+    return pd.Series(np.select([t.eq("motorway"),
+                                ~urb & t.isin(["trunk", "primary", "secondary"]), ~urb & t.isin(["tertiary", "unclassified"]),
+                                ~urb & t.isin(["residential", "living_street"]),
+                                urb & t.isin(["trunk", "primary", "secondary", "tertiary"]),
+                                urb & t.isin(["residential", "unclassified", "living_street"])],
+                               GROUPS, "inne"), index=L.index)
+
+
+def cmd_sample_d23():
+    """D23 krok 1: dobór tras z przewagą (>= 50% długości) każdej grupy, aż do >= 12 tras w analizie i >= 6 w walidacji
+    na grupę (licząc trasy już w próbce). Trasa = najszybsza po czasie swobodnym sieci R6 (jak korytarze), długość 3-15 km
+    (TAG M3.1 §4.3.3), dla D i F od 2 km. Końce: linki bez motorway/trunk/łącznic/zawrotek (jak przypinanie aktywności).
+    Jedna trasa na link startowy. Nowe trasy dopisywane do pairs.csv i split.csv (stare wiersze bez zmian)."""
+    L = links()
+    L["grp"] = speed_groups(L)
+    P = pd.read_csv(OUT / "pairs.csv", dtype={"start_link": str, "end_link": str})
+    sp = pd.read_csv(OUT / "split.csv")
+    assert not P.kind.str.startswith("D23").any(), "trasy D23 już są w pairs.csv"
+    zs = sp.set_index("id").zestaw
+
+    def share(route):
+        r = L.loc[route[1:]]
+        s = r.groupby("grp").length.sum()
+        return s.idxmax(), s.max() / r.length.sum(), r.length.sum() / 1000
+
+    have = {(g, z): 0 for g in GROUPS for z in ("analiza", "walidacja")}
+    for _, p in P.iterrows():
+        g, sh, _ = share(p.route.split())
+        if sh >= 0.5 and g in GROUPS:
+            have[(g, zs[p.id])] += 1
+    need = {g: max(0, 12 - have[(g, "analiza")]) + max(0, 6 - have[(g, "walidacja")]) for g in GROUPS}
+    print("istniejące trasy z przewagą grupy (analiza, walidacja):", {g: (have[(g, 'analiza')], have[(g, 'walidacja')]) for g in GROUPS})
+    print("potrzebne nowe:", need)
+
+    G = nx.DiGraph()
+    for lk, a, b, t in zip(L.index, L.from_node, L.to_node, L.ff):
+        G.add_edge(a, b, weight=t, link=lk)
+    ok_end = ~L.type.isin(["motorway", "motorway_link", "trunk", "trunk_link", "boundary_turnaround"])
+    ends = L[ok_end]
+    by_from = ends.groupby("from_node").groups
+    rng = np.random.default_rng(SEED + 23)  # seed z config/kutno.toml, przesunięty dla D23
+    found = {g: [] for g in GROUPS}
+    tries = 0
+    while any(len(found[g]) < need[g] for g in GROUPS) and tries < 4000:
+        tries += 1
+        o = ends.index[rng.integers(len(ends))]
+        dist, paths = nx.single_source_dijkstra(G, L.to_node[o], cutoff=1500)
+        cand = [d for n in dist for d in by_from.get(n, []) if d != o]
+        rng.shuffle(cand)
+        for d in cand[:400]:
+            p = paths[L.from_node[d]]
+            route = [o] + [G[u][v]["link"] for u, v in zip(p, p[1:])] + [d]
+            g, sh, km = share(route)
+            lo = 2 if g in ("D", "F") else 3
+            if g in GROUPS and sh >= 0.5 and lo <= km <= 15 and len(found[g]) < need[g]:
+                found[g].append((o, d, route, km, sh))
+                break  # jedna trasa na link startowy
+    print(f"losowań startów: {tries}; znalezione:", {g: len(v) for g, v in found.items()})
+
+    rows, srows = [], []
+    for g in GROUPS:
+        lst = found[g]
+        rng.shuffle(lst)
+        nv = max(0, 6 - have[(g, "walidacja")])
+        for i, (o, d, route, km, sh) in enumerate(lst):
+            rid = f"D23{g}_{i:02d}"
+            rows.append(dict(id=rid, kind=f"D23_{g}", person="", start_link=o, end_link=d, o_x=L.x1[o], o_y=L.y1[o],
+                             d_x=L.x1[d], d_y=L.y1[d], model_dep_s4711="", model_km=round(km, 2), mode="car", route=" ".join(route)))
+            srows.append(dict(id=rid, warstwa=f"D23_{g}", zestaw="walidacja" if i < nv else "analiza"))
+    N = pd.DataFrame(rows)
+    N[["o_lat", "o_lon"]] = [wgs(x, y) for x, y in zip(N.o_x, N.o_y)]
+    N[["d_lat", "d_lon"]] = [wgs(x, y) for x, y in zip(N.d_x, N.d_y)]
+    N = N.round({"o_x": 1, "o_y": 1, "d_x": 1, "d_y": 1})
+    with open(OUT / "pairs.csv", "a", encoding="utf-8", newline="") as f:
+        N[P.columns].to_csv(f, header=False, index=False, lineterminator="\n")
+    with open(OUT / "split.csv", "a", encoding="utf-8", newline="") as f:
+        pd.DataFrame(srows).to_csv(f, header=False, index=False, lineterminator="\n")
+    print(pd.DataFrame(srows).groupby(["warstwa", "zestaw"]).size())
+
+
 def api_key(provider):
     name = provider.upper() + "_API_KEY"
     if os.environ.get(name):
@@ -229,10 +318,12 @@ def requests_for(provider, batch):
     return reqs
 
 
-def used_requests(provider):
-    """Licznik zużycia = liczba wierszy w logu requestów (log zostaje między przebiegami, odpowiedzi nie)."""
+def used_requests(provider, day=None):
+    """Licznik zużycia = liczba wierszy w logu requestów (log zostaje między przebiegami, odpowiedzi nie); day = 'RRRR-MM-DD' UTC."""
     f = OUT / f"fetch_{provider}.log"
-    return sum(1 for _ in f.open(encoding="utf-8")) if f.exists() else 0
+    if not f.exists():
+        return 0
+    return sum(1 for line in f.open(encoding="utf-8") if day is None or line.startswith(day))
 
 
 def fetch(provider, batch, dry=False, test=False):
@@ -245,8 +336,9 @@ def fetch(provider, batch, dry=False, test=False):
     print(f"{provider}/{batch}: requestów {len(reqs)}; zużyte dotąd {used}, budżet {BUDGET}")
     if dry:
         return []
-    if used + len(reqs) > BUDGET:
-        sys.exit("przekroczony budżet requestów, przerywam")
+    today = used_requests(provider, datetime.now(timezone.utc).strftime("%Y-%m-%d"))
+    if used + len(reqs) > BUDGET or today + len(reqs) > BUDGET_DAY:
+        sys.exit(f"przekroczony budżet requestów (łącznie {used}/{BUDGET}, dziś UTC {today}/{BUDGET_DAY}), przerywam")
     key = api_key(provider)
     if not key:
         sys.exit(f"brak {provider.upper()}_API_KEY (zmienna środowiskowa albo .env)")
@@ -346,5 +438,7 @@ if __name__ == "__main__":
     a = sys.argv[1:]
     if a[0] == "sample":
         cmd_sample()
+    elif a[0] == "sample_d23":
+        cmd_sample_d23()
     elif a[0] == "run":
         cmd_run(a[1], "--dry-run" in a, "--test" in a)

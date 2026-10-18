@@ -69,14 +69,16 @@ Zawrotki graniczne (`boundary_turnaround`) zostają bez zmian (30 km/h, D13/F2).
 
 ## 3. Budżet i czas
 
-| krok | requesty TomTom | czas |
-|---|---|---|
-| 1 (test + pobranie kontrolne nowych tras) | ok. 200 | 5 min |
-| 2 (dopasowanie: trasy analizy × 3 okna, tylko Routing) | ok. 200 | 5 min + bootstrap |
-| 5 (walidacja: wszystkie trasy × 3 okna + segmenty) | ok. 330 | 5 min |
-| **razem** | **ok. 750** (dotąd 763, nowy `BUDGET` ok. 1 600) | |
+**Zmienione 2026-10-18** po informacji użytkownika o limicie konta (2 500 non-tile na dobę). Szczegóły: [krok1_probka.md](krok1_probka.md).
 
-Darmowy próg TomTom: 20 tys. miesięcznie na API (cennik z 2026-10-18). Runy MATSim: smoke, 2 iteracje, 5 × 25% (ok. 25 min), ewentualnie R7b.
+| krok | requesty TomTom |
+|---|---|
+| 1 (kontrole geometrii przeniesione do kroku 2) | 0 |
+| 2 (`--test` + dopasowanie: 76 tras analizy × 3 okna) | ok. 240 |
+| 5 (`--test` + walidacja: 114 tras × 3 okna + segmenty) | ok. 380 |
+| **razem** | **ok. 620**; w skrypcie `BUDGET = 1400` łącznie (dotąd 763) i `BUDGET_DAY = 2000` na dobę UTC |
+
+Runy MATSim: smoke, 2 iteracje, 5 × 25% (ok. 25 min), ewentualnie R7b.
 
 ## 4. Ryzyka i ZAŁOŻENIA
 
@@ -91,5 +93,5 @@ Darmowy próg TomTom: 20 tys. miesięcznie na API (cennik z 2026-10-18). Runy MA
 
 1. Podział na 6 grup (A–F) i progi identyfikowalności (≥ 12 tras, przedział ±0,1).
 2. Cel: TomTom `historic` 3 okna, kryterium logarytmiczne (błąd względny).
-3. Budżet requestów ok. 1 600 łącznie (`BUDGET`).
+3. Budżet requestów: zaakceptowany ok. 1 600, zmniejszony do ok. 620 na D23 (limit dzienny konta, §3).
 4. Czy przy zmianie GPR większej niż rozrzut (krok 4) robimy R7b od razu, czy wracamy do decyzji.
