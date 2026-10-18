@@ -135,3 +135,25 @@ Sklęczkowska 91869 wchodzi do dopasowania. Wariant: τ = 30 min, waga wjazdu = 
 3. `validate_plans.py`: osobny test dla `tlo` (liczba = suma OD × próbka, łańcuch, linki istnieją).
 4. Test 2 iteracji, potem **R2 = R1 + tło, 25%, 1 seed** (runy pośrednie na 1 seedzie, 3 seedy tylko dla wyników referencyjnych). W próbce 25% to ok. 15 tys. agentów tła (59 879 × 0,25) plus 3,7 tys. pracujących, więc run będzie kilka razy dłuższy. Czas trzeba oszacować po teście.
 5. Porównanie R2 z GPR (`g5_baseline.py`): Objazdowa i Bitwy pod Kutnem poza próbą, do tego opóźnienia i kolejki (`queues.py`).
+
+### Status listy 1–5 (2026-10-18, sprawdzone grepem po `tlo` w `pipeline/`, `scenarios/kutno/*.xml`, `config/`)
+
+- **Zrobione tylko wejście:** `scenarios/kutno/demand/background_od_r1_w2_cap.csv` (59 879 podróży/dobę w 100%) i `config/hourly_profile_lisica2025.csv`. **Żaden z kroków 1–5 nie jest zrobiony:** nie ma agentów `tlo` w `plans.py` (1), `activityParams` i strategii dla `subpopulation=tlo` w configach (2), testu `tlo` w `validate_plans.py` (3), testu 2 iteracji i R2 (4), porównania R2 z GPR po tle (5; `g5_baseline.py` istnieje, ale liczy bazę bez tła).
+- **L-9 (ciężarowe/PCE): nie mam źródła PCE.** W G5 sprawdziłem tylko udział ciężkich w GPR (24–37% na DK, 28–34% na A1); wartości PCE z wytycznych GDDKiA ani HBS nie pobrałem ani nie zweryfikowałem. Do czasu źródła tło to tylko pojazdy lekkie (zgodnie z D19), a luka ciężarowych zostaje otwarta.
+
+## 6. Na czym polega dopasowanie do GPR (opis metody, 2026-10-18)
+
+1. **Co porównujemy:** GPR 2025 to średni dobowy ruch na 19 odcinkach DK i DW wokół Kutna. Bierzemy dzień roboczy i tylko auta osobowe, bo model nie ma ciężarówek. Model daje natężenie na tych samych linkach × 1/próbka.
+2. **Popyt ma pierwszeństwo przed siecią.**
+   - Model ma tylko dojazdy do pracy. Najpierw skorygowaliśmy ich skalę (K1-1: ok. 64% jedzie autem, 7,3% pracuje z domu).
+   - Różnica „GPR − model” to ruch, którego model nie zawiera: tranzyt (A1, DK), ruch między innymi gminami powiatu i inne cele podróży.
+3. **Ruch tła (K2-2)** to dodatkowi agenci z jedną podróżą. Startują na wjeździe do sieci albo w gminie powiatu i kończą na wyjeździe albo w gminie.
+4. **Ile tła i skąd dokąd** wyznacza estymacja macierzy O-D z liczników (`background_od.py`):
+   - każda para stref ma trasę swobodną, a my wiemy, przez które liczniki przechodzi (incydencja);
+   - startem jest macierz a priori: większe strefy i krótsze dojazdy dostają więcej (grawitacja, τ = 30 min);
+   - potem iteracyjnie mnożymy relacje: jeśli licznik ma za mało, rosną pary, które przez niego przechodzą, a jeśli za dużo, maleją.
+5. **Uczciwość testu:** 2 odcinki w mieście (Objazdowa, Bitwy pod Kutnem) nie biorą udziału w dopasowaniu. Jeśli model trafia tam bez dopasowania, metoda działa. Jeśli nie, widać, gdzie założenia się nie sprawdzają.
+6. **Iteracje R2 → R3 poprawiają metodę, nie „podkręcają” wyników:**
+   - R2: gmina jako 1 punkt, przez co agenci jechali innymi drogami niż w estymacji;
+   - R3: 20 punktów na gminę (incydencja ułamkowa), krok mnożnika proporcjonalny do udziału, liczniki ruchu czysto lokalnego wyłączone z dopasowania i przeniesione do walidacji.
+7. **Czego to nie kalibruje:** przepustowości i dynamiki skrzyżowań. Dobowe liczniki nie mówią nic o godzinie szczytu ani o kolejkach, do tego potrzebne są pomiary godzinowe albo czasy przejazdu.

@@ -24,9 +24,9 @@ jobs_total = 0
 # work_from_home: łódzkie, praca wyłącznie z domu 7,3% (GUS Mobilność 2024, tabl. 1). 1.0 / 0.0 = bez skalowania (stan do D18).
 car_share = 0.64
 work_from_home = 0.073
-# D19/K2-2: ruch tła (pojazdy lekkie), macierz O-D z pipeline/background_od.py (W2: τ = 30 min, waga wjazdu = capacity).
-# "" = bez tła (stan do R1). Nadpisanie: plans.py <out> <sample> background_od=
-background_od = "scenarios/kutno/demand/background_od_r1_w2_cap.csv"
+# D19/K2-2: ruch tła (pojazdy lekkie), macierz O-D z pipeline/background_od.py (W2: τ = 30 min, waga wjazdu = capacity;
+# R3: incydencja ułamkowa, bez liczników lokalnych 10045/91892/91119). "" = bez tła (stan do R1). R2: background_od_r1_w2_cap.csv.
+background_od = "scenarios/kutno/demand/background_od_r1_w2_frac_droplocal_cap.csv"
 # D19/K3-2: godzina startu tła = profil dnia roboczego, pojazdy lekkie, SCPR 14005 Lisica 2025 (pipeline/digitize_lisica.py)
 background_profile = "config/hourly_profile_lisica2025.csv"
 # D10: godzina wyjazdu z domu = rozkład „dom - praca” z GBR Gdańsk 2022, Raport 3a, Rys. 46 (godzinowy,

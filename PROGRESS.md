@@ -111,3 +111,8 @@
 - `plans.py`: agenci tła (`subpopulation=tlo`, `tlo_start`–car–`tlo_end`, O-D z `background_od_r1_w2_cap.csv`, profil Lisica). Configi: activityParams bez score i strategie dla `tlo`. `validate_plans.py`: test tła. Test 2 iteracji ok.
 - R2 (25%, 1 seed): 22 448 nóg car, 0 stuck. A1 98% GPR, DK w mieście 110%, odcinki dopasowania 86%. Walidacja poza próbą: Objazdowa 131%, Bitwy pod Kutnem 90%. Opóźnienie 304 poj.-h próbki/dobę, 0 przepełnionych linków.
 - Braki na DK60 Leszno, DK91d i DK92 Pomarzany (ok. 50%) widać już w iteracji 0. Estymacja O-D miała jeden węzeł na gminę, a agenci startują z budynków w całej gminie. Następny krok: incydencja ułamkowa z wielu punktów na gminę. Raport: `reports/g5_kalibracja/g5_r2.md`.
+
+## 2026-10-18: G5 / D19, run R3 (estymacja O-D z incydencją ułamkową)
+
+- `background_od.py`: 20 punktów na gminę, incydencja ułamkowa, krok ∝ udział, pary wewnątrzgminne; liczniki lokalne 10045, 91892 i 91119 poza dopasowaniem (test 5 wariantów offline).
+- R3 (25%, 1 seed): 26 455 nóg car, 0 stuck. 14 odcinków dopasowania: 97% sumy, 13/14 w ±15% (R2: 90%, 6/14). Walidacja: Objazdowa 129%, Bitwy pod Kutnem 84% (suma obu 107%). Opóźnienie 359 poj.-h próbki. Raport: `reports/g5_kalibracja/g5_r3.md`. Opis metody: `docs/research/G5_plan_kalibracji.md` §6.

@@ -1,0 +1,545 @@
+{
+ "runs": [
+  "output\\g5r1_25pct_s4711",
+  "output\\g5r1_25pct_s1",
+  "output\\g5r1_25pct_s2"
+ ],
+ "tau_min": 30.0,
+ "iters": 100,
+ "dropped_counts": [],
+ "zones": {
+  "entry": 31,
+  "exit": 31,
+  "gmina": 13
+ },
+ "od_pairs_with_count": 1306,
+ "od_pairs_kept": 1160,
+ "trips_day_100pct": 110394,
+ "trips_by_type": {
+  "tranzyt_wjazd_wyjazd": 20165,
+  "granica_gmina": 43120,
+  "gmina_gmina": 47109,
+  "w_tym_wewnatrz_gminy": 48
+ },
+ "fit_links_rmse": 136.9,
+ "sections": [
+  {
+   "nr": 71410,
+   "droga": "A1",
+   "fit": true,
+   "gpr": 18723.281,
+   "model": 568.0,
+   "background": 18158.558,
+   "model_plus_bg": 18726.558,
+   "ratio_before": 0.03,
+   "ratio_after": 1.0,
+   "geh_hourly_mean": 0.005
+  },
+  {
+   "nr": 91820,
+   "droga": "A1",
+   "fit": true,
+   "gpr": 21607.59,
+   "model": 830.667,
+   "background": 20764.506,
+   "model_plus_bg": 21595.173,
+   "ratio_before": 0.038,
+   "ratio_after": 0.999,
+   "geh_hourly_mean": 0.017
+  },
+  {
+   "nr": 91821,
+   "droga": "A1",
+   "fit": true,
+   "gpr": 23830.432,
+   "model": 616.0,
+   "background": 23216.392,
+   "model_plus_bg": 23832.392,
+   "ratio_before": 0.026,
+   "ratio_after": 1.0,
+   "geh_hourly_mean": 0.003
+  },
+  {
+   "nr": 91115,
+   "droga": "60",
+   "fit": true,
+   "gpr": 3980.277,
+   "model": 141.333,
+   "background": 3838.362,
+   "model_plus_bg": 3979.695,
+   "ratio_before": 0.036,
+   "ratio_after": 1.0,
+   "geh_hourly_mean": 0.002
+  },
+  {
+   "nr": 91124,
+   "droga": "60",
+   "fit": false,
+   "gpr": 7958.575,
+   "model": 3149.333,
+   "background": 8357.009,
+   "model_plus_bg": 11506.343,
+   "ratio_before": 0.396,
+   "ratio_after": 1.446,
+   "geh_hourly_mean": 7.341
+  },
+  {
+   "nr": 91866,
+   "droga": "60a/60",
+   "fit": false,
+   "gpr": 7165.005,
+   "model": 1161.333,
+   "background": 4429.586,
+   "model_plus_bg": 5590.92,
+   "ratio_before": 0.162,
+   "ratio_after": 0.78,
+   "geh_hourly_mean": 4.023
+  },
+  {
+   "nr": 91878,
+   "droga": "60",
+   "fit": true,
+   "gpr": 7140.685,
+   "model": 642.667,
+   "background": 6505.059,
+   "model_plus_bg": 7147.726,
+   "ratio_before": 0.09,
+   "ratio_after": 1.001,
+   "geh_hourly_mean": 0.017
+  },
+  {
+   "nr": 91892,
+   "droga": "91d",
+   "fit": true,
+   "gpr": 3743.994,
+   "model": 0.0,
+   "background": 2857.058,
+   "model_plus_bg": 2857.058,
+   "ratio_before": 0.0,
+   "ratio_after": 0.763,
+   "geh_hourly_mean": 3.151
+  },
+  {
+   "nr": 91119,
+   "droga": "91d",
+   "fit": true,
+   "gpr": 1592.571,
+   "model": 0.0,
+   "background": 2153.604,
+   "model_plus_bg": 2153.604,
+   "ratio_before": 0.0,
+   "ratio_after": 1.352,
+   "geh_hourly_mean": 2.646
+  },
+  {
+   "nr": 91121,
+   "droga": "92",
+   "fit": true,
+   "gpr": 2902.821,
+   "model": 0.0,
+   "background": 2861.294,
+   "model_plus_bg": 2861.294,
+   "ratio_before": 0.0,
+   "ratio_after": 0.986,
+   "geh_hourly_mean": 0.158
+  },
+  {
+   "nr": 91122,
+   "droga": "92a",
+   "fit": true,
+   "gpr": 3354.141,
+   "model": 182.667,
+   "background": 3255.789,
+   "model_plus_bg": 3438.456,
+   "ratio_before": 0.054,
+   "ratio_after": 1.025,
+   "geh_hourly_mean": 0.295
+  },
+  {
+   "nr": 91123,
+   "droga": "92a/92",
+   "fit": true,
+   "gpr": 5084.954,
+   "model": 410.667,
+   "background": 4672.488,
+   "model_plus_bg": 5083.155,
+   "ratio_before": 0.081,
+   "ratio_after": 1.0,
+   "geh_hourly_mean": 0.005
+  },
+  {
+   "nr": 91869,
+   "droga": "92",
+   "fit": true,
+   "gpr": 8541.319,
+   "model": 2874.667,
+   "background": 5670.77,
+   "model_plus_bg": 8545.437,
+   "ratio_before": 0.337,
+   "ratio_after": 1.0,
+   "geh_hourly_mean": 0.009
+  },
+  {
+   "nr": 91125,
+   "droga": "92",
+   "fit": true,
+   "gpr": 6417.84,
+   "model": 1213.333,
+   "background": 5208.23,
+   "model_plus_bg": 6421.564,
+   "ratio_before": 0.189,
+   "ratio_after": 1.001,
+   "geh_hourly_mean": 0.009
+  },
+  {
+   "nr": 10042,
+   "droga": "573",
+   "fit": true,
+   "gpr": 1626.0,
+   "model": 0.0,
+   "background": 1626.159,
+   "model_plus_bg": 1626.159,
+   "ratio_before": 0.0,
+   "ratio_after": 1.0,
+   "geh_hourly_mean": 0.001
+  },
+  {
+   "nr": 10043,
+   "droga": "581",
+   "fit": true,
+   "gpr": 1748.0,
+   "model": 4.0,
+   "background": 1773.574,
+   "model_plus_bg": 1777.574,
+   "ratio_before": 0.002,
+   "ratio_after": 1.017,
+   "geh_hourly_mean": 0.144
+  },
+  {
+   "nr": 10044,
+   "droga": "583",
+   "fit": true,
+   "gpr": 3261.0,
+   "model": 8.0,
+   "background": 3286.248,
+   "model_plus_bg": 3294.248,
+   "ratio_before": 0.002,
+   "ratio_after": 1.01,
+   "geh_hourly_mean": 0.119
+  },
+  {
+   "nr": 10045,
+   "droga": "583",
+   "fit": true,
+   "gpr": 6485.0,
+   "model": 52.0,
+   "background": 6368.683,
+   "model_plus_bg": 6420.683,
+   "ratio_before": 0.008,
+   "ratio_after": 0.99,
+   "geh_hourly_mean": 0.163
+  },
+  {
+   "nr": 10049,
+   "droga": "702",
+   "fit": true,
+   "gpr": 2972.0,
+   "model": 552.0,
+   "background": 2417.386,
+   "model_plus_bg": 2969.386,
+   "ratio_before": 0.186,
+   "ratio_after": 0.999,
+   "geh_hourly_mean": 0.01
+  }
+ ],
+ "top_od": [
+  {
+   "o_kind": "gmina",
+   "o": "1002114",
+   "d_kind": "gmina",
+   "d": "1002115",
+   "tt_min": 5.3,
+   "trips_day": 10847.37
+  },
+  {
+   "o_kind": "gmina",
+   "o": "1002032",
+   "d_kind": "gmina",
+   "d": "1002044",
+   "tt_min": 10.0,
+   "trips_day": 7691.64
+  },
+  {
+   "o_kind": "gmina",
+   "o": "1002044",
+   "d_kind": "gmina",
+   "d": "1002032",
+   "tt_min": 9.8,
+   "trips_day": 7619.69
+  },
+  {
+   "o_kind": "gmina",
+   "o": "1002114",
+   "d_kind": "gmina",
+   "d": "1002022",
+   "tt_min": 12.0,
+   "trips_day": 7404.04
+  },
+  {
+   "o_kind": "gmina",
+   "o": "1002114",
+   "d_kind": "exit",
+   "d": "3890128510005f",
+   "tt_min": 11.5,
+   "trips_day": 3389.02
+  },
+  {
+   "o_kind": "gmina",
+   "o": "1002114",
+   "d_kind": "exit",
+   "d": "3890128310000f",
+   "tt_min": 12.9,
+   "trips_day": 3232.86
+  },
+  {
+   "o_kind": "gmina",
+   "o": "1002114",
+   "d_kind": "exit",
+   "d": "3890128470001f",
+   "tt_min": 13.0,
+   "trips_day": 3226.26
+  },
+  {
+   "o_kind": "gmina",
+   "o": "1002045",
+   "d_kind": "gmina",
+   "d": "1002032",
+   "tt_min": 12.9,
+   "trips_day": 2697.03
+  },
+  {
+   "o_kind": "gmina",
+   "o": "1002032",
+   "d_kind": "gmina",
+   "d": "1002045",
+   "tt_min": 13.2,
+   "trips_day": 2661.08
+  },
+  {
+   "o_kind": "entry",
+   "o": "3107258420023r",
+   "d_kind": "gmina",
+   "d": "1002062",
+   "tt_min": 23.2,
+   "trips_day": 1874.62
+  },
+  {
+   "o_kind": "entry",
+   "o": "1885522040087f",
+   "d_kind": "exit",
+   "d": "4918991030000f",
+   "tt_min": 18.6,
+   "trips_day": 1868.42
+  },
+  {
+   "o_kind": "entry",
+   "o": "4918991010000f",
+   "d_kind": "exit",
+   "d": "1931760520082f",
+   "tt_min": 18.6,
+   "trips_day": 1777.58
+  },
+  {
+   "o_kind": "gmina",
+   "o": "1002022",
+   "d_kind": "gmina",
+   "d": "1002114",
+   "tt_min": 12.3,
+   "trips_day": 1727.1
+  },
+  {
+   "o_kind": "entry",
+   "o": "3107258420023r",
+   "d_kind": "gmina",
+   "d": "1002045",
+   "tt_min": 16.6,
+   "trips_day": 1384.8
+  },
+  {
+   "o_kind": "gmina",
+   "o": "1002011",
+   "d_kind": "gmina",
+   "d": "1002044",
+   "tt_min": 19.3,
+   "trips_day": 1268.89
+  }
+ ],
+ "top_od_via_city": {
+  "91124": [
+   {
+    "o": "1002011",
+    "d": "1002044",
+    "trips": 1269,
+    "fit_counts": [
+     10043,
+     91123
+    ]
+   },
+   {
+    "o": "1002045",
+    "d": "1002114",
+    "trips": 1211,
+    "fit_counts": [
+     10043,
+     10045,
+     91122,
+     91878,
+     91892
+    ]
+   },
+   {
+    "o": "1002011",
+    "d": "1931760520082f",
+    "trips": 851,
+    "fit_counts": [
+     71410,
+     91820,
+     91869,
+     91878
+    ]
+   },
+   {
+    "o": "1885522040087f",
+    "d": "1002011",
+    "trips": 584,
+    "fit_counts": [
+     71410,
+     91820,
+     91869,
+     91878
+    ]
+   },
+   {
+    "o": "1002062",
+    "d": "2473952060000f",
+    "trips": 299,
+    "fit_counts": [
+     91115
+    ]
+   },
+   {
+    "o": "1002062",
+    "d": "1931760520082f",
+    "trips": 273,
+    "fit_counts": [
+     71410,
+     91878
+    ]
+   },
+   {
+    "o": "1002011",
+    "d": "4918991030000f",
+    "trips": 271,
+    "fit_counts": [
+     91821,
+     91869
+    ]
+   },
+   {
+    "o": "1002082",
+    "d": "1002052",
+    "trips": 266,
+    "fit_counts": [
+     91122,
+     91123,
+     91125,
+     91820
+    ]
+   }
+  ],
+  "91866": [
+   {
+    "o": "1002011",
+    "d": "1931760520082f",
+    "trips": 851,
+    "fit_counts": [
+     71410,
+     91820,
+     91869,
+     91878
+    ]
+   },
+   {
+    "o": "1885522040087f",
+    "d": "1002011",
+    "trips": 584,
+    "fit_counts": [
+     71410,
+     91820,
+     91869,
+     91878
+    ]
+   },
+   {
+    "o": "3107258420023r",
+    "d": "1002052",
+    "trips": 298,
+    "fit_counts": [
+     91122,
+     91123,
+     91125,
+     91820
+    ]
+   },
+   {
+    "o": "1002062",
+    "d": "1931760520082f",
+    "trips": 273,
+    "fit_counts": [
+     71410,
+     91878
+    ]
+   },
+   {
+    "o": "1002082",
+    "d": "1002052",
+    "trips": 266,
+    "fit_counts": [
+     91122,
+     91123,
+     91125,
+     91820
+    ]
+   },
+   {
+    "o": "2473952060000r",
+    "d": "1931760520082f",
+    "trips": 261,
+    "fit_counts": [
+     71410,
+     91878
+    ]
+   },
+   {
+    "o": "1002045",
+    "d": "1931760520082f",
+    "trips": 255,
+    "fit_counts": [
+     10043,
+     71410,
+     91122,
+     91878,
+     91892
+    ]
+   },
+   {
+    "o": "2473952060000r",
+    "d": "1002062",
+    "trips": 230,
+    "fit_counts": [
+     91115
+    ]
+   }
+  ]
+ }
+}
