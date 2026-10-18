@@ -192,3 +192,9 @@
 - D1/D2 rozstrzygnięte w trakcie kroku (instrukcja GPR 2020: P = rosnący pikietaż; A1 było odwrócone): estymacja `r6b`, zmiana macierzy −0,2%. Run na macierzach sprzed D1/D2 to R6a.
 - R6 25% seed 4711 (`output/g5r6_25pct_s4711`): 29 660 nóg car, 0 stuck, inwarianty ok. Lekkie: A1 99%, DK w Kutnie 105%, 12/15 w ±15% (R4: 115%, 112%, 9/15). Ciężkie: A1 101%, DK w Kutnie 68%, 12/15 (R4: 69%, 70%, 5/15). Opóźnienie 243 poj.-h próbki (R4 540), 0 przepełnionych linków, korek pod Krośniewicami znika. Raport: `reports/etap2/g5_kalibracja/g5_r6.md`.
 
+## 2026-10-18: audyt G5, krok 8 (D21/I3): referencja R6, 3 seedy MATSim + 2 seedy planów
+
+- 5 runów 25% × 100 it. (23 min równolegle): `output/g5r6_25pct_s{4711,1,2}`, `output/g5r6p{1,2}_25pct_s4711` (seed planów i punktów estymacji `background_od.py seed=`). Każdy: nogi = oczekiwane, 0 stuck, inwarianty ok, 0 przepełnionych linków.
+- Rozrzut per odcinek (mediana / maks.): seedy MATSim 0,4% / 1,8% (lekkie), seedy planów 9,3% / 40,7% (lekkie) i 11,8% / 47,1% (ciężkie). Opóźnienie 239–243 (seedy MATSim) i 243–298 poj.-h (seedy planów).
+- Mediana z 5 runów: A1 99% / 101%, DK w Kutnie 105% / 68%, 12/15 w ±15% dla obu klas. Raport: `reports/etap2/g5_kalibracja/g5_r6_ref.md`.
+

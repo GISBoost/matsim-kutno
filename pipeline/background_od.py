@@ -94,7 +94,7 @@ with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
         el.clear()
 
 # --- strefy: punkty dostępu (węzeł startu, link końcowy) -------------------------------------------------------
-rng = np.random.default_rng(P["plans"]["seed"])
+rng = np.random.default_rng(int(OPT.get("seed", P["plans"]["seed"])))  # audyt I3: seed=N (referencja z seedami planów)
 snap_ids = [l for l in lnodes if ltype[l] not in P["plans"]["snap_exclude_types"]]
 tree = STRtree([LineString([nodes[lnodes[l][0]], nodes[lnodes[l][1]]]) for l in snap_ids])
 bl = pd.read_csv("scenarios/kutno/demand/border_links.csv").set_index("link")
