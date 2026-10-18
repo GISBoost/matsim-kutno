@@ -148,3 +148,9 @@
 - Decyzja użytkownika: R4 jest bazą, R5 wariantem wrażliwości. Uzasadnienie: `reports/g5_kalibracja/g5_r4_vs_r5_decyzja.md`. `config/kutno.toml` wskazuje macierze R4.
 - Wstrzymane do czasu audytu w osobnej sesji: R4 na 3 seedach.
 
+## 2026-10-18: audyt G5, poprawka K1 (D21)
+
+- Audyt w osobnej sesji: `reports/audyt_g5/audyt_g5.md` (2 krytyczne, 4 istotne, 9 drobnych).
+- K1: `plans.py` traktuje ślepe końce dróg wjazdowych jak granicę sieci. Skan sieci: 9 ślepych końców primary/secondary, 7 było już wjazdami, nowe są 2 (DK60 N, DK92 W). `border_links.csv` 33 + 33.
+- Test: walidator planów `plans_k1_25pct` ok (sha256 powtarzalny). Diagnostyczna estymacja O-D (cel jeszcze z K2): para Dąbrowice ↔ Krośniewice 24 041 → 54 lekkich i 9 523 → 27 ciężkich na dobę, dopasowanie bez zmian 100%, tło −22% (lekkie) i −30% (ciężkie). Raport: `reports/audyt_g5/k1/k1_poprawka.md`.
+- Bez runu MATSim. Baza R4 jest nieaktualna do czasu nowej estymacji po K2 i I4.

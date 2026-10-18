@@ -1,0 +1,519 @@
+{
+ "run": "output\\g5r1_25pct_s4711",
+ "car_legs_by_class": {
+  "c": 2410,
+  "r": 4336,
+  "o": 732
+ },
+ "stuck": {},
+ "vol_car_convention": {
+  "vol_eq_entered": 10383,
+  "vol_eq_left": 10383,
+  "links": 10383,
+  "sum_vol": 387521,
+  "sum_entered": 387521,
+  "sum_left": 387521
+ },
+ "counter_entered_by_class": {
+  "2446692050004f|c": 238,
+  "5011849660001f|c": 114,
+  "4461609300002f|c": 258,
+  "3177068500003f|c": 261,
+  "2485778070001f|r": 36,
+  "2446692050004f|r": 115,
+  "3177068500003f|o": 34,
+  "2337913730002r|o": 34,
+  "4496570650002f|o": 121,
+  "4909889060000f|o": 42,
+  "2337913730002f|c": 48,
+  "2059715680002f|c": 55,
+  "2497842320002f|c": 51,
+  "5284376810020f|o": 12,
+  "12784695850001f|c": 55,
+  "2915802350003f|o": 71,
+  "2908962250003f|c": 6,
+  "2908981320004f|c": 117,
+  "2497842320002r|o": 18,
+  "5284376810020r|c": 7,
+  "2485778070001f|c": 88,
+  "4909889060000f|c": 110,
+  "2485778070001r|r": 35,
+  "4496570650002f|c": 215,
+  "4506143660003f|o": 16,
+  "2446692050004f|o": 32,
+  "2485778070001r|o": 18,
+  "4510873690000f|c": 8,
+  "12054176470011r|c": 1,
+  "4496570650002f|r": 2,
+  "13369519080005r|c": 5,
+  "2337913730002r|c": 48,
+  "2485778070001r|c": 97,
+  "2908981320004f|o": 6,
+  "3177068500003f|r": 107,
+  "2296014200004r|o": 1,
+  "4619668920011f|o": 2,
+  "3016639930001f|o": 1,
+  "4461609300002f|r": 1,
+  "2337913730002f|o": 33,
+  "5011849660001f|o": 48,
+  "4461609300002f|o": 127,
+  "2497842320002f|o": 18,
+  "5284376810020r|o": 13,
+  "2908962250003f|o": 71,
+  "2915802350003f|c": 6,
+  "2908981330004f|c": 77,
+  "5284376810020f|c": 3,
+  "2497842320002r|c": 51,
+  "4506143660003f|c": 55,
+  "12784695850001f|o": 16,
+  "4619668920011f|c": 36,
+  "3016639930001f|c": 35,
+  "2485778070001f|o": 19,
+  "12054176470011f|c": 1,
+  "2059715680002f|o": 7,
+  "13369519080005f|c": 8,
+  "2908981330004f|o": 6,
+  "4510873690000f|o": 1
+ },
+ "counter_left_by_class": {
+  "2446692050004f|c": 238,
+  "5011849660001f|c": 114,
+  "4461609300002f|c": 258,
+  "3177068500003f|c": 261,
+  "2485778070001f|r": 36,
+  "2446692050004f|r": 115,
+  "3177068500003f|o": 34,
+  "2337913730002r|o": 34,
+  "4496570650002f|o": 121,
+  "4909889060000f|o": 42,
+  "2337913730002f|c": 48,
+  "2059715680002f|c": 55,
+  "2497842320002f|c": 51,
+  "5284376810020f|o": 12,
+  "12784695850001f|c": 55,
+  "2915802350003f|o": 71,
+  "2908962250003f|c": 6,
+  "2908981320004f|c": 117,
+  "2497842320002r|o": 18,
+  "5284376810020r|c": 7,
+  "2485778070001f|c": 88,
+  "4909889060000f|c": 110,
+  "2485778070001r|r": 35,
+  "4496570650002f|c": 215,
+  "4506143660003f|o": 16,
+  "2446692050004f|o": 32,
+  "2485778070001r|o": 18,
+  "4510873690000f|c": 8,
+  "12054176470011r|c": 1,
+  "4496570650002f|r": 2,
+  "13369519080005r|c": 5,
+  "2337913730002r|c": 48,
+  "2485778070001r|c": 97,
+  "2908981320004f|o": 6,
+  "3177068500003f|r": 107,
+  "2296014200004r|o": 1,
+  "4619668920011f|o": 2,
+  "3016639930001f|o": 1,
+  "4461609300002f|r": 1,
+  "2337913730002f|o": 33,
+  "5011849660001f|o": 48,
+  "4461609300002f|o": 127,
+  "2497842320002f|o": 18,
+  "5284376810020r|o": 13,
+  "2908962250003f|o": 71,
+  "2915802350003f|c": 6,
+  "2908981330004f|c": 77,
+  "5284376810020f|c": 3,
+  "2497842320002r|c": 51,
+  "4506143660003f|c": 55,
+  "12784695850001f|o": 16,
+  "4619668920011f|c": 36,
+  "3016639930001f|c": 35,
+  "2485778070001f|o": 19,
+  "12054176470011f|c": 1,
+  "2059715680002f|o": 7,
+  "13369519080005f|c": 8,
+  "2908981330004f|o": 6,
+  "4510873690000f|o": 1
+ },
+ "speeds_on_counters": {
+  "2446692050004f|c": {
+   "n": 238,
+   "median_kmh": 54.3,
+   "freespeed_kmh": 56.0,
+   "type": "primary"
+  },
+  "5011849660001f|c": {
+   "n": 114,
+   "median_kmh": 66.2,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "4461609300002f|c": {
+   "n": 258,
+   "median_kmh": 66.2,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "3177068500003f|c": {
+   "n": 261,
+   "median_kmh": 67.1,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "2485778070001f|r": {
+   "n": 36,
+   "median_kmh": 38.7,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "2446692050004f|r": {
+   "n": 113,
+   "median_kmh": 54.3,
+   "freespeed_kmh": 56.0,
+   "type": "primary"
+  },
+  "3177068500003f|o": {
+   "n": 34,
+   "median_kmh": 67.1,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "2337913730002r|o": {
+   "n": 34,
+   "median_kmh": 38.7,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "4496570650002f|o": {
+   "n": 121,
+   "median_kmh": 65.8,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "4909889060000f|o": {
+   "n": 42,
+   "median_kmh": 68.0,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "2337913730002f|c": {
+   "n": 48,
+   "median_kmh": 38.7,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "2059715680002f|c": {
+   "n": 55,
+   "median_kmh": 71.1,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "2497842320002f|c": {
+   "n": 51,
+   "median_kmh": 71.6,
+   "freespeed_kmh": 72.0,
+   "type": "secondary"
+  },
+  "5284376810020f|o": {
+   "n": 12,
+   "median_kmh": 39.3,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "12784695850001f|c": {
+   "n": 55,
+   "median_kmh": 84.9,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "2915802350003f|o": {
+   "n": 71,
+   "median_kmh": 109.2,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "2908962250003f|c": {
+   "n": 6,
+   "median_kmh": 109.5,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "2908981320004f|c": {
+   "n": 117,
+   "median_kmh": 112.0,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "2497842320002r|o": {
+   "n": 18,
+   "median_kmh": 71.6,
+   "freespeed_kmh": 72.0,
+   "type": "secondary"
+  },
+  "5284376810020r|c": {
+   "n": 7,
+   "median_kmh": 39.3,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "2485778070001f|c": {
+   "n": 88,
+   "median_kmh": 38.7,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "4909889060000f|c": {
+   "n": 110,
+   "median_kmh": 68.0,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "2485778070001r|r": {
+   "n": 35,
+   "median_kmh": 38.7,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "4496570650002f|c": {
+   "n": 215,
+   "median_kmh": 65.8,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "4506143660003f|o": {
+   "n": 16,
+   "median_kmh": 110.1,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "2446692050004f|o": {
+   "n": 32,
+   "median_kmh": 54.3,
+   "freespeed_kmh": 56.0,
+   "type": "primary"
+  },
+  "2485778070001r|o": {
+   "n": 18,
+   "median_kmh": 38.7,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "4510873690000f|c": {
+   "n": 8,
+   "median_kmh": 51.9,
+   "freespeed_kmh": 56.0,
+   "type": "primary"
+  },
+  "12054176470011r|c": {
+   "n": 1,
+   "median_kmh": 39.2,
+   "freespeed_kmh": 40.0,
+   "type": "secondary"
+  },
+  "4496570650002f|r": {
+   "n": 2,
+   "median_kmh": 65.8,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "13369519080005r|c": {
+   "n": 3,
+   "median_kmh": 37.8,
+   "freespeed_kmh": 40.0,
+   "type": "secondary"
+  },
+  "2337913730002r|c": {
+   "n": 48,
+   "median_kmh": 38.7,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "2485778070001r|c": {
+   "n": 97,
+   "median_kmh": 38.7,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "2908981320004f|o": {
+   "n": 6,
+   "median_kmh": 112.0,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "3177068500003f|r": {
+   "n": 107,
+   "median_kmh": 67.1,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "2296014200004r|o": {
+   "n": 1,
+   "median_kmh": 71.0,
+   "freespeed_kmh": 72.0,
+   "type": "secondary"
+  },
+  "4619668920011f|o": {
+   "n": 2,
+   "median_kmh": 50.4,
+   "freespeed_kmh": 56.0,
+   "type": "primary"
+  },
+  "3016639930001f|o": {
+   "n": 1,
+   "median_kmh": 78.1,
+   "freespeed_kmh": 80.0,
+   "type": "primary"
+  },
+  "4461609300002f|r": {
+   "n": 1,
+   "median_kmh": 66.2,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "2337913730002f|o": {
+   "n": 33,
+   "median_kmh": 38.7,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "5011849660001f|o": {
+   "n": 48,
+   "median_kmh": 66.2,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "4461609300002f|o": {
+   "n": 127,
+   "median_kmh": 66.2,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "2497842320002f|o": {
+   "n": 18,
+   "median_kmh": 71.6,
+   "freespeed_kmh": 72.0,
+   "type": "secondary"
+  },
+  "5284376810020r|o": {
+   "n": 13,
+   "median_kmh": 39.3,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "2908962250003f|o": {
+   "n": 71,
+   "median_kmh": 109.5,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "2915802350003f|c": {
+   "n": 6,
+   "median_kmh": 109.2,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "2908981330004f|c": {
+   "n": 77,
+   "median_kmh": 111.0,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "5284376810020f|c": {
+   "n": 3,
+   "median_kmh": 39.3,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "2497842320002r|c": {
+   "n": 51,
+   "median_kmh": 71.6,
+   "freespeed_kmh": 72.0,
+   "type": "secondary"
+  },
+  "4506143660003f|c": {
+   "n": 55,
+   "median_kmh": 110.1,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "12784695850001f|o": {
+   "n": 16,
+   "median_kmh": 84.9,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "4619668920011f|c": {
+   "n": 36,
+   "median_kmh": 50.4,
+   "freespeed_kmh": 56.0,
+   "type": "primary"
+  },
+  "3016639930001f|c": {
+   "n": 35,
+   "median_kmh": 78.1,
+   "freespeed_kmh": 80.0,
+   "type": "primary"
+  },
+  "2485778070001f|o": {
+   "n": 19,
+   "median_kmh": 38.7,
+   "freespeed_kmh": 40.0,
+   "type": "primary"
+  },
+  "12054176470011f|c": {
+   "n": 1,
+   "median_kmh": 39.2,
+   "freespeed_kmh": 40.0,
+   "type": "secondary"
+  },
+  "2059715680002f|o": {
+   "n": 7,
+   "median_kmh": 71.1,
+   "freespeed_kmh": 72.0,
+   "type": "primary"
+  },
+  "13369519080005f|c": {
+   "n": 8,
+   "median_kmh": 37.8,
+   "freespeed_kmh": 40.0,
+   "type": "secondary"
+  },
+  "2908981330004f|o": {
+   "n": 6,
+   "median_kmh": 111.0,
+   "freespeed_kmh": 112.0,
+   "type": "motorway"
+  },
+  "4510873690000f|o": {
+   "n": 1,
+   "median_kmh": 51.9,
+   "freespeed_kmh": 56.0,
+   "type": "primary"
+  }
+ },
+ "car_departures_by_class_linktype": {
+  "r|residential": 2715,
+  "c|residential": 1029,
+  "r|tertiary": 742,
+  "r|living_street": 557,
+  "c|tertiary": 530,
+  "c|primary": 332,
+  "c|unclassified": 326,
+  "r|primary": 300,
+  "o|residential": 269,
+  "o|primary": 139,
+  "c|secondary": 126,
+  "o|living_street": 88,
+  "o|motorway": 87,
+  "o|tertiary": 84,
+  "c|motorway": 61,
+  "o|secondary": 40,
+  "o|unclassified": 25,
+  "r|secondary": 22,
+  "c|living_street": 6
+ },
+ "car_legs_same_start_end_link": {
+  "r": 2
+ }
+}

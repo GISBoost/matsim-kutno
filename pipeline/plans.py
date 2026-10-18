@@ -7,6 +7,7 @@ Wyjścia: scenarios/kutno/plans.xml.gz (domyślnie), scenarios/kutno/plans_meta.
 """
 import gzip
 import sys
+from collections import defaultdict
 import tomllib
 from pathlib import Path
 
@@ -86,13 +87,14 @@ def random_point(poly):
 
 
 # --- wjazdy na granicy sieci (D9) --------------------------------------------------------------------
-nodes, entry, snap = {}, [], []
+nodes, entry, snap, nbr = {}, [], [], defaultdict(set)
 with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
     for _, el in etree.iterparse(f, tag=("node", "link")):
         if el.tag == "node":
             nodes[el.get("id")] = Point(float(el.get("x")), float(el.get("y")))
         else:
             t = {a.get("name"): a.text for a in el.iter("attribute")}.get("type")
+            nbr[el.get("from")].add(el.get("to")); nbr[el.get("to")].add(el.get("from"))
             if t in P["entry_road_types"]:
                 entry.append((el.get("id"), el.get("from"), el.get("to")))
             if t not in P["snap_exclude_types"]:
@@ -108,13 +110,17 @@ def snap_links(xs, ys):
     assert (src == np.arange(len(src))).all()
     return [snap_ids[i] for i in dst]
 interior = area.buffer(-P["entry_zone_m"])
+# audyt G5/K1: PBF obejmuje tylko łódzkie, więc DK92 (zach.) i DK60 (płn.) kończą się ślepo 1,9-2,3 km przed krawędzią obszaru.
+# Ślepy koniec (węzeł z jednym sąsiadem) drogi wjazdowej to też granica sieci.
+dead = {n for n, s in nbr.items() if len(s) == 1}
+edge = lambda n: n in dead or not interior.contains(nodes[n])
 border_links = entry
 entry = pd.DataFrame([dict(link=l, x=nodes[b_].x, y=nodes[b_].y) for l, a_, b_ in border_links
-                      if not interior.contains(nodes[a_]) and area.contains(nodes[b_])
+                      if edge(a_) and area.contains(nodes[b_])
                       and nodes[b_].distance(KUTNO_CENTRE) < nodes[a_].distance(KUTNO_CENTRE)])
 # D17/O1: wyjazd = lustro wjazdu (link tych klas kończący się w strefie granicy, skierowany od Kutna)
 exits = pd.DataFrame([dict(link=l, x=nodes[b_].x, y=nodes[b_].y) for l, a_, b_ in border_links
-                      if not interior.contains(nodes[b_]) and area.contains(nodes[a_])
+                      if edge(b_) and area.contains(nodes[a_])
                       and nodes[b_].distance(KUTNO_CENTRE) > nodes[a_].distance(KUTNO_CENTRE)])
 assert len(entry) and len(exits), "brak linków wjazdowych/wyjazdowych"
 pd.concat([entry.assign(kind="entry"), exits.assign(kind="exit")]).to_csv(  # D19/K2-2: strefy graniczne tła
