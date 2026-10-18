@@ -14,6 +14,7 @@ Czasów nie skalujemy przez próbkę. Model = uśredniony dzień roboczy, nie da
 """
 import json
 import math
+import os
 import sys
 from pathlib import Path
 
@@ -195,9 +196,13 @@ def overlap(geom, route, L):
 
 
 def stats(d, a, b):
-    r = d[a] / d[b]
-    return dict(n=len(d), mediana_model_do_dost=r.median(), MAPE_pct=(abs(d[a] - d[b]) / d[b]).mean() * 100,
-                RMSE_s=math.sqrt(((d[a] - d[b]) ** 2).mean()))
+    """b = dostawca (wartość odniesienia). TAG M3.1 (DfT, maj 2026), tab. 3: czas modelu w 15% albo 1 min, jeśli to więcej;
+    aneks C.3.10 (mikrosymulacja): w 15% i w 60 s jednocześnie. Kryterium wytycznych: > 85% tras."""
+    r, e = d[a] / d[b], (d[a] - d[b]).abs()
+    return dict(n=len(d), mediana_model_do_dost=r.median(), MAPE_pct=(e / d[b]).mean() * 100,
+                RMSE_s=math.sqrt((e ** 2).mean()), MAE_s=e.mean(),
+                TAG_15pct_lub_1min_pct=(e <= np.maximum(0.15 * d[b], 60)).mean() * 100,
+                TAG_15pct_i_1min_pct=((e <= 0.15 * d[b]) & (e <= 60)).mean() * 100)
 
 
 def compare(provider, recs):
@@ -263,6 +268,8 @@ def compare(provider, recs):
                                 mediana_model_do_dost=(dk.model_kmh / dk.dost_free_kmh).median(),
                                 MAPE_pct=(abs(dk.model_kmh - dk.dost_free_kmh) / dk.dost_free_kmh).mean() * 100,
                                 roznica_kmh_mediana=(dk.model_kmh - dk.dost_free_kmh).median(),
+                                MAE_kmh=(dk.model_kmh - dk.dost_free_kmh).abs().mean(),
+                                RMSE_kmh=math.sqrt(((dk.model_kmh - dk.dost_free_kmh) ** 2).mean()),
                                 model_kmh_mediana=dk.model_kmh.median(), dost_kmh_mediana=dk.dost_free_kmh.median()))
     Mt = pd.DataFrame(met)
     # kontrole §8 (agregaty, bez wartości dostawcy per obiekt)
@@ -283,7 +290,7 @@ def compare(provider, recs):
         trasa_dost_do_model_czas_swobodny_zakres=[round(float((R.free_s / R.ff_model_s).min()), 3), round(float((R.free_s / R.ff_model_s).max()), 3)] if len(R) else None)
     indep_in = dict(trasy=R[["id", "okno", "free_s", "hist_s"]].to_dict("records") if len(R) else [],
                     segmenty=Sg[["id", "dost_free_kmh"]].to_dict("records") if len(Sg) else [])
-    return R, Sg, Mt, kontrole, indep_in
+    return R_all, Sg_all, Mt, kontrole, indep_in  # wszystkie obiekty (także > 50 m) dla mapy; metryki tylko z przefiltrowanych
 
 
 def plots(provider, Mt):
@@ -303,6 +310,152 @@ def plots(provider, Mt):
         ax[k].set_title(t, fontsize=9); ax[k].set_xlabel("mediana model / " + provider); ax[k].set_ylabel("")
     fig.suptitle(f"R6 (uśredniony dzień roboczy) vs {provider} — agregaty, 1 = zgodność", fontsize=10)
     fig.tight_layout(); fig.savefig(OUT / f"g5_czasy_{provider}.png", dpi=130)
+
+
+def plot_errors(provider, Mt, out):
+    """Agregaty: RMSE i MAE czasu tras [s] po oknach, MAE/RMSE prędkości segmentów [km/h], udział tras w kryterium TAG."""
+    fig, ax = plt.subplots(1, 3, figsize=(17, 5))
+    w = Mt[Mt.grupa == "wszystkie"]
+    t = w[w.porownanie.isin(["swobodny_model", "okno_vs_hist"])].copy()
+    t["co"] = np.where(t.porownanie == "swobodny_model", "swobodny", t.okno)
+    order = ["swobodny", "rano", "poludnie", "popoludnie"]
+    x = np.arange(len(order))
+    for a, cols, ttl in ((ax[0], ["RMSE_s", "MAE_s"], "Czas trasy: RMSE i MAE [s]"),
+                         (ax[2], ["TAG_15pct_lub_1min_pct", "TAG_15pct_i_1min_pct"], "Trasy w kryterium TAG M3.1 [%]")):
+        i = 0
+        for z_, cs in (("analiza", ("#4fc3f7", "#0288d1")), ("walidacja", ("#ffb74d", "#f57c00"))):
+            d = t[t.zestaw == z_].set_index("co").reindex(order)
+            for cc, col in zip(cols, cs):
+                lab = cc.split("_")[0] if cc.endswith("_s") else ("15% lub 1 min" if "lub" in cc else "15% i 1 min")
+                b = a.bar(x + (i - 1.5) * 0.2, d[cc], 0.2, color=col, label=f"{z_}: {lab}")
+                a.bar_label(b, fmt="%.0f", fontsize=7)
+                i += 1
+        a.set_xticks(x, order); a.set_title(ttl, fontsize=10)
+        a.legend(fontsize=7, ncol=2, loc="upper center", bbox_to_anchor=(0.5, -0.08))
+    ax[2].set_ylim(0, 100)
+    ax[2].axhline(85, color="w", ls="--", lw=0.8)
+    ax[2].text(-0.45, 87, "wytyczna TAG: > 85% tras", fontsize=7)
+    s = Mt[Mt.porownanie == "segment_freeflow"]
+    piv = s.pivot_table(index="grupa", columns="zestaw", values=["MAE_kmh", "RMSE_kmh"])
+    nn = s.pivot_table(index="grupa", columns="zestaw", values="n").reindex(piv.index).fillna(0).astype(int)
+    piv.columns = [f"{b}: {a.split('_')[0]}" for a, b in piv.columns]
+    piv.plot.barh(ax=ax[1], color=["#0288d1", "#f57c00", "#4fc3f7", "#ffb74d"][:piv.shape[1]], width=0.8)
+    for cont in ax[1].containers:
+        ax[1].bar_label(cont, fmt="%.0f", fontsize=7)
+    ax[1].set_yticks(range(len(piv.index)), [f"{g} (n {' / '.join(map(str, nn.loc[g].tolist()))})" for g in piv.index])
+    ax[1].set_title("Prędkość swobodna segmentu: MAE i RMSE [km/h]\n(n analiza / walidacja)", fontsize=10)
+    ax[1].legend(fontsize=7, ncol=2, loc="upper center", bbox_to_anchor=(0.5, -0.08)); ax[1].set_ylabel("")
+    fig.suptitle(f"R6 vs {provider}: błędy (agregaty; analiza = 2/3 próbki, walidacja = 1/3; model = uśredniony dzień roboczy)", fontsize=10)
+    fig.tight_layout(); fig.savefig(out, dpi=130)
+    plt.close(fig)
+
+
+def scatter_speeds(provider, R, Sg, out):
+    """Rozrzut prędkości: symulowana (x) vs dostawca (y), prosta MNK y = ax + b i R² (wszystkie punkty w metrykach).
+    Trasy: prędkość = długość / czas (model: trasa modelu; dostawca: jego trasa). Wartości per obiekt, więc plik poza repo."""
+    R = R[(R.d_start_m <= 50) & (R.d_end_m <= 50)]
+    Sg = Sg[Sg.dist_m <= 50]
+    rr, rf = R[R.okno == "rano"], R[R.okno == "rano"]
+    panels = [("Segmenty: prędkość swobodna", Sg.id, Sg.model_kmh, Sg.dost_free_kmh, "freespeed linku", "freeFlowSpeed"),
+              ("Trasy: prędkość w ruchu swobodnym", rf.id, rf.km / (rf.ff_model_s / 3600), rf.dost_km / (rf.free_s / 3600),
+               "model, sieć D13", "noTraffic"),
+              ("Trasy: prędkość rano 07:30", rr.id, rr.km / (rr.model_med / 3600), rr.dost_km / (rr.hist_s / 3600),
+               "model, mediana 5 runów", "historic")]
+    sp = pd.read_csv(OUT / "split.csv").set_index("id").zestaw
+    fig, ax = plt.subplots(1, 3, figsize=(17, 5.8))
+    for a, (ttl, ids, x, y, xl, yl) in zip(ax, panels):
+        z = ids.map(sp).values
+        for zs, c in (("analiza", "#4fc3f7"), ("walidacja", "#ffb74d")):
+            m = z == zs
+            a.scatter(x[m], y[m], s=36, color=c, edgecolors="w", lw=0.5, label=f"{zs} (n {m.sum()})", zorder=3)
+        k, b = np.polyfit(x, y, 1)
+        r2 = np.corrcoef(x, y)[0, 1] ** 2
+        lo, hi = 0, max(x.max(), y.max()) * 1.05
+        xx = np.array([x.min(), x.max()])
+        a.plot(xx, k * xx + b, "w--", lw=1.2, zorder=2)
+        a.plot([lo, hi], [lo, hi], color="#888", lw=0.8, ls=":", zorder=1, label="y = x")
+        a.text(0.04, 0.95, f"y = {k:.4f}x {'+' if b >= 0 else '−'} {abs(b):.4f}\nR² = {r2:.4f}".replace(".", ","), transform=a.transAxes,
+               va="top", fontsize=9, bbox=dict(facecolor="black", edgecolor="w"))
+        a.set_xlim(lo, hi); a.set_ylim(lo, hi); a.set_aspect("equal"); a.grid(alpha=0.25)
+        a.set_xlabel(f"Symulowana prędkość ({xl}) [km/h]"); a.set_ylabel(f"{provider} ({yl}) [km/h]")
+        a.set_title(ttl, fontsize=10); a.legend(fontsize=7, loc="lower right")
+    fig.suptitle(f"R6 vs {provider}: rozrzut prędkości (prosta MNK na wszystkich punktach; model = uśredniony dzień roboczy)", fontsize=10)
+    fig.tight_layout(); fig.savefig(out, dpi=140)
+    plt.close(fig)
+
+
+def mapa(provider, R, Sg, out):
+    """Mapa próbki: trasy modelu (kolor = czas rano model / dostawca), segmenty (kolor = freespeed / freeFlowSpeed, etykieta
+    model/dostawca km/h). Wartości dostawcy per obiekt, więc plik poza repo (output/, D22 wariant A)."""
+    from matplotlib import cm
+    from matplotlib.colors import TwoSlopeNorm
+    L = links()
+    P = pd.read_csv(OUT / "pairs.csv", dtype={"start_link": str, "end_link": str}).set_index("id")
+    S = pd.read_csv(OUT / "segments.csv").set_index("id")
+    gm = shapely.from_geojson(Path("scenarios/kutno/area/gmina.geojson").read_text(encoding="utf-8"))
+    major = shapely.from_wkt(L.geometry[L.type.isin(["motorway", "primary", "secondary", "tertiary"])])
+    norm, cmap = TwoSlopeNorm(1.0, 0.6, 1.4), cm.coolwarm
+    x0, y0, x1, y1 = shapely.bounds(gm)
+    zoom = (x0 - 1500, x1 + 1500, y0 - 1500, y1 + 1500)  # przybliżenie: gmina Kutno + 1,5 km
+    inside = lambda x, y: zoom[0] <= x <= zoom[1] and zoom[2] <= y <= zoom[3]
+    fig, axx = plt.subplots(2, 3, figsize=(24, 14), gridspec_kw=dict(width_ratios=[1.45, 1, 0.5]))
+    ax, side = axx[:, :2], axx[:, 2]
+    for a in side:
+        a.axis("off")
+    for a in ax.ravel():
+        for ln in major:
+            c = shapely.get_coordinates(ln)
+            a.plot(c[:, 0], c[:, 1], color="#555", lw=0.4, zorder=1)
+        c = shapely.get_coordinates(shapely.boundary(gm))
+        a.plot(c[:, 0], c[:, 1], color="#aed581", lw=1, zorder=2)
+        a.set_aspect("equal"); a.set_xticks([]); a.set_yticks([])
+    for a in ax[:, 1]:
+        a.set_xlim(zoom[:2]); a.set_ylim(zoom[2:])
+    # trasy: numer na trasie, lista numerów z wartościami w ramce (etykiety w mieście się nakładały)
+    rr = R[R.okno == "rano"].reset_index(drop=True)
+    legend = []
+    for i, r in rr.iterrows():
+        p = P.loc[r.id]
+        c = np.vstack([shapely.get_coordinates(shapely.from_wkt(L.geometry[x])) for x in p.route.split()])
+        v = r.model_med / r.hist_s
+        nr = i + 1
+        legend.append(f"{nr:2d} {r.id[2:20]:<18} {r.model_med / 60:4.1f}/{r.hist_s / 60:4.1f} min  {v:.2f}")
+        for a in ax[0]:
+            a.plot(c[:, 0], c[:, 1], color=cmap(norm(v)), lw=2.4 if p.kind == "korytarz" else 1.3, alpha=0.9, zorder=3)
+            a.scatter([p.o_x], [p.o_y], s=14, c="w", zorder=4)
+            a.scatter([p.d_x], [p.d_y], s=14, marker="s", c="w", zorder=4)
+        # numer: punkt trasy w 40% długości (żeby nie siadał na wspólnym celu w centrum)
+        m = c[int(len(c) * 0.4)]
+        a = ax[0, 1] if inside(*m) else ax[0, 0]
+        a.annotate(str(nr), m, fontsize=8, color="w", weight="bold", zorder=5,
+                   bbox=dict(boxstyle="round,pad=0.1", fc=cmap(norm(v)), ec="none", alpha=0.85))
+    ax[0, 0].set_title(f"Trasy (n {len(rr)}): czas rano 07:30, model (mediana 5 runów) / {provider} historic\n"
+                       "kółko start, kwadrat cel; numery w ramce obok", fontsize=10)
+    ax[0, 1].set_title("Trasy: przybliżenie na Kutno", fontsize=10)
+    side[0].text(0.0, 1.0, "nr id                 model/" + provider + " iloraz\n" + "\n".join(legend), transform=side[0].transAxes,
+                 fontsize=7, family="monospace", va="top", ha="left", color="w")
+    for _, s in Sg.iterrows():
+        q = S.loc[s.id]
+        ok = s.dist_m <= 50
+        v = q.freespeed_kmh / s.dost_free_kmh
+        lab = f"{q.cls}\n{q.freespeed_kmh:.0f}/{s.dost_free_kmh:.0f} km/h" + ("" if ok else f"\n> 50 m ({s.dist_m:.0f} m)")
+        for a, show in ((ax[1, 0], not inside(q.mx, q.my)), (ax[1, 1], inside(q.mx, q.my))):
+            if ok:
+                a.scatter([q.mx], [q.my], s=90, color=cmap(norm(v)), edgecolors="w", zorder=4)
+            else:
+                a.scatter([q.mx], [q.my], s=70, color="#999", marker="x", zorder=4)
+            if show:
+                a.annotate(lab, (q.mx, q.my), xytext=(5, 5), textcoords="offset points", fontsize=7.5,
+                           color="w" if ok else "#999", zorder=5)
+    ax[1, 0].set_title(f"Segmenty (n {len(Sg)}): freespeed modelu / {provider} freeFlowSpeed\n"
+                       f"etykieta: klasa, model / {provider} km/h; x = punkt > 50 m (poza metrykami)", fontsize=10)
+    ax[1, 1].set_title("Segmenty: przybliżenie na Kutno (etykiety punktów w mieście)", fontsize=10)
+    fig.colorbar(cm.ScalarMappable(norm=norm, cmap=cmap), ax=side[1], fraction=0.5, location="left",
+                 label=f"model / {provider} (trasy: > 1 model wolniejszy; segmenty: < 1 model wolniejszy)")
+    fig.suptitle(f"Próbka walidacji R6 vs {provider} (EPSG:2180, zielona linia = gmina Kutno, szare = drogi motorway–tertiary)", fontsize=12)
+    fig.subplots_adjust(left=0.01, right=0.99, top=0.93, bottom=0.02, wspace=0.04, hspace=0.12)
+    fig.savefig(out, dpi=110)
+    plt.close(fig)
 
 
 def cmd_selftest():
@@ -344,6 +497,13 @@ def cmd_selftest():
                                     capture_output=True, text=True, check=True).stdout)
     mi = Mt.set_index(["porownanie", "zestaw", "grupa", "okno"])
     assert ind and all(abs(mi.loc[tuple(k.split("|")), c] - v) < 1e-9 for k, d in ind.items() for c, v in d.items()), ind
+    tmp = Path(os.environ.get("TEMP", ".")) / "g5_selftest"
+    tmp.mkdir(exist_ok=True)
+    plot_errors("tomtom", Mt, tmp / "bledy.png")
+    mapa("tomtom", R, Sg, tmp / "mapa.png")
+    scatter_speeds("tomtom", R, Sg, tmp / "rozrzut.png")
+    assert "MAE_s" in Mt and "RMSE_kmh" in Mt and Mt.TAG_15pct_lub_1min_pct.max() <= 100
+    print("selftest: wykresy w", tmp)
     print("selftest ok: metryki odtwarzają współczynniki 0,8 / 0,9 / 1,2, overlap = 1, dystans segmentu < 1 m")
     print("flexpoly:", flexpoly("BFoz5xJ67i1B1B7PzIhaxL7Y")[:2])  # przykład ze specyfikacji: (50.10228, 8.69821), ...
 

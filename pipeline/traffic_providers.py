@@ -48,7 +48,7 @@ TZ = "+02:00"
 # komercyjny; masa, nacisk osi i wysokość = 0 (ograniczenia nieuwzględniane), bo model ich nie ma. Wariant: masa 40 t.
 TRUCK = dict(vehicleMaxSpeed=80, vehicleLength=15, vehicleWidth=2.5, vehicleCommercial="true")
 QPS = {"tomtom": 5, "here": 5}  # TomTom FAQ: 5-50 zależnie od API; bierzemy dolną granicę dla obu endpointów
-BUDGET = 400  # najwyżej tyle requestów non-tile na dostawcę w pierwszym pobraniu (prompt §6)
+BUDGET = 650  # prompt §6: 400 w pierwszym pobraniu; +250 na przebiegi z MAE, mapą i rozrzutem (prośba użytkownika 2026-10-18)
 
 
 def zread(p):
@@ -333,6 +333,11 @@ def cmd_run(provider, dry, test=False):
     json.dump(meta, open(OUT / f"przebieg_{provider}.json", "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False, default=str)
     Mt.round(4).to_csv(OUT / f"metrics_{provider}.csv", index=False, lineterminator="\n")
     tm.plots(provider, Mt)
+    tm.plot_errors(provider, Mt, OUT / f"g5_czasy_{provider}_bledy.png")
+    # mapa z wartościami dostawcy per obiekt: poza repo (output/ jest w .gitignore), D22 wariant A
+    Path("output/g5_czasy_tomtom").mkdir(parents=True, exist_ok=True)
+    tm.mapa(provider, R, Sg, Path("output/g5_czasy_tomtom") / f"mapa_{provider}.png")
+    tm.scatter_speeds(provider, R, Sg, Path("output/g5_czasy_tomtom") / f"rozrzut_predkosci_{provider}.png")
     print(json.dumps(meta, indent=1, ensure_ascii=False, default=str))
     print(Mt.round(3).to_string())
 

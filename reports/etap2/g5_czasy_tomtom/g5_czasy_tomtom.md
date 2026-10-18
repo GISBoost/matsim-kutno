@@ -8,9 +8,9 @@ Data: 2026-10-18 (niedziela). Zadanie: `prompt.md` w tym folderze, decyzja D22 (
 |---|---|
 | runy MATSim | R6, 5 runów 25% × 100 it.: `output/g5r6_25pct_s{4711,1,2}` (seedy MATSim), `output/g5r6p{1,2}_25pct_s4711` (seedy planów). Bez nowych runów |
 | zapytany dzień i godziny | **wtorek 2026-10-20, 07:30 / 12:30 / 15:30 CEST** (`departAt` w przyszłości, czyli typowy profil historyczny dnia tygodnia i godziny). Model to uśredniony dzień roboczy, nie data |
-| kiedy faktycznie wysłano | **2026-10-18 17:23:21–17:24:20 UTC** (niedziela wieczorem); `przebieg_tomtom.json` |
+| kiedy faktycznie wysłano | 2026-10-18 (niedziela wieczorem): 17:23–17:24, 17:59–18:00 i **18:02:51–18:03:51 UTC** (ostatni, w `przebieg_tomtom.json`) |
 | zestaw tylko do walidacji | `split.csv`, zapisany przed policzeniem jakiegokolwiek błędu: 1/3 każdej warstwy, czyli 13 z 40 par i korytarzy oraz 8 z 25 segmentów. Nieużyty do propozycji |
-| requesty | **TomTom: 316 z budżetu 400.** 149 nieudanych (401, klucz w cudzysłowie w `.env`, `ERRORS.md`), 18 testowych (`--test`), 149 właściwych (148 × 200, 1 × 400 dla segmentu). Liczba właściwych = dry-run (149). **HERE: 0** (brak klucza) |
+| requesty | **TomTom: 614** (budżet podniesiony z 400 do 650 na prośbę użytkownika o MAE, wykresy i mapę). 149 nieudanych w przebiegu 1 (401, klucz w cudzysłowie w `.env`, `ERRORS.md`), 18 testowych (`--test`), 3 × 149 właściwych (każdy: 148 × 200, 1 × 400 dla segmentu). Ostatni przebieg: 2026-10-18 18:02:51–18:03:51 UTC. Liczba w przebiegu = dry-run (149). **HERE: 0** (brak klucza) |
 | czego endpointy nie umieją | TomTom Routing dla przyszłej daty zwraca typowy profil, a nie predykcję konkretnego dnia. Flow Segment Data to stan z chwili zapytania, więc w niedzielę nie mierzy szczytu dnia roboczego (porównujemy tylko `freeFlowSpeed`). Szczegóły w §1 |
 | czego nie ma w repo | odpowiedzi TomTom (tylko w pamięci procesu), czasy i prędkości TomTom per para/segment, porównanie TomTom–HERE (regulamin, niżej) |
 
@@ -156,11 +156,65 @@ Do metryk weszło 16 z 25 segmentów: punkt odpowiedzi musi leżeć < 50 m od ś
 
 Analiza i walidacja zgadzają się kierunkiem i rzędem wielkości. **Freespeed modelu jest o 13–19% niższy od `freeFlowSpeed` TomTom na A1, DK i DW**, czyli dokładnie o współczynnik 0,8 z D13: TomTom podaje prędkość swobodną bliską limitowi (A1 129–130 przy 140, DK 87–89 przy 90).
 
+### 5.4 Błędy bezwzględne: MAE i RMSE, kryterium TAG (przebiegi 2 i 3)
+
+Wykres: `g5_czasy_tomtom_bledy.png` (agregaty). Przebiegi 2 i 3 (prośba użytkownika o MAE, wykresy i mapę) dały **identyczne mediany, MAPE i RMSE co przebieg 1**. Profil TomTom jest powtarzalny między zapytaniami.
+
+| zestaw | porównanie | n | RMSE [s] | MAE [s] | w 15% lub 1 min (TAG tab. 3) | w 15% i 1 min (TAG C.3.10) |
+|---|---|---|---|---|---|---|
+| analiza | czas swobodny | 27 | 177 | 140 | 37% | 22% |
+| analiza | rano 07:30 | 27 | 164 | 128 | 48% | 22% |
+| analiza | południe 12:30 | 27 | 170 | 129 | 63% | 33% |
+| analiza | popołudnie 15:30 | 27 | 169 | 131 | 63% | 30% |
+| walidacja | czas swobodny | 13 | 141 | 112 | 54% | 31% |
+| walidacja | rano 07:30 | 13 | 117 | 93 | 77% | 38% |
+| walidacja | południe 12:30 | 13 | 118 | 94 | 62% | 31% |
+| walidacja | popołudnie 15:30 | 13 | 113 | 92 | 62% | 31% |
+
+Średnia długość tras to ok. 20 min, więc MAE 1,5–2,3 min to ok. 13–18% (zgodnie z MAPE).
+
+| zestaw | klasa (n) | MAE [km/h] | RMSE [km/h] |
+|---|---|---|---|
+| analiza | wszystkie (11) | 17,5 | 19,3 |
+| analiza | A1 (2) / DK (3) / DW (3) / miasto (2) / tert-uncl (1) | 18 / 17 / 21 / 18 / 8 | 18 / 17 / 24 / 20 / 8 |
+| walidacja | wszystkie (5) | 13,8 | 14,9 |
+| walidacja | A1 (1) / DK (2) / DW (1) / miasto (1) | 17 / 15 / 18 / 4 | 17 / 16 / 18 / 4 |
+
+### 5.5 Rozrzut prędkości (symulowana vs TomTom, prosta MNK)
+
+Wykres per obiekt jest w `output/g5_czasy_tomtom/rozrzut_predkosci_tomtom.png`, poza repo (wartości TomTom per obiekt, D22). Do raportu trafiają tylko parametry prostej (wszystkie punkty w metrykach, analiza + walidacja):
+
+| panel | n | prosta (y = TomTom, x = model) | R² |
+|---|---|---|---|
+| segmenty: freespeed vs `freeFlowSpeed` | 16 | y = 0,972x + 17,26 | 0,863 |
+| trasy: prędkość swobodna (długość / czas) | 40 | y = 1,125x − 1,32 | 0,755 |
+| trasy: prędkość rano 07:30 vs `historic` | 40 | y = 1,235x − 9,46 | 0,834 |
+
+Segmenty: nachylenie bliskie 1 z przesunięciem +17 km/h, czyli TomTom jest stale szybszy o kilkanaście km/h niezależnie od klasy drogi. To zgodne z factorem 0,8. Na trasach rano punkty leżą blisko y = x do ok. 80 km/h. Nachylenie 1,24 ciągną A1 (TomTom ok. 130, model ok. 107) i kilka tras mieszkańców w mieście.
+
+**Mapa próbki z odczytami** (`output/g5_czasy_tomtom/mapa_tomtom.png`, poza repo): trasy pokolorowane ilorazem czasu rano, segmenty z etykietą „model / TomTom km/h”, segmenty wyłączone (> 50 m) jako x. Wnioski z mapy:
+- najwyżej (model wolniejszy) leżą korytarze A1 (1,21–1,24), przejazd Objazdowa → Sklęczkowska (1,24) i DK92 zach. (1,12–1,16): to drogi, na których freespeed jest najdalej od `freeFlowSpeed`;
+- trasy mieszkańców w mieście mają największy rozrzut, od 0,62 do 1,63 (krótkie trasy 3–15 min, więc 1–3 min różnicy daje duży iloraz);
+- ciężkie i wyjeżdżający są blisko 1 (0,78–1,15);
+- Krośniewice (nr 40): 3,0 wobec 1,5 min, czyli 2,0. To korytarz kontrolny znanej wady; przyczyny na tej trasie nie sprawdzałem.
+
+### 5.6 Literatura: jakie wartości są akceptowalne
+
+- **TAG Unit M3.1 Highway Assignment Modelling** (DfT, maj 2026, `data/raw/g5/lit/tag_m3_1_highway_assignment_modelling.pdf`, manifest):
+  - **tab. 3 (§3.3.15)**: czas modelu w trasie w 15% czasu pomierzonego (albo 1 min, jeśli to więcej) dla > 85% tras. Mierzy się procent różnicy z limitem bezwzględnym, a nie RMSE ani MAE;
+  - **aneks C.3.10** (mikrosymulacja): 15% **i** 60 s jednocześnie;
+  - **tab. 2**: GEH < 5 dla > 85% natężeń. To miara natężeń, dla czasów nie ma zastosowania.
+- **Progów RMSE ani MAE dla czasów przejazdu nie znalazłem w źródle pierwotnym.** Wytyczne (TAG, FHWA Travel Model Validation Manual 2010) używają RMSE głównie dla natężeń (%RMSE po klasach natężenia). Liczb dla FHWA nie podaję, bo nie zweryfikowałem tekstu.
+- **Ocena R6 według TAG tab. 3:** rano 48% (analiza) i 77% (walidacja) tras w kryterium, w ruchu swobodnym 37% / 54%. **Wytyczna > 85% nie jest spełniona.** Zastrzeżenia:
+  - TAG porównuje z czasem **pomierzonym** (badania przejazdów), a TomTom `historic` to model dostawcy;
+  - TAG dotyczy modeli strategicznych z kalibracją prędkości i przepustowości, a R6 tych nie kalibrował;
+  - n jest małe (27 / 13).
+
 ## 6. Kontrole (§8)
 
 | kontrola | wynik |
 |---|---|
-| liczba requestów = dry-run | 149 = 149 ✔ (plus 149 nieudanych 401 i 18 testowych, łącznie 316 ≤ 400) |
+| liczba requestów = dry-run | 149 = 149 w każdym z 3 przebiegów ✔ (plus 149 nieudanych 401 i 18 testowych, łącznie 614 ≤ 650) |
 | klucz | brak w logu i plikach (asercja w kodzie; `fetch_tomtom.log` ma `key=%2A%2A%2A` (*** zakodowane w URL) we wszystkich 316 liniach; sprawdzone skryptem, że klucz nie występuje w żadnym pliku raportu ani kodu) ✔ |
 | początek i koniec trasy TomTom vs punkt zapytania | maks. 5,9 m / 3,4 m, 0 tras > 50 m ✔ |
 | kolejność osi | ✔ (jak wyżej; po zamianie osi odległości byłyby rzędu setek km) |
@@ -188,7 +242,7 @@ Rozbieżności mają jedno źródło. Współczynnik 0,8 z D13 obniża prędkoś
 - **TomTom `historic` to model dostawcy** (typowy profil), a nie pomiar konkretnego dnia. Wtorek 20.10 i 27.10 dały identyczne czasy.
 - `currentSpeed` w szczycie dnia roboczego nie został zmierzony (zapytania w niedzielę). Model i TomTom są porównane tylko jako „typowe”.
 - Próbka mała: 27 + 13 par i korytarzy, 11 + 5 segmentów. Klasa tertiary/unclassified poza miastami, wskazana w audycie, jest praktycznie niezmierzona przez Flow (n = 1). Na trasach jest wymieszana z innymi klasami.
-- Podział na grupy po rodzaju w `metrics_tomtom.csv` przechodzi przez wadliwy próg bufora 70% (np. `c` i `c_trasa<70%`). Mediany per rodzaj bez tego podziału nie da się już policzyć, bo odpowiedzi nie były przechowywane (wariant A). Ponowny przebieg kosztowałby 149 requestów, a w budżecie zostało 84.
+- Podział na grupy po rodzaju w `metrics_tomtom.csv` przechodzi przez wadliwy próg bufora 70% (np. `c` i `c_trasa<70%`). Mediany per rodzaj bez tego podziału nie da się już policzyć, bo odpowiedzi nie były przechowywane (wariant A). Każdy ponowny przebieg kosztuje 149 requestów.
 - **Różnica analiza vs walidacja** (swobodny 1,18 vs 1,08, okno rano 1,06 vs 1,02) jest tego samego rzędu co odchylenia czasów w oknie od 1. Różnice model–TomTom w oknach poniżej ok. 5% **nie są wynikiem**. Rozrzut 5 runów to 1–7 pp, a rozrzut seedów planów dla natężeń 9–12% na odcinek (`g5_r6_ref.md`).
 - TomTom vs HERE (§7.4) nie zostało zrobione (regulamin TomTom 11.6.10, D22). Niepewności samego „pomiaru” nie znamy.
 

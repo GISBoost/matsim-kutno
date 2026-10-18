@@ -221,3 +221,8 @@
   - TomTom ma ok. 8% opóźnienia względem `noTraffic` przez cały dzień, model 1–4%. Niezależna kontrola zgodna.
 - Wnioski do decyzji: factor 0,8 (D13) zaniża prędkość swobodną o ok. 15%, ale czasy w oknach zgadzają się na 0–6%, bo model nie ma opóźnień skrzyżowań. Freespeed nie ruszać bez G1, capacity nie ruszać, tertiary/unclassified nierozstrzygnięte. Wskaźnik bufora 25 m niewiarygodny przy prostych linkach (ERRORS 23).
 - Raport: `reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md`; kod: `pipeline/traffic_providers.py`, `pipeline/traffic_metrics.py`. HERE przygotowane, bez klucza.
+- Uzupełnienie (prośba użytkownika): dwa ponowne przebiegi TomTom (2 × 149 requestów, łącznie 614, budżet 650) z MAE, kryterium TAG M3.1, wykresem błędów, rozrzutem prędkości i mapą próbki. Mediany, MAPE i RMSE identyczne jak w przebiegu 1.
+  - MAE czasu: rano 128 s (analiza) i 93 s (walidacja); MAE prędkości segmentów 17,5 i 13,8 km/h.
+  - TAG tab. 3 (15% lub 1 min, wytyczna > 85% tras): rano 48% i 77%, czyli niespełnione (TomTom historic to model dostawcy, nie pomiar).
+  - Rozrzut segmentów: y = 0,972x + 17,26, R² 0,863.
+  - Mapa i rozrzut per obiekt w `output/g5_czasy_tomtom/` (poza repo, D22). TAG M3.1 pobrany do `data/raw/g5/lit/` (manifest).
