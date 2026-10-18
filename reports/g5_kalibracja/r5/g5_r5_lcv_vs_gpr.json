@@ -1,0 +1,209 @@
+{
+ "runs": [
+  "output\\g5r5_25pct_s4711"
+ ],
+ "cls": "lcv",
+ "sections": 19,
+ "A1": {
+  "gpr": 72062,
+  "model": 72128,
+  "ratio": 1.001
+ },
+ "DK_miejskie_Kutno": {
+  "gpr": 25569,
+  "model": 29124,
+  "ratio": 1.139
+ },
+ "DK_pozostale": {
+  "gpr": 37954,
+  "model": 30928,
+  "ratio": 0.815
+ },
+ "DW": {
+  "gpr": 17588,
+  "model": 12144,
+  "ratio": 0.69
+ },
+ "walidacja_poza_proba": {
+  "60 91124": 1.476,
+  "60a/60 91866": 0.926
+ },
+ "dopasowanie": {
+  "gpr": 136781,
+  "model": 124332,
+  "ratio": 0.909
+ },
+ "per_section": [
+  {
+   "nr": 71410,
+   "droga": "A1",
+   "nazwa": "W. KOWAL /DK91/ - W. KUTNO PŁN. /DK60/",
+   "gpr": 21105.107,
+   "model": 21120.0,
+   "ratio": 1.001,
+   "walidacja": false
+  },
+  {
+   "nr": 91820,
+   "droga": "A1",
+   "nazwa": "W. KUTNO PŁN. /DK60/ - W. KUTNO WSCH. /DK92/",
+   "gpr": 24445.398,
+   "model": 24492.0,
+   "ratio": 1.002,
+   "walidacja": false
+  },
+  {
+   "nr": 91821,
+   "droga": "A1",
+   "nazwa": "W. KUTNO WSCH. /DK92/ - W. PIĄTEK /DW703/",
+   "gpr": 26510.996,
+   "model": 26516.0,
+   "ratio": 1.0,
+   "walidacja": false
+  },
+  {
+   "nr": 91115,
+   "droga": "60",
+   "nazwa": "TOPOLA KRÓL. /DK91/ - KUTNO /OBWODNICA (UL. OBJAZDOWA (DK92))/",
+   "gpr": 4324.894,
+   "model": 4352.0,
+   "ratio": 1.006,
+   "walidacja": false
+  },
+  {
+   "nr": 91124,
+   "droga": "60",
+   "nazwa": "KUTNO /OBWODNICA 1: UL. OBJAZDOWA (DK92) - DK92, DW702/",
+   "gpr": 8743.079,
+   "model": 12908.0,
+   "ratio": 1.476,
+   "walidacja": true
+  },
+  {
+   "nr": 91866,
+   "droga": "60a/60",
+   "nazwa": "KUTNO /OBWODNICA 2: DK92, DW702 - UL. SKRAJNA/",
+   "gpr": 7648.611,
+   "model": 7084.0,
+   "ratio": 0.926,
+   "walidacja": true
+  },
+  {
+   "nr": 91878,
+   "droga": "60",
+   "nazwa": "KUTNO /UL. SKRAJNA/ - W. KUTNO PŁN. /A1/",
+   "gpr": 7808.068,
+   "model": 7784.0,
+   "ratio": 0.997,
+   "walidacja": false
+  },
+  {
+   "nr": 91892,
+   "droga": "91d",
+   "nazwa": "KROŚNIEWICE /OBWODNICA 1: W. BŁONIE (DK92) - W. BARDZINEK (DK92)/",
+   "gpr": 4335.53,
+   "model": 624.0,
+   "ratio": 0.144,
+   "walidacja": false
+  },
+  {
+   "nr": 91119,
+   "droga": "91d",
+   "nazwa": "KROŚNIEWICE /OBWODNICA 2: W. BARDZINEK (DK92) - W. MORAWCE/",
+   "gpr": 1782.584,
+   "model": 404.0,
+   "ratio": 0.227,
+   "walidacja": false
+  },
+  {
+   "nr": 91121,
+   "droga": "92",
+   "nazwa": "CHODÓW - KROŚNIEWICE /W. BARDZINEK (DK91)/",
+   "gpr": 3362.653,
+   "model": 2464.0,
+   "ratio": 0.733,
+   "walidacja": false
+  },
+  {
+   "nr": 91122,
+   "droga": "92a",
+   "nazwa": "KROŚNIEWICE /OBWODNICA: W. BŁONIE (DK91) - DW581/",
+   "gpr": 3826.98,
+   "model": 3832.0,
+   "ratio": 1.001,
+   "walidacja": false
+  },
+  {
+   "nr": 91123,
+   "droga": "92a/92",
+   "nazwa": "KROŚNIEWICE /DW581/ - KUTNO /DK60/",
+   "gpr": 5488.381,
+   "model": 4444.0,
+   "ratio": 0.81,
+   "walidacja": false
+  },
+  {
+   "nr": 91869,
+   "droga": "92",
+   "nazwa": "KUTNO /DK60, DW702/ - W. KUTNO WSCH. /A1/",
+   "gpr": 9177.107,
+   "model": 9132.0,
+   "ratio": 0.995,
+   "walidacja": false
+  },
+  {
+   "nr": 91125,
+   "droga": "92",
+   "nazwa": "W. KUTNO WSCH. /A1/ - BEDLNO /DW583/",
+   "gpr": 7024.872,
+   "model": 7024.0,
+   "ratio": 1.0,
+   "walidacja": false
+  },
+  {
+   "nr": 10042,
+   "droga": "573",
+   "nazwa": "KAMIENIEC - GR. WOJ. (ŁÓDZKIE) - ŻYCHLIN /DW583/",
+   "gpr": 1779.0,
+   "model": 1808.0,
+   "ratio": 1.016,
+   "walidacja": false
+  },
+  {
+   "nr": 10043,
+   "droga": "581",
+   "nazwa": "ŁANIĘTA /GR. WOJ. (ŁÓDZKIE)/ - KROŚNIEWICE /DK92/",
+   "gpr": 2100.0,
+   "model": 1964.0,
+   "ratio": 0.935,
+   "walidacja": false
+  },
+  {
+   "nr": 10044,
+   "droga": "583",
+   "nazwa": "BEDLNO /DK92/ - DOBRZELIN /UL. NARUTOWICZA (DW583)/",
+   "gpr": 3504.0,
+   "model": 3572.0,
+   "ratio": 1.019,
+   "walidacja": false
+  },
+  {
+   "nr": 10045,
+   "droga": "583",
+   "nazwa": "DOBRZELIN /UL. NARUTOWICZA (DW583)/ - ŻYCHLIN /DW573/",
+   "gpr": 6873.0,
+   "model": 1468.0,
+   "ratio": 0.214,
+   "walidacja": false
+  },
+  {
+   "nr": 10049,
+   "droga": "702",
+   "nazwa": "KUTNO (DK92) - PIĄTEK /UL. ŁĘCZYCKA (DW703)/",
+   "gpr": 3332.0,
+   "model": 3332.0,
+   "ratio": 1.0,
+   "walidacja": false
+  }
+ ]
+}

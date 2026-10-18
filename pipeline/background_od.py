@@ -20,10 +20,18 @@ Płaska macierz (tau = inf) dała 2× za dużo na odcinkach miejskich. Pary bez 
 D20: opcja cls= wybiera klasę pojazdów celu: light (domyślnie, D19: osobowe + mikrobusy + motocykle), lcv (light + dostawcze ≤ 3,5 t),
 heavy (ciężarowe > 3,5 t bez i z przyczepami, autobusy, ciągniki; model bez tła = 0, bo dojazdy to osobowe; trasy z prędkością
 ograniczoną do 80 km/h, Prawo o ruchu drogowym art. 20 ust. 3 pkt 2). Udział klasy ze struktury rodzajowej GPR (SDR).
+E1 (po R4): routes=<output_dir runu z tłem> init=<macierz O-D tego runu>: incydencja z tras wybranych planów w ostatniej
+iteracji (agenci t…/h… danej klasy, id = <prefiks><o>_<d>_<k>; udział agentów pary przejeżdżających przez licznik, bez linku
+startowego), dla par bez agentów w runie incydencja z tras swobodnych. Start z macierzy init (tylko jej pary), model bez tła
+dla lcv = pracujący (r/c/o) z eventów tego runu, czyli w stanie z kongestią.
+bound=F (tylko z init): każda para w przedziale [T_init / F, T_init · F]. Bez tego para będąca jedynym nośnikiem licznika
+rosła bez ograniczeń (Kutno -> Krośniewice-miasto 1 415 -> 13 257 podróży/dobę, Objazdowa 211%; reports/g5_kalibracja/g5_r5.md).
 Wyjście: scenarios/kutno/demand/background_od_<tag>.csv (o_kind, o, d_kind, d, tt_min, trips_day), reports/g5_kalibracja/k2_od_<tag>.{json,png}.
 """
 import gzip
+import io
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -33,6 +41,7 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 import tomllib
+import zstandard
 from lxml import etree
 from shapely import STRtree
 from shapely.geometry import LineString, Point
@@ -52,6 +61,8 @@ CLS = OPT.get("cls", "light")
 CLS_COLS = {"light": ["lekkie_osob"], "lcv": ["lekkie_osob", "lekkie_ciez"],
             "heavy": ["ciez_bez_przycz", "ciez_z_przycz", "autobusy", "ciagniki"]}[CLS]
 VMAX = 80 / 3.6 if CLS == "heavy" else np.inf  # D20: prędkość maksymalna ciężarowych
+ROUTES = Path(OPT["routes"]) if OPT.get("routes") else None
+INIT = pd.read_csv(OPT["init"], dtype={"o": str, "d": str}) if OPT.get("init") else None
 K = 20  # punkty na gminę
 P = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))
 POWIAT = P["area"]["teryt_powiat"]
@@ -113,6 +124,16 @@ for d in runs:
     l = pd.read_csv(d / "output_links.csv.zst", sep=";", dtype={"link": str}).set_index("link")
     vol.append(g.link.map(l.vol_car).fillna(0) / s)
 g["model"] = pd.concat(vol, axis=1).mean(axis=1) if CLS != "heavy" else 0.0
+if ROUTES is not None and CLS != "heavy":  # E1: pracujący z eventów runu z tłem (vol_car zawiera tam też tło)
+    s = float(etree.parse(str(ROUTES / "output_config.xml")).find(".//module[@name='qsim']/param[@name='flowCapacityFactor']").get("value"))
+    want, kc = set(g.link), {}
+    pat = re.compile(r'type="entered link" link="([^"]+)" vehicle="([rco])')
+    with zstandard.ZstdDecompressor().stream_reader(open(ROUTES / "output_events.xml.zst", "rb")) as f:
+        for line in io.TextIOWrapper(f, encoding="utf-8"):
+            m = pat.search(line)
+            if m and m[1] in want:
+                kc[m[1]] = kc.get(m[1], 0) + 1
+    g["model"] = g.link.map(lambda l: kc.get(l, 0) / s)
 g["target"] = (g.gpr - g.model).clip(lower=0)
 g["fit"] = ~g.nr.isin(CITY + DROP)
 cnt = {r.link: i for i, r in g.iterrows()}
@@ -139,8 +160,37 @@ for oi, o in O.iterrows():
                     hits[cnt[l]] = hits.get(cnt[l], 0) + 1
         if ok:
             pairs.append((oi, di, float(np.mean(tts)) / 60, {h: c / ok for h, c in hits.items()}))
+route_pairs = 0
+if ROUTES is not None:  # E1: incydencja z tras runu
+    pre = "h" if CLS == "heavy" else "t"
+    agents, hits_r = {}, {}
+    plans = etree.iterparse(zstandard.ZstdDecompressor().stream_reader(open(ROUTES / "output_plans.xml.zst", "rb")), tag="person")
+    for _, el in plans:
+        pid = el.get("id")
+        if pid.startswith(pre):
+            o, d = pid[1:].split("_")[:2]
+            pl = [x for x in el.findall("plan") if x.get("selected") == "yes"][0]
+            r = pl.find("leg[@mode='car']/route")
+            links = (r.text or "").split()[1:]
+            agents[(o, d)] = agents.get((o, d), 0) + 1
+            hc = hits_r.setdefault((o, d), {})
+            for h in {cnt[l] for l in links if l in cnt}:
+                hc[h] = hc.get(h, 0) + 1
+        el.clear()
+    new = []
+    for p in pairs:
+        key = (str(O.id[p[0]]), str(D.id[p[1]]))
+        if key in agents:
+            route_pairs += 1
+            p = (p[0], p[1], p[2], {h: c / agents[key] for h, c in hits_r[key].items()})
+        new.append(p)
+    pairs = new
 F = [p for p in pairs if any(g.fit[h] for h in p[3])]
 T = np.array([O.w[p[0]] * D.w[p[1]] * np.exp(-p[2] / TAU) for p in F])
+if INIT is not None:  # E1: start z macierzy runu, tylko jej pary
+    t0 = {(r.o, r.d): r.trips_day for r in INIT.itertuples()}
+    T = np.array([t0.get((str(O.id[p[0]]), str(D.id[p[1]])), 0.0) for p in F])
+T_init, BOUND = T.copy(), float(OPT.get("bound", "inf"))
 fit = g.fit.to_numpy()
 idx = [np.array(list(p[3].keys()), dtype=int) for p in F]
 frac = [np.array(list(p[3].values())) for p in F]
@@ -152,6 +202,8 @@ for it in range(ITERS):
     for k, (i, f) in enumerate(zip(idx, frac)):
         m = fit[i]
         T[k] *= np.exp(np.sum(f[m] * np.log(ratio[i[m]])) / max(1.0, np.sum(f[m])))  # krok ∝ udział: para rzadko przez licznik prawie się nie zmienia
+    if INIT is not None and np.isfinite(BOUND):
+        T = np.clip(T, T_init / BOUND, T_init * BOUND)
 assigned = np.zeros(len(g))
 for t, i, f in zip(T, idx, frac):
     assigned[i] += t * f
@@ -170,7 +222,7 @@ sec["ratio_before"], sec["ratio_after"] = sec.model / sec.gpr, sec.model_plus_bg
 geh = lambda m, c: np.sqrt(2 * (m - c) ** 2 / (m + c)) / np.sqrt(24)  # GEH godzinowy ze średniej godziny doby (orientacyjnie)
 sec["geh_hourly_mean"] = geh(sec.model_plus_bg, sec.gpr)
 kz = lambda k: od[(od.o_kind == k) | (od.d_kind == k)].trips_day.sum()
-rep = {"runs": [str(d) for d in runs], "cls": CLS, "tau_min": TAU, "iters": ITERS, "dropped_counts": DROP, "zones": Z.kind.value_counts().to_dict(), "od_pairs_with_count": len(F),
+rep = {"runs": [str(d) for d in runs], "cls": CLS, "routes": str(ROUTES), "init": OPT.get("init"), "pairs_with_route_incidence": route_pairs, "bound": OPT.get("bound"), "tau_min": TAU, "iters": ITERS, "dropped_counts": DROP, "zones": Z.kind.value_counts().to_dict(), "od_pairs_with_count": len(F),
        "od_pairs_kept": len(od), "trips_day_100pct": round(float(od.trips_day.sum())),
        "trips_by_type": {"tranzyt_wjazd_wyjazd": round(float(od[(od.o_kind == "entry") & (od.d_kind == "exit")].trips_day.sum())),
                          "granica_gmina": round(float(od[(od.o_kind == "entry") & (od.d_kind == "gmina")].trips_day.sum()

@@ -1,0 +1,14 @@
+{
+ "runs": [
+  "output\\g5r5_25pct_s4711"
+ ],
+ "legs": 897,
+ "gminy": 12,
+ "median_congestion_all_legs": 1.064,
+ "p90_congestion_all_legs": 1.182,
+ "median_congestion_dep_6_9": 1.074,
+ "sum_model_vs_sum_ff": 1.085,
+ "median_model_vs_gus": 0.871,
+ "median_ff_vs_gus": 0.808,
+ "median_ff_legs_vs_ff_centroid": 0.984
+}

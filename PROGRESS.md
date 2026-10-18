@@ -137,3 +137,9 @@
 - R4 25% 1 seed: 35 107 nóg car, 0 stuck, 0 przepełnionych linków. Opóźnienie 820 poj.-h próbki (R3: 359), po poprawce czasu swobodnego ciężarowych w `link_delay.py` i `queues.py`.
 - Względem GPR: A1 99% (lekkie) i 100% (ciężkie); DK w Kutnie 108% i 83%; 14 odcinków dopasowania 10/14 i 11/14 w ±15%. Węzeł Krośniewic rozjeżdża się po kongestii: DK92 91121 i 91122 mają 150–190%, DK91d 20–46%. Raport z wariantami E1–E3: `reports/g5_kalibracja/g5_r4.md`.
 
+## 2026-10-18: G5 / D20 E1, estymacja O-D z tras R4 i run R5
+
+- `background_od.py routes= init= bound=`: incydencja z tras R4 i start z macierzy R4. Bez ograniczenia jedna para urosła 9× (Objazdowa 211%), więc wybrane ograniczenie 2× (test 1,5/2/3 offline).
+- R5 25% 1 seed: 33 121 nóg car, 0 stuck, 1 przepełniony link. Opóźnienie 693 poj.-h próbki (R4: 820).
+- Lekkie: 12/14 w ±15%, mediana odchyłki 0,4%, obwodnica Krośniewic 91122 100% (R4: 191%). Ciężkie: 10/14. Walidacja: Objazdowa 148% (lekkie) i 74% (ciężkie), Bitwy pod Kutnem 93% i 71%. Raport: `reports/g5_kalibracja/g5_r5.md`.
+
