@@ -38,6 +38,10 @@
 		     removeStuckVehicles=false wpychało pojazdy na pełne krótkie linki (82 pojazdy na linku o pojemności 1,2; reports/g6_kolejki/).
 		     Test na tych samych trasach: suma opóźnień +3%, przepełnione linki 13 -> 6, 0 stuck. trafficDynamics zostaje queue (kinematicWaves: +56% opóźnień, decyzja w G5). -->
 		<param name="stuckTime" value="30.0" />
+		<!-- D20: PassingQ zamiast domyślnego FIFO: szybsze pojazdy wyprzedzają wolniejsze (Agarwal i in. 2015). Przy FIFO osobowe
+		     za ciężarowymi (80 km/h) jechały po A1 z medianą 80 km/h zamiast 110 (test 2 iteracji, reports/g5_kalibracja/r4/).
+		     Bez ciężkich wszystkie pojazdy mają tę samą prędkość maksymalną, więc kolejność jest jak w FIFO. -->
+		<param name="linkDynamics" value="PassingQ" />
 		<!-- wyjazdy do 23:59 (GBR Rys. 46) + 8 h pracy + powrót; od D16 start z wjazdu bez doliczania dojazdu, 48 h to zapas.
 		     36:00 przerwało agenta z Krakowa (reports/r3_ocena/run_100pct_przerwany/r3_100pct_s4711_events.json, stuckAndAbort). -->
 		<param name="endTime" value="48:00:00" />
@@ -87,6 +91,18 @@
 		<parameterset type="strategysettings">
 			<param name="strategyName" value="ReRoute" />
 			<param name="subpopulation" value="tlo" />
+			<param name="weight" value="0.2" />
+		</parameterset>
+		<!-- D20: ciężkie jak tło lekkie (pojazd z pliku vehicles: pce 2,5, 80 km/h; przy uruchamianiu nadpisać
+		     qsim.vehiclesSource=fromVehiclesData i vehicles.vehiclesFile=<plans>_vehicles.xml.gz, zmienna VEH w output/r3_runs.sh). -->
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ChangeExpBeta" />
+			<param name="subpopulation" value="ciezkie" />
+			<param name="weight" value="0.8" />
+		</parameterset>
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ReRoute" />
+			<param name="subpopulation" value="ciezkie" />
 			<param name="weight" value="0.2" />
 		</parameterset>
 		<param name="fractionOfIterationsToDisableInnovation" value="0.8" />

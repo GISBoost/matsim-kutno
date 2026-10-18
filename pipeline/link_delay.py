@@ -2,6 +2,7 @@
 
 Użycie: uv run python pipeline/link_delay.py <output_dir> <out_prefix>   (np. reports/f5_delay -> .json, .png)
 Pierwszy link nogi (vehicle enters traffic) i ostatni (vehicle leaves traffic) nie są liczone.
+D20: pojazdy ciężkie (id "h…") mają czas swobodny z prędkością min(freespeed, 80 km/h), inaczej limit prędkości liczyłby się jako opóźnienie.
 """
 import collections
 import json
@@ -17,6 +18,7 @@ import matplotlib.pyplot as plt
 plt.style.use("dark_background")  # mapy w ciemnym motywie (prośba użytkownika)
 
 out_dir, prefix = Path(sys.argv[1]), sys.argv[2]
+VMAX_HEAVY = 80 / 3.6  # D20, Prawo o ruchu drogowym art. 20 ust. 3 pkt 2
 z = lambda p: zstandard.ZstdDecompressor().stream_reader(open(p, "rb"))
 
 nodes, L = {}, {}
@@ -24,7 +26,8 @@ for _, el in etree.iterparse(z(out_dir / "output_network.xml.zst"), tag=("node",
     if el.tag == "node":
         nodes[el.get("id")] = (float(el.get("x")), float(el.get("y")))
     else:
-        L[el.get("id")] = dict(free=float(el.get("length")) / float(el.get("freespeed")), a=el.get("from"), b=el.get("to"),
+        L[el.get("id")] = dict(free=float(el.get("length")) / float(el.get("freespeed")),
+                               free_h=float(el.get("length")) / min(float(el.get("freespeed")), VMAX_HEAVY), a=el.get("from"), b=el.get("to"),
                                cap=float(el.get("capacity")), type={x.get("name"): x.text for x in el.iter("attribute")}.get("type"))
     el.clear()
 
@@ -37,7 +40,7 @@ for _, el in etree.iterparse(z(out_dir / "output_events.xml.zst"), tag="event"):
         enter.pop(v, None)
     elif t == "left link" and v in enter:
         lk, t0 = enter.pop(v)
-        d = float(el.get("time")) - t0 - L[lk]["free"]
+        d = float(el.get("time")) - t0 - L[lk]["free_h" if v.startswith("h") else "free"]
         n[lk] += 1
         if d > 0:
             delay[lk] += d

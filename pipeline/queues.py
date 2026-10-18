@@ -44,6 +44,7 @@ with zstandard.ZstdDecompressor().stream_reader(open(d / "output_network.xml.zst
             EFF_CELL = float(el.get("effectivecellsize"))
 for l in links.values():
     l["ff"] = l["length"] / l["freespeed"]
+    l["ff_h"] = l["length"] / min(l["freespeed"], 80 / 3.6)  # D20: ciężkie (id "h…") z limitem 80 km/h
     l["storage"] = max(l["length"] * l["lanes"] / EFF_CELL * S, 1)  # jak QSim (min. 1 pojazd; QSim podnosi też do flowCap·ff)
 
 pat = re.compile(r'time="([\d.]+)" type="(entered link|left link|vehicle enters traffic|vehicle leaves traffic)"[^>]*?'
@@ -73,7 +74,7 @@ with zstandard.ZstdDecompressor().stream_reader(open(d / "output_events.xml.zst"
             if veh in enter and enter[veh][0] == link:
                 if veh not in first and T0 <= t < T1:
                     last_trav[veh] = len(trav)
-                    trav.append([link, enter[veh][1], t, None])
+                    trav.append([link, enter[veh][1], t, None, veh[0] == "h"])
                 occ[link] -= 1
             first.discard(veh)
             enter.pop(veh, None)
@@ -87,8 +88,8 @@ with zstandard.ZstdDecompressor().stream_reader(open(d / "output_events.xml.zst"
             last_trav.pop(veh, None)
             first.discard(veh)
 
-tr = pd.DataFrame(trav, columns=["link", "t_in", "t_out", "next"])
-tr["ff"] = tr.link.map(lambda l: links[l]["ff"])
+tr = pd.DataFrame(trav, columns=["link", "t_in", "t_out", "next", "heavy"])
+tr["ff"] = [links[l]["ff_h" if h else "ff"] for l, h in zip(tr.link, tr.heavy)]
 tr["delay"] = (tr.t_out - tr.t_in - tr.ff - 1).clip(lower=0)  # QSim: +1 s na przejście węzła
 tr["q15"] = (tr.t_out // 900).astype(int)
 g = tr.groupby("link")

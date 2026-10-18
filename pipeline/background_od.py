@@ -17,6 +17,9 @@ dawała parom z f ≈ 0,05 mnożnik 20× i przeładowanie dróg bez liczników (
 w strefy-gminy = powierzchnia obrysów budynków gminy / średnia; w wjazdu/wyjazdu = 1.
 ZAŁOŻENIE: postać a priori i tau (brak danych o O-D tła); tau podawane jako wariant (15/30/60 min), nie dobierane pod miasto.
 Płaska macierz (tau = inf) dała 2× za dużo na odcinkach miejskich. Pary bez licznika na trasie = 0 (tło tylko tam, gdzie zmierzone).
+D20: opcja cls= wybiera klasę pojazdów celu: light (domyślnie, D19: osobowe + mikrobusy + motocykle), lcv (light + dostawcze ≤ 3,5 t),
+heavy (ciężarowe > 3,5 t bez i z przyczepami, autobusy, ciągniki; model bez tła = 0, bo dojazdy to osobowe; trasy z prędkością
+ograniczoną do 80 km/h, Prawo o ruchu drogowym art. 20 ust. 3 pkt 2). Udział klasy ze struktury rodzajowej GPR (SDR).
 Wyjście: scenarios/kutno/demand/background_od_<tag>.csv (o_kind, o, d_kind, d, tt_min, trips_day), reports/g5_kalibracja/k2_od_<tag>.{json,png}.
 """
 import gzip
@@ -45,6 +48,10 @@ runs = [Path(a) for a in sys.argv[3:] if "=" not in a]
 OPT = dict(a.split("=", 1) for a in sys.argv[3:] if "=" in a)  # iters=N (wczesne zatrzymanie), drop=nr,nr (liczniki pominięte)
 ITERS = int(OPT.get("iters", 300))
 DROP = [int(x) for x in OPT["drop"].split(",")] if OPT.get("drop") else []
+CLS = OPT.get("cls", "light")
+CLS_COLS = {"light": ["lekkie_osob"], "lcv": ["lekkie_osob", "lekkie_ciez"],
+            "heavy": ["ciez_bez_przycz", "ciez_z_przycz", "autobusy", "ciagniki"]}[CLS]
+VMAX = 80 / 3.6 if CLS == "heavy" else np.inf  # D20: prędkość maksymalna ciężarowych
 K = 20  # punkty na gminę
 P = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))
 POWIAT = P["area"]["teryt_powiat"]
@@ -57,7 +64,7 @@ with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
             nodes[el.get("id")] = (float(el.get("x")), float(el.get("y")))
         else:
             a, b, lid = el.get("from"), el.get("to"), el.get("id")
-            t = float(el.get("length")) / float(el.get("freespeed"))
+            t = float(el.get("length")) / min(float(el.get("freespeed")), VMAX)
             ltype[lid] = {x.get("name"): x.text for x in el.iter("attribute")}.get("type")
             lnodes[lid] = (a, b)
             lcap[lid] = float(el.get("capacity"))
@@ -98,14 +105,14 @@ O, D = Z[Z.kind != "exit"].reset_index(drop=True), Z[Z.kind != "entry"].reset_in
 
 # --- liczniki --------------------------------------------------------------------------------------------
 g = pd.read_csv("reports/g5_walidacja/gpr_linki.csv", dtype={"link": str})
-g["gpr"] = g.sdrdr.where(g.sdrdr.notna(), g.sdr) * g.lekkie_osob / g.sdr * g.udzial_kier
+g["gpr"] = g.sdrdr.where(g.sdrdr.notna(), g.sdr) * g[CLS_COLS].sum(axis=1) / g.sdr * g.udzial_kier
 vol = []
 for d in runs:
     c = etree.parse(str(d / "output_config.xml"))
     s = float(c.find(".//module[@name='qsim']/param[@name='flowCapacityFactor']").get("value"))
     l = pd.read_csv(d / "output_links.csv.zst", sep=";", dtype={"link": str}).set_index("link")
     vol.append(g.link.map(l.vol_car).fillna(0) / s)
-g["model"] = pd.concat(vol, axis=1).mean(axis=1)
+g["model"] = pd.concat(vol, axis=1).mean(axis=1) if CLS != "heavy" else 0.0
 g["target"] = (g.gpr - g.model).clip(lower=0)
 g["fit"] = ~g.nr.isin(CITY + DROP)
 cnt = {r.link: i for i, r in g.iterrows()}
@@ -163,7 +170,7 @@ sec["ratio_before"], sec["ratio_after"] = sec.model / sec.gpr, sec.model_plus_bg
 geh = lambda m, c: np.sqrt(2 * (m - c) ** 2 / (m + c)) / np.sqrt(24)  # GEH godzinowy ze średniej godziny doby (orientacyjnie)
 sec["geh_hourly_mean"] = geh(sec.model_plus_bg, sec.gpr)
 kz = lambda k: od[(od.o_kind == k) | (od.d_kind == k)].trips_day.sum()
-rep = {"runs": [str(d) for d in runs], "tau_min": TAU, "iters": ITERS, "dropped_counts": DROP, "zones": Z.kind.value_counts().to_dict(), "od_pairs_with_count": len(F),
+rep = {"runs": [str(d) for d in runs], "cls": CLS, "tau_min": TAU, "iters": ITERS, "dropped_counts": DROP, "zones": Z.kind.value_counts().to_dict(), "od_pairs_with_count": len(F),
        "od_pairs_kept": len(od), "trips_day_100pct": round(float(od.trips_day.sum())),
        "trips_by_type": {"tranzyt_wjazd_wyjazd": round(float(od[(od.o_kind == "entry") & (od.d_kind == "exit")].trips_day.sum())),
                          "granica_gmina": round(float(od[(od.o_kind == "entry") & (od.d_kind == "gmina")].trips_day.sum()
@@ -183,7 +190,7 @@ fig, axs = plt.subplots(1, 2, figsize=(15, 6.5), gridspec_kw={"width_ratios": [1
 s = sec.sort_values("gpr")
 y = np.arange(len(s))
 ax = axs[0]
-ax.barh(y + 0.27, s.gpr, 0.27, color="#6c757d", label="GPR (lekkie, SDRDR)")
+ax.barh(y + 0.27, s.gpr, 0.27, color="#6c757d", label=f"GPR ({CLS}, SDRDR)")
 ax.barh(y, s.model, 0.27, color="#2e86ab", label="model bez tła (R1)")
 ax.barh(y - 0.27, s.model_plus_bg, 0.27, color="#f18f01", label="model + tło (trasy swobodne)")
 ax.set_yticks(y); ax.set_yticklabels([f"{r.droga} {r.nr}{'  [walidacja]' if not r.fit else ''}" for r in s.itertuples()], fontsize=8)

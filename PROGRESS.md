@@ -130,3 +130,10 @@
 - PCE: WR-D-13-01 (2023) tab. 4.3.1. Ciężarowe 2,0–3,0, dostawcze 1,0–1,5, osobno dla miasta i poza miastem. Brakujący ruch ciężki i dostawczy w pojazdach umownych: A1 104%, DK w Kutnie 82%, DW 35% ruchu lekkich.
 - Raport z wariantami P1–P3 (bez wdrożenia): `reports/g5_kalibracja/g5_czasy_pce.md`. Źródła w ZRODLA §5, PDF-y w manifeście.
 
+## 2026-10-18: G5 / D20, run R4 (dostawcze w tle lekkim i ciężkie, pce 2,5)
+
+- Estymacja O-D `background_od.py cls=lcv|heavy`: lekkie z dostawczymi 85 203 podróży na dobę, ciężkie 25 312 (trasy z limitem 80 km/h). Plany `plans_g5r4_25pct` (+ `_vehicles.xml.gz`: pce 2,5, 80 km/h), walidator ok. Plany R3 odtworzone bit w bit (regresja).
+- `qsim.linkDynamics=PassingQ` w configach (test 2 iteracji: przy FIFO osobowe jechały po A1 80 km/h za ciężarowymi).
+- R4 25% 1 seed: 35 107 nóg car, 0 stuck, 0 przepełnionych linków. Opóźnienie 820 poj.-h próbki (R3: 359), po poprawce czasu swobodnego ciężarowych w `link_delay.py` i `queues.py`.
+- Względem GPR: A1 99% (lekkie) i 100% (ciężkie); DK w Kutnie 108% i 83%; 14 odcinków dopasowania 10/14 i 11/14 w ±15%. Węzeł Krośniewic rozjeżdża się po kongestii: DK92 91121 i 91122 mają 150–190%, DK91d 20–46%. Raport z wariantami E1–E3: `reports/g5_kalibracja/g5_r4.md`.
+

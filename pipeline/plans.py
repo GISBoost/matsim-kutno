@@ -235,38 +235,49 @@ meta["dep_s"] = (prof.from_h.to_numpy()[k] * 3600 + rng.uniform(0, 1, len(meta))
 meta["start_s"] = meta.dep_s
 
 # --- D19/K2-2: ruch tła (lekkie), O-D z background_od.py, godzina z profilu Lisica --------------------------
-bg = pd.DataFrame(columns=["person", "o", "d", "o_link", "o_x", "o_y", "d_link", "d_x", "d_y", "start_s"])
-if P["background_od"]:
-    od = pd.read_csv(P["background_od"], dtype={"o": str, "d": str})
+# D20: to samo dla ciężkich (heavy_od, prefiks "h", profil heavy_pct). Lekkie losowane pierwsze, więc przy tym samym
+# background_od ich plany są identyczne jak bez ciężkich.
+BG_COLS = ["person", "o", "d", "o_link", "o_x", "o_y", "d_link", "d_x", "d_y", "start_s"]
+border = pd.concat([entry, exits]).drop_duplicates("link").set_index("link")
+_bld = {}
+
+
+def ends(kind, zone, n):
+    """n końców podróży w strefie: link graniczny albo budynek gminy (losowanie wagą powierzchni, jak D7/D11)."""
+    if kind != "gmina":
+        return [zone] * n, [border.x[zone]] * n, [border.y[zone]] * n
+    if zone not in _bld:
+        _bld[zone] = b[b.pt.within(gmina_geom(zone))].set_geometry("pt")
+    h = pick_buildings(_bld[zone], n)
+    return [None] * n, h.pt.x.tolist(), h.pt.y.tolist()
+
+
+def background(path, prefix, profile_col):
+    if not path:
+        return pd.DataFrame(columns=BG_COLS)
+    od = pd.read_csv(path, dtype={"o": str, "d": str})
     ex = od.trips_day * P["sample"]
     od["agents"] = np.floor(ex).astype(int)
     rest = (ex - od.agents).sort_values(ascending=False, kind="stable")
     od.loc[rest.index[:round(ex.sum()) - od.agents.sum()], "agents"] += 1
-    border = pd.concat([entry, exits]).drop_duplicates("link").set_index("link")
-    _bld = {}
-
-    def ends(kind, zone, n):
-        """n końców podróży w strefie: link graniczny albo budynek gminy (losowanie wagą powierzchni, jak D7/D11)."""
-        if kind != "gmina":
-            return [zone] * n, [border.x[zone]] * n, [border.y[zone]] * n
-        if zone not in _bld:
-            _bld[zone] = b[b.pt.within(gmina_geom(zone))].set_geometry("pt")
-        h = pick_buildings(_bld[zone], n)
-        return [None] * n, h.pt.x.tolist(), h.pt.y.tolist()
-
     rows = []
     for r in od[od.agents > 0].itertuples():
         ol, ox, oy = ends(r.o_kind, r.o, r.agents)
         dl, dx, dy = ends(r.d_kind, r.d, r.agents)
-        rows += [(f"t{r.o}_{r.d}_{k}", r.o, r.d, ol[k], ox[k], oy[k], dl[k], dx[k], dy[k]) for k in range(r.agents)]
-    bg = pd.DataFrame(rows, columns=bg.columns[:-1])
+        rows += [(f"{prefix}{r.o}_{r.d}_{k}", r.o, r.d, ol[k], ox[k], oy[k], dl[k], dx[k], dy[k]) for k in range(r.agents)]
+    bg = pd.DataFrame(rows, columns=BG_COLS[:-1])
     hp = pd.read_csv(P["background_profile"])
-    h = rng.choice(len(hp), size=len(bg), p=(hp.light_pct / hp.light_pct.sum()).to_numpy())
+    h = rng.choice(len(hp), size=len(bg), p=(hp[profile_col] / hp[profile_col].sum()).to_numpy())
     bg["start_s"] = (hp.hour_from.to_numpy()[h] * 3600 + rng.uniform(0, 3600, len(bg))).astype(int)
     for e in ("o", "d"):
         own = bg[f"{e}_link"].isna()
         bg.loc[own, f"{e}_link"] = snap_links(bg[f"{e}_x"][own], bg[f"{e}_y"][own])
     assert bg.person.is_unique and len(bg) == round(ex.sum())
+    return bg
+
+
+bg = background(P["background_od"], "t", "light_pct")
+hv = background(P["heavy_od"], "h", "heavy_pct")
 
 # --- plans.xml.gz (bez tras; mtime=0, żeby sha256 był powtarzalny) ------------------------------------
 root = etree.Element("population")
@@ -282,16 +293,20 @@ for r in meta.itertuples():
     etree.SubElement(plan, "activity", type="work", link=r.work_link, x=f"{r.work_x:.1f}", y=f"{r.work_y:.1f}", max_dur=P["work_max_dur"])
     etree.SubElement(plan, "leg", mode="car")
     etree.SubElement(plan, "activity", **home)
-for r in bg.itertuples():  # D19/K2-2: jedna podróż tlo_start -> tlo_end
-    person = etree.SubElement(root, "person", id=r.person)
-    attrs = etree.SubElement(person, "attributes")
-    for name, val in (("subpopulation", "tlo"), ("kind", "tlo")):
-        etree.SubElement(attrs, "attribute", name=name, **{"class": "java.lang.String"}).text = val
-    plan = etree.SubElement(person, "plan", selected="yes")
-    etree.SubElement(plan, "activity", type="tlo_start", link=r.o_link, x=f"{r.o_x:.1f}", y=f"{r.o_y:.1f}",
-                     end_time=f"{r.start_s // 3600:02d}:{r.start_s // 60 % 60:02d}:{r.start_s % 60:02d}")
-    etree.SubElement(plan, "leg", mode="car")
-    etree.SubElement(plan, "activity", type="tlo_end", link=r.d_link, x=f"{r.d_x:.1f}", y=f"{r.d_y:.1f}")
+for sub, df in (("tlo", bg), ("ciezkie", hv)):  # D19/K2-2, D20: jedna podróż tlo_start -> tlo_end
+    for r in df.itertuples():
+        person = etree.SubElement(root, "person", id=r.person)
+        attrs = etree.SubElement(person, "attributes")
+        for name, val in (("subpopulation", sub), ("kind", sub)):
+            etree.SubElement(attrs, "attribute", name=name, **{"class": "java.lang.String"}).text = val
+        plan = etree.SubElement(person, "plan", selected="yes")
+        etree.SubElement(plan, "activity", type="tlo_start", link=r.o_link, x=f"{r.o_x:.1f}", y=f"{r.o_y:.1f}",
+                         end_time=f"{r.start_s // 3600:02d}:{r.start_s // 60 % 60:02d}:{r.start_s % 60:02d}")
+        etree.SubElement(plan, "leg", mode="car")
+        etree.SubElement(plan, "activity", type="tlo_end", link=r.d_link, x=f"{r.d_x:.1f}", y=f"{r.d_y:.1f}")
+if len(hv):  # D20: pojazdy z pliku (qsim.vehiclesSource=fromVehiclesData): osobowy pce 1, ciężarowy heavy_pce i 80 km/h
+    for person in root:
+        etree.SubElement(person[0], "attribute", name="vehicles", **{"class": "org.matsim.vehicles.PersonVehicles"}).text =             '{"car":"%s"}' % person.get("id")
 xml = etree.tostring(root, xml_declaration=True, encoding="utf-8", pretty_print=True,
                      doctype='<!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">')
 with open(OUT, "wb") as f, gzip.GzipFile(fileobj=f, mode="wb", mtime=0, filename="") as gz:
@@ -300,6 +315,25 @@ stem = OUT.name.removesuffix(".xml.gz")
 meta.to_csv(OUT.with_name(stem + "_meta.csv"), index=False)
 strata.to_csv(OUT.with_name(stem + "_strata.csv"), index=False)
 bg.to_csv(OUT.with_name(stem + "_tlo.csv"), index=False)
+if len(hv):
+    hv.to_csv(OUT.with_name(stem + "_ciezkie.csv"), index=False)
+    NS = "http://www.matsim.org/files/dtd"
+    vd = etree.Element("vehicleDefinitions", nsmap={None: NS, "xsi": "http://www.w3.org/2001/XMLSchema-instance"})
+    vd.set("{http://www.w3.org/2001/XMLSchema-instance}schemaLocation", f"{NS} {NS}/vehicleDefinitions_v2.0.xsd")
+    for tid, length, vmax, pce in (("car", 7.5, None, 1.0), ("ciezki", 15.0, 80 / 3.6, P["heavy_pce"])):
+        vt = etree.SubElement(vd, "vehicleType", id=tid)
+        etree.SubElement(vt, "capacity", seats="1", standingRoomInPersons="0")
+        etree.SubElement(vt, "length", meter=str(length))
+        etree.SubElement(vt, "width", meter="2.5" if tid == "ciezki" else "1.0")
+        if vmax:
+            etree.SubElement(vt, "maximumVelocity", meterPerSecond=f"{vmax:.4f}")
+        etree.SubElement(vt, "passengerCarEquivalents", pce=str(pce))
+        etree.SubElement(vt, "networkMode", networkMode="car")
+    heavy_ids = set(hv.person)
+    for person in root:
+        etree.SubElement(vd, "vehicle", id=person.get("id"), type="ciezki" if person.get("id") in heavy_ids else "car")
+    with open(OUT.with_name(stem + "_vehicles.xml.gz"), "wb") as f, gzip.GzipFile(fileobj=f, mode="wb", mtime=0, filename="") as gz:
+        gz.write(etree.tostring(vd, xml_declaration=True, encoding="utf-8", pretty_print=True))
 print(f"{OUT}: {len(meta)} osób (cel {target}); budynki mieszk. {len(homes_b)}, pracy {len(work_b)}, "
       f"linki wjazdowe {len(entry)}, wyjazdowe {len(exits)}; wg rodzaju {meta.kind.value_counts().to_dict()}; odcięte gminy > {P['max_border_km']} km: {int(strata.excluded.sum())} "
-      f"({strata.n[strata.excluded].sum():.0f} os. w 100%); jobs_total {P["jobs_total"]}; tło {len(bg)}; źródła domów: {meta.home_src.str.split('_').str[0].value_counts().to_dict()}")
+      f"({strata.n[strata.excluded].sum():.0f} os. w 100%); jobs_total {P["jobs_total"]}; tło {len(bg)}; ciężkie {len(hv)} (pce {P.get("heavy_pce")}); źródła domów: {meta.home_src.str.split('_').str[0].value_counts().to_dict()}")

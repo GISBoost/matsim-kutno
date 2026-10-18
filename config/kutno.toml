@@ -29,6 +29,11 @@ work_from_home = 0.073
 background_od = "scenarios/kutno/demand/background_od_r1_w2_frac_droplocal_cap.csv"
 # D19/K3-2: godzina startu tła = profil dnia roboczego, pojazdy lekkie, SCPR 14005 Lisica 2025 (pipeline/digitize_lisica.py)
 background_profile = "config/hourly_profile_lisica2025.csv"
+# D20 (P1): tło lekkie z dostawczymi (cls=lcv) i ciężkie (cls=heavy) z pipeline/background_od.py; "" = bez ciężkich (stan R3).
+# R4: background_od = "scenarios/kutno/demand/background_od_r4_lcv_cap.csv", heavy_od = "scenarios/kutno/demand/background_od_r4_heavy_cap.csv".
+heavy_od = ""
+# D20: pce typu pojazdu ciężkiego, WR-D-13-01 tab. 4.3.1 (zamiejski z przyczepą = miejski bez przyczepy). Wrażliwość: 3.0.
+heavy_pce = 2.5
 # D10: godzina wyjazdu z domu = rozkład „dom - praca” z GBR Gdańsk 2022, Raport 3a, Rys. 46 (godzinowy,
 # punkty krzywej wektorowej odczytane przez pipeline/digitize_gbr.py, data/manifest.csv). Udziały normalizowane do 100%.
 # ZAŁOŻENIE: jednostajnie wewnątrz przedziału. Gdańsk (metropolia) != Kutno: przeniesienie rozkładu to też ZAŁOŻENIE.
