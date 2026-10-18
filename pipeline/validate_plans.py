@@ -42,12 +42,19 @@ area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[
 gmina = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
 powiat = gpd.read_file("scenarios/kutno/area/powiat.geojson").geometry.iloc[0]
 
-persons, bad_chain = [], []
+persons, bad_chain, tlo, bad_tlo = [], [], [], []
 with gzip.open(path, "rb") as f:
     for _, el in etree.iterparse(f, tag="person"):
         plans = el.findall("plan")
         seq = [c.get("type") if c.tag == "activity" else c.get("mode") for c in plans[0]] if len(plans) == 1 else []
         acts = plans[0].findall("activity") if plans else []
+        sub = {a.get("name"): a.text for a in el.iter("attribute")}.get("subpopulation")
+        if sub == "tlo":  # D19/K2-2: tło = jedna podróż tlo_start -> tlo_end, start z end_time
+            ok = seq == ["tlo_start", "car", "tlo_end"] and acts[0].get("end_time") and not acts[1].get("end_time")
+            (tlo if ok else bad_tlo).append(dict(id=el.get("id"), o=acts[0].get("link") if acts else None,
+                                                 d=acts[-1].get("link") if acts else None))
+            el.clear()
+            continue
         timing_ok = (len(acts) == 3 and acts[0].get("end_time") and not acts[0].get("max_dur")
                      and acts[1].get("max_dur") and not acts[1].get("end_time"))
         if seq != ["home", "car", "work", "car", "home"] or not timing_ok:
@@ -88,6 +95,14 @@ bad_snap = int(meta[own].home_link.map(link_type).isin(P["snap_exclude_types"]).
                + meta[meta.work_src != "exit"].work_link.map(link_type).isin(P["snap_exclude_types"]).sum())
 missing_link = int((~meta.home_link.isin(link_type.keys())).sum() + (~meta.work_link.isin(link_type.keys())).sum())
 start_ok = bool((meta.start_s == meta.dep_s).all())  # D16/A
+tl = pd.DataFrame(tlo, columns=["id", "o", "d"])
+tlo_expected = round(pd.read_csv(P["background_od"]).trips_day.sum() * P["sample"]) if P["background_od"] else 0
+tlo_meta = pd.read_csv(path.with_name(path.name.removesuffix(".xml.gz") + "_tlo.csv"))
+tlo_missing = int((~tl.o.isin(link_type.keys())).sum() + (~tl.d.isin(link_type.keys())).sum())
+tlo_report = {"persons": len(tl) + len(bad_tlo), "expected": tlo_expected, "bad_chain_n": len(bad_tlo), "links_missing": tlo_missing,
+              "same_link_od": int((tl.o == tl.d).sum()),
+              "start_by_hour": (tlo_meta.start_s // 3600).value_counts().sort_index().to_dict() if len(tlo_meta) else {},
+              "profile": P["background_profile"], "od_file": P["background_od"]}
 meta["dist_km"] = ((meta.home_x - meta.work_x) ** 2 + (meta.home_y - meta.work_y) ** 2) ** .5 / 1000
 report = {
     "plans": str(path), "sha256": sha, "sha256_rerun": sha2, "deterministic": sha == sha2,
@@ -103,6 +118,7 @@ report = {
     "return_home_differs": int((~df.same_home).sum()),
     "activities_on_excluded_link_types": bad_snap, "activity_links_missing": missing_link,
     "start_equals_profile_time_ok": start_ok,
+    "tlo": tlo_report,
     "excluded_gminas_gt_max_border_km": {"max_border_km": P["max_border_km"], "gminas": len(excluded),
                                          "persons_100pct": round(float(excluded.n.sum())),
                                          "top": excluded.sort_values("n", ascending=False).head(10)
@@ -121,7 +137,8 @@ report = {
 report["ok"] = (report["deterministic"] and not bad_chain and report["persons"] == expected
                 and report["home_outside_area"] == 0 and report["work_outside_gmina"] == 0 and report["return_home_differs"] == 0
                 and report["outbound"]["home_outside_gmina"] == 0 and report["outbound"]["work_inside_gmina"] == 0
-                and bad_snap == 0 and missing_link == 0 and start_ok)
+                and bad_snap == 0 and missing_link == 0 and start_ok
+                and tlo_report["persons"] == tlo_expected and not bad_tlo and tlo_missing == 0)
 json.dump(report, open(f"{OUT}/{PHASE}_plans.json", "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
 # --- mapa: domy, praca, wjazdy -------------------------------------------------------------------------

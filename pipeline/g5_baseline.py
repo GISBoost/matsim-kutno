@@ -51,18 +51,19 @@ with zstandard.ZstdDecompressor().stream_reader(open(runs[0] / "output_events.xm
         if m and m[1] in want:
             kinds[(m[1], m[2])] += 1
 s0 = sample(runs[0])
-for k, name in (("r", "mieszk"), ("c", "przyj"), ("o", "wyjezdz")):
+for k, name in (("r", "mieszk"), ("c", "przyj"), ("o", "wyjezdz"), ("t", "tlo")):
     g[f"model_{name}"] = g.link.map(lambda l: kinds[(l, k)] / s0)
 g["ratio"] = g.model_dir / g.gpr_light_dir
 g["gap_light_dir"] = g.gpr_light_dir - g.model_dir  # dobowa luka do zamknięcia (tło + inne cele podróży)
 cols = ["nr", "droga", "nazwa", "rola", "link", "base_kind", "gpr_all_dir", "light_share", "gpr_light_dir", "model_dir",
-        "model_min", "model_max", "model_mieszk", "model_przyj", "model_wyjezdz", "ratio", "gap_light_dir"]
+        "model_min", "model_max", "model_mieszk", "model_przyj", "model_wyjezdz", "model_tlo", "ratio", "gap_light_dir"]
 t = g[cols].round(3)
 t.to_csv(out + ".csv", index=False, lineterminator="\n")
 
 sec = g.groupby(["nr", "droga"], sort=False).agg(nazwa=("nazwa", "first"), gpr=("gpr_light_dir", "sum"),
                                                  model=("model_dir", "sum")).reset_index()
 sec["ratio"] = sec.model / sec.gpr
+sec["walidacja"] = sec.nr.isin([91124, 91866])  # D19/K4 W2: poza dopasowaniem tła
 grp = lambda m: {"gpr": round(float(sec[m].gpr.sum())), "model": round(float(sec[m].model.sum())),
                  "ratio": round(float(sec[m].model.sum() / sec[m].gpr.sum()), 3)}
 rep = {"runs": [str(d) for d in runs], "sections": len(sec),
@@ -71,20 +72,22 @@ rep = {"runs": [str(d) for d in runs], "sections": len(sec),
        "DK_pozostale": grp(~sec.droga.isin(["A1"]) & sec.droga.str.match(r"^\d") & ~sec.nr.isin([91124, 91866, 91869])
                            & sec.nr.astype(str).str.startswith("9")),
        "DW": grp(sec.nr < 20000),
+       "walidacja_poza_proba": {f"{r.droga} {r.nr}": round(float(r.ratio), 3) for r in sec[sec.walidacja].itertuples()},
+       "dopasowanie": grp(~sec.walidacja),
        "per_section": sec.round(3).to_dict(orient="records")}
 json.dump(rep, open(out + ".json", "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False)
 
 fig, ax = plt.subplots(figsize=(13, 6))
 sec = sec.sort_values("gpr")
-lab = [f"{r.droga} {r.nr}" for r in sec.itertuples()]
+lab = [f"{r.droga} {r.nr}{'  [walidacja]' if r.walidacja else ''}" for r in sec.itertuples()]
 y = range(len(sec))
 ax.barh([i + 0.2 for i in y], sec.gpr, height=0.4, color="#6c757d", label="GPR 2025: lekkie, oba kierunki (SDRDR; DW: SDRR)")
-ax.barh([i - 0.2 for i in y], sec.model, height=0.4, color="#2e86ab", label="model (dojazdy do pracy, 3 seedy, × 1/próbka)")
+ax.barh([i - 0.2 for i in y], sec.model, height=0.4, color="#2e86ab", label=f"model ({len(runs)} seed(y), × 1/próbka)")
 for i, r in zip(y, sec.itertuples()):
     ax.text(max(r.gpr, r.model) + 300, i, f"{r.ratio:.0%}", va="center", fontsize=8)
 ax.set_yticks(list(y)); ax.set_yticklabels(lab, fontsize=8); ax.set_xlabel("poj./dobę")
-ax.set_title("G5.0: model vs GPR 2025 na 19 odcinkach (przed kalibracją, bez ruchu tła)", fontsize=11)
+ax.set_title(f"model vs GPR 2025 na 19 odcinkach: {runs[0].name}", fontsize=11)
 ax.legend(fontsize=8, loc="lower right")
 fig.tight_layout(); fig.savefig(out + ".png", dpi=120)
 print(json.dumps({k: v for k, v in rep.items() if k != "per_section"}, ensure_ascii=False, indent=1))
-print(t[["nr", "droga", "rola", "gpr_light_dir", "model_dir", "model_mieszk", "model_przyj", "model_wyjezdz", "ratio"]].round(2).to_string())
+print(t[["nr", "droga", "rola", "gpr_light_dir", "model_dir", "model_mieszk", "model_przyj", "model_wyjezdz", "model_tlo", "ratio"]].round(2).to_string())

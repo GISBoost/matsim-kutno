@@ -105,3 +105,9 @@
 - R1 (D18 + K1-1, 25% × 3 seedy): 7 478 nóg car, 0 stuck, opóźnienia 106–113 poj.-h próbki (D18: 735–854). Model / GPR: A1 3%, DK w mieście 30%.
 - `background_od.py`: odcinki dopasowania ok, ale walidacja w mieście daje 140–173% GPR na Sklęczkowskiej i 155–168% na Objazdowej. Luka A1 nie rozróżnia tranzytu od relacji z Kutnem. Opcje W1–W3 w `docs/research/G5_plan_kalibracji.md` §4. Czeka na decyzję. Agentów tła jeszcze nie ma w planach.
 - W2 (decyzja użytkownika): Sklęczkowska w dopasowaniu. Tło 59 879 podróży/dobę w 100% (tranzyt 21 428, granica–gmina 30 590, gmina–gmina 7 861). Walidacja poza próbą na trasach swobodnych: Objazdowa 141%, Bitwy pod Kutnem 94%. Sesja zakończona przed symulacją z tłem; dalsze kroki w `docs/research/G5_plan_kalibracji.md` §5.
+
+## 2026-10-18: G5 / D19, run R2 (dojazdy K1-1 + tło)
+
+- `plans.py`: agenci tła (`subpopulation=tlo`, `tlo_start`–car–`tlo_end`, O-D z `background_od_r1_w2_cap.csv`, profil Lisica). Configi: activityParams bez score i strategie dla `tlo`. `validate_plans.py`: test tła. Test 2 iteracji ok.
+- R2 (25%, 1 seed): 22 448 nóg car, 0 stuck. A1 98% GPR, DK w mieście 110%, odcinki dopasowania 86%. Walidacja poza próbą: Objazdowa 131%, Bitwy pod Kutnem 90%. Opóźnienie 304 poj.-h próbki/dobę, 0 przepełnionych linków.
+- Braki na DK60 Leszno, DK91d i DK92 Pomarzany (ok. 50%) widać już w iteracji 0. Estymacja O-D miała jeden węzeł na gminę, a agenci startują z budynków w całej gminie. Następny krok: incydencja ułamkowa z wielu punktów na gminę. Raport: `reports/g5_kalibracja/g5_r2.md`.

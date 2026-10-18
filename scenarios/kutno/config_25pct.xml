@@ -53,6 +53,18 @@
 			<param name="activityType" value="work" />
 			<param name="typicalDuration" value="08:00:00" />
 		</parameterset>
+		<!-- D19/K2-2: aktywności tła (początek i koniec jednej podróży). Bez użyteczności aktywności: tło wybiera tylko trasę.
+		     typicalDuration jest wymagane przez config, przy scoringThisActivityAtAll=false nie wpływa na score. -->
+		<parameterset type="activityParams">
+			<param name="activityType" value="tlo_start" />
+			<param name="typicalDuration" value="01:00:00" />
+			<param name="scoringThisActivityAtAll" value="false" />
+		</parameterset>
+		<parameterset type="activityParams">
+			<param name="activityType" value="tlo_end" />
+			<param name="typicalDuration" value="01:00:00" />
+			<param name="scoringThisActivityAtAll" value="false" />
+		</parameterset>
 	</module>
 	<module name="replanning">
 		<!-- Bez TimeAllocationMutator: godziny wyjazdu pochodzą ze źródła (D10) i nie mają dryfować. -->
@@ -64,6 +76,17 @@
 		<parameterset type="strategysettings">
 			<param name="strategyName" value="ReRoute" />
 			<param name="subpopulation" value="person" />
+			<param name="weight" value="0.2" />
+		</parameterset>
+		<!-- D19/K2-2: tło jak pracujący: wybór z pamięci planów i ReRoute, bez zmiany celu i godziny. -->
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ChangeExpBeta" />
+			<param name="subpopulation" value="tlo" />
+			<param name="weight" value="0.8" />
+		</parameterset>
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ReRoute" />
+			<param name="subpopulation" value="tlo" />
 			<param name="weight" value="0.2" />
 		</parameterset>
 		<param name="fractionOfIterationsToDisableInnovation" value="0.8" />
