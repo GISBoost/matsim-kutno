@@ -143,3 +143,8 @@
 - R5 25% 1 seed: 33 121 nóg car, 0 stuck, 1 przepełniony link. Opóźnienie 693 poj.-h próbki (R4: 820).
 - Lekkie: 12/14 w ±15%, mediana odchyłki 0,4%, obwodnica Krośniewic 91122 100% (R4: 191%). Ciężkie: 10/14. Walidacja: Objazdowa 148% (lekkie) i 74% (ciężkie), Bitwy pod Kutnem 93% i 71%. Raport: `reports/g5_kalibracja/g5_r5.md`.
 
+## 2026-10-18: G5 / D20, baza R4
+
+- Decyzja użytkownika: R4 jest bazą, R5 wariantem wrażliwości. Uzasadnienie: `reports/g5_kalibracja/g5_r4_vs_r5_decyzja.md`. `config/kutno.toml` wskazuje macierze R4.
+- Wstrzymane do czasu audytu w osobnej sesji: R4 na 3 seedach.
+
