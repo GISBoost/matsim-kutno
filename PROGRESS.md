@@ -123,3 +123,10 @@
 - R3 25% × 3 seedy (4711, 1, 2): każdy seed 26 455 nóg car, 0 stuck, 0 przepełnionych linków; opóźnienie 359 / 367 / 362 poj.-h próbki.
 - Średnia z 3 seedów vs GPR: A1 101%, DK w Kutnie 104%, 14 odcinków dopasowania 97% (12/14 w ±15%; 10044 na granicy 85,0%), rozrzut seedów mediana 0,6%. Raport: `reports/g5_kalibracja/g5_r3.md` (sekcja „R3 na 3 seedach”).
 - **Nowa referencja 25%: `output/g5r3_25pct_s{4711,1,2}`, plany `scenarios/kutno/plans_g5r3_25pct.xml.gz`.**
+
+## 2026-10-18: G5, walidacja czasów (GUS) i źródło PCE
+
+- Czasy: dojazdy z gmin powiatu w R3 (3 seedy, 2 691 nóg). Kongestia 1,05 × czas swobodny (p90 1,13). Run / GUS: mediana 0,87. Model jest szybszy od GUS/ORS, a ok. 1/3 różnicy wyjaśniają domyślne prędkości ORS dla dróg bez tagu maxspeed (z nimi mediana 0,84 zamiast 0,76). Skrypty: `pipeline/g5_gus_czasy_r3.py`, `pipeline/g5_gus_czasy.py ors <run>`.
+- PCE: WR-D-13-01 (2023) tab. 4.3.1. Ciężarowe 2,0–3,0, dostawcze 1,0–1,5, osobno dla miasta i poza miastem. Brakujący ruch ciężki i dostawczy w pojazdach umownych: A1 104%, DK w Kutnie 82%, DW 35% ruchu lekkich.
+- Raport z wariantami P1–P3 (bez wdrożenia): `reports/g5_kalibracja/g5_czasy_pce.md`. Źródła w ZRODLA §5, PDF-y w manifeście.
+
