@@ -31,8 +31,8 @@ CLS_COLS = {"light": ["lekkie_osob"], "lcv": ["lekkie_osob", "lekkie_ciez"],
             "heavy": ["ciez_bez_przycz", "ciez_z_przycz", "autobusy", "ciagniki"]}[CLS]
 KINDS = "h" if CLS == "heavy" else "rcot"
 g = pd.read_csv("reports/g5_walidacja/gpr_linki.csv", dtype={"link": str})
-g["light_share"] = g[CLS_COLS].sum(axis=1) / g.sdr  # udział klasy CLS (nazwa kolumny z G5.0)
 g["base"] = g.sdrdr.where(g.sdrdr.notna(), g.sdr)
+g["light_share"] = g[[c + "_dr" for c in CLS_COLS]].sum(axis=1) / g.base  # udział klasy CLS w dniu roboczym (audyt K2; DW: SDRR)
 g["base_kind"] = g.sdrdr.notna().map({True: "SDRDR", False: "SDRR"})
 g["gpr_light_dir"] = g.base * g.light_share * g.udzial_kier
 g["gpr_all_dir"] = g.base * g.udzial_kier

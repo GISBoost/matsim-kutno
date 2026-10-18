@@ -64,10 +64,13 @@ def values(p):
     dw, _ = read_tab("dw_sdrr.xlsx", 7)
     dr, _ = read_tab("dk_sdrdr.xlsx", 8)
     dl, _ = read_tab("dk_sdrl.xlsx", 8)
-    dr = dr[["nr", "sdr"]].rename(columns={"sdr": "sdrdr"})
+    # audyt G5/K2: SDRDR ma własną strukturę rodzajową (tablica 3, kol. 10-17), w dzień roboczy ciężkich jest więcej niż w SDRR
+    dr = dr.rename(columns={"sdr": "sdrdr", **{c: c + "_dr" for c in STRUCT}})
     dl = dl[["nr", "sdr"]].rename(columns={"sdr": "sdrl"})
     dk = dk.merge(dr, on="nr", how="left").merge(dl, on="nr", how="left")
     sdrr = pd.concat([dk.assign(klasa="DK"), dw.assign(klasa="DW")])
+    for c in STRUCT:  # ZAŁOŻENIE: DW mają tylko SDRR, więc cel dnia roboczego = SDRR ze strukturą SDRR
+        sdrr[c + "_dr"] = sdrr[c + "_dr"].fillna(sdrr[c])
     return p.merge(sdrr, on=["klasa", "nr"], how="left")
 
 
@@ -134,6 +137,7 @@ if __name__ == "__main__":
     m["sdrdr_kier"] = m.sdrdr * m.udzial_kier
     m["droga"] = m.droga.str.replace("\n", "/")
     m["lekkie_osob"] = m.osobowe + m.mikrobusy + m.motocykle  # to porównujemy z autami modelu
+    m["lekkie_osob_dr"] = m.osobowe_dr + m.mikrobusy_dr + m.motocykle_dr  # K2: cel dnia roboczego (DW: SDRR)
     m["ciez_udzial"] = (m.lekkie_ciez + m.ciez_bez_przycz + m.ciez_z_przycz + m.autobusy) / m.sdr
     m.to_csv(OUT + "gpr_linki.csv", index=False)
     print(len(p), "punktów (strona P/L) w obszarze;", m.nr.nunique(), "odcinków przypisanych;", len(m), "wierszy link")

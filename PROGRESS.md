@@ -154,3 +154,10 @@
 - K1: `plans.py` traktuje ślepe końce dróg wjazdowych jak granicę sieci. Skan sieci: 9 ślepych końców primary/secondary, 7 było już wjazdami, nowe są 2 (DK60 N, DK92 W). `border_links.csv` 33 + 33.
 - Test: walidator planów `plans_k1_25pct` ok (sha256 powtarzalny). Diagnostyczna estymacja O-D (cel jeszcze z K2): para Dąbrowice ↔ Krośniewice 24 041 → 54 lekkich i 9 523 → 27 ciężkich na dobę, dopasowanie bez zmian 100%, tło −22% (lekkie) i −30% (ciężkie). Raport: `reports/audyt_g5/k1/k1_poprawka.md`.
 - Bez runu MATSim. Baza R4 jest nieaktualna do czasu nowej estymacji po K2 i I4.
+
+## 2026-10-18: audyt G5, poprawka K2 (D21)
+
+- `g5_gpr.py` zapisuje strukturę rodzajową SDRDR (`<klasa>_dr`, DW: SDRR jako ZAŁOŻENIE). Na 14 odcinkach DK suma klas = SDRDR, stare kolumny `gpr_linki.csv` bez zmian. `background_od.py` i `g5_baseline.py` liczą cel z `_dr`.
+- R4 vs poprawiony cel: lekkie A1 115%, DK w Kutnie 112%, 9/14; ciężkie A1 68%, DK w Kutnie 70%, 5/14; R3 A1 122%. Zgodne z audytem.
+- Nowy `g5_pce.py`: tryb `sdrr` odtwarza starą `pce_wrd13_gpr.csv` bit w bit; ze strukturą SDRDR A1 173%, DK w Kutnie 99%. Raport: `reports/audyt_g5/k2/k2_poprawka.md`.
+- Bez nowej estymacji i runu (czeka na I4).

@@ -116,7 +116,7 @@ O, D = Z[Z.kind != "exit"].reset_index(drop=True), Z[Z.kind != "entry"].reset_in
 
 # --- liczniki --------------------------------------------------------------------------------------------
 g = pd.read_csv("reports/g5_walidacja/gpr_linki.csv", dtype={"link": str})
-g["gpr"] = g.sdrdr.where(g.sdrdr.notna(), g.sdr) * g[CLS_COLS].sum(axis=1) / g.sdr * g.udzial_kier
+g["gpr"] = g[[c + "_dr" for c in CLS_COLS]].sum(axis=1) * g.udzial_kier  # audyt K2: struktura SDRDR (DW: SDRR, ZAŁOŻENIE)
 vol = []
 for d in runs:
     c = etree.parse(str(d / "output_config.xml"))

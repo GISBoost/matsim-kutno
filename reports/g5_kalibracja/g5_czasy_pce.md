@@ -61,6 +61,8 @@ Te same trasy przeliczone prędkościami ORS (`pipeline/g5_gus_czasy.py ors <run
 
 ### 2.1 Skala brakującego ruchu (GPR 2025, `pce_wrd13_gpr.csv`)
 
+> **Nieaktualne (audyt G5/K2):** tabela poniżej używa struktury SDRR. Ze strukturą dnia roboczego: A1 173%, DK w Kutnie 99% (`reports/audyt_g5/k2/k2_poprawka.md`, `pipeline/g5_pce.py`).
+
 Model ma dziś tylko lekkie: osobowe, mikrobusy i motocykle. Brakuje dostawczych (5–15% SDR) i ciężkich (> 3,5 t, autobusy, ciągniki).
 
 | grupa odcinków | brakujący ruch w pojazdach umownych, w % ruchu lekkich (mediana) |
