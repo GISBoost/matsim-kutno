@@ -248,3 +248,6 @@
 - Reguła z planu: C nieidentyfikowalne (11 tras < 12), D i E za szerokie, F na dolnej granicy.
 - W próbie: MAPE 18,5 → 13,6%, TAG 52 → 72% tras.
 - Do decyzji: C (0,8 wg reguły czy 0,58), F (0,5 czy 0,8), B (1,02 czy 1,0). Raport: `reports/etap2/g5_predkosci_d23/krok2_dopasowanie.md`.
+- Decyzja użytkownika: dobrać trasy C i powtórzyć dopasowanie następnego dnia. Do tego czasu sieć bez zmian, F i B rozstrzygnąć po nowym dopasowaniu.
+  - `sample_d23 C 4 2`: 6 nowych tras C (4 analiza, 2 walidacja), split przed requestem; C ma teraz 16 tras w analizie i 8 w walidacji.
+  - `model_times.csv` dla 120 tras, `selftest_fit` ok. Polecenia na jutro: `krok2_dopasowanie.md` (sekcja „Jutro”).

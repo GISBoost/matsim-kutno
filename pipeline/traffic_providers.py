@@ -194,16 +194,17 @@ def speed_groups(L):
                                GROUPS, "inne"), index=L.index)
 
 
-def cmd_sample_d23():
+def cmd_sample_d23(extra=None):
     """D23 krok 1: dobór tras z przewagą (>= 50% długości) każdej grupy, aż do >= 12 tras w analizie i >= 6 w walidacji
     na grupę (licząc trasy już w próbce). Trasa = najszybsza po czasie swobodnym sieci R6 (jak korytarze), długość 3-15 km
     (TAG M3.1 §4.3.3), dla D i F od 2 km. Końce: linki bez motorway/trunk/łącznic/zawrotek (jak przypinanie aktywności).
-    Jedna trasa na link startowy. Nowe trasy dopisywane do pairs.csv i split.csv (stare wiersze bez zmian)."""
+    Jedna trasa na link startowy. Nowe trasy dopisywane do pairs.csv i split.csv (stare wiersze bez zmian).
+    extra = (grupa, n_analiza, n_walidacja): dobór dodatkowych tras jednej grupy (krok 2, decyzja użytkownika: C miało 11 tras)."""
     L = links()
     L["grp"] = speed_groups(L)
     P = pd.read_csv(OUT / "pairs.csv", dtype={"start_link": str, "end_link": str})
     sp = pd.read_csv(OUT / "split.csv")
-    assert not P.kind.str.startswith("D23").any(), "trasy D23 już są w pairs.csv"
+    assert extra or not P.kind.str.startswith("D23").any(), "trasy D23 już są w pairs.csv"
     zs = sp.set_index("id").zestaw
 
     def share(route):
@@ -218,6 +219,8 @@ def cmd_sample_d23():
             have[(g, zs[p.id])] += 1
     need = {g: max(0, 12 - have[(g, "analiza")]) + max(0, 6 - have[(g, "walidacja")]) for g in GROUPS}
     print("istniejące trasy z przewagą grupy (analiza, walidacja):", {g: (have[(g, 'analiza')], have[(g, 'walidacja')]) for g in GROUPS})
+    if extra:
+        need = {g: (extra[1] + extra[2] if g == extra[0] else 0) for g in GROUPS}
     print("potrzebne nowe:", need)
 
     G = nx.DiGraph()
@@ -226,12 +229,15 @@ def cmd_sample_d23():
     ok_end = ~L.type.isin(["motorway", "motorway_link", "trunk", "trunk_link", "boundary_turnaround"])
     ends = L[ok_end]
     by_from = ends.groupby("from_node").groups
-    rng = np.random.default_rng(SEED + 23)  # seed z config/kutno.toml, przesunięty dla D23
+    rng = np.random.default_rng(SEED + 23 + (1 if extra else 0))  # seed z config/kutno.toml, przesunięty dla D23 (+1: dobór)
+    used = set(P.start_link)
     found = {g: [] for g in GROUPS}
     tries = 0
     while any(len(found[g]) < need[g] for g in GROUPS) and tries < 4000:
         tries += 1
         o = ends.index[rng.integers(len(ends))]
+        if o in used:
+            continue
         dist, paths = nx.single_source_dijkstra(G, L.to_node[o], cutoff=1500)
         cand = [d for n in dist for d in by_from.get(n, []) if d != o]
         rng.shuffle(cand)
@@ -249,9 +255,10 @@ def cmd_sample_d23():
     for g in GROUPS:
         lst = found[g]
         rng.shuffle(lst)
-        nv = max(0, 6 - have[(g, "walidacja")])
+        nv = extra[2] if extra else max(0, 6 - have[(g, "walidacja")])
+        off = int((P.kind == f"D23_{g}").sum())
         for i, (o, d, route, km, sh) in enumerate(lst):
-            rid = f"D23{g}_{i:02d}"
+            rid = f"D23{g}_{i + off:02d}"
             rows.append(dict(id=rid, kind=f"D23_{g}", person="", start_link=o, end_link=d, o_x=L.x1[o], o_y=L.y1[o],
                              d_x=L.x1[d], d_y=L.y1[d], model_dep_s4711="", model_km=round(km, 2), mode="car", route=" ".join(route)))
             srows.append(dict(id=rid, warstwa=f"D23_{g}", zestaw="walidacja" if i < nv else "analiza"))
@@ -482,6 +489,6 @@ if __name__ == "__main__":
     if a[0] == "sample":
         cmd_sample()
     elif a[0] == "sample_d23":
-        cmd_sample_d23()
+        cmd_sample_d23((a[1], int(a[2]), int(a[3])) if len(a) > 1 else None)
     elif a[0] == "run":
         cmd_run(a[1], "--dry-run" in a, "--test" in a, "--fit" in a)

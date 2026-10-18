@@ -66,7 +66,7 @@ Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odci
 
 | pomysł | stan | uwagi |
 |---|---|---|
-| **Prędkości sieci (cruise speeds) + ponowna walidacja TomTom** | ▶ **następny krok: D23 (wariant a, factor per grupa dróg), [plan](reports/etap2/g5_predkosci_d23/plan.md); do decyzji 4 punkty z planu §5** | factor 0,8 (D13) zaniża prędkości o ok. 15% wobec TomTom, a czasy tras zgadzają się tylko przez brak opóźnień węzłów. Warianty, pułapki i procedura powtórki: [wnioski_i_dalej.md](reports/etap2/g5_czasy_tomtom/wnioski_i_dalej.md). Wymaga decyzji w DECISIONS |
+| **Prędkości sieci (cruise speeds) + ponowna walidacja TomTom** | ▶ **D23 w toku**: krok 1 ✅, krok 2: dopasowanie 18.10 (C ≈ 0,58, F na granicy 0,5); dobrane trasy C, **ponowne dopasowanie 19.10** ([krok2](reports/etap2/g5_predkosci_d23/krok2_dopasowanie.md), [plan](reports/etap2/g5_predkosci_d23/plan.md)) | factor 0,8 (D13) zaniża prędkości o ok. 15% wobec TomTom, a czasy tras zgadzają się tylko przez brak opóźnień węzłów. Warianty, pułapki i procedura powtórki: [wnioski_i_dalej.md](reports/etap2/g5_czasy_tomtom/wnioski_i_dalej.md). Wymaga decyzji w DECISIONS |
 | Walidacja czasów TomTom (D22) | ✅ zrobiona dla R6; HERE przygotowane (brak klucza) | [g5_czasy_tomtom.md](reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md) |
 | Geometria linków z OSM | 💡 propozycja | potrzebna do zgodności tras i walidacji dróg tertiary/unclassified; przyda się w G6 |
 | Transport publiczny i wybór trybu | G4 | GTFS, SubtourModeChoice, kalibracja ASC |

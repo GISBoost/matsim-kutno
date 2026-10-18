@@ -51,3 +51,24 @@ Reguły z planu dają f_final = (A 0,92; B 1,02; C 0,80; D 0,80; E 0,80; F 0,50)
 1. **C:** zostawić regułę (0,8, bo 11 tras) czy przyjąć 0,58? Przyjęcie to wyjątek od reguły ustalonej przed dopasowaniem, a walidacja go oceni. Trzecia opcja: dobrać brakujące trasy C (ok. 3–6 requestów na trasę) i powtórzyć dopasowanie. Kosztuje to nowe dopasowanie (ok. 230 requestów, można jutro).
 2. **F na granicy 0,5:** przyjąć 0,5 (25 km/h na ulicach osiedlowych miasta, w praktyce opóźnienia skrzyżowań w prędkości) czy zostawić 0,8 do czasu G1?
 3. **B > 1** (prędkość powyżej limitu): przyjąć 1,02 czy obciąć do 1,0?
+
+## Decyzja użytkownika i dobór tras C (2026-10-18)
+
+Cytat decyzji: „Dobierz brakujące trasy C i powtórz dopasowanie jutro (nowy limit dzienny). Do tego czasu nie przebudowuj sieci. F i B decyzja po nowym dopasowaniu.”
+
+- `uv run python pipeline/traffic_providers.py sample_d23 C 4 2`: **6 nowych tras C** (D23C_15–20, 5–14 km).
+  - 4 trasy do analizy (zapas na wykluczenia w kontroli 50 m) i 2 do walidacji (proporcja 2/3 do 1/3).
+  - Seed 4711 + 24, linki startowe różne od wszystkich dotychczasowych.
+  - `split.csv` dopisany **przed requestem**. Stare wiersze `pairs.csv` i `split.csv` bez zmian (`cmp`).
+- C ma teraz 16 tras w analizie i 8 w walidacji (z przewagą grupy). Pozostałe grupy bez zmian.
+- `model_times.csv`: 120 tras × 3 okna. `selftest_fit` ok (błąd maks. 0,016).
+- Sieć i model bez zmian. **Wyniki dopasowania z tego dnia (tabela wyżej) są zastąpione przez jutrzejsze**, bo zmienia się zestaw analizy.
+
+### Jutro (nowa doba UTC)
+
+1. `uv run python pipeline/traffic_metrics.py selftest_fit`
+2. `uv run python pipeline/traffic_providers.py run tomtom --fit --test` (3 requesty)
+3. `uv run python pipeline/traffic_providers.py run tomtom --fit` (240 requestów: 80 tras analizy × 3 okna). Wynik nadpisze `fit_f_g_tomtom.csv`, `fit_tomtom.json`, wykres i `metrics_r6_analiza_tomtom.csv`. Ten raport zapisuje wyniki z 18.10 na stałe.
+4. Decyzje F i B, potem krok 3 (sieć, runy R7).
+
+Budżet: po jutrzejszym dopasowaniu łącznie ok. 1 237. Krok 5 (120 tras × 3 + 25 segmentów + probe) to ok. 390 requestów, więc `BUDGET` trzeba będzie podnieść z 1 400 do ok. 1 650. Limit dzienny 2 000 nie jest zagrożony, jeśli krok 5 pójdzie innego dnia niż dopasowanie.
