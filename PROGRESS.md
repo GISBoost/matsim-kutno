@@ -239,3 +239,12 @@
 - Czasy modelu R6 dla 114 tras (`model_times.csv`).
 - Budżet zmniejszony po informacji o limicie konta (2 500/dobę): krok 1 bez requestów, D23 razem ok. 620. Skrypt ma limit `BUDGET_DAY = 2000` (doba UTC, liczona z logu).
 - Raport: `reports/etap2/g5_predkosci_d23/krok1_probka.md`.
+
+## 2026-10-18: D23 krok 2: dopasowanie f_g na zestawie analizy (TomTom)
+
+- Narzędzia: `traffic_metrics.py` (`RouteModel`, `fit_factors`, `selftest_fit`: syntetyczne f_g odtworzone, błąd maks. 0,015) i `traffic_providers.py run tomtom --fit` (dane w pamięci, D22). Dodane `scipy` (`uv add`).
+- 231 requestów (3 testowe + 228), łącznie 994. 74 trasy analizy × 3 okna (2 trasy wyłączone, start > 50 m).
+- f dopasowane (przedział 90%): A 0,92 (0,82–1,01), B 1,02 (0,94–1,10), C 0,58 (0,50–0,65), D 0,77 (0,61–0,95), E 0,88 (0,73–1,06), F 0,50 (na granicy).
+- Reguła z planu: C nieidentyfikowalne (11 tras < 12), D i E za szerokie, F na dolnej granicy.
+- W próbie: MAPE 18,5 → 13,6%, TAG 52 → 72% tras.
+- Do decyzji: C (0,8 wg reguły czy 0,58), F (0,5 czy 0,8), B (1,02 czy 1,0). Raport: `reports/etap2/g5_predkosci_d23/krok2_dopasowanie.md`.

@@ -1,0 +1,7 @@
+grupa,f_dopasowane,p05,p95,km_w_trasach,trasy_z_przewaga,identyfikowalna,f_final,na_granicy
+A,0.9233,0.8208,1.0079,237.8486,12,True,0.9233,False
+B,1.0234,0.9369,1.1,210.3677,12,True,1.0234,False
+C,0.5751,0.5,0.6512,189.313,11,False,0.8,False
+D,0.7712,0.6087,0.9478,37.4444,11,False,0.8,False
+E,0.8768,0.7276,1.0617,119.1562,12,False,0.8,False
+F,0.5,0.5,0.552,55.3911,12,True,0.5,True

@@ -306,7 +306,10 @@ def requests_for(provider, batch):
         for when in ["2026-10-13T07:30:00+02:00", "now", f"{DAY}T07:30:00{TZ}", "2026-10-27T07:30:00+01:00"]:
             ep, p = route(r, when)
             reqs.append((ep, p, dict(id=r.id, when=when)))
-    elif batch == "main":
+    elif batch in ("main", "fit"):
+        if batch == "fit":  # D23 krok 2: tylko zestaw analizy (walidacja nie może wpłynąć na f_g)
+            sp = pd.read_csv(OUT / "split.csv").set_index("id").zestaw
+            P = P[P.id.map(sp) == "analiza"]
         for _, r in P.iterrows():
             for w, hm in WINDOWS.items():
                 ep, p = route(r, f"{DAY}T{hm}:00{TZ}")
@@ -331,7 +334,7 @@ def fetch(provider, batch, dry=False, test=False):
     Wznowienie przerwanego przebiegu = ponowne requesty (bez cache na dysku); budżet liczony z logu."""
     reqs = requests_for(provider, batch)
     if test:  # --test: 1 para × 3 okna i 2 segmenty, sprawdza całą ścieżkę kodu na prawdziwych odpowiedziach
-        reqs = reqs[:3] if batch == "main" else reqs[:2] if batch == "flow" else reqs
+        reqs = reqs[:3] if batch in ("main", "fit") else reqs[:2] if batch == "flow" else reqs
     used = used_requests(provider)
     print(f"{provider}/{batch}: requestów {len(reqs)}; zużyte dotąd {used}, budżet {BUDGET}")
     if dry:
@@ -392,8 +395,48 @@ def probe_summary(recs):
     return out
 
 
-def cmd_run(provider, dry, test=False):
+def cmd_run_fit(provider, dry, test):
+    """D23 krok 2: trasy analizy × 3 okna -> kontrole geometrii -> dopasowanie f_g (w pamięci) -> na dysk tylko agregaty."""
+    sys.path.insert(0, str(Path(__file__).parent))
+    import traffic_metrics as tm
+    recs = fetch(provider, "fit", dry, test)
+    if dry:
+        return
+    R, Sg, Mt, kontrole, _ = tm.compare(provider, recs)
+    ok = R[(R.d_start_m <= 50) & (R.d_end_m <= 50)]
+    kontr = {k: v for k, v in kontrole.items() if k not in ("pary_trasa_ponizej_70pct",)}
+    kontr["trasy_wyłączone_ponad_50m"] = sorted(set(R.id) - set(ok.id))
+    print("kontrole:", json.dumps(kontr, ensure_ascii=False, default=str))
+    if test:
+        print("TEST: http", [r["http"] for r in recs], "obserwacji", len(ok))
+        return
+    T, s = tm.fit_factors(ok[["id", "okno", "hist_s"]])
+    out = tm.OUT_D23
+    T.round(4).to_csv(out / f"fit_f_g_{provider}.csv", index=False, lineterminator="\n")
+    Mt[Mt.zestaw == "analiza"].round(4).to_csv(out / f"metrics_r6_analiza_{provider}.csv", index=False, lineterminator="\n")
+    meta = dict(dostawca=provider, wyslane_utc=[min(r["utc"] for r in recs), max(r["utc"] for r in recs)], requesty=len(recs),
+                http=pd.Series([r["http"] for r in recs]).value_counts().to_dict(), kontrole=kontr, dopasowanie=s)
+    json.dump(meta, open(out / f"fit_{provider}.json", "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False, default=float)
+    plt = tm.plt
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    x = np.arange(len(T))
+    ax.errorbar(x, T.f_dopasowane, yerr=[T.f_dopasowane - T.p05, T.p95 - T.f_dopasowane], fmt="o", color="#4fc3f7", capsize=4,
+                label="f_g dopasowane, przedział 90% (bootstrap)")
+    ax.scatter(x, T.f_final, marker="x", color="#ffb74d", zorder=3, label="f_final (nieidentyfikowalne → 0,8)")
+    ax.axhline(tm.F_D13, color="w", ls="--", lw=0.8, label="D13: 0,8")
+    names = {"A": "A autostrada", "B": "B DK/DW poza", "C": "C tert./uncl. poza", "D": "D osiedlowe poza", "E": "E główne miasto", "F": "F lokalne miasto"}
+    ax.set_xticks(x, [f"{names[g]}\n(n {n}, {k:.0f} km)" for g, n, k in zip(T.grupa, T.trasy_z_przewaga, T.km_w_trasach)], fontsize=7)
+    ax.set_ylabel("f_g = freespeed / limit"); ax.set_ylim(0.45, 1.15); ax.legend(fontsize=7)
+    ax.set_title(f"D23: współczynnik prędkości per grupa, dopasowany do {provider} historic (zestaw analizy, 3 okna)", fontsize=9)
+    fig.tight_layout(); fig.savefig(out / f"fit_f_g_{provider}.png", dpi=140)
+    print(T.round(3).to_string())
+    print(json.dumps(s, indent=1, default=float))
+
+
+def cmd_run(provider, dry, test=False, fit=False):
     """Cały przebieg w jednym procesie: requesty -> metryki -> niezależna kontrola -> agregaty na dysk; odpowiedzi znikają."""
+    if fit:
+        return cmd_run_fit(provider, dry, test)
     import subprocess
     sys.path.insert(0, str(Path(__file__).parent))
     import traffic_metrics as tm
@@ -441,4 +484,4 @@ if __name__ == "__main__":
     elif a[0] == "sample_d23":
         cmd_sample_d23()
     elif a[0] == "run":
-        cmd_run(a[1], "--dry-run" in a, "--test" in a)
+        cmd_run(a[1], "--dry-run" in a, "--test" in a, "--fit" in a)

@@ -465,6 +465,128 @@ def mapa(provider, R, Sg, out):
     plt.close(fig)
 
 
+# ---------------------------------------------------------------- D23: dopasowanie f_g (plan reports/etap2/g5_predkosci_d23/plan.md §2)
+OUT_D23 = Path("reports/etap2/g5_predkosci_d23")
+F_LO, F_HI, F_D13 = 0.5, 1.1, 0.8
+
+
+class RouteModel:
+    """Czas swobodny trasy jako funkcja f_g: sum L / min(limit * f_g, v_cap) + 0,5 s na link (średnio floor(x) + 1, I1).
+    Linki poza grupami (zawrotki) mają stały freespeed. Ciężkie: v_cap = 80 km/h (D20). Pierwszy link trasy pomijany
+    (noga car startuje na jego końcu)."""
+
+    def __init__(self, ids):
+        import traffic_providers as tp
+        L = tp.links()
+        L["grp"] = tp.speed_groups(L)
+        self.groups = tp.GROUPS
+        gi = {g: i for i, g in enumerate(self.groups)}
+        P = pd.read_csv(OUT / "pairs.csv", dtype={"start_link": str, "end_link": str}).set_index("id")
+        r_idx, length, allowed, gidx, fixed_v, cap = [], [], [], [], [], []
+        for k, i in enumerate(ids):
+            p = P.loc[i]
+            route = p.route.split()[1:]
+            x = L.loc[route]
+            r_idx += [k] * len(x)
+            length += x.length.tolist()
+            allowed += x.allowed_speed.fillna(0).tolist()
+            gidx += [gi.get(g, -1) for g in x.grp]
+            fixed_v += x.freespeed.tolist()
+            cap += [VMAX_HEAVY if p["mode"] == "truck" else np.inf] * len(x)
+        self.ids, self.n = list(ids), len(ids)
+        self.r, self.L, self.a, self.g = np.array(r_idx), np.array(length), np.array(allowed), np.array(gidx)
+        self.v0, self.cap = np.array(fixed_v), np.array(cap)
+        grouped = self.g >= 0
+        # D13: freespeed = limit × 0,8 dla wszystkich linków w grupach (kontrola spójności z siecią R6)
+        assert np.allclose(self.v0[grouped], self.a[grouped] * F_D13, rtol=1e-6), "freespeed != 0,8 × allowed_speed"
+        self.nlinks = np.bincount(self.r, minlength=self.n)
+        km = pd.DataFrame(dict(r=self.r, g=self.g, L=self.L))
+        self.km = km[km.g >= 0].groupby("g").L.sum().reindex(range(len(self.groups)), fill_value=0) / 1000
+
+    def times(self, f, sel=None):
+        v = np.where(self.g >= 0, self.a * np.asarray(f)[np.maximum(self.g, 0)], self.v0)
+        v = np.minimum(v, self.cap)
+        t = np.bincount(self.r, self.L / v, minlength=self.n) + 0.5 * self.nlinks
+        return t if sel is None else t[sel]
+
+
+def fit_factors(H, seed=4711 + 23, n_boot=1000):  # seed z config/kutno.toml + 23 (jak sample_d23)
+    """H: id, okno, hist_s (dostawca, tylko zestaw analizy). Zwraca tabelę f_g z przedziałem 90% (bootstrap po trasach),
+    flagą identyfikowalności i metrykami przed (f = 0,8) i po dopasowaniu (przewidywanie bez nowego runu: Delta z R6 stałe)."""
+    from scipy.optimize import least_squares
+    ids = sorted(H.id.unique())
+    rm = RouteModel(ids)
+    M = pd.read_csv(OUT / "model_times.csv").set_index(["id", "okno"])
+    H = H.copy()
+    H["k"] = H.id.map({i: k for k, i in enumerate(ids)})
+    base = rm.times([F_D13] * len(rm.groups))
+    # Delta = kongestia R6 (mediana 5 runów) ponad czas swobodny tej samej formuły przy f = 0,8
+    H["delta"] = [M.loc[(i, w), "model_med"] - base[k] for i, w, k in zip(H.id, H.okno, H.k)]
+    k_arr, d_arr, y_arr = H.k.values, H.delta.values, np.log(H.hist_s.values)
+
+    def resid(f, rows):
+        return np.log(rm.times(f)[k_arr[rows]] + d_arr[rows]) - y_arr[rows]
+
+    allrows = np.arange(len(H))
+    x0 = np.full(len(rm.groups), F_D13)
+    sol = least_squares(resid, x0, bounds=(F_LO, F_HI), args=(allrows,))
+    rng = np.random.default_rng(seed)
+    by_route = [np.flatnonzero(k_arr == k) for k in range(rm.n)]
+    boot = []
+    for _ in range(n_boot):
+        pick = rng.integers(rm.n, size=rm.n)
+        rows = np.concatenate([by_route[k] for k in pick])
+        boot.append(least_squares(resid, sol.x, bounds=(F_LO, F_HI), args=(rows,)).x)
+    boot = np.array(boot)
+    lo, hi = np.percentile(boot, 5, axis=0), np.percentile(boot, 95, axis=0)
+    # trasy z przewagą grupy (>= 50% długości) w zestawie dopasowania
+    km_r = pd.DataFrame(dict(r=rm.r, g=rm.g, L=rm.L)).query("g >= 0").pivot_table(index="r", columns="g", values="L", aggfunc="sum").fillna(0)
+    dom = km_r.idxmax(axis=1)[km_r.max(axis=1) / km_r.sum(axis=1) >= 0.5]
+    T = pd.DataFrame(dict(grupa=rm.groups, f_dopasowane=sol.x, p05=lo, p95=hi, km_w_trasach=rm.km.values,
+                          trasy_z_przewaga=[int((dom == i).sum()) for i in range(len(rm.groups))]))
+    T["identyfikowalna"] = (T.trasy_z_przewaga >= 12) & ((T.p95 - T.p05) / 2 <= 0.1)
+    T["f_final"] = np.where(T.identyfikowalna, T.f_dopasowane, F_D13)
+    T["na_granicy"] = np.isclose(T.f_dopasowane, F_LO) | np.isclose(T.f_dopasowane, F_HI)
+
+    def metr(f):
+        e = rm.times(f)[k_arr] + d_arr
+        rel = (e - H.hist_s.values) / H.hist_s.values
+        return dict(MAPE_pct=np.abs(rel).mean() * 100, RMSPE_pct=np.sqrt((rel ** 2).mean()) * 100,
+                    mediana_model_do_dost=float(np.median(e / H.hist_s.values)),
+                    TAG_15pct_lub_1min_pct=float((np.abs(e - H.hist_s.values) <= np.maximum(0.15 * H.hist_s.values, 60)).mean() * 100))
+    summary = dict(n_tras=rm.n, n_obserwacji=len(H), n_boot=n_boot, przed_f08=metr(x0), po_f_dopasowane=metr(sol.x),
+                   po_f_final=metr(T.f_final.values), koszt_przed=float((resid(x0, allrows) ** 2).sum()),
+                   koszt_po=float((resid(sol.x, allrows) ** 2).sum()), status_optymalizacji=int(sol.status))
+    return T, summary
+
+
+def cmd_selftest_fit():
+    """Syntetyczny dostawca: czasy z modelu przy znanych f_g (+ Delta z R6) × szum log-normalny 5%; dopasowanie musi je odtworzyć."""
+    sp = pd.read_csv(OUT / "split.csv").set_index("id").zestaw
+    M = pd.read_csv(OUT / "model_times.csv")
+    M = M[M.id.map(sp) == "analiza"]
+    ids = sorted(M.id.unique())
+    rm = RouteModel(ids)
+    f_true = np.array([0.95, 0.92, 0.70, 0.62, 0.75, 0.66])
+    base, t = rm.times([F_D13] * 6), rm.times(f_true)
+    k = M.id.map({i: j for j, i in enumerate(ids)}).values
+    rng = np.random.default_rng(1)
+    H = pd.DataFrame(dict(id=M.id.values, okno=M.okno.values,
+                          hist_s=(t[k] + (M.model_med.values - base[k])) * np.exp(rng.normal(0, 0.05, len(M)))))
+    T, s = fit_factors(H, n_boot=200)
+    T["f_true"] = f_true
+    print(T.round(3).to_string())
+    print(json.dumps(s, indent=1, default=float))
+    err = (T.f_dopasowane - T.f_true).abs()
+    assert (err < 0.06).all(), err
+    assert ((T.p05 <= T.f_true) & (T.f_true <= T.p95)).sum() >= 5
+    # bez szumu i przy f = 0,8: koszt 0 (spójność formuły z model_times)
+    H0 = pd.DataFrame(dict(id=M.id.values, okno=M.okno.values, hist_s=M.model_med.values))
+    T0, s0 = fit_factors(H0, n_boot=5)
+    assert np.allclose(T0.f_dopasowane, F_D13, atol=1e-3) and s0["koszt_przed"] < 1e-12, (T0, s0)
+    print("selftest_fit ok: f_g odtworzone (błąd maks. %.3f), przy danych = model f = 0,8 i koszt 0" % err.max())
+
+
 def cmd_selftest():
     """Syntetyczny dostawca = model × znany współczynnik; metryki muszą go odtworzyć."""
     P = pd.read_csv(OUT / "pairs.csv")
@@ -519,5 +641,7 @@ if __name__ == "__main__":
     a = sys.argv[1:]
     if a[0] == "model":
         cmd_model()
+    elif a[0] == "selftest_fit":
+        cmd_selftest_fit()
     elif a[0] == "selftest":
         cmd_selftest()
