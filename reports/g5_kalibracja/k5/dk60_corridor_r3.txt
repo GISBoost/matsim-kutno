@@ -1,0 +1,87 @@
+=== korytarz 3177068500003f -> 2485778070001r
+               link  len     type  lanes     cap  v_kmh  allowed            src  vol100                           name    ref osm_max osm_lanes    junction
+0    3177068500003f  168  primary    2.0  3000.0     72       90            tag    5348                      Objazdowa  60;92      90         2         NaN
+1    5899301040000f   12  primary    1.0  3000.0     72       90            tag    5348                      Objazdowa  60;92      90         1         NaN
+2    2001576750000f   13  primary    1.0  3000.0     56       70            tag    4880                      Objazdowa  60;92      70         1         NaN
+3    2446692050004f  166  primary    2.0  3000.0     56       70            tag    4880                      Objazdowa  60;92      70         2         NaN
+4    8181625600000r   10  primary    1.0  3000.0     56       70            tag    7328                   Sklêczkowska     92      70       NaN         NaN
+5    8181625590000f   16  primary    1.0  3000.0     56       70            tag    3356                            NaN     60      70         1         NaN
+6   11418215400002f    9  primary    1.0  3000.0     56       70            tag    5856               Bitwy pod Kutnem     60      70         1         NaN
+7    2446231220003f  102  primary    2.0  3000.0     56       70            tag    5856               Bitwy pod Kutnem     60      70         2         NaN
+8    2446231280003f   45  primary    1.0  3000.0     56       70            tag    4408               Bitwy pod Kutnem     60      70         1         NaN
+9    2007322590006r  151  primary    1.0  1500.0     72       90            tag    4340               Bitwy pod Kutnem     60      90         2         NaN
+10   2007322610000r   37  primary    1.0  3000.0     72       90            tag    4340               Bitwy pod Kutnem     60      90         2         NaN
+11   4035268210000r  248  primary    1.0  1500.0     72       90            tag    4460               Bitwy pod Kutnem     60      90         2         NaN
+12   1728934520009r  499  primary    1.0  1500.0     72       90            tag    4476               Bitwy pod Kutnem     60      90         2         NaN
+13   4035268220003r  347  primary    1.0  1500.0     72       90            tag    4448               Bitwy pod Kutnem     60      90         2         NaN
+14   2007308550003f   41  primary    1.0  3000.0     40       50            tag    4448               Bitwy pod Kutnem     60      50         1         NaN
+15   5452223080001f    8  primary    1.0  3000.0     40       50            tag    4652        Rondo Romana Dmowskiego     60      50         1  roundabout
+16   5448549660003f   16  primary    1.0  3000.0     40       50            tag    4156        Rondo Romana Dmowskiego     60      50         1  roundabout
+17   1728934620001f    7  primary    1.0  3000.0     40       50            tag    4700        Rondo Romana Dmowskiego     60      50         1  roundabout
+18   2007308530004f   43  primary    1.0  3000.0     72       90            tag    3160               Bitwy pod Kutnem     60      90         1         NaN
+19   2597208400000r   24  primary    1.0  3000.0     40       50  default_urban    3160               Bitwy pod Kutnem     60     NaN         2         NaN
+20   2597208420000r   62  primary    1.0  1500.0     40       50  default_urban    3160               Bitwy pod Kutnem     60     NaN         2         NaN
+21   2597208390020r  789  primary    1.0  1500.0     56       70            tag    3160               Bitwy pod Kutnem     60      70         2         NaN
+22   2597208440001r   81  primary    1.0  1500.0     40       50  default_urban    3160               Bitwy pod Kutnem     60     NaN         2         NaN
+23   1728934490000r   44  primary    1.0  3000.0     40       50  default_urban    3160               Bitwy pod Kutnem     60     NaN         2         NaN
+24   2000758610003f   35  primary    1.0  3000.0     40       50            tag    3160               Bitwy pod Kutnem     60      50         1         NaN
+25   5449800800008f    5  primary    1.0  3000.0     40       50  default_urban    4360  Rondo Stanis³awa Jasiukowicza     60     NaN         1  roundabout
+26   5449800490001f   13  primary    1.0  3000.0     40       50  default_urban    3440  Rondo Stanis³awa Jasiukowicza     60     NaN         1  roundabout
+27   1728934640003f   18  primary    1.0  3000.0     40       50  default_urban    4320  Rondo Stanis³awa Jasiukowicza     60     NaN         1  roundabout
+28   2000758650002f   41  primary    1.0  3000.0     72       90            tag    2992               Bitwy pod Kutnem     60      90         1         NaN
+29   2485778070001r   86  primary    1.0  1500.0     40       50  default_urban    2992               Bitwy pod Kutnem     60     NaN         2         NaN
+czas swobodny [min] 3.18 d³ugoœæ [km] 3.14
+=== korytarz 2485778070001f -> 2446692050004f
+              link  len     type  lanes     cap  v_kmh  allowed            src  vol100                           name    ref osm_max osm_lanes    junction
+0   2485778070001f   86  primary    1.0  1500.0     40       50  default_urban    3028               Bitwy pod Kutnem     60     NaN         2         NaN
+1   2485778200003f   42  primary    1.0  3000.0     40       50            tag    3028               Bitwy pod Kutnem     60      50         1         NaN
+2   1728934640007f    3  primary    1.0  3000.0     40       50  default_urban    4356  Rondo Stanis³awa Jasiukowicza     60     NaN         1  roundabout
+3   5449800480001f   11  primary    1.0  3000.0     40       50  default_urban    2752  Rondo Stanis³awa Jasiukowicza     60     NaN         1  roundabout
+4   5449800800003f   17  primary    1.0  3000.0     40       50  default_urban    4468  Rondo Stanis³awa Jasiukowicza     60     NaN         1  roundabout
+5   2000758640004f   37  primary    1.0  3000.0     72       90            tag    3268               Bitwy pod Kutnem     60      90         1         NaN
+6   1728934490000f   44  primary    1.0  3000.0     40       50  default_urban    3268               Bitwy pod Kutnem     60     NaN         2         NaN
+7   2597208440001f   81  primary    1.0  1500.0     40       50  default_urban    3260               Bitwy pod Kutnem     60     NaN         2         NaN
+8   2597208390020f  789  primary    1.0  1500.0     56       70            tag    3260               Bitwy pod Kutnem     60      70         2         NaN
+9   2597208420000f   62  primary    1.0  1500.0     40       50  default_urban    3260               Bitwy pod Kutnem     60     NaN         2         NaN
+10  2597208400000f   24  primary    1.0  3000.0     40       50  default_urban    3260               Bitwy pod Kutnem     60     NaN         2         NaN
+11  2007308560004f   43  primary    1.0  3000.0     40       50            tag    3260               Bitwy pod Kutnem     60      50         1         NaN
+12  1728934620007f    8  primary    1.0  3000.0     40       50            tag    4800        Rondo Romana Dmowskiego     60      50         1  roundabout
+13  5448549650003f   18  primary    1.0  3000.0     40       50            tag    3572        Rondo Romana Dmowskiego     60      50         1  roundabout
+14  5452072960001f   10  primary    1.0  3000.0     40       50            tag    4868        Rondo Romana Dmowskiego     60      50         1  roundabout
+15  2007308510003f   37  primary    1.0  3000.0     72       90            tag    4664               Bitwy pod Kutnem     60      90         1         NaN
+16  4035268220003f  347  primary    1.0  1500.0     72       90            tag    4664               Bitwy pod Kutnem     60      90         2         NaN
+17  1728934520009f  499  primary    1.0  1500.0     72       90            tag    4692               Bitwy pod Kutnem     60      90         2         NaN
+18  4035268210000f  248  primary    1.0  1500.0     72       90            tag    4688               Bitwy pod Kutnem     60      90         2         NaN
+19  2007322610000f   37  primary    1.0  3000.0     72       90            tag    4568               Bitwy pod Kutnem     60      90         2         NaN
+20  2007322590006f  151  primary    1.0  1500.0     72       90            tag    4568               Bitwy pod Kutnem     60      90         2         NaN
+21  2001576800004f   46  primary    1.0  3000.0     56       70            tag    4636               Bitwy pod Kutnem     60      70         1         NaN
+22  2446231250007f  131  primary    3.0  4500.0     40       50            tag    6036               Bitwy pod Kutnem     60      50         3         NaN
+23  3177068500003f  168  primary    2.0  3000.0     72       90            tag    5348                      Objazdowa  60;92      90         2         NaN
+24  5899301040000f   12  primary    1.0  3000.0     72       90            tag    5348                      Objazdowa  60;92      90         1         NaN
+25  2001576750000f   13  primary    1.0  3000.0     56       70            tag    4880                      Objazdowa  60;92      70         1         NaN
+26  2446692050004f  166  primary    2.0  3000.0     56       70            tag    4880                      Objazdowa  60;92      70         2         NaN
+czas swobodny [min] 3.24 d³ugoœæ [km] 3.13
+
+=== 91124 N? 3177068500003f: 5380 poj./dobê (100%)
+  wg rodzaju: {'c': 1108, 't': 3692, 'o': 136, 'r': 444}
+  top relacje t³a: [('t1002011_1002044', 628), ('t1885522040087f_2473952060000f', 328), ('t1885522040087f_2473952090006f', 164), ('t1885522040087f_2942461020000f', 164), ('t1885522040087f_2473952180001f', 160), ('t1885522040087f_1002062', 116), ('t1885522040087f_15488949470001r', 88), ('t1885522040087f_15488949440000r', 88), ('t1885522040087f_2473952030015f', 84), ('t1885522040087f_410463920004f', 84)]
+  poprzedni link: [('8181625600000f', 2836), ('2446231250007f', 2504), ('-', 32), ('2446692050004f', 8)]
+  nastêpny link: [('5899301040000f', 5348), ('-', 32)]
+
+=== 91124 S? 2446692050004f: 4888 poj./dobê (100%)
+  wg rodzaju: {'c': 968, 't': 3344, 'r': 448, 'o': 128}
+  top relacje t³a: [('t2473952060000r_1931760520082f', 260), ('t2473952090006r_1931760520082f', 172), ('t2942461020000r_1931760520082f', 172), ('t2473952180001r_1931760520082f', 172), ('t15488949430000f_1931760520082f', 120), ('t1002062_1931760520082f', 116), ('t15488949470001f_1931760520082f', 116), ('t15488949440000f_1931760520082f', 116), ('t410463920004r_1931760520082f', 88), ('t2473952030015r_1931760520082f', 88)]
+  poprzedni link: [('2001576750000f', 4880), ('-', 8)]
+  nastêpny link: [('8181625600000r', 4664), ('2001576780003f', 208), ('3177068500003f', 8), ('-', 8)]
+
+=== 91866 a 2485778070001r: 2992 poj./dobê (100%)
+  wg rodzaju: {'t': 2436, 'r': 116, 'o': 68, 'c': 372}
+  top relacje t³a: [('t2473952060000r_1931760520082f', 260), ('t1002011_1931760520082f', 252), ('t2473952090006r_1931760520082f', 172), ('t2942461020000r_1931760520082f', 172), ('t2473952180001r_1931760520082f', 172), ('t15488949430000f_1931760520082f', 120), ('t1002062_1931760520082f', 116), ('t15488949470001f_1931760520082f', 116), ('t15488949440000f_1931760520082f', 116), ('t410463920004r_1931760520082f', 88)]
+  poprzedni link: [('2000758650002f', 2992)]
+  nastêpny link: [('2485778120013r', 2992)]
+
+=== 91866 b 2485778070001f: 3028 poj./dobê (100%)
+  wg rodzaju: {'r': 144, 't': 2464, 'c': 352, 'o': 68}
+  top relacje t³a: [('t1885522040087f_2473952060000f', 328), ('t1885522040087f_1002011', 256), ('t1885522040087f_2473952090006f', 164), ('t1885522040087f_2942461020000f', 164), ('t1885522040087f_2473952180001f', 160), ('t1885522040087f_1002062', 116), ('t3107258420023r_1002052', 116), ('t1885522040087f_15488949470001r', 88), ('t1885522040087f_15488949440000r', 88), ('t1885522040087f_2473952030015f', 84)]
+  poprzedni link: [('2485778120013f', 3028)]
+  nastêpny link: [('2485778200003f', 3028)]
