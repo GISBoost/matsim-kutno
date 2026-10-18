@@ -1,5 +1,7 @@
 # G5 / D20: R4 czy R5 jako baza (decyzja 2026-10-18)
 
+> **Audyt I2 (2026-10-18):** Objazdowa 91124 i Bitwy pod Kutnem 91866 to **odcinki kontrolne użyte w wyborze wariantu** (W2, wyłączenie liczników lokalnych, R4 vs R5), a nie walidacja niezależna. Słowa „walidacja” / „test niezależny” w tym raporcie czytaj w tym sensie (`reports/etap2/audyt_g5/audyt_g5.md` I2).
+
 **Decyzja użytkownika: R4 jest bazą.** R5 zostaje wariantem wrażliwości. Raporty: `g5_r4.md`, `g5_r5.md`.
 
 ## Co jest wspólne
@@ -30,7 +32,7 @@ Sieć, pracujący, ciężarówki (pce 2,5, 80 km/h) i ustawienia symulacji są i
 
 ## Uzasadnienie wyboru R4
 
-1. **R5 jest lepszy na licznikach, do których go dopasowano, a gorszy na tych, których nie widział.** To sygnał przeuczenia: poprawa w próbie nie przełożyła się na test niezależny, a w samym Kutnie jest gorzej.
+1. **R5 jest lepszy na licznikach, do których go dopasowano, a gorszy na tych, których nie widział.** (Audyt I2: „nie widział” w estymacji, ale oba odcinki służyły wcześniej do wyboru wariantów; „przeuczenie” to nadinterpretacja przy 2 odcinkach i 1 seedzie. Poparte jest tylko „R5 gorszy na Objazdowej”.) To sygnał przeuczenia: poprawa w próbie nie przełożyła się na test niezależny, a w samym Kutnie jest gorzej.
 2. **Zysk R5 dotyczy głównie Krośniewic,** 20 km od Kutna. Projekt dotyczy Kutna, więc ważniejsze jest, co dzieje się na obwodnicy miasta.
 3. **R5 to łańcuch:** zależy od tras z R4 i od arbitralnego ograniczenia 2×, a kolejne rundy nie mają gwarancji zbieżności. R4 da się odtworzyć wprost z liczników i sieci, bez dodatkowych założeń.
 

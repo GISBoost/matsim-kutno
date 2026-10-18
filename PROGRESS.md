@@ -181,3 +181,8 @@
 - Przeliczone (poj.-h próbki): R1 50,5–58,0 (było 106–113), R2 110,0 (304), R3 154,3–162,8 (359–367), R4 540,3 (820), R5 419,3 (693), D18 641–759 (735–854). R3, R4, R5 równe audytowi. R3 → R4 3,5×, R5 −22% vs R4. Noc ~0.
 - Adnotacje „audyt I1” w raportach G5 i D18. Raport: `reports/etap2/audyt_g5/poprawki/k5_i1_opoznienia.md`.
 
+## 2026-10-18: audyt G5, krok 7 (D21/I2): opis walidacji
+
+- Objazdowa 91124 i Bitwy 91866 opisane jako odcinki kontrolne użyte w wyborze wariantu (adnotacje w `g5_r3.md`, `g5_r4_vs_r5_decyzja.md`, D19, D20).
+- Niezależna walidacja w pobranych danych: tylko SCPR 30025 Dzięgielewo (DK92 za Kłodawą, częściowo niezależna): R6a 5 196 poj./dobę wobec 4,8–5,4 tys. w dni robocze. Pomiarów miejskich brak. Raport: `reports/etap2/audyt_g5/poprawki/k7_i2_walidacja.md`.
+
