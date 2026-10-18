@@ -1,5 +1,5 @@
 """G3 (badanie, bez zmian modelu): BDOT10k vs OSM, wykluczenia jak w R5, siatki GUS NSP 2021 vs domy agentów.
-Uruchom: uv run python -W ignore pipeline/g3_domy.py   -> reports/g3_domy/*.json|csv|png
+Uruchom: uv run python -W ignore pipeline/g3_domy.py   -> reports/etap2/g3_domy/*.json|csv|png
 """
 import json
 import tomllib
@@ -18,7 +18,7 @@ def spearmanr(x, y):
     return (pd.Series(np.asarray(x)).rank().corr(pd.Series(np.asarray(y)).rank()),)
 
 plt.style.use("dark_background")
-OUT = Path("reports/g3_domy")
+OUT = Path("reports/etap2/g3_domy")
 OUT.mkdir(parents=True, exist_ok=True)
 RES = {}
 cfg = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))

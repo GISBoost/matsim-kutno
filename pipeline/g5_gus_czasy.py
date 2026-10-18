@@ -2,7 +2,7 @@
 
 Sieć: najkrótszy czas po length/freespeed (freespeed = 0,8 x dozwolona, D13), z węzła najbliższego centroidowi gminy
 do węzła najbliższego centroidowi Kutna (1002011), czyli tak, jak liczy GUS (centroid -> centroid).
-Wyjście: reports/g5_walidacja/gus_vs_siec.csv, gus_vs_siec.png
+Wyjście: scenarios/kutno/validation/gus_vs_siec.csv, reports/etap2/g5_walidacja/gus_vs_siec.png
 
 Wariant `ors <output_dir>` (K5): te same trasy liczone z prędkościami jak w profilu car openrouteservice (VehicleFlagEncoder,
 GIScience/openrouteservice main, docs/ZRODLA.md): tag maxspeed -> 0,9 × maxspeed, bez tagu -> prędkość domyślna klasy.
@@ -18,7 +18,8 @@ import numpy as np
 import pandas as pd
 from pyproj import Transformer
 
-OUT = "reports/g5_walidacja/"
+OUT = "reports/etap2/g5_walidacja/"
+VAL = "scenarios/kutno/validation/"  # wejścia innych skryptów (punkty GPR, czasy GUS)
 ORS = len(sys.argv) > 2 and sys.argv[1] == "ors"
 SUF = "_ors" if ORS else ""
 ORS_KMH = {"motorway": 100, "motorway_link": 60, "trunk": 85, "trunk_link": 60, "primary": 65, "primary_link": 50,
@@ -79,7 +80,7 @@ t["km_ratio"] = t.siec_km / t.gus_km
 t["v_gus_kmh"] = t.gus_km / (t.gus_min / 60)
 t["v_siec_kmh"] = t.siec_km / (t.siec_min / 60)
 t = t.sort_values("gus_min").round(2)
-t.to_csv(OUT + f"gus_vs_siec{SUF}.csv", index=False)
+t.to_csv(VAL + f"gus_vs_siec{SUF}.csv", index=False)
 print(t.to_string())
 print(t[["czas_ratio", "km_ratio", "v_gus_kmh", "v_siec_kmh"]].describe().round(2))
 w = t[t.gus_min <= 60]

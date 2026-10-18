@@ -4,6 +4,7 @@ data/raw/
 *.zip
 *.xlsx
 *.gpkg
+*.mp4
 # wyniki symulacji
 output/
 **/output/

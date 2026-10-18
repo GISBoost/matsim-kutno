@@ -1,10 +1,10 @@
 # G5: dane do walidacji modelu i ruchu tła
 
-Data: 2026-10-17. Etap 2a (zbieranie danych). **Nie zmieniałem modelu ani nie uruchamiałem MATSim.** Plik jest generowany przez `pipeline/g5_doc.py` z szablonu `reports/g5_walidacja/szablon.md`; tabele liczą skrypty `pipeline/g5_gpr.py`, `g5_gus_czasy.py`, `g5_mapa.py`.
+Data: 2026-10-17. Etap 2a (zbieranie danych). **Nie zmieniałem modelu ani nie uruchamiałem MATSim.** Plik jest generowany przez `pipeline/g5_doc.py` z szablonu `reports/etap2/g5_walidacja/szablon.md`; tabele liczą skrypty `pipeline/g5_gpr.py`, `g5_gus_czasy.py`, `g5_mapa.py`.
 
 ## 0. Wnioski w skrócie
 
-1. **GPR 2025 (GDDKiA) jest dostępny i wystarcza** do walidacji natężeń na drogach krajowych i wojewódzkich. Nowszy niż 2020/21, więc 2020/21 nie pobierałem. W obszarze naszej sieci jest **19 odcinków pomiarowych** (3× A1, 11× DK, 5× DW). Wszystkie mają przypisane linki (oba kierunki), tabela w §1.3, mapa `reports/g5_walidacja/gpr_mapa.png`.
+1. **GPR 2025 (GDDKiA) jest dostępny i wystarcza** do walidacji natężeń na drogach krajowych i wojewódzkich. Nowszy niż 2020/21, więc 2020/21 nie pobierałem. W obszarze naszej sieci jest **19 odcinków pomiarowych** (3× A1, 11× DK, 5× DW). Wszystkie mają przypisane linki (oba kierunki), tabela w §1.3, mapa `reports/etap2/g5_walidacja/gpr_mapa.png`.
 2. **Brak publicznych danych dla ulic Kutna poza drogami krajowymi.** Nie znalazłem pomiarów miejskich (UM, ZDM, plan transportowy). Przez miasto przechodzi DK60/DK92, więc Sklęczkowska, Objazdowa i ul. Bitwy pod Kutnem są w GPR. Drogi miejskie i powiatowe trzeba wyprosić od zarządców (§2).
 3. **„Płatna A1” w Kutnie nie istnieje.** Odcinek Toruń–Stryków jest bezpłatny dla aut osobowych, a opłata e-TOLL dotyczy pojazdów > 3,5 t. Natężeń na węźle Kutno nie ma w źródłach publicznych poza GPR (§2).
 4. **Godzinowy profil z GPR nie istnieje.** GPR daje tylko udziały 6–18 / 18–22 / 22–6. Godzinowe krzywe są na wykresach stacji ciągłej 14005 Lisica (DK60c, 13 km od Kutna) i wymagają digitalizacji (§1.4).
@@ -39,7 +39,7 @@ Strona: <https://www.gov.pl/web/gddkia/generalny-pomiar-ruchu-2025>. Pobrane do 
 4. Natężenie na kierunek: A1 = SDRR × udział jezdni z tabeli GPR (0,49–0,51); pozostałe = SDRR × 0,5 (**ZAŁOŻENIE**, w tabelach DK jednojezdniowych i DW nie ma udziałów kierunkowych).
 5. Do porównania z autami w modelu liczy się `lekkie_osob` = osobowe + mikrobusy + motocykle (model ma tylko samochody osobowe). Kolumna „ciężki+” to udział lekkich ciężarowych, ciężarowych i autobusów.
 
-Wyniki: `reports/g5_walidacja/gpr_punkty.csv` (wszystkie 68 punktów z wartościami, także poza siecią) i `gpr_linki.csv` (38 wierszy: link × odcinek).
+Wyniki: `scenarios/kutno/validation/gpr_punkty.csv` (wszystkie 68 punktów z wartościami, także poza siecią) i `gpr_linki.csv` (38 wierszy: link × odcinek).
 
 ### 1.3. Tabela: odcinki GPR 2025 w sieci Kutna
 
@@ -154,7 +154,7 @@ Uwaga: README scenariuszy Kelheim i Leipzig nie opisuje ruchu tła (sprawdzone, 
 | Kiernozia (1005052) | 2565 | 49.5 | 33.5 | 0.68 | 39.6 | 34.5 | 48 | 62 |
 | Przedecz - obszar wiejski (3009115) | 1755 | 51.0 | 33.9 | 0.66 | 37.5 | 35.1 | 44 | 62 |
 
-![GUS vs sieć](../../reports/g5_walidacja/gus_vs_siec.png)
+![GUS vs sieć](../../reports/etap2/g5_walidacja/gus_vs_siec.png)
 
 **Podsumowanie (29 gmin):** mediana `czas sieci / czas GUS` = **0,76** (kwartyle 0,71–0,82, min 0,61, max 0,92). Długość tras: mediana 0,99, czyli **trasy są zgodne, różni się prędkość**: mediana średniej prędkości trasy 60 km/h (sieć) vs 46 km/h (GUS).
 

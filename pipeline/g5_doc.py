@@ -4,7 +4,8 @@ import os
 
 import pandas as pd
 
-OUT = "reports/g5_walidacja/"
+OUT = "reports/etap2/g5_walidacja/"
+VAL = "scenarios/kutno/validation/"  # wejścia innych skryptów (punkty GPR, czasy GUS)
 A = "https://www.gov.pl/attachment/"
 S = "https://www.archiwum.gddkia.gov.pl/frontend/web/userfiles/articles/s/stacje-ciaglych-pomiarow-ruchu-d_41706/"
 URLS = {
@@ -38,14 +39,14 @@ def f0(x):
     return "" if pd.isna(x) else f"{x:.0f}"
 
 
-m = pd.read_csv(OUT + "gpr_linki.csv")
+m = pd.read_csv(VAL + "gpr_linki.csv")
 rows = []
 for nr, d in m.groupby("nr", sort=False):
     r = d.iloc[0]
     lk = "<br>".join(f"`{x.link}` ({x.osm_type}, {x.dist_m:.0f} m, {x.sdrr_kier:.0f})" for x in d.itertuples())
     rows.append(f"| {r.klasa} {r.droga} | {nr} | {r.nazwa[:70]} | {r.miejsc} | {f0(r.sdr)} | {f0(r.sdrdr)} | {f0(r.sdrl)} | {f0(r.lekkie_osob)} | {100 * r.ciez_udzial:.0f}% | {lk} |")
 
-t = pd.read_csv(OUT + "gus_vs_siec.csv")
+t = pd.read_csv(VAL + "gus_vs_siec.csv")
 g = ["| gmina (TERYT) | odl. centroid–węzeł [m] | GUS [min] | sieć [min] | sieć/GUS | GUS [km] | sieć [km] | v GUS [km/h] | v sieć [km/h] |", "|---|---|---|---|---|---|---|---|---|"]
 for r in t.itertuples():
     g.append(f"| {r.gmina} ({r.teryt}) | {r.snap_m} | {r.gus_min:.1f} | {r.siec_min:.1f} | {r.czas_ratio:.2f} | {r.gus_km:.1f} | {r.siec_km:.1f} | {r.v_gus_kmh:.0f} | {r.v_siec_kmh:.0f} |")

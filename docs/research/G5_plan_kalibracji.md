@@ -1,6 +1,6 @@
 # G5: plan kalibracji względem GPR 2025 (do decyzji przed runami)
 
-Data: 2026-10-17. Punkt wyjścia: run referencyjny D18 (25%, 3 seedy). Dane: `docs/research/G5_walidacja.md` (GPR 2025, SCPR, literatura ruchu tła). Bazowa tabela: `reports/g5_kalibracja/g5_0_baseline.{csv,json,png}` (`pipeline/g5_baseline.py`).
+Data: 2026-10-17. Punkt wyjścia: run referencyjny D18 (25%, 3 seedy). Dane: `docs/research/G5_walidacja.md` (GPR 2025, SCPR, literatura ruchu tła). Bazowa tabela: `reports/etap2/g5_kalibracja/g5_0_baseline.{csv,json,png}` (`pipeline/g5_baseline.py`).
 
 ## 0. Punkt startowy: model vs GPR (pojazdy lekkie, SDRDR, doba, sumy po odcinku)
 
@@ -83,7 +83,7 @@ Prawdziwa kalibracja sieci wymaga danych, których nie ma publicznie: pomiarów 
 2. **Run R1 = D18 + K1-1** (25% × 3 seedy, ok. 14 min).
 3. **Run R2 = R1 + K2-2 + K3-2**, lekkie. Tło w skali 25% to szacunkowo 5–8 tys. agentów (populacja 6,3 tys.). Run potrwa 30–40 min, zgłoszę przed startem.
 4. **Wrażliwość na R2:** S-1 (kinematicWaves), ewentualnie +H i S-2, gdy będą źródła PCE i capacity.
-5. Raport `reports/g5_kalibracja/`, decyzje D19+.
+5. Raport `reports/etap2/g5_kalibracja/`, decyzje D19+.
 
 ## 3. Decyzje do podjęcia
 
@@ -96,7 +96,7 @@ Prawdziwa kalibracja sieci wymaga danych, których nie ma publicznie: pomiarów 
 ## 4. Stan po krokach bez MATSim (2026-10-17, D19)
 
 - **K1-1:** `car_share = 0.64` i `work_from_home = 0.073` w `config/kutno.toml`, plans.py skaluje popyt o 0,593. Plany 25%: 3 739 osób, walidacja ok.
-- **Run R1** (D18 + K1-1, 25% × 3 seedy, `reports/g5_kalibracja/r1/`): 7 478 nóg car, 0 stuck.
+- **Run R1** (D18 + K1-1, 25% × 3 seedy, `reports/etap2/g5_kalibracja/r1/`): 7 478 nóg car, 0 stuck.
   - Opóźnienia 106–113 poj.-h próbki wobec 735–854 w D18. 41% mniej ruchu daje o 86% mniej opóźnień, więc kongestia jest silnie nieliniowa.
   - Model / GPR: A1 3%, DK w mieście 30%, pozostałe DK 8%, DW 4%.
 - **K3-2:** `pipeline/digitize_lisica.py` → `config/hourly_profile_lisica2025.csv`. Lekkie i ciężkie, dzień roboczy, sumy 100,0%. Udział godzin 6–18 dla lekkich to 77,7%, szczyt 15–16: 8,3%.
@@ -121,7 +121,7 @@ Prawdziwa kalibracja sieci wymaga danych, których nie ma publicznie: pomiarów 
 
 ## 5. W2 (decyzja użytkownika, 2026-10-17) i plan na następną sesję
 
-Sklęczkowska 91869 wchodzi do dopasowania. Wariant: τ = 30 min, waga wjazdu = capacity linku. Plik `scenarios/kutno/demand/background_od_r1_w2_cap.csv`, raport `reports/g5_kalibracja/k2_od_r1_w2_cap.{json,png}`.
+Sklęczkowska 91869 wchodzi do dopasowania. Wariant: τ = 30 min, waga wjazdu = capacity linku. Plik `scenarios/kutno/demand/background_od_r1_w2_cap.csv`, raport `reports/etap2/g5_kalibracja/k2_od_r1_w2_cap.{json,png}`.
 - Walidacja poza próbą na trasach swobodnych, przed MATSim: **Objazdowa 91124: 141% GPR** (bez W2: 155%), **Bitwy pod Kutnem 91866: 94%**.
 - Niedopasowane odcinki: 91121 DK92 Chodów–Krośniewice = 0, bo żadna trasa O-D nie przechodzi przez ten link. 10045 DW583 Żychlin i 91122 Krośniewice ≈ 0,5, bo to ruch wewnątrz gmin, którego strefa-gmina z jednym węzłem nie oddaje. 91119 = 1,5.
 

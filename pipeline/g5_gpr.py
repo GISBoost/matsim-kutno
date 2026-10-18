@@ -1,8 +1,8 @@
 """G5: punkty GPR 2025 (GDDKiA) w obszarze sieci -> przypisanie do linków sieci Kutna.
 
 Wejście: data/raw/g5/gpr2025/*.xlsx (wykazy + SDRR/SDRDR/SDRL), scenarios/kutno/network.xml.gz
-Wyjście: reports/g5_walidacja/gpr_punkty.csv (jeden wiersz na punkt),
-         reports/g5_walidacja/gpr_linki.csv (jeden wiersz na link: natężenie na kierunek)
+Wyjście: scenarios/kutno/validation/gpr_punkty.csv (jeden wiersz na punkt),
+         scenarios/kutno/validation/gpr_linki.csv (jeden wiersz na link: natężenie na kierunek)
 Współrzędne bierzemy z lat/lon (WGS84 -> EPSG:2180, oś E,N), nie z kolumn X/Y GDDKiA (podpisane odwrotnie).
 """
 import gzip
@@ -17,7 +17,8 @@ from shapely.geometry import LineString, Point
 
 warnings.filterwarnings("ignore")
 RAW = "data/raw/g5/gpr2025/"
-OUT = "reports/g5_walidacja/"
+OUT = "reports/etap2/g5_walidacja/"
+VAL = "scenarios/kutno/validation/"  # wejścia innych skryptów (punkty GPR, czasy GUS)
 BBOX = (497056 - 5000, 467370 - 5000, 558819 + 5000, 507985 + 5000)  # z węzłów sieci + 5 km
 tr = Transformer.from_crs(4326, 2180, always_xy=True)
 STRUCT = ["motocykle", "osobowe", "mikrobusy", "lekkie_ciez", "ciez_bez_przycz", "ciez_z_przycz", "autobusy", "ciagniki"]
@@ -124,7 +125,7 @@ if __name__ == "__main__":
     p = values(points())
     g = links()
     a = assign(p, g)
-    p.drop(columns=["x", "y"]).assign(E=p.x.round(0), N=p.y.round(0)).to_csv(OUT + "gpr_punkty.csv", index=False)
+    p.drop(columns=["x", "y"]).assign(E=p.x.round(0), N=p.y.round(0)).to_csv(VAL + "gpr_punkty.csv", index=False)
     m = a.merge(p, on=["nr", "klasa", "strona"])
     # natężenie na kierunek: DK dwujezdniowe = udział kierunku z tabeli; reszta 50/50 (ZAŁOŻENIE, DW bez udziałów)
     def share(r):
@@ -139,6 +140,6 @@ if __name__ == "__main__":
     m["lekkie_osob"] = m.osobowe + m.mikrobusy + m.motocykle  # to porównujemy z autami modelu
     m["lekkie_osob_dr"] = m.osobowe_dr + m.mikrobusy_dr + m.motocykle_dr  # K2: cel dnia roboczego (DW: SDRR)
     m["ciez_udzial"] = (m.lekkie_ciez + m.ciez_bez_przycz + m.ciez_z_przycz + m.autobusy) / m.sdr
-    m.to_csv(OUT + "gpr_linki.csv", index=False)
+    m.to_csv(VAL + "gpr_linki.csv", index=False)
     print(len(p), "punktów (strona P/L) w obszarze;", m.nr.nunique(), "odcinków przypisanych;", len(m), "wierszy link")
     print(p.groupby(["klasa", "woj"]).size())

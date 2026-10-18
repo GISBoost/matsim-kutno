@@ -4,7 +4,7 @@ Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> [samp
   (out_dir: gdzie zapisać raport, domyślnie folder fazy; klucz=wartość jak w plans.py, np. jobs_total=17486)
 Test (TASKS F4): każda osoba ma dokładnie home-car-work-car-home; współrzędne w obszarze sieci; praca w gminie Kutno;
 liczba osób = round(sample x (pracujący w Kutnie + przyjeżdżający)); ten sam sha256 po ponownym uruchomieniu plans.py.
-Wyjście: reports/f4_plans/f4_plans.* (sample 0,1), reports/f6_run_100pct/f6_plans.* (1,0), inaczej reports/r3_ocena/wyniki_<N>pct/r3_<N>pct_plans.*. Kod 1, gdy test nie przechodzi.
+Wyjście: reports/etap1_mvp/f4_plans/f4_plans.* (sample 0,1), reports/etap1_mvp/f6_run_100pct/f6_plans.* (1,0), inaczej reports/etap1_mvp/r3_ocena/wyniki_<N>pct/r3_<N>pct_plans.*. Kod 1, gdy test nie przechodzi.
 """
 import gzip
 import hashlib
@@ -36,8 +36,8 @@ for kv in OVR:
 PHASE = {0.1: "f4", 1.0: "f6"}.get(P["sample"], f"r3_{round(P['sample'] * 100)}pct")
 if len(sys.argv) > 3:
     PHASE = f"plans_{round(P['sample'] * 100)}pct"
-OUT = sys.argv[3] if len(sys.argv) > 3 else {"f4": "reports/f4_plans", "f6": "reports/f6_run_100pct"}.get(PHASE, f"reports/r3_ocena/wyniki_{PHASE[3:]}")
-f3 = json.load(open("reports/f3_demand/f3_demand.json", encoding="utf-8"))
+OUT = sys.argv[3] if len(sys.argv) > 3 else {"f4": "reports/etap1_mvp/f4_plans", "f6": "reports/etap1_mvp/f6_run_100pct"}.get(PHASE, f"reports/etap1_mvp/r3_ocena/wyniki_{PHASE[3:]}")
+f3 = json.load(open("scenarios/kutno/validation/f3_demand.json", encoding="utf-8"))
 area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[0]
 gmina = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
 powiat = gpd.read_file("scenarios/kutno/area/powiat.geojson").geometry.iloc[0]

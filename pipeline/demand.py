@@ -2,7 +2,7 @@
 
 Wejścia (data/raw, sha256 w data/manifest.csv): tabela ludności BREC, tablice rynku pracy NSP 2021 (TABL. 5),
 macierz przepływów, geometria BREC 2021 łódzkie.
-Wyjścia: scenarios/kutno/demand/{workers_by_obwod,inbound_by_gmina}.csv, reports/f3_demand/f3_demand.{json,png}.
+Wyjścia: scenarios/kutno/demand/{workers_by_obwod,inbound_by_gmina}.csv, scenarios/kutno/validation/f3_demand.json (wejście validate_plans.py), reports/etap1_mvp/f3_demand/f3_demand.png.
 Uruchom: uv run python -W ignore pipeline/demand.py
 """
 import json
@@ -116,7 +116,7 @@ report = {
 }
 report["ok"] = (report["population_sum_obwody"] == gmina_pop == 42255 and report["inbound_total"] == 8186
                 and not tab_only)
-json.dump(report, open("reports/f3_demand/f3_demand.json", "w", encoding="utf-8", newline="\n"), indent=2, ensure_ascii=False)
+json.dump(report, open("scenarios/kutno/validation/f3_demand.json", "w", encoding="utf-8", newline="\n"), indent=2, ensure_ascii=False)
 
 # --- 5. wizualizacja ---------------------------------------------------------------------------------
 gob = geo_ob.merge(ob, left_on="uid", right_on="obwod_id", how="left")
@@ -151,5 +151,5 @@ ax3.set_title(f"spoza powiatu: {report['inbound_total'] - report['inbound_in_pow
 ax3.tick_params(labelsize=7)
 fig.suptitle(f"F3 popyt | agenci przy 100%: bazowy {report['agents_100pct']['base']}, niski {report['agents_100pct']['low']}"
              f" | {'ZALICZONA' if report['ok'] else 'NIE ZALICZONA'}", fontsize=11)
-fig.savefig("reports/f3_demand/f3_demand.png", dpi=120)
+fig.savefig("reports/etap1_mvp/f3_demand/f3_demand.png", dpi=120)
 print(json.dumps(report, indent=1, ensure_ascii=False))

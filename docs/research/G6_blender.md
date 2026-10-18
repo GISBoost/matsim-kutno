@@ -26,8 +26,8 @@ Bake losuje 3 tracki (seed 1), osobnym odczytem eventów buduje sekwencję link�
 ## Czasy (laptop użytkownika, Eevee Next, 64 próbki)
 - bake 06–09, krok 5 s: **11,7 s** (+ test).
 - start Blendera + 3 klatki 1280×720: **3 s** (~1 s/klatka).
-- animacja 241 klatek 960×540 (10 s przy 24 fps = 20 min symulacji) → `reports/g6_blender/anim.mp4`: **57 s**; ffmpeg w Blenderze działa.
-Wyniki: `reports/g6_blender/frame_{0600,1200,1800}.png`, `anim.mp4`.
+- animacja 241 klatek 960×540 (10 s przy 24 fps = 20 min symulacji) → `reports/etap2/g6_blender/anim.mp4`: **57 s**; ffmpeg w Blenderze działa.
+Wyniki: `reports/etap2/g6_blender/frame_{0600,1200,1800}.png`, `anim.mp4`.
 
 ## Ograniczenia
 - Ruch tylko car; pojazdy to sześciany bez modelu; auta kolejkują się na jednej linii linku (brak pasów, brak przesunięcia na prawo).
@@ -95,4 +95,4 @@ Uproszczenia wykresu (to ilustracja, nie wynik z MATSim): krzywa liczy przyrost 
 
 ## Opis do README (L-11)
 
-Wizualizacja G6 pokazuje, jak w czasie przemieszcza się ruch samochodów w powiecie kutnowskim: pojazdy na sieci kolorowane prędkością, śledzenie jednego agenta od domu do pracy i z powrotem oraz wykresy liczby pojazdów i średniej prędkości (filmy w `reports/g6_blender/`). Jest to wyłącznie warstwa prezentacji: czyta gotowe wyniki symulacji i niczego nie zapisuje z powrotem, więc nie wpływa na wyniki modelu ani na configi MATSim. Wejście to eventy z runu 25% (`output_events.xml.zst`: wjazdy i zjazdy z linków) oraz sieć `output_network.xml.zst`, przetworzone przez `pipeline/g6_bake.py` do plików `.npz`. Pozycje aut są interpolowane liniowo wzdłuż linków, a nie pochodzą z pomiaru; ruch to próbka 25% populacji. Auta są powiększone ok. ×8 (kostka 4,5 m byłaby niewidoczna z kilku kilometrów), więc rozmiar nie oddaje skali rzeczywistej. Sieć jest rysowana jako pojedyncze kreski kierunkowe bez podziału na pasy, a szerokość dróg zależy od zoomu. Wykres „wynik agenta" w v4 to ilustracja (przyrost użyteczności), a nie score z MATSim.
+Wizualizacja G6 pokazuje, jak w czasie przemieszcza się ruch samochodów w powiecie kutnowskim: pojazdy na sieci kolorowane prędkością, śledzenie jednego agenta od domu do pracy i z powrotem oraz wykresy liczby pojazdów i średniej prędkości (filmy w `reports/etap2/g6_blender/`). Jest to wyłącznie warstwa prezentacji: czyta gotowe wyniki symulacji i niczego nie zapisuje z powrotem, więc nie wpływa na wyniki modelu ani na configi MATSim. Wejście to eventy z runu 25% (`output_events.xml.zst`: wjazdy i zjazdy z linków) oraz sieć `output_network.xml.zst`, przetworzone przez `pipeline/g6_bake.py` do plików `.npz`. Pozycje aut są interpolowane liniowo wzdłuż linków, a nie pochodzą z pomiaru; ruch to próbka 25% populacji. Auta są powiększone ok. ×8 (kostka 4,5 m byłaby niewidoczna z kilku kilometrów), więc rozmiar nie oddaje skali rzeczywistej. Sieć jest rysowana jako pojedyncze kreski kierunkowe bez podziału na pasy, a szerokość dróg zależy od zoomu. Wykres „wynik agenta" w v4 to ilustracja (przyrost użyteczności), a nie score z MATSim.

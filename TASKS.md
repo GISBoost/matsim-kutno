@@ -7,7 +7,7 @@ Każda faza: wejścia → działania → wyjścia → test → kryterium zalicze
 ## F0 — Środowisko MATSim
 - **Wejścia:** `matsim-example-project` (branch master, parent `matsim 2026.0`), Java 25.
 - **Działania:** skopiować projekt do `matsim/` (bez historii gita upstream), `mvnw.cmd package -DskipTests`, uruchomić przykładowy scenariusz `equil` z 1 iteracją. Utworzyć `.venv` (uv) i `data/manifest.csv` (przenieść wpisy z FACT_CHECK).
-- **Wyjścia:** `matsim/`, `reports/f0_env/f0_env.md` (wersje Java/MATSim/uv, czas buildu).
+- **Wyjścia:** `matsim/`, `reports/etap1_mvp/f0_env/f0_env.md` (wersje Java/MATSim/uv, czas buildu).
 - **Test:** BUILD SUCCESS; przykład kończy się bez wyjątków, a `output_events.xml.gz` istnieje i ma > 0 eventów `departure`.
 - **Stop:** build nie przechodzi po 2 próbach naprawy → ERRORS + pytanie.
 
@@ -20,14 +20,14 @@ Każda faza: wejścia → działania → wyjścia → test → kryterium zalicze
 ## F2 — Sieć OSM (powiat kutnowski + bufor)
 - **Wejścia:** Geofabrik `lodzkie-latest.osm.pbf` (~132 MB), granica powiatu 1002 złożona z geometrii BREC.
 - **Działania:** jeden konwerter: `SupersonicOsmNetworkReader` (contrib osm 2026.0) z transformacją do EPSG:2180, filtr obszaru = powiat + bufor (szerokość dobrana tak, żeby objąć drogi wjazdowe; uzasadnić w raporcie), `NetworkCleaner`, tylko `car`.
-- **Wyjścia:** `scenarios/kutno/network.xml.gz`, `reports/f2_network/f2_network.json` (węzły, linki, rozkład `freespeed`/`capacity`/`lanes`, linki z wartościami domyślnymi, udział największej SCC, bbox).
+- **Wyjścia:** `scenarios/kutno/network.xml.gz`, `reports/etap1_mvp/f2_network/f2_network.json` (węzły, linki, rozkład `freespeed`/`capacity`/`lanes`, linki z wartościami domyślnymi, udział największej SCC, bbox).
 - **Test:** bbox mieści się w powiat + bufor; 0 linków z capacity/freespeed ≤ 0; trasy car istnieją między 10 parami punktów (centrum, strefy przemysłowe, 4 kierunki wjazdów).
 - **Stop człowieka:** podgląd sieci w QGIS.
 
 ## F3 — Popyt: dane GUS
 - **Wejścia:** tabela ludności BREC, macierz dojazdów, tablice rynku pracy (łódzkie TABL. 5), geometria BREC 2021.
 - **Działania:** filtr po TERC `1002011`; złączenie 232/233 obwodów (wyjaśnić różnicę); pracujący per obwód = wskaźniki × ekonomiczne grupy wieku (warianty niski/bazowy/wysoki w `config/`); pracujący w Kutnie = pracujący mieszkańcy − wyjeżdżający (z jawną notą: macierz obejmuje tylko pracowników najemnych); przyjeżdżający per gmina źródłowa (w powiecie / poza powiatem).
-- **Wyjścia:** `reports/f3_demand/f3_demand.json` + CSV pośrednie.
+- **Wyjścia:** `scenarios/kutno/validation/f3_demand.json` + CSV pośrednie.
 - **Test:** suma ludności = 42 255; suma przyjeżdżających = 8 186; każdy obwód ma geometrię albo jest opisany w raporcie.
 
 ## F4 — Lokalizacje i plans (10%)
@@ -39,7 +39,7 @@ Każda faza: wejścia → działania → wyjścia → test → kryterium zalicze
 ## F5 — Run integracyjny (10%)
 - **Działania:** `config.xml` (EPSG:2180, factors 0,1, 10–20 iteracji, strategie: ChangeExpBeta + ReRoute + TimeAllocationMutator do decyzji w tej fazie, seed).
 - **Test:** `departure = arrival = 2N`, 0 stuck, rozkład czasu podróży w raporcie, score jest tylko diagnostyką.
-- **Wyjście:** `reports/f5_run_10pct/f5_run.md`.
+- **Wyjście:** `reports/etap1_mvp/f5_run_10pct/f5_run.md`.
 
 ## F6 — Skala 100%
 - **Działania:** factors 1,0; pomiar czasu iteracji i RAM; porównanie rozkładów z F5.
@@ -70,7 +70,7 @@ MVP (F0–F6) jest zamknięty. Każda faza G zmienia zakres lub dane, więc prze
 - **Dane:** suma kontrolna z BDL lub NSP dla gm. Kutno (uwaga na próg > 9 osób); rozkład wewnątrz gminy z REGON (adres, PKD, ewentualnie klasa zatrudnienia) albo z typu budynku. Statystyczne punkty adresowe GUS do sprawdzenia.
 - **Działania:** nowe wagi budynków pracy; porównanie z wagami według powierzchni (top-20 celów, rozkład na mapie).
 - **Test:** suma pracy zgodna z kotwicą; top-10 celów to realne zakłady; mapa zmian.
-- **Stan (2026-10-17):** suma zrobiona (D17: B = 22 725 baza, C = 17 486 wrażliwość, wyjeżdżający O1). Runy 10% × 3 seedy w `reports/g2_miejsca_pracy/`. Otwarte: rozkład wewnątrz gminy (wagi budynków pracy, REGON).
+- **Stan (2026-10-17):** suma zrobiona (D17: B = 22 725 baza, C = 17 486 wrażliwość, wyjeżdżający O1). Runy 10% × 3 seedy w `reports/etap2/g2_miejsca_pracy/`. Otwarte: rozkład wewnątrz gminy (wagi budynków pracy, REGON).
 
 ## G3 — Domy (D11)
 - **Dane:** kod R5 (`dasymetric_pop.py`, ta sama metoda); BDOT10k (funkcja budynku, ewentualnie kondygnacje); siatki ludności GUS jako kontrola.

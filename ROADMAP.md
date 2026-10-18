@@ -24,25 +24,25 @@ Dojazdy do pracy autem, `dom → praca → dom`.
 
 | faza | co | stan | raport |
 |---|---|---|---|
-| F0 | środowisko, build, run equil | ✅ | [f0_env](reports/f0_env/f0_env.md) |
-| F1 | sieć syntetyczna, 10 agentów (test regresyjny) | ✅ | [f1_smoke](reports/f1_smoke/f1_smoke.md) |
-| F2 | sieć z OSM (powiat + bufor) | ✅ | [f2_network](reports/f2_network/f2_network.md) |
-| F3 | popyt z GUS (pracujący per obwód, przyjeżdżający) | ✅ | [f3_demand](reports/f3_demand/f3_demand.md) |
-| F4 | plany (domy, praca, godziny) | ✅ | [f4_plans](reports/f4_plans/f4_plans.md) |
-| F5 / F6 | run 10% i 100% (przed naprawami R3) | ✅ | [f5](reports/f5_run_10pct/f5_run.md), [f6](reports/f6_run_100pct/f6_run.md) |
-| R3 | naprawy techniczne, wyniki 25% × 3 seedy (D15) | ✅ | [r3_ocena](reports/r3_ocena/wyniki_25pct/r3_25pct.md) |
-| D16 | przyjeżdżający spoza powiatu | ✅ | [d16](reports/d16_przyjezdzajacy/d16_przyjezdzajacy.md) |
+| F0 | środowisko, build, run equil | ✅ | [f0_env](reports/etap1_mvp/f0_env/f0_env.md) |
+| F1 | sieć syntetyczna, 10 agentów (test regresyjny) | ✅ | [f1_smoke](reports/etap1_mvp/f1_smoke/f1_smoke.md) |
+| F2 | sieć z OSM (powiat + bufor) | ✅ | [f2_network](reports/etap1_mvp/f2_network/f2_network.md) |
+| F3 | popyt z GUS (pracujący per obwód, przyjeżdżający) | ✅ | [f3_demand](reports/etap1_mvp/f3_demand/f3_demand.md) |
+| F4 | plany (domy, praca, godziny) | ✅ | [f4_plans](reports/etap1_mvp/f4_plans/f4_plans.md) |
+| F5 / F6 | run 10% i 100% (przed naprawami R3) | ✅ | [f5](reports/etap1_mvp/f5_run_10pct/f5_run.md), [f6](reports/etap1_mvp/f6_run_100pct/f6_run.md) |
+| R3 | naprawy techniczne, wyniki 25% × 3 seedy (D15) | ✅ | [r3_ocena](reports/etap1_mvp/r3_ocena/wyniki_25pct/r3_25pct.md) |
+| D16 | przyjeżdżający spoza powiatu | ✅ | [d16](reports/etap1_mvp/d16_przyjezdzajacy/d16_przyjezdzajacy.md) |
 
 ### Etap 2: rozszerzenia (G1–G7, każde wymaga decyzji w DECISIONS)
 
 | faza | co | stan | gdzie |
 |---|---|---|---|
 | G1 | skrzyżowania, sygnalizacja, zakazy skrętu | ⏸ odłożone przez użytkownika | [TASKS.md](TASKS.md) |
-| G2 | miejsca pracy (suma z rejestru, wyjeżdżający) | ✅ suma (D17); otwarte: rozkład w gminie (REGON) | [g2](reports/g2_miejsca_pracy/g2_miejsca_pracy.md) |
+| G2 | miejsca pracy (suma z rejestru, wyjeżdżający) | ✅ suma (D17); otwarte: rozkład w gminie (REGON) | [g2](reports/etap2/g2_miejsca_pracy/g2_miejsca_pracy.md) |
 | G3 | domy (dobór budynków, BDOT10k) | 🔍 zbieranie danych | [G3_domy.md](docs/research/G3_domy.md) |
 | G4 | tryby: PT, rower, pieszo, wybór trybu | 🔍 research, poza modelem | [G4_tryby.md](docs/research/G4_tryby.md), [G4_beeline.md](docs/research/G4_beeline.md) |
 | **G5** | **ruch tła i kalibracja do GPR** | **🔧 w toku: poprawki po audycie** | niżej, §3 |
-| G6 | kolejki (D18) i wizualizacja w Blenderze | ✅ D18; Blender w osobnej sesji | [g6_kolejki](reports/g6_kolejki/g6_kolejki.md), [G6_blender.md](docs/research/G6_blender.md) |
+| G6 | kolejki (D18) i wizualizacja w Blenderze | ✅ D18; Blender w osobnej sesji | [g6_kolejki](reports/etap2/g6_kolejki/g6_kolejki.md), [G6_blender.md](docs/research/G6_blender.md) |
 | G7 | przeniesienie na Łódź | ⏸ po G2–G5 | [TASKS.md](TASKS.md) |
 
 ## 3. Bieżąca praca: G5
@@ -52,11 +52,11 @@ Historia G5, każdy krok z decyzją:
 | krok | co | raport |
 |---|---|---|
 | plan | metoda kalibracji (D19) | [G5_plan_kalibracji.md](docs/research/G5_plan_kalibracji.md) |
-| R1–R3 | dojazdy × 0,593, tło lekkie z estymacji O-D; R3 = 25% × 3 seedy | [g5_r3.md](reports/g5_kalibracja/g5_r3.md) |
-| czasy, PCE | walidacja czasów z GUS, źródło PCE | [g5_czasy_pce.md](reports/g5_kalibracja/g5_czasy_pce.md) |
-| R4, R5 | dostawcze i ciężkie (D20); wybór R4 | [g5_r4.md](reports/g5_kalibracja/g5_r4.md), [decyzja](reports/g5_kalibracja/g5_r4_vs_r5_decyzja.md) |
-| audyt | niezależny audyt kodu, kalibracji i walidacji | [audyt_g5.md](reports/audyt_g5/audyt_g5.md) |
-| **poprawki** | **K1 ✅, K2 ✅, dalej I4 → estymacja → I1 → run → referencja** | **[plan_poprawek.md](reports/audyt_g5/plan_poprawek.md)** |
+| R1–R3 | dojazdy × 0,593, tło lekkie z estymacji O-D; R3 = 25% × 3 seedy | [g5_r3.md](reports/etap2/g5_kalibracja/g5_r3.md) |
+| czasy, PCE | walidacja czasów z GUS, źródło PCE | [g5_czasy_pce.md](reports/etap2/g5_kalibracja/g5_czasy_pce.md) |
+| R4, R5 | dostawcze i ciężkie (D20); wybór R4 | [g5_r4.md](reports/etap2/g5_kalibracja/g5_r4.md), [decyzja](reports/etap2/g5_kalibracja/g5_r4_vs_r5_decyzja.md) |
+| audyt | niezależny audyt kodu, kalibracji i walidacji | [audyt_g5.md](reports/etap2/audyt_g5/audyt_g5.md) |
+| **poprawki** | **K1 ✅, K2 ✅, dalej I4 → estymacja → I1 → run → referencja** | **[plan_poprawek.md](reports/etap2/audyt_g5/plan_poprawek.md)** |
 
 Baza R4 jest nieaktualna do czasu nowej estymacji po I4.
 
@@ -78,8 +78,9 @@ Baza R4 jest nieaktualna do czasu nowej estymacji po I4.
 | `pipeline/` | Python: dane → popyt → plany → analizy | tak |
 | `matsim/` | Java: konwersja sieci i runner MATSim | tak (bez jar) |
 | `scenarios/kutno/` | wejścia MATSim: sieć, plany, configi XML, `demand/` (macierze) | częściowo |
+| `scenarios/kutno/validation/` | dane pomiarowe przygotowane dla kodu: liczniki GPR na linkach, czasy GUS, sumy F3 | tak |
 | `scenarios/smoke/` | test regresyjny (10 agentów) | tak |
-| `reports/` | raport na fazę, spis w [reports/README.md](reports/README.md) | tak |
+| `reports/` | raporty: `etap1_mvp/` (F0–F6, R3, D16) i `etap2/` (G1–G7, audyt); spis w [reports/README.md](reports/README.md) | tak |
 | `docs/` | źródła ([ZRODLA.md](docs/ZRODLA.md)) i research faz (`research/`) | tak |
 | `blender/` | skrypty wizualizacji G6 | tak |
 | `data/raw/` | pobrane źródła, tylko do odczytu | nie (manifest tak) |

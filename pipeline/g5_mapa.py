@@ -9,10 +9,11 @@ from matplotlib.collections import LineCollection
 sys.path.insert(0, "pipeline")
 import g5_gpr as G
 
-OUT = "reports/g5_walidacja/"
+OUT = "reports/etap2/g5_walidacja/"
+VAL = "scenarios/kutno/validation/"  # wejścia innych skryptów (punkty GPR, czasy GUS)
 g = G.links()
-p = pd.read_csv(OUT + "gpr_punkty.csv")
-m = pd.read_csv(OUT + "gpr_linki.csv")
+p = pd.read_csv(VAL + "gpr_punkty.csv")
+m = pd.read_csv(VAL + "gpr_linki.csv")
 powiat = gpd.read_file("scenarios/kutno/area/powiat.geojson").to_crs(2180)
 
 plt.style.use("dark_background")

@@ -1,12 +1,12 @@
 # G2: warianty liczby miejsc pracy i wyjeżdżających
 
-Data: 2026-10-17. Liczby są w skali 100%. **Rozstrzygnięte w D17:** B baza, C wariant wrażliwości, O1, rok 2024, odcięcie > 100 km. Wyniki: `reports/g2_miejsca_pracy/g2_miejsca_pracy.md`.
+Data: 2026-10-17. Liczby są w skali 100%. **Rozstrzygnięte w D17:** B baza, C wariant wrażliwości, O1, rok 2024, odcięcie > 100 km. Wyniki: `reports/etap2/g2_miejsca_pracy/g2_miejsca_pracy.md`.
 
 ## Bilans źródeł (gm. miejska Kutno, 1002011)
 
 | wielkość | wartość | źródło |
 |---|---|---|
-| pracujący mieszkańcy, estymacja D5 (bazowy / niski) | 20 215 / 18 836 | `reports/f3_demand/f3_demand.md`, wskaźniki NSP 2021 łódzkie × struktura wieku obwodów |
+| pracujący mieszkańcy, estymacja D5 (bazowy / niski) | 20 215 / 18 836 | `reports/etap1_mvp/f3_demand/f3_demand.md`, wskaźniki NSP 2021 łódzkie × struktura wieku obwodów |
 | pracujący mieszkańcy, rejestry ZUS/KRUS (P4507 „ogółem”, 2024) | 17 255 | BDL API, zmienna 1735394 (sprawdzone 2026-10-17) |
 | miejsca pracy wg siedziby płatnika (P4508, 2024) | 17 486 | BDL API, zmienna 1735396 (sprawdzone) |
 | wyjeżdżający z Kutna (najemni, przepływy ≥ 3) | 2 669 w 83 relacjach | macierz NSP 2021, arkusz „Macierz przepływów” |

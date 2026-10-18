@@ -5,7 +5,7 @@ Strefy: wjazdy (początek) i wyjazdy (koniec) na granicy sieci (`scenarios/kutno
 gminy powiatu kutnowskiego: K punktów na gminę = budynki losowane wagą powierzchni (jak agenci w plans.py), przypięte do
 najbliższego linku poza motorway/trunk (snap_exclude_types). Incydencja ułamkowa: udział z K par punktów (k-ty punkt
 początku z k-tym punktem końca), których trasa przechodzi przez licznik. Wersja z jednym węzłem na gminę (do R2) nie
-zgadzała się z trasami agentów (reports/g5_kalibracja/g5_r2.md). Link startowy nie jest liczony (MATSim zaczyna na jego końcu).
+zgadzała się z trasami agentów (reports/etap2/g5_kalibracja/g5_r2.md). Link startowy nie jest liczony (MATSim zaczyna na jego końcu).
 Pary wewnątrz gminy dozwolone dla gmin powiatu poza gm. miejską Kutno: bez nich liczniki ruchu lokalnego (Żychlin, Krośniewice)
 wypełniały się podróżami przez całe miasto (Krośniewice -> Żychlin przez Objazdową).
 Liczniki (cel): GPR SDRDR (DW: SDRR) × udział lekkich × kierunek (jak g5_baseline.py) MINUS natężenie modelu bez tła.
@@ -25,8 +25,8 @@ iteracji (agenci t…/h… danej klasy, id = <prefiks><o>_<d>_<k>; udział agent
 startowego), dla par bez agentów w runie incydencja z tras swobodnych. Start z macierzy init (tylko jej pary), model bez tła
 dla lcv = pracujący (r/c/o) z eventów tego runu, czyli w stanie z kongestią.
 bound=F (tylko z init): każda para w przedziale [T_init / F, T_init · F]. Bez tego para będąca jedynym nośnikiem licznika
-rosła bez ograniczeń (Kutno -> Krośniewice-miasto 1 415 -> 13 257 podróży/dobę, Objazdowa 211%; reports/g5_kalibracja/g5_r5.md).
-Wyjście: scenarios/kutno/demand/background_od_<tag>.csv (o_kind, o, d_kind, d, tt_min, trips_day), reports/g5_kalibracja/k2_od_<tag>.{json,png}.
+rosła bez ograniczeń (Kutno -> Krośniewice-miasto 1 415 -> 13 257 podróży/dobę, Objazdowa 211%; reports/etap2/g5_kalibracja/g5_r5.md).
+Wyjście: scenarios/kutno/demand/background_od_<tag>.csv (o_kind, o, d_kind, d, tt_min, trips_day), reports/etap2/g5_kalibracja/k2_od_<tag>.{json,png}.
 """
 import gzip
 import io
@@ -115,7 +115,7 @@ if BORDER_W:
 O, D = Z[Z.kind != "exit"].reset_index(drop=True), Z[Z.kind != "entry"].reset_index(drop=True)
 
 # --- liczniki --------------------------------------------------------------------------------------------
-g = pd.read_csv("reports/g5_walidacja/gpr_linki.csv", dtype={"link": str})
+g = pd.read_csv("scenarios/kutno/validation/gpr_linki.csv", dtype={"link": str})
 g["gpr"] = g[[c + "_dr" for c in CLS_COLS]].sum(axis=1) * g.udzial_kier  # audyt K2: struktura SDRDR (DW: SDRR, ZAŁOŻENIE)
 vol = []
 for d in runs:
@@ -236,7 +236,7 @@ rep = {"runs": [str(d) for d in runs], "cls": CLS, "routes": str(ROUTES), "init"
                                                  fit_counts=sorted({int(g.nr[h]) for h in p[3] if g.fit[h]}))
                                             for t, p in zip(T, F) if any(g.nr[h] == nr for h in p[3])],
                                            key=lambda r: -r["trips"])[:8] for nr in CITY}}
-json.dump(rep, open(f"reports/g5_kalibracja/k2_od_{TAG}.json", "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False)
+json.dump(rep, open(f"reports/etap2/g5_kalibracja/k2_od_{TAG}.json", "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False)
 
 fig, axs = plt.subplots(1, 2, figsize=(15, 6.5), gridspec_kw={"width_ratios": [1.3, 1]})
 s = sec.sort_values("gpr")
@@ -256,6 +256,6 @@ ax.scatter(Z[Z.kind == "gmina"].x, Z[Z.kind == "gmina"].y, s=20, color="#3ddc97"
 ax.scatter(Z[Z.kind != "gmina"].x, Z[Z.kind != "gmina"].y, s=8, color="#d1495b", zorder=5, label="wjazdy / wyjazdy")
 ax.set_aspect("equal"); ax.set_axis_off(); ax.legend(fontsize=8)
 ax.set_title(f"60 największych relacji tła ({rep['trips_day_100pct']} podróży/dobę w 100%)", fontsize=10)
-fig.tight_layout(); fig.savefig(f"reports/g5_kalibracja/k2_od_{TAG}.png", dpi=120)
+fig.tight_layout(); fig.savefig(f"reports/etap2/g5_kalibracja/k2_od_{TAG}.png", dpi=120)
 print(json.dumps({k: v for k, v in rep.items() if k not in ("sections", "top_od")}, ensure_ascii=False, indent=1))
 print(sec[["nr", "droga", "fit", "gpr", "model", "background", "model_plus_bg", "ratio_before", "ratio_after"]].round(2).to_string())

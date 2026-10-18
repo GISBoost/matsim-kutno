@@ -44,5 +44,5 @@ for name, geom in [("gmina", g_geom), ("powiat", p_geom), ("network_area", area_
 towns = powiat[powiat["teryt"].str[-1].isin(["1", "4"])]
 (out / "towns.wkt").write_text(towns.union_all().simplify(5).wkt)
 stats["towns_teryt"] = sorted(towns["teryt"].unique())
-Path("reports/f2_network/f2_area.json").write_text(json.dumps(stats, indent=2, ensure_ascii=False))
+Path("reports/etap1_mvp/f2_network/f2_area.json").write_text(json.dumps(stats, indent=2, ensure_ascii=False))
 print(json.dumps(stats, indent=2, ensure_ascii=False))

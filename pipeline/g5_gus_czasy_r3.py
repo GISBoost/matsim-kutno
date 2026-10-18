@@ -3,7 +3,7 @@
 Użycie: uv run python -W ignore pipeline/g5_gus_czasy_r3.py <out_prefix> <plans_meta.csv> <output_dir> [<output_dir> ...]
 Nogi: car, przyjeżdżający z domem w budynku gminy powiatu (home_src osm_*, nie wjazd graniczny), podróż 1 (dom -> praca).
 Czas swobodny: ta sama para linków, najkrótsza ścieżka po length/freespeed od końca linku startu do końca linku celu
-(tak MATSim liczy nogę car). Kongestia = czas w runie / czas swobodny. GUS: centroid -> centroid (reports/g5_walidacja/gus_vs_siec.csv).
+(tak MATSim liczy nogę car). Kongestia = czas w runie / czas swobodny. GUS: centroid -> centroid (scenarios/kutno/validation/gus_vs_siec.csv).
 Wyjście: <out_prefix>.csv (per gmina), <out_prefix>.json, <out_prefix>.png.
 """
 import json
@@ -45,7 +45,7 @@ l["ff_s"] = [ff[(a, b)] for a, b in zip(l.start_link, l.end_link)]
 l["congestion"] = l.model_s / l.ff_s
 dep = pd.to_timedelta(l.dep_time).dt.total_seconds() / 3600
 
-gus = pd.read_csv("reports/g5_walidacja/gus_vs_siec.csv", dtype={"teryt": str})
+gus = pd.read_csv("scenarios/kutno/validation/gus_vs_siec.csv", dtype={"teryt": str})
 g = l.groupby("teryt").agg(legs=("model_s", "size"), model_min=("model_s", "median"), ff_min=("ff_s", "median"),
                            km=("distance", "median"), congestion=("congestion", "median")).reset_index()
 g[["model_min", "ff_min"]] /= 60
