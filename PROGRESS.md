@@ -116,3 +116,10 @@
 
 - `background_od.py`: 20 punktów na gminę, incydencja ułamkowa, krok ∝ udział, pary wewnątrzgminne; liczniki lokalne 10045, 91892 i 91119 poza dopasowaniem (test 5 wariantów offline).
 - R3 (25%, 1 seed): 26 455 nóg car, 0 stuck. 14 odcinków dopasowania: 97% sumy, 13/14 w ±15% (R2: 90%, 6/14). Walidacja: Objazdowa 129%, Bitwy pod Kutnem 84% (suma obu 107%). Opóźnienie 359 poj.-h próbki. Raport: `reports/g5_kalibracja/g5_r3.md`. Opis metody: `docs/research/G5_plan_kalibracji.md` §6.
+
+## 2026-10-18: G5 / D19, K5 wariant A i R3 na 3 seedach (wynik referencyjny)
+
+- K5: rozbieżność Objazdowa 128% / Bitwy pod Kutnem 84% zostaje jako znana. Decyzja użytkownika: wariant A, wpis w D19. Diagnoza: `reports/g5_kalibracja/k5/k5_objazdowa.md`.
+- R3 25% × 3 seedy (4711, 1, 2): każdy seed 26 455 nóg car, 0 stuck, 0 przepełnionych linków; opóźnienie 359 / 367 / 362 poj.-h próbki.
+- Średnia z 3 seedów vs GPR: A1 101%, DK w Kutnie 104%, 14 odcinków dopasowania 97% (12/14 w ±15%; 10044 na granicy 85,0%), rozrzut seedów mediana 0,6%. Raport: `reports/g5_kalibracja/g5_r3.md` (sekcja „R3 na 3 seedach”).
+- **Nowa referencja 25%: `output/g5r3_25pct_s{4711,1,2}`, plany `scenarios/kutno/plans_g5r3_25pct.xml.gz`.**
