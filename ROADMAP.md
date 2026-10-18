@@ -7,7 +7,7 @@ Stan: 2026-10-18. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i m
 | pytanie | plik |
 |---|---|
 | Na jakim etapie jesteśmy, co dalej? | **ten plik** |
-| Co zdecydowaliśmy i dlaczego? | [DECISIONS.md](DECISIONS.md) (D1–D21) |
+| Co zdecydowaliśmy i dlaczego? | [DECISIONS.md](DECISIONS.md) (D1–D22) |
 | Co zrobione, z jakim dowodem? | [PROGRESS.md](PROGRESS.md) (dziennik chronologiczny) |
 | Kontrakty faz (wejścia, test, zaliczenie) | [TASKS.md](TASKS.md) |
 | Jak działa model i jak go odtworzyć | [README.md](README.md) |
@@ -58,6 +58,7 @@ Historia G5, każdy krok z decyzją:
 | audyt | niezależny audyt kodu, kalibracji i walidacji | [audyt_g5.md](reports/etap2/audyt_g5/audyt_g5.md) |
 | poprawki | K1, K2, I4, estymacja R6, I1, D6, I2, I3, D1–D9 ✅ | [plan_poprawek.md](reports/etap2/audyt_g5/plan_poprawek.md), [podsumowanie](reports/etap2/audyt_g5/poprawki/podsumowanie.md) |
 | **R6** | **baza po audycie, referencja 3 seedy MATSim + 2 seedy planów** | **[g5_r6.md](reports/etap2/g5_kalibracja/g5_r6.md), [g5_r6_ref.md](reports/etap2/g5_kalibracja/g5_r6_ref.md)** |
+| czasy TomTom | walidacja czasów i prędkości R6 (D22, wariant A: tylko agregaty) | [g5_czasy_tomtom.md](reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md) |
 
 Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odcinki 91124 i 91866 są kontrolne (użyte w wyborze wariantów), nie walidacja niezależna. Otwarte: bilans stref DK91/DK92 wsch. (odcinki GPR poza siecią), liczniki lokalne, podział Objazdowa/Bitwy (K5), brak pomiarów miejskich (`podsumowanie.md`).
 
@@ -65,7 +66,7 @@ Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odci
 
 | pomysł | stan | uwagi |
 |---|---|---|
-| Kalibracja czasów i prędkości z TomTom / HERE | 💡 propozycja użytkownika, bez decyzji | GPR daje natężenia, TomTom/HERE czasy; kalibrowałoby prędkości, przepustowości i kongestię. Po poprawkach popytu z audytu. Wymaga wpisu w DECISIONS i źródła w ZRODLA |
+| Kalibracja czasów i prędkości z TomTom / HERE | ✅ **walidacja TomTom zrobiona (D22)**, kalibracja bez decyzji; HERE przygotowane (brak klucza) | [g5_czasy_tomtom.md](reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md). Czas swobodny modelu jest o 8–18% dłuższy niż u TomTom (factor 0,8, D13), a czas w oknach zgadza się na 0–6%. Propozycja: freespeed ruszać tylko razem z G1, capacity nie ruszać |
 | Transport publiczny i wybór trybu | G4 | GTFS, SubtourModeChoice, kalibracja ASC |
 | Inne aktywności (szkoła, zakupy, sprawy) | 💡 **brak fazy** | wykluczone z MVP (CLAUDE.md); wymaga nowej fazy w TASKS i decyzji |
 | Skrzyżowania | G1 | odłożone |

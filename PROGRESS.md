@@ -208,3 +208,16 @@
 
 - Raport zbiorczy: `reports/etap2/audyt_g5/poprawki/podsumowanie.md` (przed → po, nowa baza R6, ZAŁOŻENIA, otwarte). Test smoke ok (20 nóg car, `reports/etap2/audyt_g5/poprawki/smoke_check.json`). CLAUDE.md i ROADMAP zaktualizowane: baza R6.
 
+## 2026-10-18: G5/D22: walidacja czasów i prędkości R6 względem TomTom (wariant A)
+
+- Decyzja D22, wariant A (regulamin TomTom pkt 11.4, 11.6.1, 11.6.10): odpowiedzi tylko w pamięci, do repo same agregaty, bez porównania TomTom–HERE. Bez zmian modelu i bez nowych runów MATSim.
+- Próbka (seed 4711): 30 par z planów R6 (r 8, c 6, o 4, t 6, h 6), 10 korytarzy GPR, 25 segmentów. `split.csv`: 1/3 każdej warstwy tylko do walidacji, zapisany przed policzeniem błędu.
+- Czasy modelu: sonda po trasie modelu z czasami linków z eventów 5 runów R6. Kontrola z nogami agentów: mediana 1,000 (p5–p95 0,90–1,04, n 90).
+- TomTom: 149 requestów właściwych = dry-run (2026-10-18 17:23–17:24 UTC, `departAt` wt. 20.10 07:30 / 12:30 / 15:30). Łącznie 316 z budżetu 400 (149 × 401 przez klucz w cudzysłowie, ERRORS 22). `departAt` w przyszłości daje typowy profil: wtorki 20.10 i 27.10 identyczne. Przeszłość jest przyjmowana.
+- Wyniki (mediana model/TomTom; analiza | walidacja):
+  - czas swobodny tras 1,18 | 1,08;
+  - czas rano 1,06 | 1,02, w południe 1,04 | 1,00;
+  - freespeed segmentów 0,84 | 0,87 (A1 112 vs 130 km/h, DK 72 vs 87–89). Tertiary/unclassified n = 1.
+  - TomTom ma ok. 8% opóźnienia względem `noTraffic` przez cały dzień, model 1–4%. Niezależna kontrola zgodna.
+- Wnioski do decyzji: factor 0,8 (D13) zaniża prędkość swobodną o ok. 15%, ale czasy w oknach zgadzają się na 0–6%, bo model nie ma opóźnień skrzyżowań. Freespeed nie ruszać bez G1, capacity nie ruszać, tertiary/unclassified nierozstrzygnięte. Wskaźnik bufora 25 m niewiarygodny przy prostych linkach (ERRORS 23).
+- Raport: `reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md`; kod: `pipeline/traffic_providers.py`, `pipeline/traffic_metrics.py`. HERE przygotowane, bez klucza.

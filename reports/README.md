@@ -18,6 +18,7 @@ Raporty są w dwóch folderach: `etap1_mvp/` (F0–F6, R3, D16) i `etap2/` (fazy
 | `etap2/g5_walidacja/` | punkty GPR przypisane do linków (wykresy i szablon; wejścia kodu `gpr_linki.csv`, `gpr_punkty.csv`, `gus_vs_siec*.csv` są w `scenarios/kutno/validation/`) | – |
 | `etap2/g5_kalibracja/` | runy R1–R5 vs GPR, czasy GUS, PCE, decyzja R4/R5 | `g5_r3.md` … `g5_r5.md`, `g5_r4_vs_r5_decyzja.md` |
 | `etap2/audyt_g5/` | audyt G5 i poprawki D21 (`k1/`, `k2/`) | `audyt_g5.md`, **`plan_poprawek.md`** |
+| `etap2/g5_czasy_tomtom/` | walidacja czasów i prędkości R6 vs TomTom (D22, tylko agregaty) | `g5_czasy_tomtom.md`, `metrics_tomtom.csv` |
 | `etap2/g6_kolejki/` | **wyniki referencyjne (25%, 3 seedy) w `d18_25pct/`**: diagnoza kolejek z G6, test stuckTime/kinematicWaves, poprawka D18 | `g6_kolejki.md` |
 
 Przegląd faz i dalszych planów: [`../ROADMAP.md`](../ROADMAP.md).
