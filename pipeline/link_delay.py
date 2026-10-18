@@ -3,9 +3,13 @@
 Użycie: uv run python pipeline/link_delay.py <output_dir> <out_prefix>   (np. reports/etap1_mvp/f5_run_10pct/f5_delay -> .json, .png)
 Pierwszy link nogi (vehicle enters traffic) i ostatni (vehicle leaves traffic) nie są liczone.
 D20: pojazdy ciężkie (id "h…") mają czas swobodny z prędkością min(freespeed, 80 km/h), inaczej limit prędkości liczyłby się jako opóźnienie.
+Audyt G5/I1: czas swobodny = najkrótszy czas przejazdu w QSim, floor(length / v) + 1 s (krok 1 s i przejście węzła), tak samo jak
+queues.py. Wcześniej length / v: dyskretyzacja (śr. 0,5 s na przejazd) liczyła się jako opóźnienie (R4 820 zamiast 521 poj.-h).
+W nocy (0-5 h, R4) 98,8% przejazdów ma czas dokładnie floor(ff) + 1, żaden krótszy (reports/etap2/audyt_g5/poprawki/c5_night_r4.log).
 """
 import collections
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -26,8 +30,8 @@ for _, el in etree.iterparse(z(out_dir / "output_network.xml.zst"), tag=("node",
     if el.tag == "node":
         nodes[el.get("id")] = (float(el.get("x")), float(el.get("y")))
     else:
-        L[el.get("id")] = dict(free=float(el.get("length")) / float(el.get("freespeed")),
-                               free_h=float(el.get("length")) / min(float(el.get("freespeed")), VMAX_HEAVY), a=el.get("from"), b=el.get("to"),
+        L[el.get("id")] = dict(free=math.floor(float(el.get("length")) / float(el.get("freespeed"))) + 1,  # I1: jak QSim
+                               free_h=math.floor(float(el.get("length")) / min(float(el.get("freespeed")), VMAX_HEAVY)) + 1, a=el.get("from"), b=el.get("to"),
                                cap=float(el.get("capacity")), type={x.get("name"): x.text for x in el.iter("attribute")}.get("type"))
     el.clear()
 

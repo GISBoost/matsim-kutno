@@ -25,6 +25,7 @@ Sieć, pracujący, ciężarówki (pce 2,5, 80 km/h) i ustawienia symulacji są i
 | suma obu odcinków testowych (lekkie) | ok. 111% | ok. 122% | R4 |
 | DK w Kutnie (3 odcinki, lekkie) | 108% | 114% | R4 |
 | opóźnienia (poj.-h próbki) | 820 | 693 | – |
+| opóźnienia, audyt I1 (poj.-h próbki) | 540 | 419 | – |
 | ruch tła na dobę (lekkie / ciężkie) | 85 tys. / 25 tys. | 81 tys. / 22 tys. | – |
 
 ## Uzasadnienie wyboru R4

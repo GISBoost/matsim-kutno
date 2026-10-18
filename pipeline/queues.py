@@ -3,7 +3,8 @@
 Użycie: uv run python -W ignore pipeline/queues.py <output_dir> <out_prefix> [t0_h t1_h]   (domyślnie 6-9)
 Wyjście: <out_prefix>.json, <out_prefix>.csv (wszystkie linki z opóźnieniem).
 Dla każdego linku: przejazdy pośrednie (entered -> left tego samego pojazdu; linki startu i końca podróży pominięte,
-bo tam pojazd czeka na wjazd do ruchu lub kończy w środku linku), czas swobodny = length / freespeed,
+bo tam pojazd czeka na wjazd do ruchu lub kończy w środku linku), czas swobodny = najkrótszy czas QSim floor(length / freespeed) + 1 s
+(audyt G5/I1, ta sama definicja co link_delay.py; wcześniej length / freespeed + 1, co zaniżało opóźnienie o ułamek sekundy),
 przepływ wylotowy w najgorszych 15 min przeskalowany do 100% (× 1/sampleSize) vs capacity linku,
 najczęstszy link następny i jego zapełnienie (pojazdy na linku vs pojemność składowania).
 Przepełnienie: maks. liczba pojazdów na linku > 2 × (pojemność składowania + bufor), czyli skutek stuckTime.
@@ -13,6 +14,7 @@ następny był pełny), "node" (żadne z dwóch: konkurencja na węźle albo kol
 import gzip
 import io
 import json
+import math
 import re
 import sys
 from collections import Counter, defaultdict
@@ -43,8 +45,8 @@ with zstandard.ZstdDecompressor().stream_reader(open(d / "output_network.xml.zst
         elif el.get("effectivecellsize"):
             EFF_CELL = float(el.get("effectivecellsize"))
 for l in links.values():
-    l["ff"] = l["length"] / l["freespeed"]
-    l["ff_h"] = l["length"] / min(l["freespeed"], 80 / 3.6)  # D20: ciężkie (id "h…") z limitem 80 km/h
+    l["ff"] = math.floor(l["length"] / l["freespeed"]) + 1  # I1: najkrótszy czas QSim (krok 1 s + węzeł)
+    l["ff_h"] = math.floor(l["length"] / min(l["freespeed"], 80 / 3.6)) + 1  # D20: ciężkie (id "h…") z limitem 80 km/h
     l["storage"] = max(l["length"] * l["lanes"] / EFF_CELL * S, 1)  # jak QSim (min. 1 pojazd; QSim podnosi też do flowCap·ff)
 
 pat = re.compile(r'time="([\d.]+)" type="(entered link|left link|vehicle enters traffic|vehicle leaves traffic)"[^>]*?'
@@ -90,7 +92,7 @@ with zstandard.ZstdDecompressor().stream_reader(open(d / "output_events.xml.zst"
 
 tr = pd.DataFrame(trav, columns=["link", "t_in", "t_out", "next", "heavy"])
 tr["ff"] = [links[l]["ff_h" if h else "ff"] for l, h in zip(tr.link, tr.heavy)]
-tr["delay"] = (tr.t_out - tr.t_in - tr.ff - 1).clip(lower=0)  # QSim: +1 s na przejście węzła
+tr["delay"] = (tr.t_out - tr.t_in - tr.ff).clip(lower=0)  # ff zawiera już +1 s QSim
 tr["q15"] = (tr.t_out // 900).astype(int)
 g = tr.groupby("link")
 agg = pd.DataFrame({"n": g.size(), "delay_veh_h": g.delay.sum() / 3600, "n_gt60s": g.delay.apply(lambda x: (x > 60).sum()),

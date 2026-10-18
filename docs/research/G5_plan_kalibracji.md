@@ -97,7 +97,7 @@ Prawdziwa kalibracja sieci wymaga danych, których nie ma publicznie: pomiarów 
 
 - **K1-1:** `car_share = 0.64` i `work_from_home = 0.073` w `config/kutno.toml`, plans.py skaluje popyt o 0,593. Plany 25%: 3 739 osób, walidacja ok.
 - **Run R1** (D18 + K1-1, 25% × 3 seedy, `reports/etap2/g5_kalibracja/r1/`): 7 478 nóg car, 0 stuck.
-  - Opóźnienia 106–113 poj.-h próbki wobec 735–854 w D18. 41% mniej ruchu daje o 86% mniej opóźnień, więc kongestia jest silnie nieliniowa.
+  - Opóźnienia 106–113 poj.-h próbki wobec 735–854 w D18. 41% mniej ruchu daje o 86% mniej opóźnień, więc kongestia jest silnie nieliniowa. (Audyt I1: 50,5–58,0 wobec 641–759, czyli −92%; wniosek o nieliniowości bez zmian.)
   - Model / GPR: A1 3%, DK w mieście 30%, pozostałe DK 8%, DW 4%.
 - **K3-2:** `pipeline/digitize_lisica.py` → `config/hourly_profile_lisica2025.csv`. Lekkie i ciężkie, dzień roboczy, sumy 100,0%. Udział godzin 6–18 dla lekkich to 77,7%, szczyt 15–16: 8,3%.
 - **K2-2:** `pipeline/background_od.py` (estymacja O-D z 16 odcinków poza miastem):

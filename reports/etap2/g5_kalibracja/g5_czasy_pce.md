@@ -18,7 +18,7 @@ Skrypt `pipeline/g5_gus_czasy_r3.py`, wynik w `czasy/r3_vs_gus.{csv,json,png}`.
 | mediana per gmina: czas swobodny nóg / GUS | 0,81 |
 | czas swobodny nóg (budynek → budynek) / czas swobodny centroid → centroid | 0,98 |
 
-- Kongestia wydłuża dojazdy z powiatu średnio o 5–7%. Wynik zgadza się z opóźnieniem dobowym R3 (359–367 poj.-h próbki, 0 przepełnionych linków).
+- Kongestia wydłuża dojazdy z powiatu średnio o 5–7%. Wynik zgadza się z opóźnieniem dobowym R3 (359–367 poj.-h próbki; audyt I1: 154–163; 0 przepełnionych linków).
 - Rozkład domów i miejsc pracy zamiast centroidów prawie nie zmienia czasu (0,98).
 - Z kongestią model nadal jest szybszy od GUS o ok. 13%.
 - Gminy z największą różnicą to Żychlin (obszar wiejski 0,55, miasto 0,69), Bedlno (0,60), Oporów (0,72) i Krośniewice wieś (0,74). Wszystkie mają dojazd drogami lokalnymi.

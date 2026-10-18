@@ -175,3 +175,9 @@
 - Nowy `pipeline/od_warnings.py` (S1 gęstość gminy vs Kutno ≤ 10×, S2 km po drogach bez licznika ≤ 35%, S3 końce ciężkich w mieszk. + gosp. ≤ 25%, S4 trójka Dąbrowice/Krośniewice ≤ 500): R4 flagowane (S1 45×/73×, S4 24 041), R6 ok (5,1×, 30,5%, 0,0%, 142).
 - `heavy_ends = "work"` (ZAŁOŻENIE, D9): końce ciężkich w budynkach pracy (było 54% w mieszkalnych i gospodarczych). Wariant z celem GPR na strefach granicznych odrzucony (S2/S4, nowy fantom gmin). Raport: `reports/etap2/audyt_g5/poprawki/k4_od.md`.
 
+## 2026-10-18: audyt G5, krok 5 (D21/I1): opóźnienia
+
+- `link_delay.py` i `queues.py`: czas swobodny = floor(length / v) + 1 s (najkrótszy czas QSim; w nocy 98,8% przejazdów R4 dokładnie tyle, żaden krócej, `c5_night.py`).
+- Przeliczone (poj.-h próbki): R1 50,5–58,0 (było 106–113), R2 110,0 (304), R3 154,3–162,8 (359–367), R4 540,3 (820), R5 419,3 (693), D18 641–759 (735–854). R3, R4, R5 równe audytowi. R3 → R4 3,5×, R5 −22% vs R4. Noc ~0.
+- Adnotacje „audyt I1” w raportach G5 i D18. Raport: `reports/etap2/audyt_g5/poprawki/k5_i1_opoznienia.md`.
+

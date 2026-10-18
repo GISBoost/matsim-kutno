@@ -41,6 +41,7 @@ Narzędzie: `pipeline/queues.py`. Liczy przejazdy pośrednich linków z eventów
 |---|---|---|
 | nogi car, stuck | 12 604, 0 | 12 604, 0 (3 seedy) |
 | opóźnienie razem, 3 seedy [poj.-h próbki] | 754–777 | 735–854 |
+| opóźnienie, audyt I1 (floor(ff) + 1 s) | – | 641–759 |
 | przepełnione linki (06–09) | 13 | 4–7 |
 | maks. pojazdów na linku | 82 (pojemność 1,2) | 18–34 |
 | mediana czasu: mieszkańcy / przyjeżdżający / wyjeżdżający [min] (s4711) | 15,0 / 23,4 / 24,0 | 15,0 / 23,5 / 24,1 |
