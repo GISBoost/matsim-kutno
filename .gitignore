@@ -18,5 +18,19 @@ __pycache__/
 dependency-reduced-pom.xml
 scenarios/kutno/*.xml.gz
 scenarios/kutno/plans_*.csv
-.env# klucze API (TomTom, HERE) - nigdy do gita
+# logi (duże, z runów MATSim i API); pliki zostają na dysku
+*.log
+# klucze API (TomTom, HERE) - nigdy do gita
 .env
+# TomTom (wariant A, D22): w repo tylko metryki i raporty, bez danych pochodnych
+reports/etap2/g5_czasy_tomtom/segments.csv
+reports/etap2/g5_czasy_tomtom/pairs.csv
+reports/etap2/g5_czasy_tomtom/split.csv
+reports/etap2/g5_czasy_tomtom/model_times.csv
+reports/etap2/g5_czasy_tomtom/model_legs_check.csv
+reports/etap2/g5_czasy_tomtom/przebieg_tomtom.json
+reports/etap2/g5_czasy_tomtom/*.png
+reports/etap2/g5_predkosci_d23/fit_tomtom.json
+reports/etap2/g5_predkosci_d23/fit_f_g_tomtom.png
+# G6: filmy, klatki i audio z Blendera
+blender/g6_blender/
