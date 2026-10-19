@@ -10,7 +10,7 @@ import bpy, numpy as np
 argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 ap = argparse.ArgumentParser()
 ap.add_argument("--data", default="output/g6_blender")
-ap.add_argument("--out", default="reports/etap2/g6_blender")
+ap.add_argument("--out", default="blender/g6_blender")
 ap.add_argument("--stills", default="")          # lista klatek npz, np. 1200,1500
 ap.add_argument("--anim", nargs=2, type=int)     # start end (indeksy klatek npz)
 ap.add_argument("--fps", type=int, default=24)
