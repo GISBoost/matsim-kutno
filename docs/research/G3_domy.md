@@ -1,6 +1,6 @@
 # G3: dane do poprawy rozmieszczenia domów
 
-Data: 2026-10-17. Badanie bez zmian w modelu (plans.py i configi nietknięte). Skrypt: `pipeline/g3_domy.py` (`uv run python -W ignore pipeline/g3_domy.py`), wyniki w `reports/g3_domy/` (`g3_wyniki.json` ma wszystkie liczby, `*.csv`, mapy `*.png`, log `run.log`).
+Data: 2026-10-17. Badanie bez zmian w modelu (plans.py i configi nietknięte). Skrypt: `pipeline/g3_domy.py` (`uv run python -W ignore pipeline/g3_domy.py`), wyniki w `reports/etap2/g3_domy/` (`g3_wyniki.json` ma wszystkie liczby, `*.csv`, mapy `*.png`, log `run.log`).
 
 ## 1. Tabela źródeł
 
@@ -52,7 +52,7 @@ Porównanie: obecna pula vs R5 bez pracy/amenity (wariant „r5p”; czysty R5 j
 - Gm. Kutno: powierzchnia puli 0,914 → 1,099 km² (+20%, +185 tys. m²), budynków 7 447 → 8 147.
 - Obwody (233, wszystkie z geometrii BREC): zmiana powierzchni >20% w 34 obwodach, >50% w 22. Największy przyrost m²: 6511303 (+31 tys. m², +1109%), 6509026 (+18 tys.), 6511403 (+15 tys.), 6511001, 6511306, 6509025 (por. `mapa_wplyw_r5_obwody.png`). Ważony pracującymi udział „nowej” powierzchni w puli: 6,7% (czyli około 7% agentów-rezydentów miałoby szansę trafić do dodanych budynków).
 - Obwody bez budynku mieszkalnego: **1 w obecnym i 1 w R5** (6509902, 57,84 pracujących, dostają losowy punkt). R5 tego nie naprawia, bo w obwodzie nie ma żadnego budynku kandydata. Czyli „ile obwodów przestaje potrzebować losowego punktu” = **0**.
-- Gminy powiatu (przyrost puli m² / udział nowej powierzchni w puli): 1002045: +246% (71% puli), 1002092: +155% (61%), 1002082: +111% (53%), 1002102: +101% (50%), 1002044: +72%, 1002114: +54%, 1002022: +47%; pozostałe +12–21%. Pełna tabela `reports/g3_domy/wplyw_r5_per_gmina.csv`. Przyrost w powiecie to w 99% `building=yes` poza landuse=residential (6 772 budynków, 1,28 km²), reszta to remizy, bazyliki, plebanie.
+- Gminy powiatu (przyrost puli m² / udział nowej powierzchni w puli): 1002045: +246% (71% puli), 1002092: +155% (61%), 1002082: +111% (53%), 1002102: +101% (50%), 1002044: +72%, 1002114: +54%, 1002022: +47%; pozostałe +12–21%. Pełna tabela `reports/etap2/g3_domy/wplyw_r5_per_gmina.csv`. Przyrost w powiecie to w 99% `building=yes` poza landuse=residential (6 772 budynków, 1,28 km²), reszta to remizy, bazyliki, plebanie.
 - Wariant z kondygnacjami BDOT: zmienia rozkład budynków w obwodzie średnio o 12,1 punktu procentowego masy (całkowita wariacja, ważona pracującymi), współczynnik obrys→obrys×kond. 1,0–6,5 w obwodach (`g3_wyniki.json`, sekcja `kondygnacje`).
 
 ## 4. Domy agentów vs siatka GUS (pkt 4)
@@ -104,3 +104,17 @@ Decyzje dla użytkownika (zmiana wymaga wpisu w DECISIONS.md, D11 i zakres zamro
 3. **OSM czy BDOT jako źródło geometrii domu** (BDOT 2025-12, 39% z ortofotomapy; OSM aktualniejszy w nowych osiedlach: 1 450 budynków OSM w gm. Kutno bez odpowiednika). Możliwy wariant hybrydowy: BDOT dla funkcji i kondygnacji, OSM jako uzupełnienie nowych budynków (do ustalenia osobno).
 4. **Obwód 6509902** (57,8 pracujących, zero budynków mieszkalnych): zostawić losowy punkt czy przypisać do sąsiedniego obwodu?
 5. Czy pobrać siatkę 1 km „budynki i mieszkania” przez konto w Menedżerze Zasobów (zasób 18483), żeby sprawdzić liczbę mieszkań na komórkę (kontrola kondygnacji)? Wymaga konta, więc po stronie użytkownika.
+
+## Uzupełnienie (L-5): co zmieniłoby się w modelu, koszty, obwód 6509902
+
+**Zmiana w kodzie (nie wykonana, do decyzji w DECISIONS.md):** w `pipeline/plans.py` warstwa kandydatów `homes_b` (dziś OSM: tagi mieszkalne + `yes` w landuse=residential) byłaby zastąpiona budynkami BDOT10k `OT_BUBD_A` z `KATEGORIAISTNIENIA=eksploatowany` i `FUNKCJAOGOLNABUDYNKU="budynki mieszkalne"`, a `pick_buildings` używałoby wagi `area_m2 × LICZBAKONDYGNACJI` (braki = 1). Reszta (przypięcie do linku, losowanie ze zwracaniem, seed) bez zmian. Efekt: w gm. Kutno ok. 7 450 → 5 250 budynków; zniknęłyby garaże i budynki gospodarcze z puli (181 tys. m², 20% obecnej puli), a udział bloków wzrósłby (OSM `apartments` 21% → 43% wagi). Zmiana zmieni `plans.xml` (nowy sha256, nowy wynik referencyjny) i przesunie część agentów z peryferii do centrum i osiedli, więc wymaga ponownych runów 25%.
+
+**Koszty:**
+- nowe źródło w repo (BDOT10k 26 MB, wpisy `docs/ZRODLA.md` i `data/manifest.csv`) i warstwa czytana w `plans.py` (pliki `data/raw/g3/...`);
+- osobna logika dla powiatu: dojeżdżający z gmin powiatu też muszą brać budynki BDOT (kondygnacje są w całym powiecie, więc bez dodatkowych danych);
+- BDOT ma 39% geometrii z ortofotomapy, a 1 450 budynków OSM w gm. Kutno nie ma w nim odpowiednika (nowe osiedla, aktualność OSM wyższa). To ryzyko niedoszacowania nowych dzielnic; łagodzi je wariant hybrydowy (BDOT dla funkcji i pięter, OSM `house/detached/apartments` jako uzupełnienie), droższy w utrzymaniu;
+- zysk jest umiarkowany: oczekiwana masa w złej komórce 250 m spada z 10,3 do 8,5 pp. Wykluczenia R5 bez BDOT pogorszyłyby wynik (11,6 pp), więc ich nie warto.
+
+**Obwód 6509902 nie jest realną luką danych.** To obwód 153 mieszkańców (57,84 pracujących) o powierzchni 0,25 ha, czyli jeden 5-kondygnacyjny blok wielorodzinny (BDOT: 1 014 m², OSM `apartments` 994 m²). Blok leży na granicy obwodu, a `plans.py` przypisuje budynek do obwodu po `representative_point().within(obwód)`; ten punkt wypada w sąsiednim obwodzie, więc kandydatów jest 0 i agenci dostają `random_point` w poligonie 0,25 ha (niedaleko bloku, błąd rzędu kilkudziesięciu metrów). To artefakt przypisania, nie brak budynku. Poprawka tania i niezależna od wariantu: przypisywać budynek do obwodu po największym pokryciu (albo przecięciu), a przy braku kandydatów brać najbliższy budynek mieszkalny. Różnica dla wyników praktycznie żadna (57,84 pracujących, 14 agentów w próbce 25%).
+
+**Rekomendacja:** przyjąć BDOT10k (tylko „budynki mieszkalne”, obrys × kondygnacje) jako wagi domów w gm. Kutno i powiecie, bo jest najlepiej zgodny z GUS i jedyny uwzględnia bloki; hybrydę z OSM zostawić jako wariant, jeśli użytkownik uzna aktualność nowych osiedli za ważniejszą. Obwód 6509902 naprawić przypisaniem po przecięciu, bez osobnej decyzji. Przed wdrożeniem warto zrobić run 25% porównawczy (zgodnie z regułą skali) i zapisać decyzję w DECISIONS.md.
