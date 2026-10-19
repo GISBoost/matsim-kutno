@@ -24,14 +24,14 @@ def read_network(path):
         if el.tag == "node":
             nodes[a["id"]] = (float(a["x"]) - ORIGIN[0], float(a["y"]) - ORIGIN[1])
         else:
-            links[a["id"]] = (a["from"], a["to"], float(a["length"]), float(a["freespeed"]))
+            links[a["id"]] = (a["from"], a["to"], float(a["length"]), float(a["freespeed"]), next((x.text for x in el.iter("attribute") if x.get("name") == "type"), ""))
         el.clear()
     return nodes, links
 
 
 def bake(run, t0, t1, step):
     nodes, links = read_network(run / "output_network.xml.zst")
-    seg = {k: (*nodes[f], *nodes[t]) for k, (f, t, _, _) in links.items()}  # x0,y0,x1,y1
+    seg = {k: (*nodes[f], *nodes[t]) for k, (f, t, *_) in links.items()}  # x0,y0,x1,y1
     cur, tracks, ntr = {}, [], {}  # veh -> knots [(t,x,y)] ; finished tracks [(veh,knots)]
     nev = 0
     for line in lines(run / "output_events.xml.zst"):
@@ -121,6 +121,6 @@ if __name__ == "__main__":
     np.savez_compressed(out / "vehicles.npz", **data, step=a.step, origin=ORIGIN)
     ek = list(links)
     edges = np.array([(*nodes[links[k][0]], *nodes[links[k][1]]) for k in ek], np.float32)
-    np.savez_compressed(out / "network.npz", edges=edges, freespeed=np.array([links[k][3] for k in ek], np.float32))
+    np.savez_compressed(out / "network.npz", edges=edges, freespeed=np.array([links[k][3] for k in ek], np.float32), hw=np.array([links[k][4] for k in ek]))
     print(f"bake {time.time()-t:.1f}s -> {out}")
     if not a.no_check: check(run, tracks, links, nodes, data)

@@ -1,7 +1,7 @@
 """G6: scena Blendera (4.4) z wynikiem pipeline/g6_bake.py. Ciemny motyw.
 GUI:   blender --python blender/g6_load.py -- --data output/g6_blender
-Render: blender -b --python blender/g6_load.py -- --data output/g6_blender --stills 1200,1500 --out reports/g6_blender
-        ... --anim 1200 1320 --out reports/g6_blender   (klatki animacji = indeksy .npz)
+Render: blender -b --python blender/g6_load.py -- --data output/g6_blender --stills 1200,1500 --out reports/etap2/g6_blender
+        ... --anim 1200 1320 --out reports/etap2/g6_blender   (klatki animacji = indeksy .npz)
 1 jednostka = 1 m; srodek sceny = (524805, 485023) EPSG:2180."""
 import sys, argparse, math
 from pathlib import Path
@@ -10,7 +10,7 @@ import bpy, numpy as np
 argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 ap = argparse.ArgumentParser()
 ap.add_argument("--data", default="output/g6_blender")
-ap.add_argument("--out", default="reports/g6_blender")
+ap.add_argument("--out", default="reports/etap2/g6_blender")
 ap.add_argument("--stills", default="")          # lista klatek npz, np. 1200,1500
 ap.add_argument("--anim", nargs=2, type=int)     # start end (indeksy klatek npz)
 ap.add_argument("--fps", type=int, default=24)
@@ -37,22 +37,52 @@ sc.render.fps = a.fps
 w = bpy.data.worlds.new("dark"); sc.world = w; w.use_nodes = True
 bg = w.node_tree.nodes["Background"]; bg.inputs[0].default_value = (0.004, 0.005, 0.008, 1); bg.inputs[1].default_value = 1.0
 
-# --- siec: pasy (quady) o szerokosci net-width
+# --- siec: pasy (quady), kolor i szerokosc wg klasy drogi (paleta OSM, przyciemniona pod ciemny motyw)
+HW = np.load(data / "network.npz")["hw"] if "hw" in np.load(data / "network.npz").files else np.array(["residential"] * len(E))
+CLS = {  # klasa: (kolor OSM * jasnosc, mnoznik szerokosci, kolejnosc rysowania)
+    "motorway": ((0.91, 0.57, 0.64), 2.4, 6), "trunk": ((0.98, 0.70, 0.61), 2.2, 5), "primary": ((0.99, 0.84, 0.64), 2.0, 4),
+    "secondary": ((0.97, 0.98, 0.75), 1.6, 3), "tertiary": ((0.80, 0.80, 0.80), 1.25, 2)}
+MINOR = ((0.055, 0.085, 0.14), 1.0, 0)
+def cls_of(h):
+    h = str(h).replace("_link", ""); c = CLS.get(h, MINOR)
+    return (tuple(x * (1.0 if h in ("motorway", "trunk", "primary") else 0.75) for x in c[0]), c[1] * (0.7 if "_link" in str(h) else 1), c[2]) if c is not MINOR else MINOR
+_cl = [cls_of(h) for h in HW]
+ECOL = np.array([c[0] for c in _cl], np.float32); WF = np.array([c[1] for c in _cl], np.float32); ZR = np.array([c[2] for c in _cl], np.float32)
 keep = (np.hypot(E[:, 0], E[:, 1]) < a.net_radius) | (np.hypot(E[:, 2], E[:, 3]) < a.net_radius)
-E = E[keep]
-d = E[:, 2:] - E[:, :2]; L = np.maximum(np.hypot(d[:, 0], d[:, 1]), 1e-6)[:, None]
-n = np.stack([-d[:, 1], d[:, 0]], 1) / L * a.net_width / 2
-A, B = E[:, :2], E[:, 2:]
-verts = np.concatenate([A + n, A - n, B - n, B + n], 0)           # (4M,2), blok po M
+E, ECOL, WF, ZR = E[keep], ECOL[keep], WF[keep], ZR[keep]
 M = len(E); idx = np.arange(M)
+def net_verts(w):   # w = szerokosc bazowa; wyzsze klasy szersze i wyzej (z) => rysowane na wierzchu
+    d = E[:, 2:] - E[:, :2]; L = np.maximum(np.hypot(d[:, 0], d[:, 1]), 1e-6)[:, None]
+    n = np.stack([-d[:, 1], d[:, 0]], 1) / L * (w * WF)[:, None] / 2
+    A, B = E[:, :2], E[:, 2:]; z = np.tile(ZR * 0.2, 4)
+    return np.c_[np.concatenate([A + n, A - n, B - n, B + n], 0), z].astype(np.float32)
 faces = np.stack([idx, idx + M, idx + 2 * M, idx + 3 * M], 1)
 me = bpy.data.meshes.new("network")
-me.from_pydata(np.c_[verts, np.zeros(4 * M)].tolist(), [], faces.tolist()); me.update()
+me.from_pydata(net_verts(a.net_width).tolist(), [], faces.tolist()); me.update()
+ca = me.attributes.new("col", "FLOAT_COLOR", "POINT"); ca.data.foreach_set("color", np.c_[np.tile(ECOL, (4, 1)), np.ones(4 * M)].astype(np.float32).ravel())
 net = bpy.data.objects.new("network", me); sc.collection.objects.link(net)
-m = bpy.data.materials.new("road"); m.use_nodes = True
-em = m.node_tree.nodes["Principled BSDF"]; em.inputs["Base Color"].default_value = (0.02, 0.03, 0.05, 1)
-em.inputs["Emission Color"].default_value = (0.10, 0.16, 0.26, 1); em.inputs["Emission Strength"].default_value = 0.5
+m = bpy.data.materials.new("road"); m.use_nodes = True; tn = m.node_tree; tn.nodes.clear()
+_at = tn.nodes.new("ShaderNodeAttribute"); _at.attribute_name = "col"; _at.attribute_type = "GEOMETRY"
+_em = tn.nodes.new("ShaderNodeEmission"); _em.inputs["Strength"].default_value = 0.9; _ot = tn.nodes.new("ShaderNodeOutputMaterial")
+tn.links.new(_at.outputs["Color"], _em.inputs["Color"]); tn.links.new(_em.outputs[0], _ot.inputs[0])
 net.data.materials.append(m)
+
+# --- granica powiatu (fioletowa, jak granice administracyjne w OSM); wstega o szerokosci zaleznej od zoomu
+import json
+_pg = json.load(open(Path(__file__).resolve().parents[1] / "scenarios/kutno/area/powiat.geojson"))["features"][0]["geometry"]["coordinates"]
+_segs = []
+for ring in _pg:
+    r_ = np.array(ring, np.float64)[:, :2] - np.array((524805.0, 485023.0)); _segs.append(np.c_[r_[:-1], r_[1:]])
+BS = np.concatenate(_segs); BM = len(BS)
+def border_verts(w):
+    d = BS[:, 2:] - BS[:, :2]; L = np.maximum(np.hypot(d[:, 0], d[:, 1]), 1e-6)[:, None]; n = np.stack([-d[:, 1], d[:, 0]], 1) / L * w / 2
+    return np.c_[np.concatenate([BS[:, :2] + n, BS[:, :2] - n, BS[:, 2:] - n, BS[:, 2:] + n], 0), np.full(4 * BM, 1.5)].astype(np.float32)
+bi = np.arange(BM); bme = bpy.data.meshes.new("border")
+bme.from_pydata(border_verts(30).tolist(), [], np.stack([bi, bi + BM, bi + 2 * BM, bi + 3 * BM], 1).tolist()); bme.update()
+border = bpy.data.objects.new("border", bme); sc.collection.objects.link(border)
+bm_ = bpy.data.materials.new("border"); bm_.use_nodes = True; bt = bm_.node_tree; bt.nodes.clear()
+_be = bt.nodes.new("ShaderNodeEmission"); _be.inputs["Color"].default_value = (0.75, 0.35, 0.9, 1); _be.inputs["Strength"].default_value = 2.0
+_bo = bt.nodes.new("ShaderNodeOutputMaterial"); bt.links.new(_be.outputs[0], _bo.inputs[0]); bme.materials.append(bm_)
 
 # --- punkty pojazdow (N wierzcholkow; niewidoczne parkujemy pod kamera, z=-1e4)
 pm = bpy.data.meshes.new("veh_pts")
