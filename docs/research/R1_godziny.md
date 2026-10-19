@@ -32,3 +32,11 @@ Data: 2026-10-16. Zakres: tylko źródła pierwotne; nic nie jest wpisane do con
 4. Zastrzeżenie do raportu: Gdańsk to duże miasto z innym rozkładem zmian niż Kutno; Kutno ma zakłady przemysłowe z pracą zmianową, więc zakładać ostrożnie.
 
 Następny krok (poza R1): otworzyć PDF Marszałek 2019 i BCL 2013 cz. II i sprawdzić, czy mają tabelę liczbową rytmu pracy zawodowej (10-min.). Jeśli tak, to jest lepsze (krajowe, liczbowe, CC BY), ale mierzy porę wykonywania pracy, nie wyjazd z domu.
+
+## Uzupełnienie 2026-10-18 (pytanie L-6 / L-7)
+
+**Marszałek 2019 — sprawdzone (PDF otwarty).** Dane BCL 2013 (dziennik czasu, 10-min., cała Polska). Rys. 1–3, 6–7 pokazują dobowy rytm: odsetek osób wykonujących pracę zawodową w danej godzinie, w dzień powszedni, wg płci, typu gospodarstwa i statusu. **Tylko wykresy, bez tabel liczbowych.** Tekst: >60% osób 15+ pracowało 8:00–16:00; od 6:00 pracowało co najmniej 20%; po 21:00 ok. 10%; ponad połowa kobiet zaczynała pracę ok. 7:00, mężczyźni ok. godzinę wcześniej (ok. 6:00). To inna metoda niż GBR (dziennik czasu zamiast dziennika podróży, krajowa próba, 2013) i mierzy **początek pracy**, nie wyjazd z domu; wyjazd = początek pracy − dojazd (śr. dojazd do pracy ~30 min jednostronnie wg GUS, tabl. 2.9: 61% do 30 min).
+
+**L-7 (czas pracy per osoba):** nie znalazłem publicznie dostępnego rozkładu czasu pracy per osoba w Polsce. GUS BCL publikuje tylko średnie (8 h 11 min najemni, 7 h 40 min na własny rachunek, 2013); rozkład wymagałby mikrodanych BCL (dostęp nieustalony; HETUS 2020 PL nie wcześniej niż 2027). Z rysunków Marszałek można co najwyżej oszacować rozkład końca pracy (spadek krzywej po 14:00), też z wykresu.
+
+**Rekomendacja:** L-6 zostaje GBR Gdańsk 2022 (jedyny źródłowy rozkład wyjazdów), a Marszałek 2019 jako niezależna kontrola krajowa (porównać szczyt początku pracy ok. 6–8:00 z szczytem wyjazdów 6–8:00 w GBR). L-7: 8 h pozostaje jawnym `ZAŁOŻENIEM` ze średnią z BCL; źródła rozkładu nie ma.
