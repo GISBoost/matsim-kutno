@@ -154,3 +154,15 @@ data/raw/g4/bochnia_studium_mobilnosci_cz2.pdf,https://bip.malopolska.pl/e,pobie
 - Nie otworzyłem PDF „Dojazdy do pracy w świetle wyników NSP 2021” (~152 MB); wniosek „brak środka transportu” opiera się na opisie GUS i na tym, że nasze pliki NSP go nie mają.
 - Kod matsim-libs 2026.0 czytałem przez WebFetch (streszczenia narzędzia), poza `javap`/`unzip` na lokalnym jarze. Przed użyciem w G4: `--help` dla `transit-from-gtfs` i test 2 iteracji.
 - Rys. 5.25 (Radom) i wykres 6.2 (Bochnia) zostały odczytane z tekstu PDF — warto raz obejrzeć wzrokowo.
+
+## 8. Weryfikacja odczytu wartości 61–67% (2026-10-18, na zlecenie sesji README)
+
+Strony PDF wyrenderowałem do obrazów i obejrzałem wzrokowo (nie tylko tekst).
+
+- **Bochnia** (`bochnia_studium_mobilnosci_cz2.pdf`, PDF s. 45 = numer drukowany 44, *Wykres 6.2 „Podział zadań przewozowych w motywacji dom–praca”*): samochód osobowy **67%**, autobus miejski 12%, bus 7%, pociąg 1%, rower 3%, pieszo 10%. Odczyt poprawny. Wykres 6.3 (dom–zakupy, ten sam PDF s. 45) to osobna rzecz: auto 69%, pieszo 17%. Ankiety X 2016, miasto 30 051 mieszk.; liczby ankiet nie odczytałem.
+- **Radom** (`radom_sump_diagnoza_2023.pdf`, s. 137 = numer drukowany 137, *Rys. 5.25 „… dla Radomia w podróżach obligatoryjnych w roku 2022”*): pieszo 12,03%, **komunikacja indywidualna 61,41%**, zbiorowa 19,09%, rower 7,47%. Kolejność etykiet potwierdzona na wykresie (to zamyka niepewność z sekcji 1b). Zastrzeżenia: (1) „obligatoryjne” = praca **i nauka**, nie sama praca; (2) „indywidualna” to nie tylko samochód (może obejmować pasażera i motocykl); (3) Rys. 5.24 (wszystkie podróże Radomia) to 52,43% indywidualna; (4) ankieta N = 750 dla całego GOFR, nie dla Radomia.
+- **Wniosek:** „61–67%” to 61% (Radom, praca+nauka, komunikacja indywidualna) i 67% (Bochnia, tylko dom–praca, samochód). Nie są to wartości tej samej kategorii.
+
+**Źródło dla dojazdów do pracy w łódzkim lub miastach 30–100 tys.:** w tej sesji nie znalazłem żadnego innego niż powyższe dwa (oba spoza łódzkiego, ankiety, bez błędu szacunku) i GUS Mobilność 2024 (łódzkie, wszystkie cele). Szukałem słowami kluczowymi (SUMP/KBR/studium transportowe), więc nie wykluczam istnienia innych dokumentów.
+
+**Status trybów w planie (zgodnie z `docs/research/G4_tryby.md` i `G4_beeline.md`):** badawczo opisane, **niewdrożone** (zakres MVP zamrożony, wymaga decyzji D w `DECISIONS.md`). Pieszo i rower: proponowane jako trybu teleportowane z `beelineDistanceFactor` ≈ 1,25 i ≈ 1,35 (pomiar na sieci OSM Kutna, `docs/research/G4_beeline.md`); PT: GTFS zbiorkom.live (niejasna licencja, 13 linii) + kolej z `polish_trains.zip`, **odłożone** do decyzji o licencji i źródle GTFS; MZK Kutno jest bezpłatny dla posiadaczy Karty Mieszkańca.
