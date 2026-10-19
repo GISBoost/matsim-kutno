@@ -2,7 +2,7 @@
 
 Data badania: 2026-10-17. Zakres: tylko zbieranie danych i ocena; model (D7) bez zmian. Pliki w `data/raw/g2/`, skrypty `pipeline/g2_*.py`.
 
-> **Sprostowanie (2026-10-17, sesja główna).** Pkt 3 poniżej jest nieścisły. F3 już odejmuje wyjeżdżających: 20 215 pracujących mieszkańców (D5, wariant bazowy) − 2 669 wyjeżdżających z macierzy = 17 546 (`reports/f3_demand/f3_demand.md`, wiersze 28–30). Wyjeżdżający nie są więc „wszyscy w Kutnie”, tylko usunięci z popytu bez symulowania ich ruchu. P4507 (17 255) to mieszkańcy pracujący gdziekolwiek, i należy go porównywać z 20 215, a nie z 17 546. Warianty G2 są w `docs/research/G2_warianty.md`.
+> **Sprostowanie (2026-10-17, sesja główna).** Pkt 3 poniżej jest nieścisły. F3 już odejmuje wyjeżdżających: 20 215 pracujących mieszkańców (D5, wariant bazowy) − 2 669 wyjeżdżających z macierzy = 17 546 (`reports/etap1_mvp/f3_demand/f3_demand.md`, wiersze 28–30). Wyjeżdżający nie są więc „wszyscy w Kutnie”, tylko usunięci z popytu bez symulowania ich ruchu. P4507 (17 255) to mieszkańcy pracujący gdziekolwiek, i należy go porównywać z 20 215, a nie z 17 546. Warianty G2 są w `docs/research/G2_warianty.md`.
 
 ## 1. Wynik w skrócie
 
@@ -137,3 +137,25 @@ uv run python -I pipeline/g2_adr_kutno.py  # wycinek ADR (po pobraniu zip)
 - Wiersz „BDL GUS, pracujący wg gmin”: status → POBRANE; **P4508 jest wg siedziby pracy (płatnika), nie zamieszkania, z rejestrów ZUS/KRUS, a więc zawiera małe podmioty** (hipoteza „zwykle bez ≤ 9” dotyczy starszych tablic z badania 1-7 i nie dotyczy P4508 od grudnia 2022).
 - Wiersz ADR: status → POBRANE; atrybuty bez informacji o podmiotach.
 - Wiersz REGON: nadal DO SPRAWDZENIA; dokumentacja potwierdza zapytania po REGON/NIP/KRS, klucz przez e-mail, brak podanych limitów.
+
+## 10. Luka L-4: czy REGON/PKD/adresy zakładów nadają się jako wagi rozkładu miejsc pracy w gminie (dopisane 2026-10-18)
+
+**Pytanie.** Dziś `plans.py` losuje budynek pracy z wagą powierzchni obrysu OSM (D7). Czy rejestry podmiotów (REGON, PKD, CEIDG) dałyby lepsze wagi wewnątrz gm. Kutno?
+
+**Co sprawdzono (źródła w sekcji 2):**
+- **REGON BIR1.1/1.2:** strona API (https://api.stat.gov.pl/Home/RegonApi) opisuje wyszukiwanie po REGON, NIP lub KRS, czyli po znanym identyfikatorze. Nie znalazłem wyszukiwania po gminie ani PKD, więc listy podmiotów w Kutnie nie da się z niego wyciągnąć bez zewnętrznej listy identyfikatorów. Klucz produkcyjny przez e-mail, limitów strona nie podaje. Czy raport zawiera klasę zatrudnienia: **niepotwierdzone** (strona milczy, `GUS-Regon-ws-BIR11-Eng-docs_v1.11.zip` nieczytany).
+- **CEIDG (Hurtownia danych):** wymaga rejestracji z Profilem Zaufanym, pola niesprawdzone, rejestr nie ma liczby pracowników. Podmioty 0–9 to 95,6% podmiotów w Kutnie (P2613, 2025: 4 231 z 4 429), więc adresy z CEIDG opisują głównie jednoosobowe działalności, które często nie mają osobnego zakładu.
+- **Statystyczne punkty adresowe GUS:** tylko budynki mieszkalne, bez informacji o podmiotach (sekcja 2). Do wag pracy się nie nadają.
+- **Adres to siedziba, nie zakład.** Konwencja P4508 i macierzy NSP to adres płatnika. Wagi z adresów REGON odziedziczyłyby ten sam efekt (siedziba księgowa lub domowa zamiast hali).
+- **Zatrudnienie dużych zakładów:** tylko deklaracje urzędu (ok. 2 200 w podstrefie ŁSSE, „ok. 9 000” w całej strefie, bez dat) i niespójne wtórne liczby dla pojedynczych firm. Nie ma wiarygodnej tabeli „zakład → liczba pracujących”.
+
+**Ocena.** Bez klasy zatrudnienia waga „liczba podmiotów pod adresem” przecenia mikrofirmy i nie odróżnia hali od adresu domowego, a to przeciwne do tego, co ma poprawić. REGON/PKD/adresy **nie nadają się dziś jako samodzielne wagi**. Mogą natomiast służyć do (a) weryfikacji lokalizacji ok. 58 podmiotów ≥ 50 osób (P2613: 52 w klasie 50–249 plus 6 w 250–999), skoro to one niosą większość etatów; (b) ręcznej korekty wag OSM dla największych zakładów (strefa Sklęczki). Do tego nie trzeba bulk-dostępu do REGON.
+
+**Rekomendacja.** Zostawić D7 (OSM) jako rozkład przestrzenny, kalibrować sumę do BDL (sekcja 4A) i dodać wagi typu obiektu (sekcja 4B). REGON rozważyć dopiero po potwierdzeniu klasy zatrudnienia w dokumentacji BIR1.1.
+
+**Zostaje otwarte:**
+1. Przeczytać dokumentację BIR1.1 (zip ze strony API): czy raporty zwracają klasę/liczbę zatrudnionych i czy da się listować podmioty po gminie.
+2. Skąd wziąć listę identyfikatorów podmiotów w Kutnie (NIP/REGON) dla ewentualnych zapytań pojedynczych.
+3. Mikrodane GUS (P4508 po gminie, PKD i wielkości płatnika) przez Operacyjną Bazę Mikrodanych, jedyna droga do prawdziwej struktury wielkościowej w Kutnie.
+4. ESRP (https://esrp.stat.gov.pl/ESRP/) zwracał HTTP 503, granulacja gminna niezweryfikowana.
+5. Źródło gęstości etatów na m² dla typów obiektów (decyzja użytkownika, sekcja 6 pkt 3).
