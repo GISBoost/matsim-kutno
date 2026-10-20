@@ -315,3 +315,12 @@
 - Smoke okna na tym samym runie: mapa 1106×811, narysowane 849 i po wyłączeniu chipa `t` 447, podpis próbki `0,25`, zdanie „Podkład wyłączony.”, panel pokazuje `r6510903_5`, Escape czyści wybór. Zrzut (pauza 07:56, nie stan otwarcia): `docs/research/wizualizer_okno.png`.
 - Akceptacji ludzkiej nie zaliczam. Zostaje obejrzenie: pauza 07:56, play, suwak 06:30 i z powrotem, szukanie, śledzenie, Escape, klik linku, czytelność panelu. Klucza CARTO nadal nie ma. MVP i D23 bez zmian. Krok 4 nie ruszany.
 - Po obejrzeniu, tego samego dnia: ukrycie panelu zabierało pasek razem z przyciskiem (siatka), a kolejne okno po krzyżyku wstawało bez aut i linków (`pull` łapał `busy`, zanim mostek dostał `frame`). Lekcja 28 w `ERRORS.md`. Przycisk zostaje na pasku i nazywa się „panel”, gdy panel jest schowany. Smoke czeka na zegar 06:00:00 z odtwarzania i sprawdza prostokąt przycisku.
+
+## 2026-10-20: D24 krok 4, oś harmonogramu
+
+- Panel wybranego id rysuje oś czasu zamiast listy czynności. Czynność z `actstart`/`actend`, jazda z przejazdów. Jazda wycina nachodzącą czynność. Klik w oś ustawia czas. Dziury to dojście (`car interaction` nie wchodzi do indeksu). Zakres osi jest zakresem runu, nie wycinkiem osoby. To nie jest wykres natężenia.
+- `uv run python -m viz_player --self-test` → `self-test OK`. Oś syntetyczna: dom, jazda, praca, jazda, dom. Jazda 180–220 wycina pracę. W mini-runie `r1` o 06:00 stoi na domu, jazda jest 23 000–23 100 s, o 24 000 s zaznaczona jest praca.
+- Self-testy indeksu i silnika nadal przechodzą.
+- R6: `uv run python -m viz_player --check output/g5r6_25pct_s4711`. Indeks z dysku (`reuse`). Log: `output/g5r6_25pct_s4711/viz/player.log`. 849 aut o 07:56:31, bez `t` 447, szczyt 961, próbka `0,25`. `r6510903_5` ma 5 odcinków: dom 00:00:14–00:04:32, jazda 00:05:09–00:12:40, praca 00:17:33–08:17:33 (zaznaczona o 07:56), jazda 08:22:27–08:31:17, dom do 32:23:09.
+- Smoke: mapa 1106×811, pasek osi widoczny po wyborze tego id (szerokość > 40 px, jest odcinek). Zrzut bez zmian treści: pauza 07:56, `docs/research/wizualizer_okno.png`.
+- Poza tym krokiem, bo każde rusza zakres i czeka na własny wpis: łamane OSM w konwerterze (Java), podkład z kluczem CARTO, drugi run, spięcie `g6_bake.py`, Łódź. Java i bake nietknięte. `ERRORS.md` bez nowej lekcji. Akceptacji ludzkiej obrazu nie zaliczam. MVP i D23 bez zmian.

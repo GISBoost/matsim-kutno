@@ -38,4 +38,4 @@ Format: data · decyzja · uzasadnienie · konsekwencje. Zmiana decyzji = nowy w
 - Parametry scoringu (domyślne MATSim do czasu decyzji; kalibracja poza MVP).
 - Car share (D6), REGON (D7): poza MVP. Wyjeżdżający: w modelu od D17.
 - Osobne repo wizualizera (D24): odłożone. Do stabilnego formatu indeksu player zostaje w tym repo. Szew na później: indeks przy `pipeline/` (ta sama semantyka co `g6_bake.py`), okno może wyjść osobno. Nie dzielić, zanim indeks istnieje.
-- Stos okna wizualizera (D24): spike 2026-10-20, powtórzony tego samego dnia, zostawił WebView2 + Leaflet. Okno (krok 3) jest w `viz_player/`. Akceptacja automatyczna 2026-10-20 przeszła. Obraz ogląda człowiek. Podkład czeka na klucz CARTO.
+- Stos okna wizualizera (D24): spike 2026-10-20, powtórzony tego samego dnia, zostawił WebView2 + Leaflet. Okno (krok 3) jest w `viz_player/`. Akceptacja automatyczna 2026-10-20 przeszła. Obraz ogląda człowiek. Podkład czeka na klucz CARTO. Oś harmonogramu wybranego id jest w panelu (krok 4, 2026-10-20). Łamane OSM, drugi run, spięcie bake'u i Łódź czekają na własny wpis.
