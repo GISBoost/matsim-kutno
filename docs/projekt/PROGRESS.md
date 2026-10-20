@@ -306,3 +306,11 @@
 - Powód: przy pierwszym pomiarze w RAM były inne programy. Powtórka na tej samej klatce (961 aut, 8 362 cięciwy), Qt i WebView2 jeden po drugim. Przed startem, przez 2 s: 5,8 s CPU z 24 (12 rdzeni), głównie `dllhost` i VS Code.
 - PySide6: 29,70 Hz, klik 0,24 ms, 165 MB, indeks 0. WebView2: 29,58 Hz, klik 0,65 ms, 503 MB, indeks 0, kafelki `0,0`.
 - Progi bez zmian. Do okna zostaje WebView2 + Leaflet. Krok 3 niezaczął. Klucza CARTO nadal nie ma.
+
+## 2026-10-20: D24 krok 3, okno
+
+- `viz_player/`. Uruchomienie: `uv run python -m viz_player output/g5r6_25pct_s4711`. Stos: WebView2 (`pywebview` 6.2.1 w `pyproject.toml`) i Leaflet 1.9.4 w `viz_player/vendor/`. `PySide6` nie wszedł. Java i `g6_bake.py` bez zmian. Okno nie parsuje XML: czyta indeks przez `viz_engine`.
+- Akceptacja automatyczna. Self-testy indeksu i silnika nadal przechodzą. `uv run python -m viz_player --self-test` → `self-test OK` (zegar 06:00:00 i 30:12:00, próbka `0,25`, rampa G6, czynność zamiast ducha, klik auta i linku, prefiks id).
+- R6, bez rysowania: `uv run python -m viz_player --check output/g5r6_25pct_s4711`. Log: `output/g5r6_25pct_s4711/viz/player.log`. Start 06:00:00, próbka `0,25`, podkład wyłączony, 10 383 linki, osie 52,2307° N 19,3633° E. Klatka 07:56:31 (28 591 s): 849 aut, bez `t` 447. Szczyt 58 170 s: 961. Lookup `r6510903_5` trafia. Indeks z dysku (`reuse`, bez skanu XML).
+- Smoke okna na tym samym runie: mapa 1106×811, narysowane 849 i po wyłączeniu chipa `t` 447, podpis próbki `0,25`, zdanie „Podkład wyłączony.”, panel pokazuje `r6510903_5`, Escape czyści wybór. Zrzut (pauza 07:56, nie stan otwarcia): `docs/research/wizualizer_okno.png`.
+- Akceptacji ludzkiej nie zaliczam. Zostaje obejrzenie: pauza 07:56, play, suwak 06:30 i z powrotem, szukanie, śledzenie, Escape, klik linku, czytelność panelu. Klucza CARTO nadal nie ma. `ERRORS.md` bez nowej lekcji. MVP i D23 bez zmian. Krok 4 nie ruszany.
