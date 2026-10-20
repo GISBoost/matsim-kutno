@@ -118,7 +118,7 @@ exits = pd.DataFrame([dict(link=l, x=nodes[b_].x, y=nodes[b_].y) for l, a_, b_ i
                       and nodes[b_].distance(KUTNO_CENTRE) > nodes[a_].distance(KUTNO_CENTRE)])
 assert len(entry) and len(exits), "brak linków wjazdowych/wyjazdowych"
 pd.concat([entry.assign(kind="entry"), exits.assign(kind="exit")]).to_csv(  # D19/K2-2: strefy graniczne tła
-    "C:/Users/Michal/AppData/Local/Temp/claude/C--Users-Michal-Desktop-MATSim/84e6ce23-6845-4f37-bbc9-2f3be951d4f2/scratchpad/repro/border_links.csv", index=False, lineterminator="\n")
+    "output/repro/border_links.csv", index=False, lineterminator="\n")
 
 # --- liczebności: largest remainder, żeby suma = round(sample x całość) --------------------------------
 ob = pd.read_csv("scenarios/kutno/demand/workers_by_obwod.csv")

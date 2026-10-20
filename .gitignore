@@ -35,3 +35,11 @@ reports/etap2/g5_predkosci_d23/fit_f_g_tomtom.png
 # G6: filmy, klatki i audio z Blendera
 blender/g6_blender/
 docs/PRZENIESIONE_NA_G.md
+# materiały robocze z pracy z AI (prompty, instrukcje agenta, archiwum raportów innych modeli); zostają lokalnie
+CLAUDE.md
+archiwum/
+docs/research/R3_recenzja_agenta.md
+reports/etap2/audyt_g5/prompt_audytu.md
+reports/etap2/audyt_g5/prompt_poprawki.md
+reports/etap2/g5_czasy_tomtom/prompt.md
+references/

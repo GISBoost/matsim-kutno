@@ -1,6 +1,6 @@
 # G5: walidacja czasów przejazdu i prędkości R6 względem TomTom
 
-Data: 2026-10-18 (niedziela). Zadanie: `prompt.md` w tym folderze, decyzja D22 (wariant A). **Walidacja, nie kalibracja.** Model nie został zmieniony.
+Data: 2026-10-18 (niedziela). Decyzja D22 (wariant A). **Walidacja, nie kalibracja.** Model nie został zmieniony.
 
 ## Na górze
 
@@ -252,7 +252,7 @@ Rozbieżności mają jedno źródło. Współczynnik 0,8 z D13 obniża prędkoś
 2. **Tertiary/unclassified poza miastami (72 km/h):** TomTom tego nie rozstrzyga (n = 1, kierunek zgodny z GUS i ORS). Do sprawdzenia innym pomiarem, np. Routing TomTom na krótkich trasach wybranych tak, żeby ≥ 70% długości leżało na tych klasach. Wymagałoby to nowej próbki i decyzji.
 3. **Capacity: nie ruszać.** Warunek z promptu nie jest spełniony. Czas w szczycie zgadza się tak samo jak w południe, a przyrost szczytowy w modelu (+3 pp) nie jest mniejszy niż u TomTom (+1 pp). Nie ma śladu brakującej kongestii, który dałoby się oddzielić od znanych wad popytu (§1 promptu).
 4. Jeśli walidacja ma być powtarzana: **geometria linków z OSM** (shape w sieci albo map-matching do `origid`), bo bez niej wskaźnik zgodności tras i kontrola segmentów są słabe. Do tego decyzja, czy regulamin pozwala na ponowne zapytania (wariant A: tylko agregaty).
-5. Każde wdrożenie wymaga wpisu w `DECISIONS.md` i testu 2 iteracji na MATSim 2026 (CLAUDE.md, pkt 9).
+5. Każde wdrożenie wymaga wpisu w `DECISIONS.md` i testu 2 iteracji na MATSim 2026 (zasady projektu, pkt 9).
 
 ## 10. Odtworzenie i HERE
 

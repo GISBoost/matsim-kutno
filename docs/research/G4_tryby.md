@@ -96,7 +96,7 @@ Opcje: `INPUT` (zip), `--name`, `--network`, `--date` (dzień usługi), `--outpu
 - **`carAvail`**: atrybut osoby (`always`/`never`/`sometimes`), uwzględniany dopiero gdy `considerCarAvailability=true` (dla SubtourModeChoice). Dane o licencjach/posiadaniu auta: GUS Mobilność tabl. 5–7 (wg województwa) i tabl. 2 (pojazdy); nic dla Kutna.
 - **Wzorzec z literatury** (`docs/ZRODLA.md`, Medina Godoy): SubtourModeChoice waga 0,1, `carAvail`, rower jako tryb sieciowy, 60 iteracji, wyłączenie innowacji przy 0,7.
 - **ASC/kalibracja**: `scoring → modeParams.constant` (per podróż, „probably buggy for multi-leg trips” w komentarzu kodu), `marginalUtilityOfTraveling_util_hr` (domyślnie -6,0 wg WebFetch ze źródła; sprawdzić w `ScoringConfigGroup` 2026.0 lokalnie), `marginalUtilityOfDistance_util_m`, `monetaryDistanceRate`, `dailyMonetaryConstant`. Kalibracja iteracyjna: dostrajać `constant` tak, by udział trybów w ostatnich iteracjach mieścił się w wybranym przedziale (sekcja 1). Obecny scoring w `config_25pct.xml` ma tylko `activityParams` home/work, więc **żadnych `modeParams`** — domyślne.
-- **Replanning** w obecnym configu: `ChangeExpBeta` 0,8 + `ReRoute` 0,2 dla `subpopulation=person`, innowacja wyłączona po 0,8 iteracji. Dla G4 dochodzi `SubtourModeChoice` (waga ~0,1), strategia musi mieć `subpopulation=person` (gotcha z CLAUDE.md).
+- **Replanning** w obecnym configu: `ChangeExpBeta` 0,8 + `ReRoute` 0,2 dla `subpopulation=person`, innowacja wyłączona po 0,8 iteracji. Dla G4 dochodzi `SubtourModeChoice` (waga ~0,1), strategia musi mieć `subpopulation=person` (gotcha z zasady projektu).
 
 ### 4d. Rower i pieszo
 
@@ -104,7 +104,7 @@ Opcje: `INPUT` (zip), `--name`, `--network`, `--date` (dzień usługi), `--outpu
 - **Sieciowy rower** (`routing.networkModes=car,bike`, `qsim.mainMode=car,bike`, linki z `allowedModes=car,bike`, `qsim.vehiclesSource=modeVehicleTypesFromVehiclesData`, typy pojazdów z `maximumVelocity` 15 km/h): wymaga zmiany generatora sieci (F2) i pliku pojazdów. `contrib bicycle` (`BicycleModule`) dodaje scoring od nawierzchni/typu drogi/nachylenia; `BicycleConfigGroup.checkConsistency` odrzuca `vehiclesSource=defaultVehicle` i `accessEgressType=none` [WebFetch]. Dla Kutna (płasko, 23 km dedykowanych ścieżek) ten dodatek ma niski zwrot.
 - **Zalecenie (techniczne, nie decyzja):** G4-minimum = rower i pieszo **teleportowane** z jawnymi prędkościami w configu, PT z `transit-from-gtfs`, rower sieciowy dopiero jeśli ruch rowerowy ma wpływać na natężenia (dla Kutna prawdopodobnie nie).
 
-### 4e. Minimalna propozycja konfiguracji G4 (do przetestowania 2 iteracjami zgodnie z CLAUDE.md pkt 9; nie testowana)
+### 4e. Minimalna propozycja konfiguracji G4 (do przetestowania 2 iteracjami zgodnie z zasady projektu pkt 9; nie testowana)
 
 ```xml
 <module name="routing">

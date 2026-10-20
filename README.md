@@ -1,8 +1,8 @@
 # MATSim Kutno: instrukcja modelu
 
-Stan: 2026-10-18. Opis zakłada decyzje D1–D19 z `DECISIONS.md` i wyniki z `PROGRESS.md`.
+Stan: 2026-10-20. Opis zakłada decyzje D1–D23 z `DECISIONS.md` i wyniki z `PROGRESS.md`. Rozdziały 5–13 opisują model do D19 (baza D18 i R1); zmiany D20–D23 (ruch tła, dostawcze i ciężkie, baza R6, prędkości per grupa dróg) są w rozdziale 11.4 i 12, a szczegóły w `ROADMAP.md`.
 Każde założenie jest oznaczone **ZAŁOŻENIE** albo ma źródło (plik, wiersz, URL w `data/manifest.csv` i `docs/ZRODLA.md`).
-Brakujące elementy są w rozdziale 13 („Luki”), z przypisaniem do sesji, która je uzupełnia.
+Brakujące elementy są w rozdziale 14 („Luki”), z odsyłaczem do dokumentu, który je opisuje.
 
 > **Ważne:** to model ruchu dojazdów do pracy autem w gminie Kutno, nie prognoza ruchu. Wyniki służą do sprawdzenia poprawności pipeline'u i sensowności geografii (D2). Porównania z pomiarami są na etapie kalibracji (G5, D19).
 
@@ -19,10 +19,10 @@ Brakujące elementy są w rozdziale 13 („Luki”), z przypisaniem do sesji, kt
 
 **Czego model NIE robi (świadomie, zakres zamrożony):**
 - nie modeluje transportu publicznego, pieszych, rowerzystów (tryby: rozdział G4, nieaktywne);
-- nie modeluje innych celów podróży (zakupy, szkoła, sprawy), ruchu dostawczego ani ciężarowego;
+- nie modeluje innych celów podróży (zakupy, szkoła, sprawy); ruch dostawczy i ciężki jest tylko tłem z estymacji O-D (D20), a nie modelem zachowań;
 - nie modeluje sygnalizacji, skrzyżowań, pierwszeństwa ani zakazów skrętu (G1 odłożony przez użytkownika);
 - nie ma wyboru trybu (mode choice) ani kalibracji scoringu;
-- nie modeluje ruchu tranzytowego i tła (ruch z zewnątrz sieci) w działającym runie. Tło jest w planach G5 (rozdział 13).
+- ruch tranzytowy i tło (ruch z zewnątrz sieci) jest od D19–D21 w runach jako subpopulacje `tlo` (lekkie i dostawcze) i `ciezkie`, z macierzy O-D estymowanych z liczników GPR. To estymacja kalibrowana do pomiarów, nie obserwacja (rozdział 11.4).
 
 ---
 
@@ -68,6 +68,8 @@ uv run python pipeline/check_events.py output/r3_25pct/output_events.xml.zst --e
 uv run python pipeline/queues.py ...   # przepełnione linki (D18), argumenty: patrz nagłówek skryptu
 ```
 
+**Baza referencyjna od D21 to R6** (zastępuje R4). Configi wskazują plany i pojazdy `plans_g5r6_*pct`, więc run nie wymaga nadpisań. Macierze tła (`scenarios/kutno/demand/background_od_r6b_*_gpr.csv`) powstają w `pipeline/background_od.py`, strefy graniczne w `pipeline/border_zones.py`. Po każdej estymacji uruchom `pipeline/od_warnings.py`. Referencja 25%: `output/g5r6_25pct_s{4711,1,2}` oraz seedy planów `g5r6p{1,2}_25pct_s4711` (`reports/etap2/g5_kalibracja/g5_r6_ref.md`). Kroki 6–8 powyżej opisują stan z D18/R1.
+
 **Test regresyjny** (po każdej zmianie w `matsim/`): `scenarios/smoke/config.xml` (10 agentów, sieć syntetyczna), potem `check_events.py --expect-car-legs 20`. Przed testem usuń stary output.
 
 **Uwaga:** przed ponownym generowaniem planów przeczytaj rozdział 13, punkt R-1 (`car_share` w `config/kutno.toml`). Bez tego plany 25% nie będą zgodne z wynikami referencyjnymi.
@@ -94,7 +96,7 @@ config_*.xml (MATSim 2026.0, seed, factors, QSim) ◄─────────
 MATSim run ─► output/ (events, linkstats, modestats) ─► check_events.py, queues.py, convergence.py, g5_baseline.py ─► reports/
 ```
 
-**Podział odpowiedzialności (CLAUDE.md):** Python liczy dane i plany, Java konwertuje sieć i uruchamia symulację. Każdy plik powstaje w jednym miejscu.
+**Podział odpowiedzialności:** Python liczy dane i plany, Java konwertuje sieć i uruchamia symulację. Każdy plik powstaje w jednym miejscu.
 
 ---
 
@@ -121,7 +123,7 @@ Pełna lista z ograniczeniami: `docs/ZRODLA.md`. Poniżej to, co wpływa na mode
 | **GTFS zbiorkom.live Kutno, GTFS kolej (Kuranowski)** | Rozkłady autobusów i kolei | Poza MVP (G4) | Brak licencji w feedzie zbiorkom.live. Feed kolei ważny 30 dni. |
 | **Literatura VSP i MATSim MUM 2026** (`g5/lit/`, `mum2026/`) | Konfiguracje referencyjne (matsim-berlin v6.3, matsim-kelheim v3.1), praktyka kalibracji | Uzasadnienie `stuckTime` (D18) i dynamiki `queue` | Inne skale. Nie są kopiowane wprost. |
 
-**Co nie jest źródłem prawdy:** `archiwum/` (raporty innych modeli AI z błędami, wypisanymi w `FACT_CHECK.md`). Nie kopiujemy z nich liczb.
+**Zasada:** liczby i parametry bierzemy tylko ze źródeł z `docs/ZRODLA.md` i z `data/manifest.csv`. Twierdzenia z raportów pomocniczych są sprawdzone w `FACT_CHECK.md`.
 
 ---
 
@@ -155,6 +157,8 @@ Domyślne prędkości Supersonic (wartości VSP dla miast niemieckich) dawały *
 „Miasto” = gmina miejska i miasta w gminach miejsko-wiejskich z BREC (`towns.wkt`). **ZAŁOŻENIE:** wsie z zabudową traktujemy jak drogi zamiejskie (OSM nie ma granic obszaru zabudowanego).
 
 **Kontrola:** czas swobodny w sieci to mediana **0,76 × czas GUS** (29 gmin, `scenarios/kutno/validation/gus_vs_siec.csv`). Sieć jest szybsza niż ORS/GUS, więc nie ma sygnału, że prędkości są zaniżone. Sam ORS to też model.
+
+**Zmiana D23 (2026-10-18, w toku):** jeden współczynnik 0,8 jest zastępowany współczynnikami per grupa dróg (A autostrada, B DK/DW poza miastem, C tertiary/unclassified poza miastem, D osiedlowe poza miastem, E główne w mieście, F lokalne w mieście), dopasowanymi do czasów TomTom (D22, wariant A: w repo tylko metryki). Wartości po kalibracji są w `reports/etap2/g5_predkosci_d23/`. Walidacja D22 wykazała prędkości swobodne ok. 15% niższe od TomTom na A1, DK i DW; czasy 48–77% tras mieszczą się w kryterium TAG M3.1.
 
 ### 5.4 Przepustowość i dynamika (nie skalibrowane)
 
@@ -266,11 +270,11 @@ Każdy dom i miejsce pracy dostaje **najbliższy link** sieci (z pominięciem ty
 
 ## 8. Cechy agentów: co wiemy o osobie
 
-Agenty tworzy się z **agregatów**, nie z mikrodanych. Nie odtwarzamy gospodarstw ani osób (CLAUDE.md).
+Agenty tworzy się z **agregatów**, nie z mikrodanych. Nie odtwarzamy gospodarstw ani osób (zasady projektu).
 
 | Atrybut | Wartość | Skąd |
 |---|---|---|
-| `subpopulation` | `person` (wymagane przez SimWrapper, CLAUDE.md) | stała |
+| `subpopulation` | `person` (wymagane przez SimWrapper) | stała |
 | `kind` | `resident` / `commuter` / `outbound` | rodzaj popytu (6.2–6.4) |
 | `id` | `r<obwód>_<n>`, `c<gmina>_<n>`, `o<gmina>_<n>` | unikalne (test w `plans.py`) |
 | dom | budynek OSM i link | rozdział 7.2 |
@@ -283,7 +287,7 @@ Agenty tworzy się z **agregatów**, nie z mikrodanych. Nie odtwarzamy gospodars
 
 ## 9. Plany dnia: łańcuch i godziny
 
-**Łańcuch (każda osoba):** `home (end_time = wyjazd) → car → work (max_dur = 8:00:00) → car → home`. Test: trzy aktywności i dwie nogi car, `end_time` XOR `max_dur` (CLAUDE.md, gotchas).
+**Łańcuch (każda osoba):** `home (end_time = wyjazd) → car → work (max_dur = 8:00:00) → car → home`. Test: trzy aktywności i dwie nogi car, `end_time` XOR `max_dur` (zasady projektu).
 
 **Godzina wyjazdu (D14):**
 1. Losowanie przedziału godzinowego z rozkładu „dom–praca” GBR Gdańsk 2022, Rys. 46 (`config/departure_home_work_gbr2022.csv`, 18 przedziałów, po normalizacji do 100%). Przedział 20–24 h jest jednym przedziałem 4-godzinnym.
@@ -292,7 +296,7 @@ Agenty tworzy się z **agregatów**, nie z mikrodanych. Nie odtwarzamy gospodars
 
 **Ograniczenia godzin:**
 - Rozkład jest z metropolii Gdańsk (**ZAŁOŻENIE**, że pasuje do Kutna).
-- Brak godzinowego rozkładu lokalnego (decyzja D10 otwarta, R1 w sesji `r1-r-d-o-rozk-adu-godzin`).
+- Brak godzinowego rozkładu lokalnego (decyzja D10 otwarta, R1: `docs/research/R1_godziny.md`).
 - Start najpóźniej o 23:52.
 
 **Czas pracy 8 h** (`work_max_dur`): **ZAŁOŻENIE** zaokrąglone z GUS BCL 2013 (8 h 11 min średnio dla najemnych). Nie jest to rozkład per agent. `TimeAllocationMutator` **wyłączony** (godziny z danych nie mają dryfować).
@@ -314,16 +318,16 @@ Pliki: `scenarios/kutno/config_{10,25,100}pct.xml`. Ścieżki są względne do c
 | `trafficDynamics` | `queue` | D18, G5 K5 |
 | `endTime` | 48:00:00 | rozdział 9 |
 | `randomSeed` | 4711 (1, 2 dla wariancji) | config |
-| `coordinateSystem` | EPSG:2180 | CLAUDE.md |
+| `coordinateSystem` | EPSG:2180 | zasady projektu (D-spec) |
 | `numberOfThreads` | 8 w configu; runy 4 lub 2 wątki | liczba wątków nie skraca runu, 4 i 8 dają identyczne wyniki |
 | Strategie | `ChangeExpBeta` 0,8, `ReRoute` 0,2 | `subpopulation = person` |
 | `fractionOfIterationsToDisableInnovation` | 0,8 | po 80 iteracjach tylko wybór planu (score spłaszcza się z definicji) |
 | Scoring | domyślny MATSim; `home` typical 16 h, `work` typical 8 h | **ZAŁOŻENIE**, score tylko diagnostyczny, kalibracja poza MVP |
 | SimWrapper, linkStats | włączone; linkStats co 10 it. (średnia z 5) | R3/E2, diagnostyka zbieżności |
 
-**Co jest w wyjściu:** `output_events.xml.zst` (eventy, format `.zst`, CLAUDE.md), `output_links.csv.zst`, `modestats`, `scorestats`, `traveldistancestats` (MATSim). Wykresy: `pipeline/plot_run.py`.
+**Co jest w wyjściu:** `output_events.xml.zst` (eventy, format `.zst`), `output_links.csv.zst`, `modestats`, `scorestats`, `traveldistancestats` (MATSim). Wykresy: `pipeline/plot_run.py`.
 
-**Co MATSim robi z nogami:** przy trybie `car` MATSim sam dokleja teleportowane nogi `walk` (dojście i odejście). Nie są częścią modelu ruchu (CLAUDE.md, gotchas), tylko trzeba je odfiltrować przy liczeniu nóg.
+**Co MATSim robi z nogami:** przy trybie `car` MATSim sam dokleja teleportowane nogi `walk` (dojście i odejście). Nie są częścią modelu ruchu, tylko trzeba je odfiltrować przy liczeniu nóg.
 
 ---
 
@@ -341,9 +345,9 @@ Pliki: `scenarios/kutno/config_{10,25,100}pct.xml`. Ścieżki są względne do c
 | Zbieżność | `pipeline/convergence.py` | zmiana natężeń top-50 linków, GEH między seedami (skala 100%) |
 | Model vs GPR | `pipeline/g5_baseline.py` | model / GPR na 19 odcinkach (A1, DK, DW) |
 
-**Zasada z CLAUDE.md:** run bez błędu nie jest dowodem. Fazę zalicza test semantyczny.
+**Zasada projektu:** run bez błędu nie jest dowodem. Fazę zalicza test semantyczny.
 
-### 11.2 Wyniki referencyjne (D18, 25%, 3 seedy)
+### 11.2 Wyniki D18 (25%, 3 seedy; historyczne, bez tła)
 
 Źródło: `reports/etap2/g6_kolejki/d18_25pct/`, `reports/etap2/g6_kolejki/g6_kolejki.md`.
 
@@ -358,7 +362,7 @@ Pliki: `scenarios/kutno/config_{10,25,100}pct.xml`. Ścieżki są względne do c
 
 **To jest punkt startowy do kalibracji, nie wynik kalibrowany.** Dla odniesienia: R1 (z K1-1, 25%, 3 seedy) daje 7 478 nóg car i opóźnienia 106–113 poj.-h. Oznacza to silną nieliniowość kongestii względem popytu.
 
-### 11.3 Walidacja względem GPR 2025 (G5, R1)
+### 11.3 Walidacja względem GPR 2025 (G5, R1; historyczne)
 
 | Grupa odcinków | Model (D18) / GPR | Model (R1, K1-1) / GPR |
 |---|---|---|
@@ -367,7 +371,24 @@ Pliki: `scenarios/kutno/config_{10,25,100}pct.xml`. Ścieżki są względne do c
 | pozostałe DK | 16% | 8% |
 | DW | 7% | 4% |
 
-**Luka jest oczekiwana:** model nie ma tranzytu, ruchu lokalnego innego niż dojazdy, ruchu dostawczego i ciężarowego. Dlatego po K1-1 natężenie w mieście spada, a nie rośnie. Tło (rozdział 13, G5) ma wypełnić tę lukę.
+**Luka jest oczekiwana:** model bez tła nie ma tranzytu, ruchu lokalnego innego niż dojazdy, ruchu dostawczego i ciężarowego. Dlatego po K1-1 natężenie w mieście spada, a nie rośnie. Tło wypełniło tę lukę w D19–D21 (rozdział 11.4).
+
+### 11.4 Baza R6 po audycie G5 (D19–D21), stan 2026-10-18
+
+Źródło: `reports/etap2/g5_kalibracja/g5_r6_ref.md`. 25%, 100 iteracji, 5 runów (3 seedy MATSim + 2 seedy planów). Dojazdy × 0,593 (K1-1), tło lekkie z dostawczymi (pce 1,0) i ciężkie (pce 2,5, 80 km/h, `linkDynamics=PassingQ`, D20), strefy graniczne per droga z wagą GPR, końce ciężkich w budynkach pracy (D21).
+
+| Wskaźnik (mediana z 5 runów, min–maks.) | lekkie | ciężkie |
+|---|---|---|
+| A1 (3 odcinki), model / GPR | 99% (98–99%) | 101% (99–101%) |
+| DK w Kutnie (3 odcinki) | 105% (104–113%) | 68% (67–71%) |
+| DK pozostałe | 82% (80–90%) | 83% (76–83%) |
+| DW | 60% (60–63%) | 75% (74–83%) |
+| odcinki w ±15% (z 15 w dopasowaniu) | 12/15 (11–13) | 12/15 (12–15) |
+
+- Odcinki 91124 (Objazdowa) i 91866 (Bitwy pod Kutnem) są kontrolne (użyte w wyborze wariantów), nie są walidacją niezależną.
+- **Rozrzut:** losowanie planów i punktów estymacji O-D daje 20–100 razy większy rozrzut niż seedy MATSim (mediana 9–12% na odcinek wobec 0,1–0,4%). Różnice wariantów mniejsze niż ok. 20 pp na pojedynczym odcinku nie są wynikiem.
+- Opóźnienie dobowe: 239–243 poj.-h próbki (seedy MATSim), 243–298 (seedy planów). 0 przepełnionych linków.
+- Walidacja czasów względem TomTom (D22): model skalibrowany w popycie, nie zwalidowany co do czasów (`reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md`).
 
 ---
 
@@ -406,8 +427,8 @@ Każde ZAŁOŻENIE ma wartość, miejsce w kodzie lub configu, uzasadnienie i st
 | A-27 | Seedy | 4711, 1, 2 | config, `output/r3_runs.sh` | D15 |
 | A-28 | `stuckTime` | 30 s | config | D18, Berlin/Kelheim |
 | A-29 | Dynamika `queue` | — | config | D18, G5 K5 |
-| A-30 | Brak ruchu tła w runach | — | — | **otwarte**: G5 K2-2, plany z tłem jeszcze nie są wygenerowane |
-| A-31 | Brak pieszych, rowerzystów, PT i ciężarowych | — | — | D6 (wszyscy car), G4 |
+| A-30 | Ruch tła z estymacji O-D (lekkie + dostawcze, ciężkie) | 20 punktów na gminę, τ = 30 min, waga wjazdu = capacity | `pipeline/background_od.py` | D19–D21; estymacja kalibrowana do GPR, rozrzut zależy od seedu punktów |
+| A-31 | Brak pieszych, rowerzystów i PT; ciężkie tylko jako tło (pce 2,5, 80 km/h) | — | — | D6, D20, G4 |
 | A-32 | Opóźnienia na linku, nie na skrzyżowaniu | — | — | G1 odłożony |
 | A-33 | Dzień roboczy | — | — | typowy dzień roboczy (GUS, GBR) |
 
@@ -427,7 +448,7 @@ Każde ZAŁOŻENIE ma wartość, miejsce w kodzie lub configu, uzasadnienie i st
 - Macierz NSP: tylko pracownicy najemni, bez przepływów < 3 osób i bez ruchu wewnątrz gminy. Dolna granica odpływu i napływu (zaniża ruch).
 - Miejsce pracy w macierzy = adres pracodawcy (siedziba). Dalekie relacje (Warszawa 457) mogą być efektem siedziby firmy, nie realnego dojazdu.
 - Wskaźniki zatrudnienia tylko na poziomie województwa. Estymacja D5 jest o 17% wyższa od rejestru.
-- Pracujący per obwód (232) to estymacja, nie obserwacja (D5, CLAUDE.md).
+- Pracujący per obwód (232) to estymacja, nie obserwacja (D5).
 - Dane OSM: 72% budynków gminy ma `building=yes` bez typu, a `building:levels` jest w nich tylko w 2%. Wagi (powierzchnia obrysu) są więc przybliżone.
 - 1 450 budynków OSM w Kutnie nie ma odpowiednika w BDOT10k (G3).
 - Liczba mieszkańców pracujących jest nieprzyporządkowana do wieku ani płci.
@@ -445,21 +466,22 @@ Każde ZAŁOŻENIE ma wartość, miejsce w kodzie lub configu, uzasadnienie i st
 
 ## 14. Luki: czego jeszcze nie ma
 
-Każda luka ma przypisaną sesję, która ją uzupełnia. Sesje wysłały komunikaty z prośbą o wpis w swoim dokumencie (rozdział 15).
+Stan na 2026-10-20. Pełna lista otwartych spraw jest w `ROADMAP.md` (rozdział 3 i 4).
 
-| # | Luka | Stan | Kto uzupełnia |
+| # | Luka | Stan | Gdzie opisane |
 |---|---|---|---|
-| L-1 | **Ruch tła i tranzyt** (K2-2): 59 879 podróży/dobę w 100%, estymacja O-D z GPR. Brak w planach. Plan kroków 1–5 w `G5_plan_kalibracji.md` §5. | czeka na wdrożenie | sesja `g5-walidacja` |
-| L-2 | **Decyzja K1-1** (zawężenie MVP „wszyscy car”) i źródło udziału auta dla Kutna. Przedział z innych miast, brak danych lokalnych. | decyzja użytkownika | sesja `g4-tryby` |
-| L-3 | **Podział modalny** (G4): PT, pieszo, rower nieobecne. Brak źródła dla dojazdów do pracy w Kutnie. | otwarte | sesja `g4-tryby` |
-| L-4 | **Rozkład wewnątrz gminy miejsc pracy**: wagi według powierzchni budynków. REGON, PKD i adresy zakładów nieużyte (G2). | otwarte | sesja `g2-praca` |
-| L-5 | **Wagi domów** (BDOT × kondygnacje vs obrys): rekomendacja G3 bez decyzji. | decyzja użytkownika | sesja `g3-domy` |
-| L-6 | **Godziny wyjazdu z lokalnego źródła** (D10): dziś GBR Gdańsk. Brak lokalnego rozkładu. | research | sesja `r1-r-d-o-rozk-adu-godzin` |
-| L-7 | **Czas pracy 8 h**: stałe ZAŁOŻENIE, bez rozkładu per agent. | research | sesja `r1-r-d-o-rozk-adu-godzin` (ten sam temat) |
-| L-8 | **Capacity ulic miejskich i skrzyżowań** (A-6, G1): brak danych. Pomiary miejskie (UM, ZDP, GDDKiA Rejon Kutno) do wysłania przez użytkownika. | czeka na dane | użytkownik (wnioski) |
-| L-9 | **Ciężarowe i PCE**: 24–37% ciężkich na DK w GPR, brak źródła PCE. | otwarte | sesja `g5-walidacja` |
-| L-10 | **Rekonstrukcja konfiguracji** (R-1, R-2, R-3): jeden skrypt odtwarzający wszystkie runy i pliki. | do zrobienia | ta sesja (po zgodzie) |
-| L-11 | **Wizualizacja Blender** (G6): opis, co pokazuje i co nie. Nie wpływa na model. | opis w `docs/research/G6_blender.md` | sesja `g6-blender` |
+| L-1 | **Ruch tła i tranzyt**: wdrożony w D19–D21 (estymacja O-D z GPR, lekkie, dostawcze i ciężkie, baza R6). Otwarte: bilans stref DK91/DK92 wsch., liczniki lokalne. | częściowo zamknięte | `reports/etap2/g5_kalibracja/g5_r6.md`, `ROADMAP.md` §3 |
+| L-2 | **Udział auta K1-1** (zawężenie MVP „wszyscy car”): przyjęty w D19, źródło z innych miast, brak danych lokalnych. | decyzja podjęta, dane słabe | `docs/research/G5_plan_kalibracji.md` |
+| L-3 | **Podział modalny** (G4): PT, pieszo, rower nieobecne. Brak źródła dla dojazdów do pracy w Kutnie. | otwarte | `docs/research/G4_tryby.md` |
+| L-4 | **Rozkład wewnątrz gminy miejsc pracy**: wagi według powierzchni budynków. REGON, PKD i adresy zakładów nieużyte (G2). | otwarte | `docs/research/G2_miejsca_pracy.md` |
+| L-5 | **Wagi domów** (BDOT × kondygnacje vs obrys): rekomendacja G3 bez decyzji. | decyzja użytkownika | `docs/research/G3_domy.md` |
+| L-6 | **Godziny wyjazdu z lokalnego źródła** (D10): dziś GBR Gdańsk, w tle profil Lisica. | research | `docs/research/R1_godziny.md` |
+| L-7 | **Czas pracy 8 h**: stałe ZAŁOŻENIE, bez rozkładu per agent. | research | `docs/research/R1_godziny.md` |
+| L-8 | **Capacity ulic miejskich i skrzyżowań** (A-6, G1): brak danych. Pomiary miejskie (UM, ZDP, GDDKiA Rejon Kutno) do pozyskania. | czeka na dane | `TASKS.md` G1 |
+| L-9 | **Ciężarowe i PCE**: pce 2,5 i 80 km/h (D20), źródło WR-D-13-01. Zamknięte w D20. | zamknięte | `reports/etap2/g5_kalibracja/g5_czasy_pce.md` |
+| L-10 | **Rekonstrukcja konfiguracji** (R-1, R-2, R-3): jeden skrypt odtwarzający wszystkie runy i pliki. | do zrobienia | — |
+| L-11 | **Prędkości sieci (D23)** i ponowna walidacja czasów TomTom (D22, wariant A). | w toku | `reports/etap2/g5_predkosci_d23/`, `ROADMAP.md` §4 |
+| L-12 | **Wizualizacja Blender** (G6): filmy lokalnie, poza gitem. Nie wpływa na model. | opis w `docs/research/G6_blender.md` | `blender/` |
 
 Pytania otwarte z `DECISIONS.md`, bez decyzji: szerokość bufora poza powiatem, parametry scoringu, car share (D6), REGON (D7).
 
@@ -469,8 +491,7 @@ Pytania otwarte z `DECISIONS.md`, bez decyzji: szerokość bufora poza powiatem,
 
 | Ścieżka | Zawartość | W gicie |
 |---|---|---|
-| `CLAUDE.md` | zasady pracy agenta | tak |
-| `DECISIONS.md` | decyzje D1–D19 (zmiana = nowy wpis) | tak |
+| `DECISIONS.md` | decyzje D1–D23 (zmiana = nowy wpis) | tak |
 | `FACT_CHECK.md` | zweryfikowane fakty z raportów AI | tak |
 | `TASKS.md` | fazy F0–F6 i etap 2 (G1–G7) | tak |
 | `PROGRESS.md` | co zaliczono, z dowodem | tak |
@@ -487,9 +508,8 @@ Pytania otwarte z `DECISIONS.md`, bez decyzji: szerokość bufora poza powiatem,
 | `docs/ZRODLA.md` | katalog źródeł | tak |
 | `output/` | runy MATSim | nie |
 | `blender/` | wizualizacja G6 | tak |
-| `archiwum/` | materiały innych AI (nie jest źródłem prawdy) | tak |
 
-**Wyniki referencyjne (aktualne):** `reports/etap2/g6_kolejki/d18_25pct/` (25%, 3 seedy, D18).
+**Wyniki referencyjne (aktualne):** baza R6, `reports/etap2/g5_kalibracja/g5_r6_ref.md` (25%, 3 seedy MATSim + 2 seedy planów). Wyniki D18 (`reports/etap2/g6_kolejki/d18_25pct/`) są historyczne.
 
 ---
 
@@ -501,7 +521,7 @@ Pytania otwarte z `DECISIONS.md`, bez decyzji: szerokość bufora poza powiatem,
 | BDOT10k | Baza Danych Obiektów Topograficznych (budynki, kondygnacje) |
 | BREC | Baza Rejestrów Ewidencyjnych Charakterystyk (rejony i obwody spisowe NSP 2021) |
 | CRS EPSG:2180 | układ PUWG 1992, osie E, N |
-| D1–D19 | decyzje projektowe (`DECISIONS.md`) |
+| D1–D23 | decyzje projektowe (`DECISIONS.md`) |
 | GEH | miara zgodności natężeń (< 5 = dobra zgodność) |
 | GPR | Generalny Pomiar Ruchu GDDKiA (SDRR, SDRDR, SDRL) |
 | GBR | Gdański Biuro Rozwoju, Raport 3a (badanie mobilności, profil godzin) |

@@ -35,14 +35,14 @@ To bardzo obniża próg wejścia dla MVP: prosty model „dom-praca-dom" z reali
 - **25%** potrzebne, gdy w grę wchodzi coś o małej pojemności na pojazd (taxi, DRT) — przy 1% jeden syntetyczny pasażer reprezentujący 100 osób realnych przeciąża abstrakcję (np. taksówka 4-osobowa „wozi" 100 ludzi).
 - `flowCapacityFactor` i `storageCapacityFactor` w `qsim` trzeba zawsze skalować razem z próbką (np. 0.01 dla 1%).
 
-To potwierdza i doprecyzowuje zapis już w `CLAUDE.md` — dodałem tę regułę tam.
+To potwierdza i doprecyzowuje zapis już w zasadach projektu; reguła dopisana tam.
 
 ### 4. Struktura config.xml i workflow pracy z kodem (potwierdzone wprost)
 
 - Standardowy szkielet uruchomieniowy w Javie: `config → scenario → controller → controller.run()`.
 - Pliki wejściowe **względne do lokalizacji config.xml** (albo URL) — nigdy ścieżki bezwzględne typu `/Users/ktoś/...` w commitowanym kodzie.
 - `OverwriteFileSetting.deleteDirectoryIfExists` — standard w fazie iteracyjnego developmentu (nie `failIfDirectoryExists`, który jest domyślny).
-- Duże pliki wejścia/wyjścia **nie trafiają do repo git** — trzymane osobno (u nich: `svn.vsp.tu-berlin.de/.../public-svn`, u nasododo ustalenia — potwierdza zapis już w `CLAUDE.md`).
+- Duże pliki wejścia/wyjścia **nie trafiają do repo git** — trzymane osobno (u nich: `svn.vsp.tu-berlin.de/.../public-svn`, u nasododo ustalenia — potwierdza zapis już w zasady projektu).
 - RAM: `-Xmx` ustawiane w VM options run configuration; scenariusz wielkości Kelheim (25% próbka małego regionu) potrzebował realnie ok. 10 GB.
 - Workflow Git: fork → clone → branch → commit → push → Pull Request → merge → pull zmian z upstream. Uczony od pierwszych zajęć jako obowiązkowy nawyk.
 

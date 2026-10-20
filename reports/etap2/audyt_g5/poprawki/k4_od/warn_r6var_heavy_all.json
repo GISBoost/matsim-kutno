@@ -6,7 +6,7 @@
   "S4_trio_trips": 500
  },
  "heavy": {
-  "file": "C:\\Users\\Michal\\AppData\\Local\\Temp/claude/C--Users-Michal-Desktop-MATSim/a681f938-8650-40b8-a590-7c5d8c160e55/scratchpad/background_od_r6var_heavy_all_gpr.csv",
+  "file": "tmp/background_od_r6var_heavy_all_gpr.csv",
   "trips_day": 24007,
   "S1_density_per_1000m2": {
    "1002011": 1.137,

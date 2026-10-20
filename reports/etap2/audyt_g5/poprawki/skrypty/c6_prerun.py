@@ -1,4 +1,4 @@
-"""Kontrola przed runem (CLAUDE.md workflow pkt 7): top-10 celów, źródeł i budynków w planach; max(start) + praca + dojazd < endTime.
+"""Kontrola przed runem (zasady projektu workflow pkt 7): top-10 celów, źródeł i budynków w planach; max(start) + praca + dojazd < endTime.
 
 Użycie: uv run python -W ignore reports/etap2/audyt_g5/poprawki/skrypty/c6_prerun.py <plans_stem>   (np. scenarios/kutno/plans_g5r6_25pct)
 Bez importu z pipeline/. Budynki: osm_id z *_meta.csv i sjoin końców tła z features.gpkg.

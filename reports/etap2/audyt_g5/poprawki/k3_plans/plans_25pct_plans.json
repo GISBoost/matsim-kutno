@@ -1,5 +1,5 @@
 {
-  "plans": "C:\\Users\\Michal\\AppData\\Local\\Temp\\claude\\C--Users-Michal-Desktop-MATSim\\a681f938-8650-40b8-a590-7c5d8c160e55\\scratchpad\\k3plans\\plans_k3_25pct.xml.gz",
+  "plans": "tmp\\k3plans\\plans_k3_25pct.xml.gz",
   "sha256": "9dc096afad3b817e2244d9f150d079c978afbfa486fb306cab07293ca64db082",
   "sha256_rerun": "9dc096afad3b817e2244d9f150d079c978afbfa486fb306cab07293ca64db082",
   "deterministic": true,
@@ -74,7 +74,7 @@
       "23": 137
     },
     "profile": "config/hourly_profile_lisica2025.csv",
-    "od_file": "C:\\Users\\Michal\\AppData\\Local\\Temp/claude/C--Users-Michal-Desktop-MATSim/a681f938-8650-40b8-a590-7c5d8c160e55/scratchpad/background_od_k3diag_lcv_gpr.csv",
+    "od_file": "tmp/background_od_k3diag_lcv_gpr.csv",
     "ok": true
   },
   "ciezkie": {
@@ -110,7 +110,7 @@
       "23": 80
     },
     "profile": "config/hourly_profile_lisica2025.csv",
-    "od_file": "C:\\Users\\Michal\\AppData\\Local\\Temp/claude/C--Users-Michal-Desktop-MATSim/a681f938-8650-40b8-a590-7c5d8c160e55/scratchpad/background_od_k3diag_heavy_gpr.csv",
+    "od_file": "tmp/background_od_k3diag_heavy_gpr.csv",
     "ok": true
   },
   "vehicles": {

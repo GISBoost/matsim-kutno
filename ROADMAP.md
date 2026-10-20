@@ -1,6 +1,6 @@
 # Mapa projektu MATSim Kutno
 
-Stan: 2026-10-18. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i miejsce każdej rzeczy w repo.
+Stan: 2026-10-20. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i miejsce każdej rzeczy w repo.
 
 ## 1. Gdzie czego szukać
 
@@ -12,7 +12,7 @@ Stan: 2026-10-18. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i m
 | Kontrakty faz (wejścia, test, zaliczenie) | [TASKS.md](TASKS.md) |
 | Jak działa model i jak go odtworzyć | [README.md](README.md) |
 | Skąd są dane i liczby | [docs/ZRODLA.md](docs/ZRODLA.md), [data/manifest.csv](data/manifest.csv), [FACT_CHECK.md](FACT_CHECK.md) |
-| Znane błędy i reguły pracy | [ERRORS.md](ERRORS.md), [CLAUDE.md](CLAUDE.md) |
+| Znane błędy i reguły pracy | [ERRORS.md](ERRORS.md) |
 | Raporty faz (wyniki, wykresy) | [reports/README.md](reports/README.md) |
 | Tło metodyczne i research | [docs/research/](docs/research/) |
 
@@ -70,7 +70,7 @@ Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odci
 | Walidacja czasów TomTom (D22) | ✅ zrobiona dla R6; HERE przygotowane (brak klucza) | [g5_czasy_tomtom.md](reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md) |
 | Geometria linków z OSM | 💡 propozycja | potrzebna do zgodności tras i walidacji dróg tertiary/unclassified; przyda się w G6 |
 | Transport publiczny i wybór trybu | G4 | GTFS, SubtourModeChoice, kalibracja ASC |
-| Inne aktywności (szkoła, zakupy, sprawy) | 💡 **brak fazy** | wykluczone z MVP (CLAUDE.md); wymaga nowej fazy w TASKS i decyzji |
+| Inne aktywności (szkoła, zakupy, sprawy) | 💡 **brak fazy** | wykluczone z MVP (zasady projektu); wymaga nowej fazy w TASKS i decyzji |
 | Skrzyżowania | G1 | odłożone |
 | Łódź | G7 | po G2–G5 |
 
@@ -89,5 +89,4 @@ Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odci
 | `blender/` | skrypty wizualizacji G6 | tak |
 | `data/raw/` | pobrane źródła, tylko do odczytu | nie (manifest tak) |
 | `output/` | runy MATSim | nie |
-| `archiwum/` | stare raporty innych modeli AI, **nie są źródłem prawdy** | tak |
 | `references/` | filmy referencyjne | nie (nieśledzone) |

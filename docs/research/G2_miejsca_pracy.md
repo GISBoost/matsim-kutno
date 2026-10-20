@@ -77,7 +77,7 @@ Rozdzielam dwie sprawy, bo źródła dają je osobno:
 
 **B. Gdzie w mieście (rozkład przestrzenny).** Danych poniżej gminy brak. Najlepsza dostępna kombinacja:
 1. Zostawić OSM jako bazę przestrzenną (budynki + landuse z D7).
-2. **Wagi z typu funkcji i powierzchni, a nie z samej powierzchni**: różna gęstość etatów na m² dla przemysłu/magazynu (niska), biur i handlu (wysoka), szkół i szpitala (obiekty publiczne). Gęstości muszą pochodzić ze źródła (np. norma planistyczna lub literatura) albo być jawnym ZAŁOŻENIEM z wariantami (CLAUDE.md zakazuje „typowych” liczb bez źródła).
+2. **Wagi z typu funkcji i powierzchni, a nie z samej powierzchni**: różna gęstość etatów na m² dla przemysłu/magazynu (niska), biur i handlu (wysoka), szkół i szpitala (obiekty publiczne). Gęstości muszą pochodzić ze źródła (np. norma planistyczna lub literatura) albo być jawnym ZAŁOŻENIEM z wariantami (zasady projektu zakazuje „typowych” liczb bez źródła).
 3. **Kalibracja do struktury branżowej** z P4500 (powiat), jako jedyny twardy pomiar struktury, z zastrzeżeniem, że to powiat (rolnictwo A trzeba wyłączyć lub wyrzucić, bo jest poza miastem).
 4. **Lista kotwic dużych zakładów** z lokalizacjami (REGON/OSM/ręczna kontrola): w KSE/Sklęczkach ok. 9 000 osób wg urzędu (nie weryfikowalne, a przekracza połowę wszystkich 17,5 tys. etatów, co jest sprzeczne z P4508: albo deklaracja jest zawyżona/dotyczy szerszego obszaru, albo siedziby firm leżą poza Kutnem, albo dotyczy innej daty). **Nie używać 9 000 jako kotwicy bez wyjaśnienia**; 2 200 w podstrefie ŁSSE jest spójne z P4508 (ok. 13% etatów).
 

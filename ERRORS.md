@@ -4,7 +4,7 @@ Format: data · faza · polecenie · pierwszy błąd (cytat) · przyczyna · obe
 
 ## Błędy agenta (2026-10-16, sesja F0–R3): lekcje, żeby się nie powtórzyły
 
-Każdy wpis: co się stało → koszt → reguła na przyszłość. Najważniejsze reguły są też w `CLAUDE.md` (Workflow i Gotchas).
+Każdy wpis: co się stało → koszt → reguła na przyszłość. Najważniejsze reguły są też w lokalnych zasadach projektu (Workflow i Gotchas).
 
 **Długie runy i zasoby**
 1. **Odpaliłem długie runy, zanim sprawdziłem dane wejściowe.** Błąd `building=no` (plac komisu `shop=car`, 3,6 ha jako największe miejsce pracy) wyszedł dopiero w select-link po pierwszym runie 25%. Trzeba było przerwać i powtórzyć wszystkie runy. → **Przed każdym długim runem:** top-10 celów i źródeł (budynki, gminy, linki) i spojrzenie, czy to realne obiekty. Dopiero potem run.
@@ -22,7 +22,7 @@ Każdy wpis: co się stało → koszt → reguła na przyszłość. Najważniejs
 9. **Analiza opóźnień liczyła 8 h postoju w pracy jako opóźnienie,** bo stan nie był czyszczony na `vehicle leaves traffic`. → **Wyniki agregatów sprawdzaj na zdrowy rozsądek** (8 h średniego opóźnienia = błąd analizy, nie kongestia).
 
 **Środowisko i narzędzia**
-10. **`controller.outputDirectory` jest względny do katalogu roboczego,** więc pierwszy run F5 trafił do `C:\Users\Michal\output`. → Uruchamiaj z katalogu projektu, ścieżki `output/...`.
+10. **`controller.outputDirectory` jest względny do katalogu roboczego,** więc pierwszy run F5 trafił do `<katalog użytkownika>\output`. → Uruchamiaj z katalogu projektu, ścieżki `output/...`.
 11. **`cat > plik;` bez heredoca zawiesił polecenie** (czekał na stdin). Heredoc w bashu rozwinął `\n` wewnątrz kodu Pythona. → Pliki pisz narzędziem Write. W heredocach unikaj sekwencji `\n` w stringach.
 12. **Brak danych o `building=no` w regułach klasyfikacji OSM.** → **Każdy filtr „klucz istnieje” (`building`, `shop`) sprawdź pod kątem wartości negatywnych** (`no`, `disused`, `construction`).
 

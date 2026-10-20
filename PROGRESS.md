@@ -4,7 +4,7 @@
 - Folder uporządkowany, git zainicjowany (oryginalny stan w pierwszym commicie).
 - Weryfikacja raportów AI: `FACT_CHECK.md` (23 twierdzenia + sprzeczności).
 - Konsultacja: decyzje D1–D12 w `DECISIONS.md`.
-- `CLAUDE.md`, `TASKS.md` (F0–F6).
+- zasady projektu (plik lokalny), `TASKS.md` (F0–F6).
 - Kod: brak. Symulacja: nieuruchamiana.
 - R1 (2026-10-16): przegląd źródeł godzin wyjazdu/czasu pracy → `docs/research/R1_godziny.md`; rekomendacja: GBR Gdańsk 2022 Rys. 46 (wykres 1 h), brak liczbowego rozkładu 15–30 min.
 
@@ -62,7 +62,7 @@
   - select-link: 38% agentów jedzie tym odcinkiem.
   - `reports/r3_25pct_*`, `reports/etap1_mvp/r3_ocena/wyniki_25pct/r3_compare.*`.
 - **Uzupełnione 2026-10-17:** seedy 1 i 2, zbieżność i porównanie seedów, raport `reports/etap1_mvp/r3_ocena/wyniki_25pct/r3_25pct.md`.
-- Lekcje z błędów tej sesji: `ERRORS.md` i reguły 7–11 w Workflow `CLAUDE.md`.
+- Lekcje z błędów tej sesji: `ERRORS.md` i reguły 7–11 w zasadach projektu (Workflow).
 
 ## 2026-10-17: R3, wyniki z 25% (3 seedy, 100 iteracji)
 
@@ -206,7 +206,7 @@
 
 ## 2026-10-18: audyt G5, poprawki zakończone (D21, kroki 1–9)
 
-- Raport zbiorczy: `reports/etap2/audyt_g5/poprawki/podsumowanie.md` (przed → po, nowa baza R6, ZAŁOŻENIA, otwarte). Test smoke ok (20 nóg car, `reports/etap2/audyt_g5/poprawki/smoke_check.json`). CLAUDE.md i ROADMAP zaktualizowane: baza R6.
+- Raport zbiorczy: `reports/etap2/audyt_g5/poprawki/podsumowanie.md` (przed → po, nowa baza R6, ZAŁOŻENIA, otwarte). Test smoke ok (20 nóg car, `reports/etap2/audyt_g5/poprawki/smoke_check.json`). zasady projektu i ROADMAP zaktualizowane: baza R6.
 
 ## 2026-10-18: G5/D22: walidacja czasów i prędkości R6 względem TomTom (wariant A)
 
@@ -251,3 +251,16 @@
 - Decyzja użytkownika: dobrać trasy C i powtórzyć dopasowanie następnego dnia. Do tego czasu sieć bez zmian, F i B rozstrzygnąć po nowym dopasowaniu.
   - `sample_d23 C 4 2`: 6 nowych tras C (4 analiza, 2 walidacja), split przed requestem; C ma teraz 16 tras w analizie i 8 w walidacji.
   - `model_times.csv` dla 120 tras, `selftest_fit` ok. Polecenia na jutro: `krok2_dopasowanie.md` (sekcja „Jutro”).
+
+## 2026-10-19: dokumentacja etapu 2, filmy G6, licencje (wg historii gita)
+
+- Opisy research G2, G3, G4, R1 zaktualizowane (`docs/research/`), dodany przegląd przykładów kalibracji MATSim i `docs/ZRODLA.md`.
+- G5: macierze O-D tła R4, R5 (warianty ograniczenia) i diagnostyka K1.
+- G6: filmy v5–v7 w Blenderze (Workbench, klasy dróg, granica powiatu, podkład OSM, wersja pionowa), skrypty składania z lektorem i muzyką; wyniki lokalnie w `blender/g6_blender/` (poza gitem).
+- Licencje: kod GPL-3.0-or-later, dane GUS CC BY 4.0, OSM ODbL (`LICENSE`, `LICENSE-DATA.md`).
+- Repo: logi (`*.log`), dane TomTom i filmy poza gitem (D22, wariant A: w repo tylko metryki i raporty).
+
+## 2026-10-20: przygotowanie do publikacji
+
+- Historia gita przepisana: usunięte klatki PNG i `anim.mp4` z G6, materiały robocze z pracy z AI (zasady agenta, prompty, archiwum raportów innych modeli); 82 → 76 commitów, `.git` 65 → 35 MB. Kopie plików zostają lokalnie, są w `.gitignore`.
+- Porządki: usunięte ścieżki lokalne z kodu i raportów, poprawione odwołania do usuniętych plików, README zaktualizowane, daty uzupełnione w `TASKS.md`.

@@ -53,7 +53,7 @@ Zawrotki graniczne (`boundary_turnaround`) zostają bez zmian (30 km/h, D13/F2).
   - te same id linków i węzłów co w R6 (plany przypinają aktywności do linków);
   - różnica tylko w `freespeed`;
   - `validate_network.py`.
-- Test regresyjny smoke (`check_events.py --expect-car-legs 20`). **Test 2 iteracji na MATSim 2026** (CLAUDE.md pkt 9).
+- Test regresyjny smoke (`check_events.py --expect-car-legs 20`). **Test 2 iteracji na MATSim 2026** (zasady projektu pkt 9).
 - Runy 25% × 5: 3 seedy MATSim i 2 seedy planów, jak R6. **Te same plany i macierze co R6.** Szacunek: ok. 25 min równolegle (R6: 23 min). Nazwa: R7.
 
 ### Krok 4. Sprawdzenie, czy nie zepsuliśmy natężeń (GPR)

@@ -33,6 +33,6 @@ Folder `etap1_mvp/r3_ocena/`:
 | `run_100pct_przerwany/` | run 100% przerwany na prośbę użytkownika (dowód `stuckAndAbort` przy endTime 36:00) |
 | `testy/` | build, test storage ≠ flow (odrzucony przez MATSim 2026) |
 
-Analiza metodyczna jest w `docs/research/` (`R3_ocena_modelu.md`, `R3_recenzja_agenta.md`).
+Analiza metodyczna jest w `docs/research/` (`R3_ocena_modelu.md`).
 
 Pliki z folderów f5 i f6 pochodzą sprzed napraw R3. Nie porównuj ich liczb wprost z `etap1_mvp/r3_ocena/`.

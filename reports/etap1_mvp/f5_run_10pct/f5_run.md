@@ -1,6 +1,6 @@
 # F5 — run integracyjny 10% (2026-10-16)
 
-**Status: ZALICZONA** (test zdarzeń). Ocena „czy to ma sens dla Kutna” należy do człowieka (CLAUDE.md).
+**Status: ZALICZONA** (test zdarzeń). Ocena „czy to ma sens dla Kutna” należy do człowieka (zasady projektu).
 
 Polecenie (z katalogu projektu):
 
@@ -71,7 +71,7 @@ Suma odczytu to 100,17%, normalizowana do 100%. Wewnątrz przedziału rozkład j
 
 ## Gotcha znalezione w tej fazie
 
-- **`controller.outputDirectory` jest rozwiązywany względem katalogu roboczego, a nie configu.** Pierwszy run zapisał wynik do `C:\Users\Michal\output`. Wynik przeniesiono, a run powtórzono z `output/f5_10pct`, uruchamiając z katalogu projektu.
+- **`controller.outputDirectory` jest rozwiązywany względem katalogu roboczego, a nie configu.** Pierwszy run zapisał wynik do `<katalog użytkownika>\output`. Wynik przeniesiono, a run powtórzono z `output/f5_10pct`, uruchamiając z katalogu projektu.
 
 ## Wąskie gardło SE: sprawdzenie (2026-10-16)
 

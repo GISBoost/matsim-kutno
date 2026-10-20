@@ -23,7 +23,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 RES = {}
 cfg = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))
 P = cfg["plans"]
-# lista wykluczeń z R5: C:/Users/Michal/Desktop/easy/easy-R5/tools/realtime_delay_cities/dasymetric_pop.py (EXCL_BUILDINGS)
+# lista wykluczeń z R5: easy-R5/tools/realtime_delay_cities/dasymetric_pop.py (EXCL_BUILDINGS)
 EXCL = set("""no garage garages carport shed outbuilding roof greenhouse greenhouse_horticulture construction industrial
 warehouse retail commercial office manufacture transportation service hangar parking hospital school kindergarten university
 college church chapel mosque synagogue temple cathedral civic public government train_station bridge bunker military stable

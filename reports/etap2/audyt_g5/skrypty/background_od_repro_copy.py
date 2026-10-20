@@ -213,7 +213,7 @@ g["model_plus_bg"] = g.model + g.background
 od = pd.DataFrame([dict(o_kind=O.kind[p[0]], o=O.id[p[0]], d_kind=D.kind[p[1]], d=D.id[p[1]], tt_min=round(p[2], 1),
                         trips_day=round(t, 2)) for t, p in zip(T, F)])
 od = od[od.trips_day >= 0.5].sort_values("trips_day", ascending=False)
-od.to_csv(f"C:/Users/Michal/AppData/Local/Temp/claude/C--Users-Michal-Desktop-MATSim/84e6ce23-6845-4f37-bbc9-2f3be951d4f2/scratchpad/repro/background_od_{TAG}.csv", index=False, lineterminator="\n")
+od.to_csv(f"output/repro/background_od_{TAG}.csv", index=False, lineterminator="\n")
 
 sec = g.groupby("nr", sort=False).agg(droga=("droga", "first"), fit=("fit", "first"), gpr=("gpr", "sum"), model=("model", "sum"),
                                       background=("background", "sum")).reset_index()
@@ -236,7 +236,7 @@ rep = {"runs": [str(d) for d in runs], "cls": CLS, "routes": str(ROUTES), "init"
                                                  fit_counts=sorted({int(g.nr[h]) for h in p[3] if g.fit[h]}))
                                             for t, p in zip(T, F) if any(g.nr[h] == nr for h in p[3])],
                                            key=lambda r: -r["trips"])[:8] for nr in CITY}}
-json.dump(rep, open(f"C:/Users/Michal/AppData/Local/Temp/claude/C--Users-Michal-Desktop-MATSim/84e6ce23-6845-4f37-bbc9-2f3be951d4f2/scratchpad/repro/k2_od_{TAG}.json", "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False)
+json.dump(rep, open(f"output/repro/k2_od_{TAG}.json", "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False)
 
 fig, axs = plt.subplots(1, 2, figsize=(15, 6.5), gridspec_kw={"width_ratios": [1.3, 1]})
 s = sec.sort_values("gpr")
@@ -256,6 +256,6 @@ ax.scatter(Z[Z.kind == "gmina"].x, Z[Z.kind == "gmina"].y, s=20, color="#3ddc97"
 ax.scatter(Z[Z.kind != "gmina"].x, Z[Z.kind != "gmina"].y, s=8, color="#d1495b", zorder=5, label="wjazdy / wyjazdy")
 ax.set_aspect("equal"); ax.set_axis_off(); ax.legend(fontsize=8)
 ax.set_title(f"60 największych relacji tła ({rep['trips_day_100pct']} podróży/dobę w 100%)", fontsize=10)
-fig.tight_layout(); fig.savefig(f"C:/Users/Michal/AppData/Local/Temp/claude/C--Users-Michal-Desktop-MATSim/84e6ce23-6845-4f37-bbc9-2f3be951d4f2/scratchpad/repro/k2_od_{TAG}.png", dpi=120)
+fig.tight_layout(); fig.savefig(f"output/repro/k2_od_{TAG}.png", dpi=120)
 print(json.dumps({k: v for k, v in rep.items() if k not in ("sections", "top_od")}, ensure_ascii=False, indent=1))
 print(sec[["nr", "droga", "fit", "gpr", "model", "background", "model_plus_bg", "ratio_before", "ratio_after"]].round(2).to_string())

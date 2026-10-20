@@ -1,6 +1,6 @@
 # Audyt G5/D20: kod, kalibracja i walidacja (baza R4)
 
-Data: 2026-10-18. Audytor: niezależna sesja Claude (tylko odczyt). Instrukcja: `reports/etap2/audyt_g5/prompt_audytu.md`.
+Data: 2026-10-18. Audyt niezależny (tylko odczyt).
 Skrypty kontrolne są w `reports/etap2/audyt_g5/skrypty/` i nie importują kodu z `pipeline/`. Wyniki pośrednie są w `reports/etap2/audyt_g5/wyniki/`.
 Nie zmieniałem kodu, configów, `scenarios/`, `data/` ani `output/g5r*`. Nie uruchamiałem MATSim.
 

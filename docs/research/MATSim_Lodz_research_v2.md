@@ -159,7 +159,7 @@ Cel: nadać każdemu agentowi realistyczny plan dnia (np. dom→praca→zakupy�
 #### 4.2. MVP i kolejność budowy
 **Minimalny scenariusz startowy**: sieć **tylko samochodowa** (OSM) + populacja z BREC/siatki GUS + **proste łańcuchy dom–praca–dom** (cele pracy z REGON, długości kalibrowane do pożyczonego badania), próbka 1%, 100–250 iteracji. Dopiero potem: transport zbiorowy (GTFS), pełne łańcuchy aktywności, tryby rower/pieszy, kalibracja funkcji użyteczności, ewentualnie Deep Gravity/FCD jako więz OD.
 
-**Gdzie AI (Claude Code) pomaga, a gdzie potrzebny jest Twój osąd**:
+**Gdzie AI (asystent AI) pomaga, a gdzie potrzebny jest Twój osąd**:
 - **AI świetnie**: ETL danych GUS/GUGiK/GTFS/REGON, wywołania pt2matsim, geokodowanie przez API BIR REGON, parsowanie/walidacja XML, glue code synpp, automatyzacja pobierania (ATOM GUS, API GUGiK per TERYT), analiza wyjścia (matsim-tools), debug Javy/Mavena.
 - **Twój osąd**: wybór i mapowanie źródeł, strefowanie (BREC vs własne rejony komunikacyjne), obsługa tajemnicy statystycznej, parametry scoringu, interpretacja błędu ekologicznego, decyzje o próbkowaniu i skalowaniu, walidacja z GPR/FCD, warunki licencyjne danych TomTom.
 
@@ -179,7 +179,7 @@ Pełny łańcuch wizualizacji można zbudować bez narzędzi komercyjnych:
 1. **Etap badawczy (ten dokument)** — zamknięty. Decyzje: eqasim jako szkielet; BREC+REGON jako rozwiązanie granularności; SimWrapper+QGIS do wizualizacji.
 2. **Pozyskanie danych** — OSM (Łódź + obszar funkcjonalny), GTFS ZDiT (potwierdź licencję), BREC (ATOM SU), siatka GUS 125 m/1 km + demografia, macierz dojazdów NSP 2021, REGON (API BIR, geokodowanie), PRG + BDOT10k, GHS-POP (backup); zdobądź pożyczone badanie ruchu (KBR Wrocław 2024/krajowe); zdecyduj o dostępie i warunkach FCD TomTom.
 3. **Prototyp (Cowork)** — MVP samochodowy na próbce 1%; pt2matsim; synteza populacji na kilku rejonach statystycznych; weryfikacja sieci i szkieletu OD.
-4. **Pełne kodowanie (Claude Code)** — adaptacja synpp do polskich źródeł (IPF/matching, integeryzacja, tajemnica statystyczna), dodanie TZ, generowanie wewnątrzmiejskiego OD, kalibracja, walidacja z GPR/FCD, dashboardy SimWrapper.
+4. **Pełne kodowanie (asystent AI)** — adaptacja synpp do polskich źródeł (IPF/matching, integeryzacja, tajemnica statystyczna), dodanie TZ, generowanie wewnątrzmiejskiego OD, kalibracja, walidacja z GPR/FCD, dashboardy SimWrapper.
 5. **Rozszerzenia badawcze** — Deep Gravity dla OD, warstwa elektoralna, scenariusze polityk (strefy ruchu, nowe linie tramwajowe), publikacja.
 
 ## Rekomendacje

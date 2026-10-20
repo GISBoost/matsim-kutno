@@ -50,7 +50,7 @@ Skróty źródeł twierdzeń: **G** = `raport google.txt` / `prompt_google.txt`,
 
 ## Spójność materiałów (sprzeczności między raportami)
 
-- **Łowicz (07.2026) vs Kutno (10.2026)**: dwa różne PRD. Łowicz zakłada gminę miejską + wiejską bez bufora, PopulationSim/IPF na BREC, pracę z REGON + distance decay, budynki BDOT10k, próbkę 1% i scoring z kelheim. Kutno zakłada samo miasto, pracę z POI OSM, bufor sieci i próbkę 300 agentów / 5–10%. Prompty Łowicza odwołują się do `CLAUDE.md`, którego nie ma w folderze.
+- **Łowicz (07.2026) vs Kutno (10.2026)**: dwa różne PRD. Łowicz zakłada gminę miejską + wiejską bez bufora, PopulationSim/IPF na BREC, pracę z REGON + distance decay, budynki BDOT10k, próbkę 1% i scoring z kelheim. Kutno zakłada samo miasto, pracę z POI OSM, bufor sieci i próbkę 300 agentów / 5–10%. Prompty Łowicza odwołują się do zasady projektu, którego nie ma w folderze.
 - **Próbka**: 1% (Ł) vs 2% / 300 agentów (G) vs 5–10% (S).
 - **Konwerter OSM**: „nie pisz własnego parsera” (Ł) vs dopuszczony własny skrypt Python (G).
 - **Rozkłady czasu** N(7:15, 30 min), praca 8 h ± 20 min (G): podane bez żadnego źródła.
