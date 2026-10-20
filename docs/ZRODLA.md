@@ -1,6 +1,6 @@
 # ZRODLA: katalog źródeł i tego, co z nich wiemy
 
-Aktualizacja: 2026-10-17. Pliki leżą w `data/raw/` (poza gitem). Pochodzenie każdego pliku (URL, data, sha256) jest w `data/manifest.csv`. Fakty sprawdzone przy starcie projektu są w `FACT_CHECK.md`.
+Aktualizacja: 2026-10-17. Pliki leżą w `data/raw/` (poza gitem). Pochodzenie każdego pliku (URL, data, sha256) jest w `data/manifest.csv`. Fakty sprawdzone przy starcie projektu są w `docs/projekt/FACT_CHECK.md`.
 
 Statusy: **UŻYTE** (w pipeline) · **POBRANE** (sprawdzone, jeszcze nieużyte) · **DO POZYSKANIA** (wiemy, że istnieje) · **DO SPRAWDZENIA** (nie wiemy, czy się nada).
 

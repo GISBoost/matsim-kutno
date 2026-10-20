@@ -2,9 +2,9 @@
 
 ## 2026-10-16 — specyfikacja
 - Folder uporządkowany, git zainicjowany (oryginalny stan w pierwszym commicie).
-- Weryfikacja raportów AI: `FACT_CHECK.md` (23 twierdzenia + sprzeczności).
-- Konsultacja: decyzje D1–D12 w `DECISIONS.md`.
-- zasady projektu (plik lokalny), `TASKS.md` (F0–F6).
+- Weryfikacja raportów AI: `docs/projekt/FACT_CHECK.md` (23 twierdzenia + sprzeczności).
+- Konsultacja: decyzje D1–D12 w `docs/projekt/DECISIONS.md`.
+- zasady projektu (plik lokalny), `docs/projekt/TASKS.md` (F0–F6).
 - Kod: brak. Symulacja: nieuruchamiana.
 - R1 (2026-10-16): przegląd źródeł godzin wyjazdu/czasu pracy → `docs/research/R1_godziny.md`; rekomendacja: GBR Gdańsk 2022 Rys. 46 (wykres 1 h), brak liczbowego rozkładu 15–30 min.
 
@@ -62,7 +62,7 @@
   - select-link: 38% agentów jedzie tym odcinkiem.
   - `reports/r3_25pct_*`, `reports/etap1_mvp/r3_ocena/wyniki_25pct/r3_compare.*`.
 - **Uzupełnione 2026-10-17:** seedy 1 i 2, zbieżność i porównanie seedów, raport `reports/etap1_mvp/r3_ocena/wyniki_25pct/r3_25pct.md`.
-- Lekcje z błędów tej sesji: `ERRORS.md` i reguły 7–11 w zasadach projektu (Workflow).
+- Lekcje z błędów tej sesji: `docs/projekt/ERRORS.md` i reguły 7–11 w zasadach projektu (Workflow).
 
 ## 2026-10-17: R3, wyniki z 25% (3 seedy, 100 iteracji)
 
@@ -80,7 +80,7 @@
 
 ## 2026-10-17: G2 / D17, liczba miejsc pracy i wyjeżdżający
 
-- D17 w `DECISIONS.md`: B (rejestr P4507) jako baza, C (skalowanie do P4508 = 17 486) jako wariant wrażliwości, wyjeżdżający O1 z odcięciem > 100 km, rok 2024.
+- D17 w `docs/projekt/DECISIONS.md`: B (rejestr P4507) jako baza, C (skalowanie do P4508 = 17 486) jako wariant wrażliwości, wyjeżdżający O1 z odcięciem > 100 km, rok 2024.
 - `demand.py`: kolumna `work_in_kutno_reg` (14 586 w 100%), `outbound_by_gmina.csv` (83 gminy, 2 669 os.). `plans.py`: rodzaj `outbound` (dom w budynku w Kutnie, praca w budynku gminy powiatu albo na linku wyjazdowym; 31 linków wyjazdowych), `jobs_total` do wariantu C (nadpisanie z linii poleceń `jobs_total=17486`).
 - Odcięte > 100 km: 30 gmin, 235 os. w 100% (47 przyjeżdżających, 188 wyjeżdżających). Warszawa (457) zostaje, wyjazd na A1.
 - Plany 10%: B 2 521 os. (1 465 mieszk., 808 przyjeżdż., 248 wyjeżdż.), C 1 997 os. (1 133 / 616 / 248). Walidacja ok, sha256 powtarzalny (`reports/etap2/g2_miejsca_pracy/{B,C}/plans_10pct_plans.json`). Pierwsza wersja nie przeszła walidacji (ERRORS 14).
@@ -263,4 +263,4 @@
 ## 2026-10-20: przygotowanie do publikacji
 
 - Historia gita przepisana: usunięte klatki PNG i `anim.mp4` z G6, materiały robocze z pracy z AI (zasady agenta, prompty, archiwum raportów innych modeli); 82 → 76 commitów, `.git` 65 → 35 MB. Kopie plików zostają lokalnie, są w `.gitignore`.
-- Porządki: usunięte ścieżki lokalne z kodu i raportów, poprawione odwołania do usuniętych plików, README zaktualizowane, daty uzupełnione w `TASKS.md`.
+- Porządki: usunięte ścieżki lokalne z kodu i raportów, poprawione odwołania do usuniętych plików, README zaktualizowane, daty uzupełnione w `docs/projekt/TASKS.md`.

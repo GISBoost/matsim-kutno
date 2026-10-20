@@ -1,8 +1,8 @@
 # MATSim Kutno: instrukcja modelu
 
-Stan: 2026-10-20. Opis zakłada decyzje D1–D23 z `DECISIONS.md` i wyniki z `PROGRESS.md`. Rozdziały 5–13 opisują model do D19 (baza D18 i R1); zmiany D20–D23 (ruch tła, dostawcze i ciężkie, baza R6, prędkości per grupa dróg) są w rozdziale 11.4 i 12, a szczegóły w `ROADMAP.md`.
+Stan: 2026-10-20. Opis zakłada decyzje D1–D23 z `docs/projekt/DECISIONS.md` i wyniki z `docs/projekt/PROGRESS.md`. Rozdziały 5–13 opisują model do D19 (baza D18 i R1); zmiany D20–D23 (ruch tła, dostawcze i ciężkie, baza R6, prędkości per grupa dróg) są w rozdziale 11.4 i 12, a szczegóły w `docs/projekt/ROADMAP.md`.
 Każde założenie jest oznaczone **ZAŁOŻENIE** albo ma źródło (plik, wiersz, URL w `data/manifest.csv` i `docs/ZRODLA.md`).
-Brakujące elementy są w rozdziale 14 („Luki”), z odsyłaczem do dokumentu, który je opisuje.
+Brakujące elementy są w rozdziale 14 („Luki”), z odsyłaczem do dokumentu, który je opisuje. Mapa projektu (fazy, stan, plany): [docs/projekt/ROADMAP.md](docs/projekt/ROADMAP.md).
 
 > **Ważne:** to model ruchu dojazdów do pracy autem w gminie Kutno, nie prognoza ruchu. Wyniki służą do sprawdzenia poprawności pipeline'u i sensowności geografii (D2). Porównania z pomiarami są na etapie kalibracji (G5, D19).
 
@@ -123,7 +123,7 @@ Pełna lista z ograniczeniami: `docs/ZRODLA.md`. Poniżej to, co wpływa na mode
 | **GTFS zbiorkom.live Kutno, GTFS kolej (Kuranowski)** | Rozkłady autobusów i kolei | Poza MVP (G4) | Brak licencji w feedzie zbiorkom.live. Feed kolei ważny 30 dni. |
 | **Literatura VSP i MATSim MUM 2026** (`g5/lit/`, `mum2026/`) | Konfiguracje referencyjne (matsim-berlin v6.3, matsim-kelheim v3.1), praktyka kalibracji | Uzasadnienie `stuckTime` (D18) i dynamiki `queue` | Inne skale. Nie są kopiowane wprost. |
 
-**Zasada:** liczby i parametry bierzemy tylko ze źródeł z `docs/ZRODLA.md` i z `data/manifest.csv`. Twierdzenia z raportów pomocniczych są sprawdzone w `FACT_CHECK.md`.
+**Zasada:** liczby i parametry bierzemy tylko ze źródeł z `docs/ZRODLA.md` i z `data/manifest.csv`. Twierdzenia z raportów pomocniczych są sprawdzone w `docs/projekt/FACT_CHECK.md`.
 
 ---
 
@@ -439,7 +439,7 @@ Każde ZAŁOŻENIE ma wartość, miejsce w kodzie lub configu, uzasadnienie i st
 ### 13.1 Zgodność konfiguracji (wymaga decyzji lub poprawki przed następnym runem)
 
 - **R-1: `car_share` i `work_from_home` są domyślnie włączone** w `config/kutno.toml` (D19/K1-1, decyzja: zostaje). Wyniki referencyjne D16, D17/B i D18 (`reports/etap2/g6_kolejki/d18_25pct/`) używają planów **bez K1-1**: `scenarios/kutno/plans_25pct.xml.gz` (6 302 osoby), który `config_25pct.xml` czyta jako wejście. Domyślne `plans.py ... 0.25` daje dziś 3 739 osób (K1-1), więc bez parametrów nie odtworzy referencji. Plany bez K1-1 mają osobną nazwę `scenarios/kutno/plans_25pct_bez_k1.xml.gz`. Wygenerowano je poleceniem z parametrami poniżej, sha256 identyczny z `plans_25pct.xml.gz` (`1be78c27…027`), 6 302 osoby (3 647 / 2 041 / 614). Plany K1-1 dla R1 są w `plans_g5r1_25pct.xml.gz`.
-- **R-2: domyślne pliki `scenarios/kutno/plans.xml.gz`, `config_10pct.xml` i `config_100pct.xml`** pochodzą z etapu F5/F6 (`inputPlansFile = plans.xml.gz`). Nie wiadomo z pewnością, z jakiego stanu `kutno.toml` powstały. Nie są opisane w `PROGRESS.md`. **Propozycja:** usunąć z konfiguracji wzorcowej albo opisać w `reports/README.md`.
+- **R-2: domyślne pliki `scenarios/kutno/plans.xml.gz`, `config_10pct.xml` i `config_100pct.xml`** pochodzą z etapu F5/F6 (`inputPlansFile = plans.xml.gz`). Nie wiadomo z pewnością, z jakiego stanu `kutno.toml` powstały. Nie są opisane w `docs/projekt/PROGRESS.md`. **Propozycja:** usunąć z konfiguracji wzorcowej albo opisać w `reports/README.md`.
 - **R-3: `output/r3_runs.sh`** (skrypt uruchamiający seedy równolegle) jest w `output/`, czyli w `.gitignore`. Nie jest wersjonowany. Build `CreateKutnoNetwork` także nie ma skryptu w repo (rozdział 2 podaje polecenie z Javadoc).
 - **R-4:** komentarz w `config_25pct.xml` mówi o 8 wątkach, a runy referencyjne używały 4 (bez wpływu na wyniki, ale do poprawy).
 
@@ -466,24 +466,24 @@ Każde ZAŁOŻENIE ma wartość, miejsce w kodzie lub configu, uzasadnienie i st
 
 ## 14. Luki: czego jeszcze nie ma
 
-Stan na 2026-10-20. Pełna lista otwartych spraw jest w `ROADMAP.md` (rozdział 3 i 4).
+Stan na 2026-10-20. Pełna lista otwartych spraw jest w `docs/projekt/ROADMAP.md` (rozdział 3 i 4).
 
 | # | Luka | Stan | Gdzie opisane |
 |---|---|---|---|
-| L-1 | **Ruch tła i tranzyt**: wdrożony w D19–D21 (estymacja O-D z GPR, lekkie, dostawcze i ciężkie, baza R6). Otwarte: bilans stref DK91/DK92 wsch., liczniki lokalne. | częściowo zamknięte | `reports/etap2/g5_kalibracja/g5_r6.md`, `ROADMAP.md` §3 |
+| L-1 | **Ruch tła i tranzyt**: wdrożony w D19–D21 (estymacja O-D z GPR, lekkie, dostawcze i ciężkie, baza R6). Otwarte: bilans stref DK91/DK92 wsch., liczniki lokalne. | częściowo zamknięte | `reports/etap2/g5_kalibracja/g5_r6.md`, `docs/projekt/ROADMAP.md` §3 |
 | L-2 | **Udział auta K1-1** (zawężenie MVP „wszyscy car”): przyjęty w D19, źródło z innych miast, brak danych lokalnych. | decyzja podjęta, dane słabe | `docs/research/G5_plan_kalibracji.md` |
 | L-3 | **Podział modalny** (G4): PT, pieszo, rower nieobecne. Brak źródła dla dojazdów do pracy w Kutnie. | otwarte | `docs/research/G4_tryby.md` |
 | L-4 | **Rozkład wewnątrz gminy miejsc pracy**: wagi według powierzchni budynków. REGON, PKD i adresy zakładów nieużyte (G2). | otwarte | `docs/research/G2_miejsca_pracy.md` |
 | L-5 | **Wagi domów** (BDOT × kondygnacje vs obrys): rekomendacja G3 bez decyzji. | decyzja użytkownika | `docs/research/G3_domy.md` |
 | L-6 | **Godziny wyjazdu z lokalnego źródła** (D10): dziś GBR Gdańsk, w tle profil Lisica. | research | `docs/research/R1_godziny.md` |
 | L-7 | **Czas pracy 8 h**: stałe ZAŁOŻENIE, bez rozkładu per agent. | research | `docs/research/R1_godziny.md` |
-| L-8 | **Capacity ulic miejskich i skrzyżowań** (A-6, G1): brak danych. Pomiary miejskie (UM, ZDP, GDDKiA Rejon Kutno) do pozyskania. | czeka na dane | `TASKS.md` G1 |
+| L-8 | **Capacity ulic miejskich i skrzyżowań** (A-6, G1): brak danych. Pomiary miejskie (UM, ZDP, GDDKiA Rejon Kutno) do pozyskania. | czeka na dane | `docs/projekt/TASKS.md` G1 |
 | L-9 | **Ciężarowe i PCE**: pce 2,5 i 80 km/h (D20), źródło WR-D-13-01. Zamknięte w D20. | zamknięte | `reports/etap2/g5_kalibracja/g5_czasy_pce.md` |
 | L-10 | **Rekonstrukcja konfiguracji** (R-1, R-2, R-3): jeden skrypt odtwarzający wszystkie runy i pliki. | do zrobienia | — |
-| L-11 | **Prędkości sieci (D23)** i ponowna walidacja czasów TomTom (D22, wariant A). | w toku | `reports/etap2/g5_predkosci_d23/`, `ROADMAP.md` §4 |
+| L-11 | **Prędkości sieci (D23)** i ponowna walidacja czasów TomTom (D22, wariant A). | w toku | `reports/etap2/g5_predkosci_d23/`, `docs/projekt/ROADMAP.md` §4 |
 | L-12 | **Wizualizacja Blender** (G6): filmy lokalnie, poza gitem. Nie wpływa na model. | opis w `docs/research/G6_blender.md` | `blender/` |
 
-Pytania otwarte z `DECISIONS.md`, bez decyzji: szerokość bufora poza powiatem, parametry scoringu, car share (D6), REGON (D7).
+Pytania otwarte z `docs/projekt/DECISIONS.md`, bez decyzji: szerokość bufora poza powiatem, parametry scoringu, car share (D6), REGON (D7).
 
 ---
 
@@ -491,11 +491,11 @@ Pytania otwarte z `DECISIONS.md`, bez decyzji: szerokość bufora poza powiatem,
 
 | Ścieżka | Zawartość | W gicie |
 |---|---|---|
-| `DECISIONS.md` | decyzje D1–D23 (zmiana = nowy wpis) | tak |
-| `FACT_CHECK.md` | zweryfikowane fakty z raportów AI | tak |
-| `TASKS.md` | fazy F0–F6 i etap 2 (G1–G7) | tak |
-| `PROGRESS.md` | co zaliczono, z dowodem | tak |
-| `ERRORS.md` | błędy i reguły | tak |
+| `docs/projekt/DECISIONS.md` | decyzje D1–D23 (zmiana = nowy wpis) | tak |
+| `docs/projekt/FACT_CHECK.md` | zweryfikowane fakty z raportów AI | tak |
+| `docs/projekt/TASKS.md` | fazy F0–F6 i etap 2 (G1–G7) | tak |
+| `docs/projekt/PROGRESS.md` | co zaliczono, z dowodem | tak |
+| `docs/projekt/ERRORS.md` | błędy i reguły | tak |
 | `config/` | `kutno.toml`, `network.properties`, profile godzin | tak |
 | `data/manifest.csv` | URL, data, bajty i SHA-256 każdego pobrania | tak |
 | `data/raw/` | pobrane źródła (tylko do odczytu) | nie |
@@ -521,12 +521,12 @@ Pytania otwarte z `DECISIONS.md`, bez decyzji: szerokość bufora poza powiatem,
 | BDOT10k | Baza Danych Obiektów Topograficznych (budynki, kondygnacje) |
 | BREC | Baza Rejestrów Ewidencyjnych Charakterystyk (rejony i obwody spisowe NSP 2021) |
 | CRS EPSG:2180 | układ PUWG 1992, osie E, N |
-| D1–D23 | decyzje projektowe (`DECISIONS.md`) |
+| D1–D23 | decyzje projektowe (`docs/projekt/DECISIONS.md`) |
 | GEH | miara zgodności natężeń (< 5 = dobra zgodność) |
 | GPR | Generalny Pomiar Ruchu GDDKiA (SDRR, SDRDR, SDRL) |
 | GBR | Gdański Biuro Rozwoju, Raport 3a (badanie mobilności, profil godzin) |
 | GTFS | rozkład jazdy transportu publicznego (format) |
-| K1–K5, G1–G7 | kroki kalibracji (`G5_plan_kalibracji.md`) i etapy projektu (`TASKS.md`) |
+| K1–K5, G1–G7 | kroki kalibracji (`G5_plan_kalibracji.md`) i etapy projektu (`docs/projekt/TASKS.md`) |
 | MVP | zakres: samochód, dom–praca–dom |
 | NSP 2021 | Narodowy Spis Powszechny 2021 |
 | O-D | macierz podróży (origin–destination) |

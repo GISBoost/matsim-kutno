@@ -1,6 +1,6 @@
 # Plan poprawek po audycie G5 (D21)
 
-Źródło: `audyt_g5.md` (2 krytyczne, 4 istotne, 9 drobnych ustaleń), kolejność z sekcji 5 audytu. Każda poprawka jest osobnym krokiem: wdrożenie → test → wpis w `PROGRESS.md` i D21 → commit → stop na decyzję użytkownika.
+Źródło: `audyt_g5.md` (2 krytyczne, 4 istotne, 9 drobnych ustaleń), kolejność z sekcji 5 audytu. Każda poprawka jest osobnym krokiem: wdrożenie → test → wpis w `docs/projekt/PROGRESS.md` i D21 → commit → stop na decyzję użytkownika.
 
 Stan: 2026-10-18.
 
@@ -18,4 +18,4 @@ Stan: 2026-10-18.
 
 Do decyzji przy okazji (nie są w audycie):
 - wariant pełny K1: sieć z PBF łódzkie + wielkopolskie + mazowieckie (zmienia sieć i wszystkie wejścia);
-- kalibracja czasów przejazdu z TomTom/HERE: po kroku 8, bo zła macierz tła psułaby dopasowanie prędkości (nowa decyzja w `DECISIONS.md`).
+- kalibracja czasów przejazdu z TomTom/HERE: po kroku 8, bo zła macierz tła psułaby dopasowanie prędkości (nowa decyzja w `docs/projekt/DECISIONS.md`).

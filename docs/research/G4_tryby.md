@@ -138,7 +138,7 @@ data/raw/g4/bochnia_studium_mobilnosci_cz2.pdf,https://bip.malopolska.pl/e,pobie
 
 ## 6. Decyzje dla użytkownika (D17+)
 
-1. **Zakres:** czy G4 w ogóle ruszamy (zmiana zakresu MVP, wymaga wpisu w `DECISIONS.md`)? Konsekwencja: nowe wejścia (GTFS, `carAvail`), zmiana plans i configu.
+1. **Zakres:** czy G4 w ogóle ruszamy (zmiana zakresu MVP, wymaga wpisu w `docs/projekt/DECISIONS.md`)? Konsekwencja: nowe wejścia (GTFS, `carAvail`), zmiana plans i configu.
 2. **Cel kalibracji podziału modalnego:** (a) przedział z Bochni+Radomia dla dom–praca (auto ≈ 61–67%, pieszo 10–12%, rower 3–7%, PT 19–20%), (b) GUS łódzkie wszystkie cele (auto 60%, pieszo 20,5%), (c) szukać dalej (poprosić UM Kutno / Starostwo o SUMP lub KBR, zrobić własną ankietę). Rekomendacja: (a) z jawnym ZAŁOŻENIEM i szerokim przedziałem.
 3. **PT — źródło i licencja:** użyć `kutno.zip` (zbiorkom.live, bez licencji) czy poprosić MZK Kutno o oficjalny GTFS? Kolej (feed Kuranowskiego): akceptujesz warunki PLK/KM i dzień referencyjny (np. wtorek 2026-10-20)?
 4. **Czy modelować PT w ogóle w tej skali:** w Kutnie PT dom–praca to ~7–20% (Bochnia 20% z busami), a **MZK jest darmowy dla posiadaczy Karty Mieszkańca**. Czy cena = 0 dla wszystkich agentów (ZAŁOŻENIE do udokumentowania)?
@@ -165,4 +165,4 @@ Strony PDF wyrenderowałem do obrazów i obejrzałem wzrokowo (nie tylko tekst).
 
 **Źródło dla dojazdów do pracy w łódzkim lub miastach 30–100 tys.:** w tej sesji nie znalazłem żadnego innego niż powyższe dwa (oba spoza łódzkiego, ankiety, bez błędu szacunku) i GUS Mobilność 2024 (łódzkie, wszystkie cele). Szukałem słowami kluczowymi (SUMP/KBR/studium transportowe), więc nie wykluczam istnienia innych dokumentów.
 
-**Status trybów w planie (zgodnie z `docs/research/G4_tryby.md` i `G4_beeline.md`):** badawczo opisane, **niewdrożone** (zakres MVP zamrożony, wymaga decyzji D w `DECISIONS.md`). Pieszo i rower: proponowane jako trybu teleportowane z `beelineDistanceFactor` ≈ 1,25 i ≈ 1,35 (pomiar na sieci OSM Kutna, `docs/research/G4_beeline.md`); PT: GTFS zbiorkom.live (niejasna licencja, 13 linii) + kolej z `polish_trains.zip`, **odłożone** do decyzji o licencji i źródle GTFS; MZK Kutno jest bezpłatny dla posiadaczy Karty Mieszkańca.
+**Status trybów w planie (zgodnie z `docs/research/G4_tryby.md` i `G4_beeline.md`):** badawczo opisane, **niewdrożone** (zakres MVP zamrożony, wymaga decyzji D w `docs/projekt/DECISIONS.md`). Pieszo i rower: proponowane jako trybu teleportowane z `beelineDistanceFactor` ≈ 1,25 i ≈ 1,35 (pomiar na sieci OSM Kutna, `docs/research/G4_beeline.md`); PT: GTFS zbiorkom.live (niejasna licencja, 13 linii) + kolej z `polish_trains.zip`, **odłożone** do decyzji o licencji i źródle GTFS; MZK Kutno jest bezpłatny dla posiadaczy Karty Mieszkańca.

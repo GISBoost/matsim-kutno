@@ -5,8 +5,8 @@ Data: 2026-10-18. Ustalenie: `audyt_g5.md` I2. Decyzja: D21 (pkt I2).
 ## Zmiany w opisach (adnotacje, bez kasowania historii)
 
 - `reports/etap2/g5_kalibracja/g5_r3.md` i `g5_r4_vs_r5_decyzja.md`: na początku dopisana ramka „Audyt I2”. Objazdowa 91124 i Bitwy pod Kutnem 91866 to **odcinki kontrolne użyte w wyborze wariantu** (W2, wyłączenie liczników lokalnych, R4 vs R5), a nie walidacja niezależna. W decyzji R4/R5 przy pkt 1 dopisałem, że „przeuczenie” to nadinterpretacja (2 odcinki, 1 seed). Poparte jest tylko „R5 gorszy na Objazdowej”.
-- `DECISIONS.md` D19 i D20: adnotacje kursywą przy „walidacja poza próbą” i „test niezależny”.
-- `ROADMAP.md`: G5 opisane jako kalibracja z odcinkami kontrolnymi (przy aktualizacji po kroku 8).
+- `docs/projekt/DECISIONS.md` D19 i D20: adnotacje kursywą przy „walidacja poza próbą” i „test niezależny”.
+- `docs/projekt/ROADMAP.md`: G5 opisane jako kalibracja z odcinkami kontrolnymi (przy aktualizacji po kroku 8).
 - Raporty kroków 3–6 nazywają 91124 i 91866 „odcinkami kontrolnymi”. W `g5_baseline.py` i `background_od.py` zostaje dawna nazwa zmiennej i klucza JSON (`walidacja_poza_proba`), bo zmiana złamałaby porównania ze starymi wynikami.
 
 ## Niezależna walidacja spoza GPR: co jest w pobranych danych

@@ -1,6 +1,6 @@
 # D16: przyjeżdżający spoza powiatu (wjazd o godzinie z profilu, odcięcie > 100 km)
 
-Data: 2026-10-17. Decyzja użytkownika D16 (`DECISIONS.md`). Próbka 25%, 100 iteracji, seedy 4711, 1, 2 (`output/d16_25pct_s*`).
+Data: 2026-10-17. Decyzja użytkownika D16 (`docs/projekt/DECISIONS.md`). Próbka 25%, 100 iteracji, seedy 4711, 1, 2 (`output/d16_25pct_s*`).
 **Od teraz to są wyniki referencyjne** w miejsce `r3_ocena/wyniki_25pct/`.
 
 ## Zmiana

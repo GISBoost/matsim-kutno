@@ -1,6 +1,6 @@
 # Przykłady MATSim: jak zbierają dane i jak kalibrują
 
-**Autor: Grok, 2026-10-18.** Przegląd źródeł, nie decyzja. Nie zastępuje `DECISIONS.md`. Liczb z tego pliku nie wolno wstawiać do modelu Kutna bez ponownego odczytu cytowanego źródła.
+**Autor: Grok, 2026-10-18.** Przegląd źródeł, nie decyzja. Nie zastępuje `docs/projekt/DECISIONS.md`. Liczb z tego pliku nie wolno wstawiać do modelu Kutna bez ponownego odczytu cytowanego źródła.
 
 Data odczytu stron: 2026-10-18. Punkt startu: [matsim.org/examples](https://www.matsim.org/examples/). Przeczytane dosłownie: 4 studia przypadków (Show Cases), 28 kart galerii, strona [Open-Data MATSim Models](https://www.matsim.org/install/open-data-models) podlinkowana z tej samej strony. Za każdą kartą, która podaje publikację, repozytorium albo rozdział książki, zszedłem do tego źródła na tyle, na ile tekst był publicznie czytelny. Pełnego tekstu części PDF nie udało się wyciągnąć (captcha ScienceDirect, część rozdziałów Ubiquity bez treści w HTML). Te luki są oznaczone wprost.
 

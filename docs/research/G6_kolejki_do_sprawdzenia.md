@@ -28,5 +28,5 @@ Status: obserwacja, przyczyna NIE zbadana. Wizualizacja odtwarza eventy wiernie 
 `reports/etap2/g6_blender/story_v2.mp4`, 06:12–06:34: agent `r6509026_1` w kolejce (3 km/h w klatce kontrolnej). Czerwone auta = < ~15 km/h w skali koloru.
 
 ## Co zrobić z wynikiem
-- Błąd sieci/capacity → poprawka w `CreateKutnoNetwork` + wpis w `DECISIONS.md` (D13 dotyczy prędkości) i test 2 iteracji.
+- Błąd sieci/capacity → poprawka w `CreateKutnoNetwork` + wpis w `docs/projekt/DECISIONS.md` (D13 dotyczy prędkości) i test 2 iteracji.
 - Realne zatory → zostawić, opisać w raporcie; nie kalibrować bez danych (zakres MVP zamrożony).

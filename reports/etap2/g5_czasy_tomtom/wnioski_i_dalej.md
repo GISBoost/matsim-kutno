@@ -32,7 +32,7 @@ Mediana model / TomTom oraz błędy, dla zestawu analizy i zestawu walidacji (an
 - **Rozrzut per trasa jest duży** (RMSPE 20–27%). Najgorsze są krótkie trasy w mieście (0,6–1,6) i Krośniewice (2,0). Najwyżej (model wolniejszy) leżą A1, przejazd Objazdowa → Sklęczkowska i DK92 zach. (1,1–1,25).
 - **Ocena:** R6 jest **skalibrowany tylko w popycie** (natężenia GPR) i **niezwalidowany według TAG** (czasy: 48–77% tras w kryterium wobec 85%). Zastrzeżenia: TomTom to model dostawcy, nie pomiar; trasy 2–50 km zamiast zalecanych 3–15 km; n małe; FHWA odradza testy „zaliczony / niezaliczony”.
 
-## 3. Co poprawić w modelu (kolejność proponowana, każda zmiana wymaga wpisu w `DECISIONS.md` i testu 2 iteracji)
+## 3. Co poprawić w modelu (kolejność proponowana, każda zmiana wymaga wpisu w `docs/projekt/DECISIONS.md` i testu 2 iteracji)
 
 1. **Prędkości jako „cruise speeds” zamiast limit × 0,8 (D13).**
    - TAG §5.2.3: prędkość przejazdowa w modelu to średnia prędkość między kolejkami na skrzyżowaniach, a nie prędkość swobodna ani limit.
@@ -55,7 +55,7 @@ Mediana model / TomTom oraz błędy, dla zestawu analizy i zestawu walidacji (an
 | klucz w `.env` w cudzysłowie dał 149 × 401 | naprawione (`api_key` zdejmuje cudzysłowy, przerwanie przy 401/403). **Zawsze najpierw `run tomtom --test` (9 requestów)** |
 | dane znikają po przebiegu | każda nowa metryka lub wykres wymaga ponownego przebiegu (149 requestów). **Zanim pobierzesz, dopisz wszystkie metryki i sprawdź je w `selftest`** |
 | TomTom `historic` to profil, nie pomiar | nie nazywać go „obserwacją”. `currentSpeed` ma sens tylko dla zapytania wysłanego w oknie dnia roboczego |
-| proste linki MATSim | metryki geometryczne (bufor, odległość punktu) zawodzą na łukach. Selftest nie może dziedziczyć tej samej geometrii (`ERRORS.md` 23) |
+| proste linki MATSim | metryki geometryczne (bufor, odległość punktu) zawodzą na łukach. Selftest nie może dziedziczyć tej samej geometrii (`docs/projekt/ERRORS.md` 23) |
 | `bash -c "python -c '…'"` z backtickami | powłoka wykonuje `` `…` `` jako polecenie i ścieżki znikają z tekstu (dwa razy w tej sesji). Treść z backtickami zapisuj narzędziem Write/Edit |
 | małe n i dwa zestawy | różnice model–TomTom poniżej ok. 5% nie są wynikiem. Analiza i walidacja różnią się o 4–10 pp |
 | zestaw walidacji | **nie używać do wyboru korekty.** Korekty tylko z analizy, a walidacja ocenia je raz, na końcu |
@@ -75,7 +75,7 @@ Mediana model / TomTom oraz błędy, dla zestawu analizy i zestawu walidacji (an
 
 ## 6. Co robić dalej (propozycja kolejności)
 
-1. Decyzja o wariancie prędkości (§3.1: a albo b) i wpis w `DECISIONS.md`.
+1. Decyzja o wariancie prędkości (§3.1: a albo b) i wpis w `docs/projekt/DECISIONS.md`.
 2. Geometria linków z OSM (§3.3), bo bez niej nie ocenimy zgodności tras ani klasy tertiary/unclassified.
 3. Implementacja wariantu prędkości, test 2 iteracji, runy 25% × 5.
 4. Ponowna walidacja TomTom według §5, z próbką rozszerzoną o:

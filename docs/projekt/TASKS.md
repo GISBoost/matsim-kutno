@@ -1,10 +1,10 @@
 # TASKS — fazy MVP i etap 2
 
-Daty: F0–F6 zaliczone 2026-10-16 (dowody w `PROGRESS.md`), etap 2 (G1–G7) od 2026-10-17, ostatnia aktualizacja pliku 2026-10-20.
+Daty: F0–F6 zaliczone 2026-10-16 (dowody w `docs/projekt/PROGRESS.md`), etap 2 (G1–G7) od 2026-10-17, ostatnia aktualizacja pliku 2026-10-20.
 
 Każda faza: wejścia → działania → wyjścia → test → kryterium zaliczenia → **wizualizacja** → stop.
 
-**Wizualizacja po każdej fazie (prośba użytkownika, 2026-10-16):** faza kończy się obrazem `reports/fN_*.png`, który pokazuje to, co faza testowała (mapa, przejazdy, rozkłady). Obraz trafia do użytkownika razem z listą wykresów, które MATSim sam generuje w `output/<run>/` (`modestats.png`, `scorestats.png`, `traveldistancestats*.png`, `stopwatch.png`). Dla runów MATSim: `uv run python pipeline/plot_run.py <output_dir> reports/fN_run.png "tytuł"`. Bez zaliczenia nie przechodzimy dalej. Blocker = wpis w `ERRORS.md` i pytanie do użytkownika.
+**Wizualizacja po każdej fazie (prośba użytkownika, 2026-10-16):** faza kończy się obrazem `reports/fN_*.png`, który pokazuje to, co faza testowała (mapa, przejazdy, rozkłady). Obraz trafia do użytkownika razem z listą wykresów, które MATSim sam generuje w `output/<run>/` (`modestats.png`, `scorestats.png`, `traveldistancestats*.png`, `stopwatch.png`). Dla runów MATSim: `uv run python pipeline/plot_run.py <output_dir> reports/fN_run.png "tytuł"`. Bez zaliczenia nie przechodzimy dalej. Blocker = wpis w `docs/projekt/ERRORS.md` i pytanie do użytkownika.
 
 ## F0 — Środowisko MATSim (zaliczona 2026-10-16)
 - **Wejścia:** `matsim-example-project` (branch master, parent `matsim 2026.0`), Java 25.
@@ -55,7 +55,7 @@ Każda faza: wejścia → działania → wyjścia → test → kryterium zalicze
 
 # Etap 2: od prototypu do modelu (od 2026-10-17)
 
-MVP (F0–F6) jest zamknięty. Każda faza G zmienia zakres lub dane, więc przed startem wymaga wpisu w `DECISIONS.md`. Obowiązują te same zasady co w F0–F6:
+MVP (F0–F6) jest zamknięty. Każda faza G zmienia zakres lub dane, więc przed startem wymaga wpisu w `docs/projekt/DECISIONS.md`. Obowiązują te same zasady co w F0–F6:
 - kontrakt fazy: wejścia → działania → test → zaliczenie → wizualizacja;
 - runy: 25%, 3 seedy, maks. 100 iteracji;
 - źródła w `docs/ZRODLA.md`, pobrania w `data/manifest.csv`;
@@ -85,7 +85,7 @@ MVP (F0–F6) jest zamknięty. Każda faza G zmienia zakres lub dane, więc prze
 - **Otwarte:** podział modalny ze źródła dotyczy wszystkich celów i całego województwa, a nie dojazdów do pracy w Kutnie. Trzeba zdecydować, czy to wystarczy jako cel kalibracji, czy szukamy lepszego źródła.
 - **Test:** podział modalny w granicach błędu szacunku GUS (tabl. 32).
 
-## G5 — Ruch tła i walidacja (od 2026-10-17; D19–D23, stan w ROADMAP.md)
+## G5 — Ruch tła i walidacja (od 2026-10-17; D19–D23, stan w docs/projekt/ROADMAP.md)
 - **Dane:** GPR (GDDKiA) na DK92 i DK60; ewentualne pomiary miejskie; macierz dostępności GUS do walidacji czasów przejazdu między gminami.
 - **Działania:** tranzyt i ciężarówki na drogach krajowych i A1; porównanie z pomiarami (GEH względem pomiarów, a nie między seedami).
 

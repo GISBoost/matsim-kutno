@@ -21,7 +21,7 @@ Raporty są w dwóch folderach: `etap1_mvp/` (F0–F6, R3, D16) i `etap2/` (fazy
 | `etap2/g5_czasy_tomtom/` | walidacja czasów i prędkości R6 vs TomTom (D22, tylko agregaty) | `g5_czasy_tomtom.md`, **`wnioski_i_dalej.md`**, `metrics_tomtom.csv` |
 | `etap2/g6_kolejki/` | **wyniki referencyjne (25%, 3 seedy) w `d18_25pct/`**: diagnoza kolejek z G6, test stuckTime/kinematicWaves, poprawka D18 | `g6_kolejki.md` |
 
-Przegląd faz i dalszych planów: [`../ROADMAP.md`](../ROADMAP.md).
+Przegląd faz i dalszych planów: [`../ROADMAP.md`](../docs/projekt/ROADMAP.md).
 
 Folder `etap1_mvp/r3_ocena/`:
 

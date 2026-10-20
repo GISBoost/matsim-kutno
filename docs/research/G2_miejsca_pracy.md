@@ -8,7 +8,7 @@ Data badania: 2026-10-17. Zakres: tylko zbieranie danych i ocena; model (D7) bez
 
 1. **Jest kotwica liczby miejsc pracy dla samego Kutna, nowsza i lepsza niż w ZRODLA.md zakładano.** BDL GUS ma od 2023 r. tablicę **„Pracujący w gospodarce narodowej wg płci i siedziby pracy głównej” (P4508)** na poziomie gminy. Kutno (miasto, TERC 1002011, BDL `051011902011`): **17 486 (2024), 17 251 (2025)**. Dane z rejestrów ZUS/KRUS, więc obejmują też podmioty ≤ 9 osób i rolników ubezpieczonych w KRUS.
 2. **To jest liczba „wg adresu siedziby płatnika”, nie faktycznego miejsca pracy.** Ta sama konwencja co macierz dojazdów NSP 2021 (adres pracodawcy). Oddział firmy z siedzibą w Warszawie liczy się w Warszawie. Dla Kutna to błąd w obie strony, którego z danych publicznych nie da się oszacować.
-3. **Model F3 ma dziś o ok. 47% więcej miejsc pracy niż ta kotwica**: 17 546 mieszkańców (wszyscy pracują w Kutnie) + 8 186 przyjeżdżających = 25 732 (PROGRESS.md:27) wobec 17 486 w BDL. Mieszkańców pracujących *gdziekolwiek* BDL podaje 17 255 (2024), czyli prawie dokładnie tyle, ile model przypisuje do pracy w Kutnie. Wniosek: z 17,5 tys. etatów w mieście ok. 8,2 tys. zajmują przyjezdni, więc w mieście pracuje tylko ok. 9,3 tys. mieszkańców (ok. 54%), a ok. 8 tys. wyjeżdża (D3 pomija wyjeżdżających). To decyzja dla użytkownika (sekcja 6).
+3. **Model F3 ma dziś o ok. 47% więcej miejsc pracy niż ta kotwica**: 17 546 mieszkańców (wszyscy pracują w Kutnie) + 8 186 przyjeżdżających = 25 732 (docs/projekt/PROGRESS.md:27) wobec 17 486 w BDL. Mieszkańców pracujących *gdziekolwiek* BDL podaje 17 255 (2024), czyli prawie dokładnie tyle, ile model przypisuje do pracy w Kutnie. Wniosek: z 17,5 tys. etatów w mieście ok. 8,2 tys. zajmują przyjezdni, więc w mieście pracuje tylko ok. 9,3 tys. mieszkańców (ok. 54%), a ok. 8 tys. wyjeżdża (D3 pomija wyjeżdżających). To decyzja dla użytkownika (sekcja 6).
 4. **Granularniej niż gmina nie ma nic publicznego z liczbą pracujących.** Siatki GUS i punkty adresowe dotyczą ludności i budynków mieszkalnych. REGON daje lokalizację, ale zapytania są pojedyncze, a klasę wielkości zwraca tylko część raportów (niepotwierdzone). Lokalizację wewnątrz miasta zostaje szacować, a wagi „powierzchnia budynku” mogą zostać, tylko przeskalowane do kotwicy i z dodatkiem listy znanych dużych zakładów.
 
 ## 2. Tabela źródeł
@@ -59,7 +59,7 @@ Z samej klasy wielkości wynika dolne ograniczenie zatrudnienia w dużych zakła
 
 **Struktura branżowa (tylko powiat kutnowski, NSP 2021, P4500, pracujący wg PKD; to nie jest samo Kutno):** ogółem 41 491; przetwórstwo przemysłowe (C) 10 345 (24,9%); handel (G) 5 527 (13,3%); rolnictwo (A) 4 824 (11,6%); transport i magazynowanie (H) 3 632 (8,8%); administracja publiczna (O) 2 402 (5,8%); edukacja (P) 2 530 (6,1%); ochrona zdrowia (Q) 2 226 (5,4%); budownictwo (F) 2 388 (5,8%); administrowanie (N) 1 852 (4,5%). Kutno jako miasto ma ponad te proporcje więcej usług publicznych i handlu, a mniej rolnictwa, ale to nie jest pomiar (brak danych poniżej powiatu).
 
-**Porównanie z modelem (PROGRESS.md:27):**
+**Porównanie z modelem (docs/projekt/PROGRESS.md:27):**
 
 | wielkość | model F3 (100%) | BDL / GUS |
 |---|---|---|

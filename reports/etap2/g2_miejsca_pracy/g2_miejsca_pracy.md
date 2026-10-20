@@ -1,6 +1,6 @@
 # G2 / D17: liczba miejsc pracy (B, C) i wyjeżdżający (O1)
 
-Data: 2026-10-17. Decyzja D17 (`DECISIONS.md`), warianty opisane w `docs/research/G2_warianty.md`. Próbka **10%** (prośba użytkownika), 100 iteracji, seedy 4711, 1, 2 (`output/g2{b,c}_10pct_s*`). Wszystkie 6 runów liczone równolegle po 2 wątki, ok. 11 min.
+Data: 2026-10-17. Decyzja D17 (`docs/projekt/DECISIONS.md`), warianty opisane w `docs/research/G2_warianty.md`. Próbka **10%** (prośba użytkownika), 100 iteracji, seedy 4711, 1, 2 (`output/g2{b,c}_10pct_s*`). Wszystkie 6 runów liczone równolegle po 2 wątki, ok. 11 min.
 
 ## Co się zmieniło w popycie (skala 100%)
 

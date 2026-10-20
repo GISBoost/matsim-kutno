@@ -10,7 +10,7 @@ Data: 2026-10-18 (niedziela). Decyzja D22 (wariant A). **Walidacja, nie kalibrac
 | zapytany dzień i godziny | **wtorek 2026-10-20, 07:30 / 12:30 / 15:30 CEST** (`departAt` w przyszłości, czyli typowy profil historyczny dnia tygodnia i godziny). Model to uśredniony dzień roboczy, nie data |
 | kiedy faktycznie wysłano | 2026-10-18 (niedziela wieczorem): 17:23–17:24, 17:59–18:00, 18:02–18:03 i **18:22:28–18:23:23 UTC** (ostatni, w `przebieg_tomtom.json`) |
 | zestaw tylko do walidacji | `split.csv`, zapisany przed policzeniem jakiegokolwiek błędu: 1/3 każdej warstwy, czyli 13 z 40 par i korytarzy oraz 8 z 25 segmentów. Nieużyty do propozycji |
-| requesty | **TomTom: 763** (budżet podniesiony z 400 do 800 na prośby użytkownika o MAE, wykresy, mapę i metryki w %). 149 nieudanych w przebiegu 1 (401, klucz w cudzysłowie w `.env`, `ERRORS.md`), 18 testowych (`--test`), 4 × 149 właściwych (każdy: 148 × 200, 1 × 400 dla segmentu). Ostatni przebieg: 2026-10-18 18:22:28–18:23:23 UTC. Liczba w przebiegu = dry-run (149). **HERE: 0** (brak klucza) |
+| requesty | **TomTom: 763** (budżet podniesiony z 400 do 800 na prośby użytkownika o MAE, wykresy, mapę i metryki w %). 149 nieudanych w przebiegu 1 (401, klucz w cudzysłowie w `.env`, `docs/projekt/ERRORS.md`), 18 testowych (`--test`), 4 × 149 właściwych (każdy: 148 × 200, 1 × 400 dla segmentu). Ostatni przebieg: 2026-10-18 18:22:28–18:23:23 UTC. Liczba w przebiegu = dry-run (149). **HERE: 0** (brak klucza) |
 | czego endpointy nie umieją | TomTom Routing dla przyszłej daty zwraca typowy profil, a nie predykcję konkretnego dnia. Flow Segment Data to stan z chwili zapytania, więc w niedzielę nie mierzy szczytu dnia roboczego (porównujemy tylko `freeFlowSpeed`). Szczegóły w §1 |
 | czego nie ma w repo | odpowiedzi TomTom (tylko w pamięci procesu), czasy i prędkości TomTom per para/segment, porównanie TomTom–HERE (regulamin, niżej) |
 
@@ -223,7 +223,7 @@ Segmenty: nachylenie bliskie 1 z przesunięciem +17 km/h, czyli TomTom jest stal
 | **segment < 50 m od środka linku** | **8 z 24 segmentów > 50 m (maks. 1 254 m), 1 × HTTP 400.** 5 z 7 to tertiary/unclassified poza miastami, 3 to miasto. Wyłączone z metryk |
 | **zgodność tras (bufor 25 m)** | **wskaźnik niewiarygodny.** Mediana 0,56, 26 z 40 tras < 70%, w tym A1 (K_a1_ns, K_a1_sn). Przyczyna: geometria linku w sieci MATSim to prosta między węzłami (wszystkie 10 383 linki mają 2 punkty, linki A1 mają do 6,7 km, unclassified mediana 565 m), więc trasa TomTom po rzeczywistej drodze wychodzi poza 25 m na łukach. Zastępczo: **długość trasy model / TomTom = 1,00** (analiza i walidacja), czyli trasy są tej samej długości |
 | niezależna kontrola mediany i MAPE (`check_niezalezny.py`: osobny proces, nie importuje `pipeline/`, czyta pliki modelu sam, wartości TomTom przez stdin) | zgodna co do 1e-9 dla wszystkich grup „wszystkie” (swobodny, 3 okna, segmenty, oba zestawy) ✔ |
-| selftest metryk na syntetycznym dostawcy | ok (`traffic_metrics.py selftest`) ✔. Nie wykrył problemu bufora, bo syntetyczna trasa miała tę samą prostą geometrię (`ERRORS.md`) |
+| selftest metryk na syntetycznym dostawcy | ok (`traffic_metrics.py selftest`) ✔. Nie wykrył problemu bufora, bo syntetyczna trasa miała tę samą prostą geometrię (`docs/projekt/ERRORS.md`) |
 
 ## 7. Przewidywanie vs wynik
 
@@ -252,7 +252,7 @@ Rozbieżności mają jedno źródło. Współczynnik 0,8 z D13 obniża prędkoś
 2. **Tertiary/unclassified poza miastami (72 km/h):** TomTom tego nie rozstrzyga (n = 1, kierunek zgodny z GUS i ORS). Do sprawdzenia innym pomiarem, np. Routing TomTom na krótkich trasach wybranych tak, żeby ≥ 70% długości leżało na tych klasach. Wymagałoby to nowej próbki i decyzji.
 3. **Capacity: nie ruszać.** Warunek z promptu nie jest spełniony. Czas w szczycie zgadza się tak samo jak w południe, a przyrost szczytowy w modelu (+3 pp) nie jest mniejszy niż u TomTom (+1 pp). Nie ma śladu brakującej kongestii, który dałoby się oddzielić od znanych wad popytu (§1 promptu).
 4. Jeśli walidacja ma być powtarzana: **geometria linków z OSM** (shape w sieci albo map-matching do `origid`), bo bez niej wskaźnik zgodności tras i kontrola segmentów są słabe. Do tego decyzja, czy regulamin pozwala na ponowne zapytania (wariant A: tylko agregaty).
-5. Każde wdrożenie wymaga wpisu w `DECISIONS.md` i testu 2 iteracji na MATSim 2026 (zasady projektu, pkt 9).
+5. Każde wdrożenie wymaga wpisu w `docs/projekt/DECISIONS.md` i testu 2 iteracji na MATSim 2026 (zasady projektu, pkt 9).
 
 ## 10. Odtworzenie i HERE
 
@@ -312,4 +312,4 @@ RMSPE jest wyraźnie większe od MAPE, a %RMSE od %MAE, czyli o błędzie decydu
 
 **Uczciwe sformułowanie stanu:** „Model R6 jest skalibrowany w popycie do natężeń GPR (dobowych, 15 odcinków) i niezwalidowany niezależnie dla natężeń. Względem typowych czasów TomTom błąd czasu przejazdu wynosi MAPE 13–18% (RMSPE 20–27%, %RMSE 11–16%) w oknach dnia roboczego. Kryterium TAG dla czasów przejazdu nie jest spełnione (48–77% tras wobec 85%). Prędkości swobodne sieci są systematycznie o ok. 15% niższe od `freeFlowSpeed` TomTom.”
 
-**Co by to zmieniło:** kalibracja prędkości (cruise speeds, TAG §5.2.3: „cruise speeds are therefore not free-flow speeds”) razem z opóźnieniami węzłów (G1), wykonana na zestawie analizy i sprawdzona na walidacji. Jest to propozycja z §9 i wymaga decyzji w `DECISIONS.md`.
+**Co by to zmieniło:** kalibracja prędkości (cruise speeds, TAG §5.2.3: „cruise speeds are therefore not free-flow speeds”) razem z opóźnieniami węzłów (G1), wykonana na zestawie analizy i sprawdzona na walidacji. Jest to propozycja z §9 i wymaga decyzji w `docs/projekt/DECISIONS.md`.
