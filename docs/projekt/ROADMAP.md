@@ -73,6 +73,7 @@ Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odci
 | Inne aktywności (szkoła, zakupy, sprawy) | 💡 **brak fazy** | wykluczone z MVP (zasady projektu); wymaga nowej fazy w TASKS i decyzji |
 | Skrzyżowania | G1 | odłożone |
 | Łódź | G7 | po G2–G5 |
+| Lokalny wizualizer runu | decyzja D24, kod niezaczął | faza po zamkniętym MVP; nie zastępuje G5 ani D23. Notatki: `docs/research/wizualizer_*.md` |
 
 ## 5. Układ folderów
 
