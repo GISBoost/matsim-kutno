@@ -284,3 +284,19 @@
   - Czynności `c1002062_103`: jest `home`, nie ma `car interaction`.
 - Całość sprawdzenia R6: 0,3 s. Błędów uruchomienia nie było, więc `ERRORS.md` bez nowej lekcji.
 - Dalej, niezacząte: spike Qt kontra WebView2 (`output/viz_spike/`, poza gitem), potem krok 3 (okno). Klucza CARTO nadal nie ma. MVP i D23 bez zmian.
+
+## 2026-10-20: D24 spike stosu okna
+
+- Dwie minimalki na tej samej klatce R6 (`output/g5r6_25pct_s4711`, t = 58 170 s, 961 aut, 8 362 cięciwy). Kod w `output/viz_spike/`, poza gitem. Zależności (`PySide6`, `pywebview`, `pillow`) w osobnym venv pod tym katalogiem, nie w `pyproject.toml`.
+- Osie: 524 805 E, 485 023 N → 52,2307° N, 19,3633° E.
+- CARTO `dark_nolabels` bez klucza: HTTP 200, 35 razy ten sam PNG 2 513 B z napisem API KEY REQUIRED. Podkładu nie było. Oba okna napisały „Podkład wyłączony.” `tile.openstreetmap.org` nie był użyty.
+- Tempo 30 Hz przez 2 s, klik w auto 0 (zwrócony indeks 0), working set procesu i potomków:
+
+  | wariant | Hz | klik | RAM |
+  |---|---:|---:|---:|
+  | PySide6 | 29,56 | 0,24 ms | 165 MB |
+  | WebView2 + Leaflet | 29,22 | 0,92 ms | 503 MB |
+
+- WebView2: jedna tablica JSON na klatkę, jedno `evaluate_js`. Progi (15 Hz, 1 GB, 50 ms) oba warianty mieszczą. Zostaje WebView2 + Leaflet. Zrzut: `docs/research/wizualizer_spike.png`. Liczby: koniec `docs/research/wizualizer_plan.md`.
+- Pierwszy start WebView2 urwał się na przecinku w odczycie RAM (`526,9`) i zostawił okno. Proces został ubity, parser poprawiony, liczba w tabeli jest z powtórzenia. `ERRORS.md` bez nowej lekcji: kod spike'u i tak idzie do kosza.
+- Okno v1 (krok 3) nie jest zaczęte. Klucza CARTO nadal nie ma. MVP i D23 bez zmian.
