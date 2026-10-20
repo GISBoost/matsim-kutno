@@ -264,3 +264,12 @@
 
 - Historia gita przepisana: usunięte klatki PNG i `anim.mp4` z G6, materiały robocze z pracy z AI (zasady agenta, prompty, archiwum raportów innych modeli); 82 → 76 commitów, `.git` 65 → 35 MB. Kopie plików zostają lokalnie, są w `.gitignore`.
 - Porządki: usunięte ścieżki lokalne z kodu i raportów, poprawione odwołania do usuniętych plików, README zaktualizowane, daty uzupełnione w `docs/projekt/TASKS.md`.
+
+## 2026-10-20: D24 krok 1, rzadki indeks runu
+
+- Do tego wpisu dziennik milczał. Stan był tylko w commicie `754db93` (`pipeline/viz_index.py`), a `ROADMAP.md` nadal mówił „kod niezaczął”.
+- Indeks: `uv run python pipeline/viz_index.py output/g5r6_25pct_s4711`. Budowa 22,4 s. Drugi start: `reuse tracks=29660 knots=3787376 sec=0.0`, bez drugiego skanu XML. Log: `output/g5r6_25pct_s4711/viz/index.log` (poza gitem).
+- Akceptacja R6: 29 660 przejazdów, 6 641 wjazdów w 06:00–09:00, szczyt 961 o 58 170 s, szczyt okna 849 o 28 591 s (licznik eventów, bez doliczania aut już w ruchu o 06:00). Klasy: c 2 410, r 4 336, o 732, t 16 439, h 5 743. Węzły 3 787 376, czynności 59 320 (bez `car interaction`). Plik 12 051 495 B. Geometria: 0,0002 / 0,0003 / 0,0004 m.
+- Self-test: `uv run python pipeline/viz_index.py --self-test` → `self-test OK`.
+- Po recenzji kroku 1: czynność bez `x` albo `y` przerywa budowę (wcześniej lądowała na węźle from; na R6 ta gałąź się nie wykonała, bo każda czynność ma współrzędne). Usunięte nieużywane `parse_sec`. Ten sam zestaw liczb po przebudowie.
+- Dalej, niezacząte: krok 2 (silnik klatki bez okna), potem spike Qt kontra WebView2, klucz CARTO, okno. MVP i D23 bez zmian.
