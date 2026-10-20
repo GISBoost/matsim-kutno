@@ -300,3 +300,9 @@
 - WebView2: jedna tablica JSON na klatkę, jedno `evaluate_js`. Progi (15 Hz, 1 GB, 50 ms) oba warianty mieszczą. Zostaje WebView2 + Leaflet. Zrzut: `docs/research/wizualizer_spike.png`. Liczby: koniec `docs/research/wizualizer_plan.md`.
 - Pierwszy start WebView2 urwał się na przecinku w odczycie RAM (`526,9`) i zostawił okno. Proces został ubity, parser poprawiony, liczba w tabeli jest z powtórzenia. `ERRORS.md` bez nowej lekcji: kod spike'u i tak idzie do kosza.
 - Okno v1 (krok 3) nie jest zaczęte. Klucza CARTO nadal nie ma. MVP i D23 bez zmian.
+
+## 2026-10-20: D24 spike stosu, powtórka
+
+- Powód: przy pierwszym pomiarze w RAM były inne programy. Powtórka na tej samej klatce (961 aut, 8 362 cięciwy), Qt i WebView2 jeden po drugim. Przed startem, przez 2 s: 5,8 s CPU z 24 (12 rdzeni), głównie `dllhost` i VS Code.
+- PySide6: 29,70 Hz, klik 0,24 ms, 165 MB, indeks 0. WebView2: 29,58 Hz, klik 0,65 ms, 503 MB, indeks 0, kafelki `0,0`.
+- Progi bez zmian. Do okna zostaje WebView2 + Leaflet. Krok 3 niezaczął. Klucza CARTO nadal nie ma.
