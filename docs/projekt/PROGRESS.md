@@ -273,3 +273,14 @@
 - Self-test: `uv run python pipeline/viz_index.py --self-test` → `self-test OK`.
 - Po recenzji kroku 1: czynność bez `x` albo `y` przerywa budowę (wcześniej lądowała na węźle from; na R6 ta gałąź się nie wykonała, bo każda czynność ma współrzędne). Usunięte nieużywane `parse_sec`. Ten sam zestaw liczb po przebudowie.
 - Dalej, niezacząte: krok 2 (silnik klatki bez okna), potem spike Qt kontra WebView2, klucz CARTO, okno. MVP i D23 bez zmian.
+
+## 2026-10-20: D24 krok 2, silnik klatki bez okna
+
+- `pipeline/viz_engine.py`. Czyta indeks z kroku 1 (albo buduje go przez `viz_index.py`) i zwraca klatkę, klik, lookup i czynności. Bez okna, bez rysowania, bez XML po stronie silnika. Java i `g6_bake.py` bez zmian.
+- Self-test: `uv run python pipeline/viz_engine.py --self-test` → `self-test OK`. Węzeł co do 1 mm, auto znika poza `[t0, t1]`, filtr bez `t`, lookup `r1` (dwa przejazdy, prefiks `r1b`), pick auta i cięciwy, `home`/`work` bez `car interaction`, sufit prędkości 30 m/s.
+- R6: `uv run python pipeline/viz_engine.py output/g5r6_25pct_s4711`. Indeks wzięty z dysku (`reuse`, bez skanu XML). Log: `output/g5r6_25pct_s4711/viz/engine.log`.
+  - Klatka o 58 170 s: 961 aut przy pełnym filtrze (tyle, ile licznik enter/leave), 420 bez klasy `t`. Dwie klatki w 0,008 s. RAM indeksu 89 497 631 B.
+  - Pierwsze `r…` w pliku: `r6510903_5`, dwa przejazdy. Najgorszy węzeł tego przejazdu: 0,000000 m. Pick na współrzędnej auta zwraca ten przejazd.
+  - Czynności `c1002062_103`: jest `home`, nie ma `car interaction`.
+- Całość sprawdzenia R6: 0,3 s. Błędów uruchomienia nie było, więc `ERRORS.md` bez nowej lekcji.
+- Dalej, niezacząte: spike Qt kontra WebView2 (`output/viz_spike/`, poza gitem), potem krok 3 (okno). Klucza CARTO nadal nie ma. MVP i D23 bez zmian.

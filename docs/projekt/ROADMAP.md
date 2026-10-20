@@ -73,7 +73,7 @@ Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odci
 | Inne aktywności (szkoła, zakupy, sprawy) | 💡 **brak fazy** | wykluczone z MVP (zasady projektu); wymaga nowej fazy w TASKS i decyzji |
 | Skrzyżowania | G1 | odłożone |
 | Łódź | G7 | po G2–G5 |
-| Lokalny wizualizer runu | ▶ **D24, krok 1 ✅** (indeks R6); dalej krok 2: silnik klatki bez okna | faza po zamkniętym MVP; nie zastępuje G5 ani D23. Kod: `pipeline/viz_index.py`. Plan: `docs/research/wizualizer_plan.md` |
+| Lokalny wizualizer runu | ▶ **D24, kroki 1–2 ✅** (indeks i silnik klatki); dalej spike Qt kontra WebView2, potem okno | faza po zamkniętym MVP; nie zastępuje G5 ani D23. Kod: `pipeline/viz_index.py`, `pipeline/viz_engine.py`. Plan: `docs/research/wizualizer_plan.md` |
 
 ## 5. Układ folderów
 
