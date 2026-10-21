@@ -334,3 +334,7 @@
 - HTML ma 659 KB. 50 196 punktów łamanych dochodzi po starcie okna, kawałkami. Wklejenie ich w stronę dało 1,7 MB i `NavigateToString` odrzucił dokument (lekcja 29).
 - `uv run python -m viz_player --self-test` → `self-test OK`. Self-testy indeksu i silnika też. `--check` i `--smoke` na `output/g5r6_25pct_s4711` przeszły. Smoke: mapa 1106×811, 849 aut, łamane namalowane. Zrzut (pauza 07:56, nie stan otwarcia): `docs/research/wizualizer_okno.png`.
 - Akceptacji ludzkiej obrazu nie zaliczam. Drugi run, spięcie bake'u, klucz CARTO i Łódź bez zmian. MVP i D23 bez zmian.
+
+## 2026-10-21: D24, dokumentacja odtwarzacza
+
+- Opis programu: `docs/research/wizualizer_odtwarzacz.md`. Plan, koncepcja i recenzja zostają. Kod odtwarzacza bez zmian (ostatni commit kodu `d62c8ee`). Wskaźnik stoi na początku `docs/research/wizualizer_plan.md` i w punkcie otwartym D24.
