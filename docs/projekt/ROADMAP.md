@@ -7,7 +7,7 @@ Stan: 2026-10-20. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i m
 | pytanie | plik |
 |---|---|
 | Na jakim etapie jesteśmy, co dalej? | **ten plik** |
-| Co zdecydowaliśmy i dlaczego? | [DECISIONS.md](DECISIONS.md) (D1–D23) |
+| Co zdecydowaliśmy i dlaczego? | [DECISIONS.md](DECISIONS.md) (D1–D23, D25) |
 | Co zrobione, z jakim dowodem? | [PROGRESS.md](PROGRESS.md) (dziennik chronologiczny) |
 | Kontrakty faz (wejścia, test, zaliczenie) | [TASKS.md](TASKS.md) |
 | Jak działa model i jak go odtworzyć | [README.md](../../README.md) |
@@ -39,10 +39,10 @@ Dojazdy do pracy autem, `dom → praca → dom`.
 |---|---|---|---|
 | G2 | miejsca pracy (suma z rejestru, wyjeżdżający) | ✅ suma (D17); otwarte: rozkład w gminie (REGON) | [g2](../../reports/etap2/g2_miejsca_pracy/g2_miejsca_pracy.md) |
 | G3 | domy: dwie wersje (OSM, działa zawsze; BDOT10k, polska) | 🔍 do decyzji, plan w §3a | [G3_domy.md](../../docs/research/G3_domy.md) |
-| **G5** | **ruch tła i kalibracja do GPR** | **✅ baza R6 po audycie; otwarte rozbieżności w §3** | niżej, §3 |
+| **G5** | **ruch tła i kalibracja do GPR i do prędkości TomTom** | **✅ zamknięte (D25): baza R7b; znane ograniczenia w §3** | niżej, §3, [d23_podsumowanie](../../reports/etap2/g5_predkosci_d23/d23_podsumowanie.md) |
 | G6 | kolejki (D18) i wizualizacja w Blenderze | ✅ D18; Blender w osobnej sesji | [g6_kolejki](../../reports/etap2/g6_kolejki/g6_kolejki.md), [G6_blender.md](../../docs/research/G6_blender.md) |
 
-Etap 2 zamykamy, gdy: (1) D23 zakończone, (2) G3 zrobione w dwóch wersjach, (3) G5 potwierdzone jako zamknięte (otwarte rozbieżności z §3 zapisane jako znane ograniczenia albo zamknięte). G2 zostaje z otwartym rozkładem w gminie (REGON) jako znane ograniczenie, chyba że zdecydujemy inaczej.
+Etap 2 zamykamy, gdy: (1) D23 zakończone ✅, (2) G3 zrobione w dwóch wersjach (otwarte), (3) G5 potwierdzone ✅ (D25) jako zamknięte (otwarte rozbieżności z §3 zapisane jako znane ograniczenia albo zamknięte). G2 zostaje z otwartym rozkładem w gminie (REGON) jako znane ograniczenie, chyba że zdecydujemy inaczej.
 
 ### Etap 3: pełne Kutno (plan do przemodelowania)
 
@@ -69,10 +69,10 @@ Nie planujemy. **Dopóki Kutno nie jest skończone (etapy 2 i 3), do Łodzi nie 
 
 | krok | zadanie | stan |
 |---|---|---|
-| 1 | Ścieżka prędkości (D23): kroki 1–5 zrobione (sieć R7, R7b: nowa estymacja O-D, walidacja TomTom; MAPE czasu tras 20,5 → 18,2% walidacja, 18,3 → 14,7% analiza, 14/15 odcinków GPR w ±15%); `f` A 0,95 / B 1,00 / C 0,60 / D 0,70 / E 0,85 / F 0,55 do przeglądu ([krok4b_5_r7b](../../reports/etap2/g5_predkosci_d23/krok4b_5_r7b.md)) | ▶ czeka na decyzję użytkownika (R7b jako baza, f_D) |
+| 1 | Ścieżka prędkości (D23): kroki 1–5 ✅, R7b nową bazą (D25); `f` „na dziś”, obserwacje do dopracowania w [obserwacje_f.md](../../reports/etap2/g5_predkosci_d23/obserwacje_f.md) | ✅ |
 | 2 | G3: dwie wersje domów (OSM zawsze; BDOT10k polska); wymaga decyzji w DECISIONS | do decyzji |
-| 3 | Potwierdzenie, że G5 jest zamknięte | do sprawdzenia po D23 (R7) |
-| 4 | Zamknięcie etapu 2 i przejście do etapu 3 | |
+| 3 | Potwierdzenie, że G5 jest zamknięte | ✅ D25 (znane ograniczenia w §3) |
+| 4 | Zamknięcie etapu 2 i przejście do etapu 3 | czeka na G3 (krok 2) albo decyzję użytkownika o przeniesieniu G3 do etapu 3. Równolegle: run 25% × 100 i 400 it. na GitHub Actions ([GH_ACTIONS_run.md](../../docs/research/GH_ACTIONS_run.md)) |
 
 ## 3. Bieżąca praca: G5
 
@@ -89,13 +89,13 @@ Historia G5, każdy krok z decyzją:
 | **R6** | **baza po audycie, referencja 3 seedy MATSim + 2 seedy planów** | **[g5_r6.md](../../reports/etap2/g5_kalibracja/g5_r6.md), [g5_r6_ref.md](../../reports/etap2/g5_kalibracja/g5_r6_ref.md)** |
 | czasy TomTom | walidacja czasów i prędkości R6 (D22, wariant A: tylko agregaty): skalibrowany tylko w popycie, niezwalidowany wg TAG (czasy 48–77% tras w kryterium) | [g5_czasy_tomtom.md](../../reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md), **[wnioski i plan](../../reports/etap2/g5_czasy_tomtom/wnioski_i_dalej.md)** |
 
-Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odcinki 91124 i 91866 są kontrolne (użyte w wyborze wariantów), nie walidacja niezależna. Otwarte: bilans stref DK91/DK92 wsch. (odcinki GPR poza siecią), liczniki lokalne, podział Objazdowa/Bitwy (K5), brak pomiarów miejskich (`podsumowanie.md`).
+Baza: **R7b** (D25; A1 98% / 101%, 14/15 odcinków w ±15% dla lekkich i ciężkich; R6: 12/15). Odcinki 91124 i 91866 są kontrolne (użyte w wyborze wariantów), nie walidacja niezależna. Znane ograniczenia po zamknięciu G5: bilans stref DK91/DK92 wsch. (odcinki GPR poza siecią), liczniki lokalne 10045 / 91892 / 91119 (36 / 60 / 55%), podział Objazdowa/Bitwy (K5), brak pomiarów miejskich, TAG 58% (wymagane > 85%), `f` w mieście zawiera opóźnienia węzłów do G1, `f_D` do przeglądu (`podsumowanie.md`, [obserwacje_f.md](../../reports/etap2/g5_predkosci_d23/obserwacje_f.md)).
 
 ## 4. Dalsze plany (po zamknięciu G5)
 
 | pomysł | stan | uwagi |
 |---|---|---|
-| **Prędkości sieci (cruise speeds) + ponowna walidacja TomTom** | ▶ **D23 w toku**: krok 1 ✅, krok 2: dopasowanie 18.10 (C ≈ 0,58, F na granicy 0,5); dobrane trasy C, **ponowne dopasowanie 19.10** ([krok2](../../reports/etap2/g5_predkosci_d23/krok2_dopasowanie.md), [plan](../../reports/etap2/g5_predkosci_d23/plan.md)) | factor 0,8 (D13) zaniża prędkości o ok. 15% wobec TomTom, a czasy tras zgadzają się tylko przez brak opóźnień węzłów. Warianty, pułapki i procedura powtórki: [wnioski_i_dalej.md](../../reports/etap2/g5_czasy_tomtom/wnioski_i_dalej.md). Wymaga decyzji w DECISIONS |
+| **Prędkości sieci (cruise speeds) + ponowna walidacja TomTom** | ✅ **D23 wdrożone** (D25): sieć R7, baza R7b; MAPE czasu tras 20,5 → 18,2% (walidacja), 18,3 → 14,7% (analiza), segmenty swobodne 0,86 → 0,99 | [d23_podsumowanie.md](../../reports/etap2/g5_predkosci_d23/d23_podsumowanie.md), [plan](../../reports/etap2/g5_predkosci_d23/plan.md). `f` do dopracowania po G1 i kolejnych sprawdzeniach |
 | Walidacja czasów TomTom (D22) | ✅ zrobiona dla R6; HERE przygotowane (brak klucza) | [g5_czasy_tomtom.md](../../reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md) |
 | Geometria linków z OSM | 💡 propozycja | potrzebna do zgodności tras i walidacji dróg tertiary/unclassified; przyda się w G6 |
 | Skrzyżowania, aktywności, GTFS i PT, wybór trybu | etap 3 | kolejność w §2 |

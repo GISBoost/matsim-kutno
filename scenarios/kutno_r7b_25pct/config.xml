@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v2.dtd">
-<!-- R3: wariant 25% (decyzja użytkownika: 25% zamiast 100%); poza tym identyczny z config_10pct.xml. Ścieżki względne do tego pliku. Wejścia: F2 network, F4 plans. -->
+<!-- Baza R7b (D23/D25), 25%: samodzielny scenariusz do uruchomienia bez pipeline (np. GitHub Actions). Pliki w tym katalogu: network.xml.gz (sieć R7, f_g wg config/network.properties), plans.xml.gz i vehicles.xml.gz (plany R7b, seed 4711). Ścieżki względne do tego pliku. -->
 <config>
 	<module name="global">
 		<param name="randomSeed" value="4711" />
@@ -8,15 +8,15 @@
 		<param name="numberOfThreads" value="8" />
 	</module>
 	<module name="network">
-		<param name="inputNetworkFile" value="network_d23.xml.gz" />
+		<param name="inputNetworkFile" value="network.xml.gz" />
 	</module>
 	<module name="plans">
 		<!-- audyt G5/D6 (D21, krok 6): baza R6, plany i pojazdy z pipeline/plans.py (config/kutno.toml), run wynika z samego configu -->
-		<param name="inputPlansFile" value="plans_g5r6_25pct.xml.gz" />
+		<param name="inputPlansFile" value="plans.xml.gz" />
 	</module>
 	<module name="controller">
 		<!-- UWAGA: MATSim rozwiązuje outputDirectory względem katalogu roboczego, nie configu. Uruchamiaj z katalogu projektu. -->
-		<param name="outputDirectory" value="output/r3_25pct" />
+		<param name="outputDirectory" value="output/kutno_r7b_25pct" />
 		<!-- R3/E2: 100 iteracji (decyzja użytkownika: maks. 100; innowacja do 80). Zbieżność oceniana na natężeniach i czasach, nie na score -->
 		<param name="lastIteration" value="100" />
 		<param name="writeEventsInterval" value="50" />
@@ -51,7 +51,7 @@
 		<param name="numberOfThreads" value="8" />
 	</module>
 	<module name="vehicles">
-		<param name="vehiclesFile" value="plans_g5r6_25pct_vehicles.xml.gz" />
+		<param name="vehiclesFile" value="vehicles.xml.gz" />
 	</module>
 	<module name="scoring">
 		<!-- ZAŁOŻENIE: domyślne MATSim, bez openingTime (są zmiany nocne). Score tylko diagnostyczny (DECISIONS: otwarte). -->

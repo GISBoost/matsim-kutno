@@ -278,3 +278,9 @@
 - Błąd: skrypty estymacji i planów czytają na sztywno `scenarios/kutno/network.xml.gz` (R6). W worktree `d23` podmieniony na sieć R7 (kopia R6: `network_r6.xml.gz`), estymacja powtórzona. **Przy scalaniu do `main` trzeba to uwzględnić.**
 - Krok 5: walidacja TomTom (385 requestów, łącznie 1 627 z 2 000), R6 i R7b ocenione na jednym zestawie odpowiedzi, trasy R7b z runów (`traffic_metrics.py model_r7b`, `traffic_providers.py run tomtom --validate`). Walidacja (38 tras): MAPE 20,5 → 18,2%, TAG 48 → 58%; analiza (77): 18,3 → 14,7%, TAG 52 → 64%; prędkość swobodna segmentów 0,86 → 0,99 mediany, MAPE 20 → 13%. Najlepsza grupa C (MAPE 17,9 → 7,3%); D pogorszona (38 → 47%); E, F bez zmiany. TAG 85% niespełnione.
 - Analiza `f` po walidacji i decyzje: `reports/etap2/g5_predkosci_d23/krok4b_5_r7b.md`. `f` bez zmian (A 0,95, B 1,00, C 0,60, D 0,70, E 0,85, F 0,55), czeka na decyzję użytkownika.
+
+## 2026-10-21 (noc): R7b bazą, zamknięcie G5 (D25), GitHub Actions
+
+- D25: R7b nową bazą (configi `scenarios/kutno/config_{10,25,100}pct.xml` i `config/kutno.toml` wskazują `plans_g5r7b_*`, macierze `background_od_r7b_*`), `f_D` bez zmian, G5 zamknięte ze znanymi ograniczeniami. Plany 10% i 100% R7b wygenerowane i zwalidowane (sha256 powtarzalny).
+- Zapisane: obserwacje o `f` (`reports/etap2/g5_predkosci_d23/obserwacje_f.md`), podsumowanie kalibracji i walidacji (`d23_podsumowanie.md`). Dane TomTom: tylko agregaty na dysku; ponowna kalibracja i walidacja wymagają nowych requestów (D22).
+- GitHub Actions: samodzielny scenariusz `scenarios/kutno_r7b_25pct/`, szkic `.github/workflows/matsim-run.yml` (100 i 400 it.), analiza wykonalności `docs/research/GH_ACTIONS_run.md`. Nieuruchomione na GitHubie (push tylko na prośbę).
