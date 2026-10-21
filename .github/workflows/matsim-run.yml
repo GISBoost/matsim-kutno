@@ -36,7 +36,7 @@ jobs:
           python-version: "3.12"
       - name: Build jar
         working-directory: matsim
-        run: bash mvnw -B package -DskipTests
+        run: bash ./mvnw -B package -DskipTests
       - name: MATSim
         run: |
           mkdir -p output
