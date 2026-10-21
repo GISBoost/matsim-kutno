@@ -338,3 +338,9 @@
 ## 2026-10-21: D24, dokumentacja odtwarzacza
 
 - Opis programu: `docs/research/wizualizer_odtwarzacz.md`. Plan, koncepcja i recenzja zostają. Kod odtwarzacza bez zmian (ostatni commit kodu `d62c8ee`). Wskaźnik stoi na początku `docs/research/wizualizer_plan.md` i w punkcie otwartym D24.
+
+## 2026-10-21: D24, plan poprawek okna
+
+- Michał: łamane działają, auta jadą po łuku.
+- Plan, bez kodu: `docs/research/wizualizer_plan.md`, sekcja „Poprawki okna”. Kolejność: znacznik (dłuższy grot i półkole z tyłu, punkt w środku podstawy), checkbox koloru dróg według `type` z legendą, strzałki mnożnika co 1 przy zostawionych presetach, kolor auta prędkość albo klasa z legendą. Raster, WMS i wybór folderu runu są następną turą.
+- Michał zaakceptował plan w całości, także tabelę klas. Kod czeka na osobne zlecenie.
