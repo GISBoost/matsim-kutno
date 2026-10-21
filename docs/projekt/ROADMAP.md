@@ -69,7 +69,7 @@ Nie planujemy. **Dopóki Kutno nie jest skończone (etapy 2 i 3), do Łodzi nie 
 
 | krok | zadanie | stan |
 |---|---|---|
-| 1 | Ścieżka prędkości (D23): ponowne dopasowanie, decyzje F i B, krok 3 (sieć, R7) | ▶ do zlecenia osobnemu agentowi (`reports/etap2/g5_predkosci_d23/prompt_agenta.md`) |
+| 1 | Ścieżka prędkości (D23): kroki 1–4 zrobione (sieć R7, `f` A 0,95 / B 1,00 / C 0,60 / D 0,70 / E 0,85 / F 0,55); **stop: natężenia GPR zmienione ponad rozrzut, decyzja R7b i terminu kroku 5** ([krok3_4_r7](../../reports/etap2/g5_predkosci_d23/krok3_4_r7.md)) | ▶ czeka na decyzję użytkownika |
 | 2 | G3: dwie wersje domów (OSM zawsze; BDOT10k polska); wymaga decyzji w DECISIONS | do decyzji |
 | 3 | Potwierdzenie, że G5 jest zamknięte | do sprawdzenia po D23 (R7) |
 | 4 | Zamknięcie etapu 2 i przejście do etapu 3 | |

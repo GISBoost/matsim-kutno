@@ -1,0 +1,78 @@
+{
+ "lcv": {
+  "A1": {
+   "n": 3,
+   "R6": "99% (98-99)",
+   "R7": "99% (98-99)",
+   "zmiana_pp": -0.2,
+   "ponad_rozrzut_odcinkow": 0
+  },
+  "DK pozostałe": {
+   "n": 9,
+   "R6": "82% (80-90)",
+   "R7": "147% (147-166)",
+   "zmiana_pp": 65.5,
+   "ponad_rozrzut_odcinkow": 9
+  },
+  "DK w Kutnie": {
+   "n": 3,
+   "R6": "105% (104-113)",
+   "R7": "152% (151-170)",
+   "zmiana_pp": 46.8,
+   "ponad_rozrzut_odcinkow": 3
+  },
+  "DW": {
+   "n": 5,
+   "R6": "60% (60-63)",
+   "R7": "90% (90-99)",
+   "zmiana_pp": 30.0,
+   "ponad_rozrzut_odcinkow": 4
+  },
+  "15_odcinkow": {
+   "w_15proc_R6": 12,
+   "w_15proc_R7": 5,
+   "mediana_odchylki_R6": 0.057,
+   "mediana_odchylki_R7": 0.349,
+   "mediana_abs_zmiany_proc": 35.3,
+   "maks_abs_zmiany_proc": 180.6
+  }
+ },
+ "heavy": {
+  "A1": {
+   "n": 3,
+   "R6": "101% (99-101)",
+   "R7": "98% (98-99)",
+   "zmiana_pp": -2.4,
+   "ponad_rozrzut_odcinkow": 1
+  },
+  "DK pozostałe": {
+   "n": 9,
+   "R6": "83% (76-83)",
+   "R7": "110% (101-110)",
+   "zmiana_pp": 27.0,
+   "ponad_rozrzut_odcinkow": 7
+  },
+  "DK w Kutnie": {
+   "n": 3,
+   "R6": "68% (67-71)",
+   "R7": "109% (106-110)",
+   "zmiana_pp": 41.5,
+   "ponad_rozrzut_odcinkow": 3
+  },
+  "DW": {
+   "n": 5,
+   "R6": "75% (74-83)",
+   "R7": "130% (130-148)",
+   "zmiana_pp": 55.3,
+   "ponad_rozrzut_odcinkow": 3
+  },
+  "15_odcinkow": {
+   "w_15proc_R6": 12,
+   "w_15proc_R7": 9,
+   "mediana_odchylki_R6": 0.026,
+   "mediana_odchylki_R7": 0.081,
+   "mediana_abs_zmiany_proc": 11.1,
+   "maks_abs_zmiany_proc": 389.7
+  }
+ }
+}

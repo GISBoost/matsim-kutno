@@ -1,0 +1,41 @@
+nr,cls,klasa,gpr,R6_proc_GPR,R7_proc_GPR,zmiana_proc,rozrzut_planow_R6_proc,fit15,ponad_rozrzut
+10042,lcv,DW,1779.0,98.0,63.0,-35.3,3.4,True,True
+10043,lcv,DW,2100.0,83.0,75.0,-9.8,26.7,True,False
+10044,lcv,DW,3504.0,76.0,198.0,159.3,9.3,True,True
+10045,lcv,DW,6873.0,17.0,41.0,143.5,11.1,False,True
+10049,lcv,DW,3332.0,98.0,101.0,3.3,1.9,True,True
+11104,lcv,DK pozostałe,7451.0,100.0,109.0,8.5,0.2,True,True
+71410,lcv,A1,17688.0,100.0,100.0,0.0,0.0,True,False
+91115,lcv,DK pozostałe,4293.0,86.0,213.0,147.3,31.7,True,True
+91119,lcv,DK pozostałe,1486.0,22.0,34.0,56.2,38.0,False,True
+91121,lcv,DK pozostałe,3104.0,88.0,135.0,52.6,4.1,True,True
+91122,lcv,DK pozostałe,3535.0,102.0,256.0,151.9,29.2,True,True
+91123,lcv,DK pozostałe,5247.0,75.0,210.0,180.6,40.7,True,True
+91124,lcv,DK w Kutnie,8452.0,128.0,197.0,54.4,18.4,False,True
+91125,lcv,DK pozostałe,6387.0,86.0,145.0,68.8,15.7,True,True
+91820,lcv,A1,21096.0,97.0,96.0,-0.7,3.9,True,False
+91821,lcv,A1,23402.0,100.0,100.0,0.0,0.0,True,False
+91866,lcv,DK w Kutnie,7354.0,78.0,93.0,19.0,17.6,False,True
+91869,lcv,DK w Kutnie,8837.0,106.0,157.0,48.1,12.6,True,True
+91878,lcv,DK pozostałe,7512.0,91.0,117.0,28.4,15.1,True,True
+91892,lcv,DK pozostałe,3875.0,24.0,79.0,227.0,27.2,False,True
+10042,heavy,DW,70.0,103.0,51.0,-50.0,11.8,True,True
+10043,heavy,DW,237.0,98.0,100.0,1.7,6.7,True,False
+10044,heavy,DW,215.0,73.0,355.0,389.7,32.9,True,True
+10045,heavy,DW,261.0,14.0,44.0,222.2,32.1,False,True
+10049,heavy,DW,395.0,98.0,98.0,0.0,4.0,True,False
+11104,heavy,DK pozostałe,2286.0,100.0,101.0,1.4,0.2,True,True
+71410,heavy,A1,10515.0,100.0,100.0,0.0,0.2,True,False
+91115,heavy,DK pozostałe,238.0,133.0,277.0,108.9,47.1,True,True
+91119,heavy,DK pozostałe,955.0,18.0,41.0,131.0,54.0,False,True
+91121,heavy,DK pozostałe,1635.0,97.0,108.0,11.1,4.6,True,True
+91122,heavy,DK pozostałe,1758.0,110.0,188.0,70.5,18.1,True,True
+91123,heavy,DK pozostałe,1670.0,108.0,190.0,75.4,17.2,True,True
+91124,heavy,DK w Kutnie,2153.0,35.0,88.0,152.4,16.2,False,True
+91125,heavy,DK pozostałe,3875.0,103.0,111.0,7.9,18.4,True,False
+91820,heavy,A1,11308.0,102.0,95.0,-6.6,4.3,True,True
+91821,heavy,A1,9814.0,100.0,100.0,0.0,0.1,True,False
+91866,heavy,DK w Kutnie,1335.0,55.0,81.0,49.5,39.1,False,True
+91869,heavy,DK w Kutnie,2472.0,104.0,143.0,38.4,12.0,True,True
+91878,heavy,DK pozostałe,1235.0,79.0,100.0,25.7,41.1,True,False
+91892,heavy,DK pozostałe,2534.0,15.0,27.0,78.4,46.6,False,True

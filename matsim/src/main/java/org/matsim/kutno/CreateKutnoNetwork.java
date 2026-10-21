@@ -27,7 +27,7 @@ import java.util.Set;
  * F2: OSM PBF -> sieć MATSim (car) w EPSG:2180, przycięta do obszaru z make_area.py.
  * Użycie: java -cp <jar> org.matsim.kutno.CreateKutnoNetwork <osm.pbf> <area.wkt> <towns.wkt> <network.properties> <network.xml.gz>
  * Transformacja WGS84 -> EPSG:2180 dzieje się tylko tutaj (parser Supersonic, przed filtrem obszaru).
- * Prędkości (D13): tag maxspeed > limit ustawowy wg typu drogi i położenia (miasto/poza) ; freespeed = limit x factor.
+ * Prędkości (D13, D23): tag maxspeed > limit ustawowy wg typu drogi i położenia (miasto/poza); freespeed = limit x factor.<grupa> (D23), a bez grupy x factor.
  * Zawrotki na granicy: ślepe końce jezdni jednokierunkowych (np. A1) łączone przed NetworkCleaner (inaczej giną).
  */
 public final class CreateKutnoNetwork {
@@ -117,9 +117,28 @@ public final class CreateKutnoNetwork {
 				source = "default_rural";
 			}
 		}
-		link.setFreespeed(kmh * factor / 3.6);
+		String group = speedGroup(highway, contains(towns, midOf(link)));
+		double f = speeds.containsKey("factor." + group) ? Double.parseDouble(speeds.getProperty("factor." + group)) : factor;
+		link.setFreespeed(kmh * f / 3.6);
+		link.getAttributes().putAttribute("speed_group", group);
 		link.getAttributes().putAttribute(NetworkUtils.ALLOWED_SPEED, kmh / 3.6);
 		link.getAttributes().putAttribute("speed_source", source);
+	}
+
+	private static Coord midOf(Link link) {
+		return new Coord((link.getFromNode().getCoord().getX() + link.getToNode().getCoord().getX()) / 2,
+				(link.getFromNode().getCoord().getY() + link.getToNode().getCoord().getY()) / 2);
+	}
+
+	/** Grupa D23 (jak speed_groups() w pipeline/traffic_providers.py): typ OSM bez _link i położenie środka linku (miasto = towns.wkt). */
+	static String speedGroup(String hw, boolean urban) {
+		if (hw.equals("motorway")) return "A";
+		if (!urban && Set.of("trunk", "primary", "secondary").contains(hw)) return "B";
+		if (!urban && Set.of("tertiary", "unclassified").contains(hw)) return "C";
+		if (!urban && Set.of("residential", "living_street").contains(hw)) return "D";
+		if (urban && Set.of("trunk", "primary", "secondary", "tertiary").contains(hw)) return "E";
+		if (urban && Set.of("residential", "unclassified", "living_street").contains(hw)) return "F";
+		return "inne";
 	}
 
 	/** Liczba km/h, "N mph" albo kod "PL:..." z pliku properties; null gdy brak lub nieczytelne (np. "none", "signals"). */

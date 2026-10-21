@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v2.dtd">
+<!-- R3: wariant 25% (decyzja użytkownika: 25% zamiast 100%); poza tym identyczny z config_10pct.xml. Ścieżki względne do tego pliku. Wejścia: F2 network, F4 plans. -->
+<config>
+	<module name="global">
+		<param name="randomSeed" value="4711" />
+		<param name="coordinateSystem" value="EPSG:2180" />
+		<param name="numberOfThreads" value="8" />
+	</module>
+	<module name="network">
+		<param name="inputNetworkFile" value="network_d23.xml.gz" />
+	</module>
+	<module name="plans">
+		<!-- audyt G5/D6 (D21, krok 6): baza R6, plany i pojazdy z pipeline/plans.py (config/kutno.toml), run wynika z samego configu -->
+		<param name="inputPlansFile" value="plans_g5r6_25pct.xml.gz" />
+	</module>
+	<module name="controller">
+		<!-- UWAGA: MATSim rozwiązuje outputDirectory względem katalogu roboczego, nie configu. Uruchamiaj z katalogu projektu. -->
+		<param name="outputDirectory" value="output/r3_25pct" />
+		<!-- R3/E2: 100 iteracji (decyzja użytkownika: maks. 100; innowacja do 80). Zbieżność oceniana na natężeniach i czasach, nie na score -->
+		<param name="lastIteration" value="100" />
+		<param name="writeEventsInterval" value="50" />
+		<param name="overwriteFiles" value="deleteDirectoryIfExists" />
+	</module>
+	<module name="simwrapper">
+		<!-- frakcja próbki do skalowania w analizach SimWrapper -->
+		<param name="sampleSize" value="0.25" />
+	</module>
+	<module name="linkStats">
+		<!-- R3: godzinowe natężenia per link co 10 iteracji (średnia z 5) do diagnostyki zbieżności -->
+		<param name="writeLinkStatsInterval" value="10" />
+		<param name="averageLinkStatsOverIterations" value="5" />
+	</module>
+	<module name="qsim">
+		<!-- D8: przepustowość skalowana do frakcji próbki -->
+		<param name="flowCapacityFactor" value="0.25" />
+		<param name="storageCapacityFactor" value="0.25" />
+		<!-- D18: stuckTime 30 s jak w scenariuszach VSP (matsim-berlin v6.3, matsim-kelheim v3.1, 25%). Domyślne 10 s przy
+		     removeStuckVehicles=false wpychało pojazdy na pełne krótkie linki (82 pojazdy na linku o pojemności 1,2; reports/etap2/g6_kolejki/).
+		     Test na tych samych trasach: suma opóźnień +3%, przepełnione linki 13 -> 6, 0 stuck. trafficDynamics zostaje queue (kinematicWaves: +56% opóźnień, decyzja w G5). -->
+		<param name="stuckTime" value="30.0" />
+		<!-- D20: PassingQ zamiast domyślnego FIFO: szybsze pojazdy wyprzedzają wolniejsze (Agarwal i in. 2015). Przy FIFO osobowe
+		     za ciężarowymi (80 km/h) jechały po A1 z medianą 80 km/h zamiast 110 (test 2 iteracji, reports/etap2/g5_kalibracja/r4/).
+		     Bez ciężkich wszystkie pojazdy mają tę samą prędkość maksymalną, więc kolejność jest jak w FIFO. -->
+		<param name="linkDynamics" value="PassingQ" />
+		<!-- D20/D6: pojazdy z pliku (osobowy pce 1; ciężki pce 2,5 i 80 km/h), każdy agent ma swój pojazd -->
+		<param name="vehiclesSource" value="fromVehiclesData" />
+		<!-- wyjazdy do 23:59 (GBR Rys. 46) + 8 h pracy + powrót; od D16 start z wjazdu bez doliczania dojazdu, 48 h to zapas.
+		     36:00 przerwało agenta z Krakowa (reports/etap1_mvp/r3_ocena/run_100pct_przerwany/r3_100pct_s4711_events.json, stuckAndAbort). -->
+		<param name="endTime" value="48:00:00" />
+		<param name="numberOfThreads" value="8" />
+	</module>
+	<module name="vehicles">
+		<param name="vehiclesFile" value="plans_g5r6_25pct_vehicles.xml.gz" />
+	</module>
+	<module name="scoring">
+		<!-- ZAŁOŻENIE: domyślne MATSim, bez openingTime (są zmiany nocne). Score tylko diagnostyczny (DECISIONS: otwarte). -->
+		<parameterset type="activityParams">
+			<param name="activityType" value="home" />
+			<param name="typicalDuration" value="16:00:00" />
+		</parameterset>
+		<parameterset type="activityParams">
+			<param name="activityType" value="work" />
+			<param name="typicalDuration" value="08:00:00" />
+		</parameterset>
+		<!-- D19/K2-2: aktywności tła (początek i koniec jednej podróży). Bez użyteczności aktywności: tło wybiera tylko trasę.
+		     typicalDuration jest wymagane przez config, przy scoringThisActivityAtAll=false nie wpływa na score. -->
+		<parameterset type="activityParams">
+			<param name="activityType" value="tlo_start" />
+			<param name="typicalDuration" value="01:00:00" />
+			<param name="scoringThisActivityAtAll" value="false" />
+		</parameterset>
+		<parameterset type="activityParams">
+			<param name="activityType" value="tlo_end" />
+			<param name="typicalDuration" value="01:00:00" />
+			<param name="scoringThisActivityAtAll" value="false" />
+		</parameterset>
+	</module>
+	<module name="replanning">
+		<!-- Bez TimeAllocationMutator: godziny wyjazdu pochodzą ze źródła (D10) i nie mają dryfować. -->
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ChangeExpBeta" />
+			<param name="subpopulation" value="person" />
+			<param name="weight" value="0.8" />
+		</parameterset>
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ReRoute" />
+			<param name="subpopulation" value="person" />
+			<param name="weight" value="0.2" />
+		</parameterset>
+		<!-- D19/K2-2: tło jak pracujący: wybór z pamięci planów i ReRoute, bez zmiany celu i godziny. -->
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ChangeExpBeta" />
+			<param name="subpopulation" value="tlo" />
+			<param name="weight" value="0.8" />
+		</parameterset>
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ReRoute" />
+			<param name="subpopulation" value="tlo" />
+			<param name="weight" value="0.2" />
+		</parameterset>
+		<!-- D20: ciężkie jak tło lekkie (pojazd z pliku vehicles: pce 2,5, 80 km/h; plik w module vehicles, D6).
+		     Inne plany: PLANS i VEH w output/r3_runs.sh (bez VEH run używa pojazdów bazy, więc plany bez ciężkich wymagają VEH). -->
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ChangeExpBeta" />
+			<param name="subpopulation" value="ciezkie" />
+			<param name="weight" value="0.8" />
+		</parameterset>
+		<parameterset type="strategysettings">
+			<param name="strategyName" value="ReRoute" />
+			<param name="subpopulation" value="ciezkie" />
+			<param name="weight" value="0.2" />
+		</parameterset>
+		<param name="fractionOfIterationsToDisableInnovation" value="0.8" />
+	</module>
+</config>

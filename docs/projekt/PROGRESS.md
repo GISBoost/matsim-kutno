@@ -264,3 +264,10 @@
 
 - Historia gita przepisana: usunięte klatki PNG i `anim.mp4` z G6, materiały robocze z pracy z AI (zasady agenta, prompty, archiwum raportów innych modeli); 82 → 76 commitów, `.git` 65 → 35 MB. Kopie plików zostają lokalnie, są w `.gitignore`.
 - Porządki: usunięte ścieżki lokalne z kodu i raportów, poprawione odwołania do usuniętych plików, README zaktualizowane, daty uzupełnione w `docs/projekt/TASKS.md`.
+
+## 2026-10-21: D23 kroki 2–4 (sieć R7)
+
+- Krok 2: ponowne dopasowanie `f_g` na 77 trasach analizy (240 requestów TomTom, łącznie 1 237; `BUDGET` podniesiony do 2 000). C identyfikowalna: 0,60 (0,53–0,68, 14 tras). MAPE w próbie 18,4 → 14,3% (f wg reguły).
+- Decyzja użytkownika: f = A 0,95, B 1,00, C 0,60, D 0,70, E 0,85, F 0,55 („na dziś”).
+- Krok 3: `CreateKutnoNetwork.setSpeed` (`factor.<grupa>`, `speed_group`), sieć `network_d23.xml.gz`: te same id i atrybuty jak R6, różni się tylko freespeed (`check_network_r7.py`). `validate_network.py`, smoke (20 nóg car), test 2 iteracji ok. R7 25% × 5 (100 iteracji): `check_events` 5/5 ok, 0 stuck; opóźnienie dobowe +25% względem R6.
+- Krok 4: natężenia vs GPR zmieniają się **ponad rozrzut seedów planów** (lekkie DK 82–105% → 147–152%, DW 60 → 90%, odcinki w ±15%: 12 → 5; A1 bez zmian). STOP: decyzje R7b i terminu kroku 5 u użytkownika. Raport: `reports/etap2/g5_predkosci_d23/krok3_4_r7.md`.
