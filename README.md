@@ -10,7 +10,7 @@ Brakujące elementy są w rozdziale 14 („Luki”), z odsyłaczem do dokumentu,
 
 ## 1. Cel, zakres i to, czego model nie robi
 
-**Cel:** agentowa symulacja MATSim dla gminy miejskiej Kutno (TERC 1002011, 42 255 mieszkańców wg NSP 2021). Kutno jest poligonem metodologii, którą później przeniesiemy na Łódź (G7).
+**Cel:** agentowa symulacja MATSim dla gminy miejskiej Kutno (TERC 1002011, 42 255 mieszkańców wg NSP 2021). Kutno jest poligonem metodologii, którą później przeniesiemy na Łódź, ale dopiero po zakończeniu prac nad samym Kutnem.
 
 **Zakres MVP (D3, D6):**
 - agent jedzie **samochodem** w łańcuchu `dom → praca → dom`;

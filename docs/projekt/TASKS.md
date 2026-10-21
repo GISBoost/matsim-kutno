@@ -94,5 +94,5 @@ MVP (F0–F6) jest zamknięty. Każda faza G zmienia zakres lub dane, więc prze
 - **Działania:** skrypt bake w Pythonie (sieć EPSG:2180 → współrzędne sceny; eventy 25% → `.npz`); skrypt ładujący dla Blendera 4.3/4.4; scena bazowa (sieć, budynki OSM, ciemny motyw).
 - **Test:** pojazd z eventów jedzie w Blenderze po swojej trasie (porównanie 3 losowych pojazdów); render 1 min doby porannego szczytu.
 
-## G7 — Przeniesienie na Łódź (nie rozpoczęte, stan na 2026-10-20)
-- Po G2–G5. Wymaga decyzji o skali (Łódź ponad 600 tys. mieszkańców) i zasobach (16 GB RAM).
+## Łódź (bez numeru fazy, stan na 2026-10-21)
+- Nie zaczynamy, dopóki Kutno (etapy 2 i 3) nie jest skończone. Wymaga potem decyzji o skali (Łódź ponad 600 tys. mieszkańców) i zasobach (16 GB RAM).

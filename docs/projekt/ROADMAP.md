@@ -37,13 +37,37 @@ Dojazdy do pracy autem, `dom → praca → dom`.
 
 | faza | co | stan | gdzie |
 |---|---|---|---|
-| G1 | skrzyżowania, sygnalizacja, zakazy skrętu | ⏸ odłożone przez użytkownika | [TASKS.md](TASKS.md) |
 | G2 | miejsca pracy (suma z rejestru, wyjeżdżający) | ✅ suma (D17); otwarte: rozkład w gminie (REGON) | [g2](../../reports/etap2/g2_miejsca_pracy/g2_miejsca_pracy.md) |
-| G3 | domy (dobór budynków, BDOT10k) | 🔍 zbieranie danych | [G3_domy.md](../../docs/research/G3_domy.md) |
-| G4 | tryby: PT, rower, pieszo, wybór trybu | 🔍 research, poza modelem | [G4_tryby.md](../../docs/research/G4_tryby.md), [G4_beeline.md](../../docs/research/G4_beeline.md) |
+| G3 | domy: dwie wersje (OSM, działa zawsze; BDOT10k, polska) | 🔍 do decyzji, plan w §3a | [G3_domy.md](../../docs/research/G3_domy.md) |
 | **G5** | **ruch tła i kalibracja do GPR** | **✅ baza R6 po audycie; otwarte rozbieżności w §3** | niżej, §3 |
 | G6 | kolejki (D18) i wizualizacja w Blenderze | ✅ D18; Blender w osobnej sesji | [g6_kolejki](../../reports/etap2/g6_kolejki/g6_kolejki.md), [G6_blender.md](../../docs/research/G6_blender.md) |
-| G7 | przeniesienie na Łódź | ⏸ po G2–G5 | [TASKS.md](TASKS.md) |
+
+Etap 2 zamykamy, gdy: (1) D23 zakończone, (2) G3 zrobione w dwóch wersjach, (3) G5 potwierdzone jako zamknięte (otwarte rozbieżności z §3 zapisane jako znane ograniczenia albo zamknięte). G2 zostaje z otwartym rozkładem w gminie (REGON) jako znane ograniczenie, chyba że zdecydujemy inaczej.
+
+### Etap 3: pełne Kutno (plan do przemodelowania)
+
+Kolejność zadań. Każde wymaga decyzji w DECISIONS.
+
+| kolejność | zadanie | uwagi |
+|---|---|---|
+| 1 | **G1: skrzyżowania** (tylko geometria i zakazy skrętu) | sygnalizacja świetlna i reszta później; rozdziela opóźnienia węzłów od prędkości (patrz D23, `f` w mieście) |
+| 2 | **dodatkowe aktywności** (szkoła, zakupy, sprawy) | nowa faza, zmiana planów, godzin i atrybutu `carAvail`; wymaga danych o celach i rozkładzie godzin |
+| 3 | **GTFS i transport publiczny** | źródło i licencja do rozstrzygnięcia; research: [G4_tryby.md](../../docs/research/G4_tryby.md) |
+| 4 | **wybór trybu i kalibracja ASC** | po PT i aktywnościach; cel kalibracji z GUS Mobilność |
+| ewent. | sygnalizacja świetlna | po skrzyżowaniach |
+
+### Łódź
+
+Nie planujemy. **Dopóki Kutno nie jest skończone (etapy 2 i 3), do Łodzi nie przechodzimy.** Najpierw przećwiczyć w Kutnie, co działa, a co nie.
+
+## 3a. Etap 2: kolejność do zamknięcia
+
+| krok | zadanie | stan |
+|---|---|---|
+| 1 | Ścieżka prędkości (D23): ponowne dopasowanie, decyzje F i B, krok 3 (sieć, R7) | ▶ do zlecenia osobnemu agentowi (`reports/etap2/g5_predkosci_d23/prompt_agenta.md`) |
+| 2 | G3: dwie wersje domów (OSM zawsze; BDOT10k polska); wymaga decyzji w DECISIONS | do decyzji |
+| 3 | Potwierdzenie, że G5 jest zamknięte | do sprawdzenia po D23 (R7) |
+| 4 | Zamknięcie etapu 2 i przejście do etapu 3 | |
 
 ## 3. Bieżąca praca: G5
 
@@ -69,10 +93,8 @@ Baza: R6 (A1 99% / 101%, 12/15 odcinków w ±15% dla lekkich i ciężkich). Odci
 | **Prędkości sieci (cruise speeds) + ponowna walidacja TomTom** | ▶ **D23 w toku**: krok 1 ✅, krok 2: dopasowanie 18.10 (C ≈ 0,58, F na granicy 0,5); dobrane trasy C, **ponowne dopasowanie 19.10** ([krok2](../../reports/etap2/g5_predkosci_d23/krok2_dopasowanie.md), [plan](../../reports/etap2/g5_predkosci_d23/plan.md)) | factor 0,8 (D13) zaniża prędkości o ok. 15% wobec TomTom, a czasy tras zgadzają się tylko przez brak opóźnień węzłów. Warianty, pułapki i procedura powtórki: [wnioski_i_dalej.md](../../reports/etap2/g5_czasy_tomtom/wnioski_i_dalej.md). Wymaga decyzji w DECISIONS |
 | Walidacja czasów TomTom (D22) | ✅ zrobiona dla R6; HERE przygotowane (brak klucza) | [g5_czasy_tomtom.md](../../reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md) |
 | Geometria linków z OSM | 💡 propozycja | potrzebna do zgodności tras i walidacji dróg tertiary/unclassified; przyda się w G6 |
-| Transport publiczny i wybór trybu | G4 | GTFS, SubtourModeChoice, kalibracja ASC |
-| Inne aktywności (szkoła, zakupy, sprawy) | 💡 **brak fazy** | wykluczone z MVP (zasady projektu); wymaga nowej fazy w TASKS i decyzji |
-| Skrzyżowania | G1 | odłożone |
-| Łódź | G7 | po G2–G5 |
+| Skrzyżowania, aktywności, GTFS i PT, wybór trybu | etap 3 | kolejność w §2 |
+| Łódź | bez fazy | dopiero po zamknięciu całego Kutna |
 
 ## 5. Układ folderów
 
