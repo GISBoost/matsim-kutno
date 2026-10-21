@@ -7,7 +7,7 @@ Stan: 2026-10-20. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i m
 | pytanie | plik |
 |---|---|
 | Na jakim etapie jesteśmy, co dalej? | **ten plik** |
-| Co zdecydowaliśmy i dlaczego? | [DECISIONS.md](DECISIONS.md) (D1–D23, D25) |
+| Co zdecydowaliśmy i dlaczego? | [DECISIONS.md](DECISIONS.md) (D1–D25) |
 | Co zrobione, z jakim dowodem? | [PROGRESS.md](PROGRESS.md) (dziennik chronologiczny) |
 | Kontrakty faz (wejścia, test, zaliczenie) | [TASKS.md](TASKS.md) |
 | Jak działa model i jak go odtworzyć | [README.md](../../README.md) |
@@ -98,6 +98,7 @@ Baza: **R7b** (D25; A1 98% / 101%, 14/15 odcinków w ±15% dla lekkich i ciężk
 | **Prędkości sieci (cruise speeds) + ponowna walidacja TomTom** | ✅ **D23 wdrożone** (D25): sieć R7, baza R7b; MAPE czasu tras 20,5 → 18,2% (walidacja), 18,3 → 14,7% (analiza), segmenty swobodne 0,86 → 0,99 | [d23_podsumowanie.md](../../reports/etap2/g5_predkosci_d23/d23_podsumowanie.md), [plan](../../reports/etap2/g5_predkosci_d23/plan.md). `f` do dopracowania po G1 i kolejnych sprawdzeniach |
 | Walidacja czasów TomTom (D22) | ✅ zrobiona dla R6; HERE przygotowane (brak klucza) | [g5_czasy_tomtom.md](../../reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md) |
 | Geometria linków z OSM | 💡 propozycja | potrzebna do zgodności tras i walidacji dróg tertiary/unclassified; przyda się w G6 |
+| Lokalny wizualizer runu | ▶ **D24, kroki 1–3 kod ✅, oś harmonogramu ✅, łamane OSM w oknie ✅, spike ✅** (WebView2 + Leaflet). Dalej: plan poprawek okna zaakceptowany, kod jeszcze nie. Podkład, drugi run i bake odłożone. Łódź poza tym krokiem | faza po zamkniętym MVP; nie zastępuje G5 ani D23. Kod: `pipeline/viz_index.py`, `pipeline/viz_engine.py`, `viz_player/`. Plan: `docs/research/wizualizer_plan.md` |
 | Skrzyżowania, aktywności, GTFS i PT, wybór trybu | etap 3 | kolejność w §2 |
 | Łódź | bez fazy | dopiero po zamknięciu całego Kutna |
 

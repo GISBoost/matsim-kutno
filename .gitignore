@@ -20,8 +20,9 @@ scenarios/kutno/*.xml.gz
 scenarios/kutno/plans_*.csv
 # logi (duże, z runów MATSim i API); pliki zostają na dysku
 *.log
-# klucze API (TomTom, HERE) - nigdy do gita
+# klucze API (TomTom, HERE, CARTO) - nigdy do gita
 .env
+config/viz_basemap.local.toml
 # TomTom (wariant A, D22): w repo tylko metryki i raporty, bez danych pochodnych
 reports/etap2/g5_czasy_tomtom/segments.csv
 reports/etap2/g5_czasy_tomtom/pairs.csv

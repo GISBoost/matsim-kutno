@@ -12,6 +12,7 @@ dependencies = [
     "pandas>=3.0.6",
     "pymupdf>=1.28.2",
     "pyproj>=3.8.0",
+    "pywebview>=6.2.1",
     "scipy>=1.18.1",
     "shapely>=2.2.0",
     "zstandard>=0.25.0",

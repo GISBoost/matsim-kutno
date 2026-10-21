@@ -265,6 +265,86 @@
 - Historia gita przepisana: usunięte klatki PNG i `anim.mp4` z G6, materiały robocze z pracy z AI (zasady agenta, prompty, archiwum raportów innych modeli); 82 → 76 commitów, `.git` 65 → 35 MB. Kopie plików zostają lokalnie, są w `.gitignore`.
 - Porządki: usunięte ścieżki lokalne z kodu i raportów, poprawione odwołania do usuniętych plików, README zaktualizowane, daty uzupełnione w `docs/projekt/TASKS.md`.
 
+## 2026-10-20: D24 krok 1, rzadki indeks runu
+
+- Do tego wpisu dziennik milczał. Stan był tylko w commicie `754db93` (`pipeline/viz_index.py`), a `ROADMAP.md` nadal mówił „kod niezaczął”.
+- Indeks: `uv run python pipeline/viz_index.py output/g5r6_25pct_s4711`. Budowa 22,4 s. Drugi start: `reuse tracks=29660 knots=3787376 sec=0.0`, bez drugiego skanu XML. Log: `output/g5r6_25pct_s4711/viz/index.log` (poza gitem).
+- Akceptacja R6: 29 660 przejazdów, 6 641 wjazdów w 06:00–09:00, szczyt 961 o 58 170 s, szczyt okna 849 o 28 591 s (licznik eventów, bez doliczania aut już w ruchu o 06:00). Klasy: c 2 410, r 4 336, o 732, t 16 439, h 5 743. Węzły 3 787 376, czynności 59 320 (bez `car interaction`). Plik 12 051 495 B. Geometria: 0,0002 / 0,0003 / 0,0004 m.
+- Self-test: `uv run python pipeline/viz_index.py --self-test` → `self-test OK`.
+- Po recenzji kroku 1: czynność bez `x` albo `y` przerywa budowę (wcześniej lądowała na węźle from; na R6 ta gałąź się nie wykonała, bo każda czynność ma współrzędne). Usunięte nieużywane `parse_sec`. Ten sam zestaw liczb po przebudowie.
+- Dalej, niezacząte: krok 2 (silnik klatki bez okna), potem spike Qt kontra WebView2, klucz CARTO, okno. MVP i D23 bez zmian.
+
+## 2026-10-20: D24 krok 2, silnik klatki bez okna
+
+- `pipeline/viz_engine.py`. Czyta indeks z kroku 1 (albo buduje go przez `viz_index.py`) i zwraca klatkę, klik, lookup i czynności. Bez okna, bez rysowania, bez XML po stronie silnika. Java i `g6_bake.py` bez zmian.
+- Self-test: `uv run python pipeline/viz_engine.py --self-test` → `self-test OK`. Węzeł co do 1 mm, auto znika poza `[t0, t1]`, filtr bez `t`, lookup `r1` (dwa przejazdy, prefiks `r1b`), pick auta i cięciwy, `home`/`work` bez `car interaction`, sufit prędkości 30 m/s.
+- R6: `uv run python pipeline/viz_engine.py output/g5r6_25pct_s4711`. Indeks wzięty z dysku (`reuse`, bez skanu XML). Log: `output/g5r6_25pct_s4711/viz/engine.log`.
+  - Klatka o 58 170 s: 961 aut przy pełnym filtrze (tyle, ile licznik enter/leave), 420 bez klasy `t`. Dwie klatki w 0,008 s. RAM indeksu 89 497 631 B.
+  - Pierwsze `r…` w pliku: `r6510903_5`, dwa przejazdy. Najgorszy węzeł tego przejazdu: 0,000000 m. Pick na współrzędnej auta zwraca ten przejazd.
+  - Czynności `c1002062_103`: jest `home`, nie ma `car interaction`.
+- Całość sprawdzenia R6: 0,3 s. Błędów uruchomienia nie było, więc `ERRORS.md` bez nowej lekcji.
+- Dalej, niezacząte: spike Qt kontra WebView2 (`output/viz_spike/`, poza gitem), potem krok 3 (okno). Klucza CARTO nadal nie ma. MVP i D23 bez zmian.
+
+## 2026-10-20: D24 spike stosu okna
+
+- Dwie minimalki na tej samej klatce R6 (`output/g5r6_25pct_s4711`, t = 58 170 s, 961 aut, 8 362 cięciwy). Kod w `output/viz_spike/`, poza gitem. Zależności (`PySide6`, `pywebview`, `pillow`) w osobnym venv pod tym katalogiem, nie w `pyproject.toml`.
+- Osie: 524 805 E, 485 023 N → 52,2307° N, 19,3633° E.
+- CARTO `dark_nolabels` bez klucza: HTTP 200, 35 razy ten sam PNG 2 513 B z napisem API KEY REQUIRED. Podkładu nie było. Oba okna napisały „Podkład wyłączony.” `tile.openstreetmap.org` nie był użyty.
+- Tempo 30 Hz przez 2 s, klik w auto 0 (zwrócony indeks 0), working set procesu i potomków:
+
+  | wariant | Hz | klik | RAM |
+  |---|---:|---:|---:|
+  | PySide6 | 29,56 | 0,24 ms | 165 MB |
+  | WebView2 + Leaflet | 29,22 | 0,92 ms | 503 MB |
+
+- WebView2: jedna tablica JSON na klatkę, jedno `evaluate_js`. Progi (15 Hz, 1 GB, 50 ms) oba warianty mieszczą. Zostaje WebView2 + Leaflet. Zrzut: `docs/research/wizualizer_spike.png`. Liczby: koniec `docs/research/wizualizer_plan.md`.
+- Pierwszy start WebView2 urwał się na przecinku w odczycie RAM (`526,9`) i zostawił okno. Proces został ubity, parser poprawiony, liczba w tabeli jest z powtórzenia. `ERRORS.md` bez nowej lekcji: kod spike'u i tak idzie do kosza.
+- Okno v1 (krok 3) nie jest zaczęte. Klucza CARTO nadal nie ma. MVP i D23 bez zmian.
+
+## 2026-10-20: D24 spike stosu, powtórka
+
+- Powód: przy pierwszym pomiarze w RAM były inne programy. Powtórka na tej samej klatce (961 aut, 8 362 cięciwy), Qt i WebView2 jeden po drugim. Przed startem, przez 2 s: 5,8 s CPU z 24 (12 rdzeni), głównie `dllhost` i VS Code.
+- PySide6: 29,70 Hz, klik 0,24 ms, 165 MB, indeks 0. WebView2: 29,58 Hz, klik 0,65 ms, 503 MB, indeks 0, kafelki `0,0`.
+- Progi bez zmian. Do okna zostaje WebView2 + Leaflet. Krok 3 niezaczął. Klucza CARTO nadal nie ma.
+
+## 2026-10-20: D24 krok 3, okno
+
+- `viz_player/`. Uruchomienie: `uv run python -m viz_player output/g5r6_25pct_s4711`. Stos: WebView2 (`pywebview` 6.2.1 w `pyproject.toml`) i Leaflet 1.9.4 w `viz_player/vendor/`. `PySide6` nie wszedł. Java i `g6_bake.py` bez zmian. Okno nie parsuje XML: czyta indeks przez `viz_engine`.
+- Akceptacja automatyczna. Self-testy indeksu i silnika nadal przechodzą. `uv run python -m viz_player --self-test` → `self-test OK` (zegar 06:00:00 i 30:12:00, próbka `0,25`, rampa G6, czynność zamiast ducha, klik auta i linku, prefiks id).
+- R6, bez rysowania: `uv run python -m viz_player --check output/g5r6_25pct_s4711`. Log: `output/g5r6_25pct_s4711/viz/player.log`. Start 06:00:00, próbka `0,25`, podkład wyłączony, 10 383 linki, osie 52,2307° N 19,3633° E. Klatka 07:56:31 (28 591 s): 849 aut, bez `t` 447. Szczyt 58 170 s: 961. Lookup `r6510903_5` trafia. Indeks z dysku (`reuse`, bez skanu XML).
+- Smoke okna na tym samym runie: mapa 1106×811, narysowane 849 i po wyłączeniu chipa `t` 447, podpis próbki `0,25`, zdanie „Podkład wyłączony.”, panel pokazuje `r6510903_5`, Escape czyści wybór. Zrzut (pauza 07:56, nie stan otwarcia): `docs/research/wizualizer_okno.png`.
+- Akceptacji ludzkiej nie zaliczam. Zostaje obejrzenie: pauza 07:56, play, suwak 06:30 i z powrotem, szukanie, śledzenie, Escape, klik linku, czytelność panelu. Klucza CARTO nadal nie ma. MVP i D23 bez zmian. Krok 4 nie ruszany.
+- Po obejrzeniu, tego samego dnia: ukrycie panelu zabierało pasek razem z przyciskiem (siatka), a kolejne okno po krzyżyku wstawało bez aut i linków (`pull` łapał `busy`, zanim mostek dostał `frame`). Lekcja 28 w `ERRORS.md`. Przycisk zostaje na pasku i nazywa się „panel”, gdy panel jest schowany. Smoke czeka na zegar 06:00:00 z odtwarzania i sprawdza prostokąt przycisku.
+
+## 2026-10-20: D24 krok 4, oś harmonogramu
+
+- Panel wybranego id rysuje oś czasu zamiast listy czynności. Czynność z `actstart`/`actend`, jazda z przejazdów. Jazda wycina nachodzącą czynność. Klik w oś ustawia czas. Dziury to dojście (`car interaction` nie wchodzi do indeksu). Zakres osi jest zakresem runu, nie wycinkiem osoby. To nie jest wykres natężenia.
+- `uv run python -m viz_player --self-test` → `self-test OK`. Oś syntetyczna: dom, jazda, praca, jazda, dom. Jazda 180–220 wycina pracę. W mini-runie `r1` o 06:00 stoi na domu, jazda jest 23 000–23 100 s, o 24 000 s zaznaczona jest praca.
+- Self-testy indeksu i silnika nadal przechodzą.
+- R6: `uv run python -m viz_player --check output/g5r6_25pct_s4711`. Indeks z dysku (`reuse`). Log: `output/g5r6_25pct_s4711/viz/player.log`. 849 aut o 07:56:31, bez `t` 447, szczyt 961, próbka `0,25`. `r6510903_5` ma 5 odcinków: dom 00:00:14–00:04:32, jazda 00:05:09–00:12:40, praca 00:17:33–08:17:33 (zaznaczona o 07:56), jazda 08:22:27–08:31:17, dom do 32:23:09.
+- Smoke: mapa 1106×811, pasek osi widoczny po wyborze tego id (szerokość > 40 px, jest odcinek). Zrzut bez zmian treści: pauza 07:56, `docs/research/wizualizer_okno.png`.
+- Poza tym krokiem, bo każde rusza zakres i czeka na własny wpis: łamane OSM w konwerterze (Java), podkład z kluczem CARTO, drugi run, spięcie `g6_bake.py`, Łódź. Java i bake nietknięte. `ERRORS.md` bez nowej lekcji. Akceptacji ludzkiej obrazu nie zaliczam. MVP i D23 bez zmian.
+- Tego samego dnia, po obejrzeniu: oś liniowa na dobę runu dawała jazdę jako pasek rzędu piksela. Postój ma teraz wagę 1, jazda co najmniej wagę 8 minut. Pasek ma 36 px i podpis w odcinku. Klik liczy czas wewnątrz odcinka. Self-test: 22 h domu i 8 h pracy mają tę samą szerokość, jazda zajmuje ponad 15% paska. Smoke na `r6510903_5`: niebieski odcinek szerszy niż 12% paska.
+
+## 2026-10-21: D24, łamane OSM w oknie
+
+- Tylko odtwarzacz. `viz_player/curves.py` czyta PBF (`data/raw/osm/lodzkie-*.osm.pbf`, bez zapisu) i sieć runu, składa łańcuch między węzłami from/to i zapisuje `output/<run>/viz/curves.npz`. Java, `viz_index.py`, `viz_engine.py`, sieć, eventy i plany bez zmian.
+- Łuk wchodzi, gdy zgadza się z `length` co do 1 m i choć jeden punkt odchodzi od cięciwy o więcej niż 2 m. Inaczej zostaje prosta. Brak PBF nie wywala okna. Auto, ślad i klik drogi idą po łamanej. Ułamek bierze się z cięciwy, bo tak stoi pozycja w indeksie.
+- R6: 4705 z 10 383 linków, skan OSM 7,2 s, potem cache. `1807611370009f`: length 1969 m, cięciwa 842 m, 11 punktów, środek łamanej ponad 100 m od środka cięciwy. Klatki bez zmian: 849 o 07:56:31, bez `t` 447, szczyt 961.
+- HTML ma 659 KB. 50 196 punktów łamanych dochodzi po starcie okna, kawałkami. Wklejenie ich w stronę dało 1,7 MB i `NavigateToString` odrzucił dokument (lekcja 29).
+- `uv run python -m viz_player --self-test` → `self-test OK`. Self-testy indeksu i silnika też. `--check` i `--smoke` na `output/g5r6_25pct_s4711` przeszły. Smoke: mapa 1106×811, 849 aut, łamane namalowane. Zrzut (pauza 07:56, nie stan otwarcia): `docs/research/wizualizer_okno.png`.
+- Akceptacji ludzkiej obrazu nie zaliczam. Drugi run, spięcie bake'u, klucz CARTO i Łódź bez zmian. MVP i D23 bez zmian.
+
+## 2026-10-21: D24, dokumentacja odtwarzacza
+
+- Opis programu: `docs/research/wizualizer_odtwarzacz.md`. Plan, koncepcja i recenzja zostają. Kod odtwarzacza bez zmian (ostatni commit kodu `d62c8ee`). Wskaźnik stoi na początku `docs/research/wizualizer_plan.md` i w punkcie otwartym D24.
+
+## 2026-10-21: D24, plan poprawek okna
+
+- Michał: łamane działają, auta jadą po łuku.
+- Plan, bez kodu: `docs/research/wizualizer_plan.md`, sekcja „Poprawki okna”. Kolejność: znacznik (dłuższy grot i półkole z tyłu, punkt w środku podstawy), checkbox koloru dróg według `type` z legendą, strzałki mnożnika co 1 przy zostawionych presetach, kolor auta prędkość albo klasa z legendą. Raster, WMS i wybór folderu runu są następną turą.
+- Michał zaakceptował plan w całości, także tabelę klas. Kod czeka na osobne zlecenie.
+
 ## 2026-10-21: D23 kroki 2–4 (sieć R7)
 
 - Krok 2: ponowne dopasowanie `f_g` na 77 trasach analizy (240 requestów TomTom, łącznie 1 237; `BUDGET` podniesiony do 2 000). C identyfikowalna: 0,60 (0,53–0,68, 14 tras). MAPE w próbie 18,4 → 14,3% (f wg reguły).
