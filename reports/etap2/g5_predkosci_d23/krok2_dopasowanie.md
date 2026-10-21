@@ -72,3 +72,29 @@ Cytat decyzji: „Dobierz brakujące trasy C i powtórz dopasowanie jutro (nowy 
 4. Decyzje F i B, potem krok 3 (sieć, runy R7).
 
 Budżet: po jutrzejszym dopasowaniu łącznie ok. 1 237. Krok 5 (120 tras × 3 + 25 segmentów + probe) to ok. 390 requestów, więc `BUDGET` trzeba będzie podnieść z 1 400 do ok. 1 650. Limit dzienny 2 000 nie jest zagrożony, jeśli krok 5 pójdzie innego dnia niż dopasowanie.
+
+## Wynik ponownego dopasowania (2026-10-21, zestaw analizy z 6 nowymi trasami C)
+
+Zastępuje tabelę z 18.10. Dane: TomTom `historic`, typowy wtorek, okna 07:30 / 12:30 / 15:30 (jak w `fit_tomtom.json`), 240 requestów (+3 `--test`), wszystkie HTTP 200. Łącznie od początku **1 237** (limit `BUDGET` 1 400, nie zmieniany; przed krokiem 5 trzeba podnieść do ok. 1 650). Wyłączone po kontroli 50 m: D23C_13, D23C_18, D23D_12. 77 tras, 231 obserwacji. Log: `fit_tomtom_21.log`.
+
+| grupa | f dopasowane | przedział 90% | trasy z przewagą | km | reguła z planu | f_final wg reguły |
+|---|---|---|---|---|---|---|
+| A autostrada | 0,92 | 0,83–1,00 | 12 | 238 | identyfikowalna | 0,92 |
+| B DK/DW poza miastem | 1,02 | 0,93–1,10 | 12 | 213 | identyfikowalna | 1,02 |
+| C tertiary/unclassified poza miastem | **0,60** | 0,53–0,68 | **14** | 202 | **identyfikowalna** (±0,07) | **0,60** |
+| D osiedlowe poza miastem | 0,75 | 0,61–0,94 | 11 | 37 | nie (< 12 tras, ±0,17) | 0,80 |
+| E główne w mieście | 0,88 | 0,73–1,05 | 12 | 122 | nie (±0,16) | 0,80 |
+| F lokalne w mieście | **0,50** | 0,50–0,55 | 12 | 55 | identyfikowalna, **na dolnej granicy** | 0,50 |
+
+| w próbie (przewidywanie przy stałej kongestii R6) | MAPE | RMSPE | mediana model / TomTom | trasy w TAG (15% lub 1 min) |
+|---|---|---|---|---|
+| R6 (f = 0,8) | 18,4% | 24,7% | 0,97 | 51% |
+| wszystkie f dopasowane | 14,0% | 20,6% | 1,00 | 69% |
+| f_final wg reguły | 14,3% | 21,4% | 1,01 | 71% |
+
+Wniosek: C jest teraz identyfikowalna wg reguły z planu (14 tras, przedział ±0,07), więc 0,60 wynika z reguły, a nie z wyjątku. Decyzja 1 (C) odpada. Zostają dwie: F (0,50 na granicy 0,5) i B (1,02 > 1).
+
+## Do decyzji (krok 3 czeka)
+
+1. **F:** 0,50 (≤ 25 km/h przy limicie 50, pochłania opóźnienia skrzyżowań do G1) czy 0,8 do czasu G1?
+2. **B:** 1,02 czy obcięcie do 1,0 (różnica 2%, w granicach przedziału).
