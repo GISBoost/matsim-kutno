@@ -48,7 +48,7 @@ TZ = "+02:00"
 # komercyjny; masa, nacisk osi i wysokość = 0 (ograniczenia nieuwzględniane), bo model ich nie ma. Wariant: masa 40 t.
 TRUCK = dict(vehicleMaxSpeed=80, vehicleLength=15, vehicleWidth=2.5, vehicleCommercial="true")
 QPS = {"tomtom": 5, "here": 5}  # TomTom FAQ: 5-50 zależnie od API; bierzemy dolną granicę dla obu endpointów
-BUDGET = 1400  # łącznie: 763 do D22 + ok. 560 na D23 (plan §3) z zapasem; decyzje użytkownika 2026-10-18
+BUDGET = 2000  # łącznie: 1237 do D23 krok 2; podniesione na polecenie użytkownika (krok 5 ok. 390)
 BUDGET_DAY = 2000  # limit konta TomTom: 2 500 non-tile na dobę (informacja użytkownika 2026-10-18), z zapasem
 
 
