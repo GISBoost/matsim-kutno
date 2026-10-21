@@ -50,11 +50,16 @@ Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 
 | kolejność | zadanie | uwagi |
 |---|---|---|
-| 1 | **G1: skrzyżowania** (tylko geometria i zakazy skrętu) | sygnalizacja świetlna i reszta później; rozdziela opóźnienia węzłów od prędkości (patrz D23, `f` w mieście) |
-| 2 | **dodatkowe aktywności** (szkoła, zakupy, sprawy) | nowa faza, zmiana planów, godzin i atrybutu `carAvail`; wymaga danych o celach i rozkładzie godzin |
-| 3 | **GTFS i transport publiczny** | źródło i licencja do rozstrzygnięcia; research: [G4_tryby.md](../../docs/research/G4_tryby.md) |
-| 4 | **wybór trybu i kalibracja ASC** | po PT i aktywnościach; cel kalibracji z GUS Mobilność |
+| 1 | **G1: skrzyżowania** (tylko geometria i zakazy skrętu) | sygnalizacja świetlna później; rozdziela opóźnienia węzłów od prędkości (D23, `f` w mieście) |
+| 2 | **atrybuty osób** | wiek z NSP 2021; dostęp do auta i odsetek prawa jazdy z ogólnych statystyk GUS (łódzkie); najpierw research |
+| 3 | **dodatkowe aktywności** (szkoła, zakupy, sprawy) | nowa faza, zmiana planów i godzin; dane o celach i rozkładzie godzin z GUS Mobilność |
+| 4 | **GTFS i transport publiczny** | GTFS Kutno: licencja potwierdzona przez użytkownika 2026-10-21; kolej z feedu Kuranowskiego; research: [G4_tryby.md](../../docs/research/G4_tryby.md) |
+| 5 | **wybór trybu i kalibracja ASC**: car, ride (pasażer), pt, bike, walk | wzorzec: Kelheim i Berlin (`ride` jako tryb sieciowy, rower i pieszo wg wzorca); cel kalibracji z GUS Mobilność |
+| 6 | **pomiary miejskie do walidacji** | tylko dane publicznie dostępne; jeśli ich nie ma, zapisujemy to jako ograniczenie |
+| 7 | **odtworzenie od zera i wnioski** | dokończenie README, pipeline na czystym klonie, spis tego, co się przenosi na Łódź |
 | ewent. | sygnalizacja świetlna | po skrzyżowaniach |
+
+Zasada: dane tylko z ogólnodostępnych źródeł, bez mocno blokowanych. REGON (rozkład miejsc pracy w gminie) poza zakresem, zostaje znanym ograniczeniem G2.
 
 ### Łódź
 
