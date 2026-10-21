@@ -38,3 +38,7 @@ Data: 2026-10-21. Status: **technicznie możliwe**, szkic workflow gotowy (`.git
 - `uv sync --frozen` pobiera geopandas, shapely itp. (kilka minut). Skrypty analizy czytają `scenarios/kutno/validation/gpr_linki.csv` (jest w gicie) i `config/kutno.toml`; nie potrzebują `data/raw/`. Jeśli któryś skrypt się wywróci, krok ma `|| true`, a pakiet i tak zawiera dane do analizy lokalnej.
 - Runy > 100 iteracji tylko na wyraźną prośbę (zasada projektu); to jest taka prośba (400), więc zgłoszenie jest tu.
 - Limit miejsca na artefakty (500 MB Free): 2 × ok. 80 MB, bez problemu, ale kolejne uruchomienia trzeba czyścić.
+
+## Wynik lokalnego testu scenariusza samodzielnego (2026-10-21)
+
+Run 100 iteracji z `scenarios/kutno_r7b_25pct/config.xml` (seed 4711, 2 wątki) vs `output/g5r7b_25pct_s4711` (ta sama baza uruchomiona z konfiguracji pipeline): `scorestats.csv` **identyczny bajt w bajt**, `vol_car` identyczne na 10 383 linkach, czasy podróży wszystkich 72 912 nóg identyczne. Samodzielny katalog jest więc wiernym odpowiednikiem bazy R7b. Wszystkie kroki analizy z workflow (`check_events` 24 304 nóg car i 0 stuck, `convergence`, `g5_baseline` lcv i heavy, `link_delay`, `queues`) przeszły lokalnie z kodem wyjścia 0 (`reports/etap2/g5_predkosci_d23/r7b/gha_dryrun/`). Lokalny run jest deterministyczny, więc różnica na GitHubie wskazałaby na inny runner albo Javę, nie na losowość.
