@@ -51,3 +51,6 @@ Każdy wpis: co się stało → koszt → reguła na przyszłość. Najważniejs
 
 ## 2026-10-20 (okno D24, krok 3)
 28. **Po krzyżyku kolejne okno było puste, a ukryty panel nie miał powrotu.** Dwie osobne przyczyny. Panel: `display:none` wyjmował go z siatki, a pasek (z przyciskiem) wpadał w kolumnę o szerokości 0. Pusta mapa: pywebview wstrzykuje mostek w dwóch skryptach. Między nimi `window.pywebview.api` już jest, ale bez `frame`. `pull` ustawiał `busy` i wywoływał `api.frame`, które jeszcze nie istniało. Wyjątek zostawiał `busy` na zawsze, więc auta i linki nie przychodziły. Pierwsze otwarcie czasem wygrywało ten wyścig, kolejne nie. → Pasek ma stałe miejsce w siatce (`grid-column: 1 / -1`, `grid-row: 2`). `pull` woła `frame` dopiero, gdy funkcja jest, a wyjątek zdejmuje `busy`. Smoke czeka na zegar `06:00:00` z samego odtwarzania i sprawdza, że przycisk panelu zostaje na ekranie.
+
+## 2026-10-21 (łamane OSM w oknie)
+29. **Wklejenie łamanych w HTML okna wywaliło WebView2.** `NavigateToString` na stronie 1,7 MB: `Wartość jest spoza oczekiwanego zakresu`. Same cięciwy mieszczą się w 659 KB. 50 196 punktów OSM to za dużo na ten jeden string. → Współrzędne idą po starcie okna, kawałkami po 2000, a check odrzuca stronę większą niż 1,2 MB. **Nie doklejać geometrii do `__BOOT__`.**

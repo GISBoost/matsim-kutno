@@ -325,3 +325,12 @@
 - Smoke: mapa 1106×811, pasek osi widoczny po wyborze tego id (szerokość > 40 px, jest odcinek). Zrzut bez zmian treści: pauza 07:56, `docs/research/wizualizer_okno.png`.
 - Poza tym krokiem, bo każde rusza zakres i czeka na własny wpis: łamane OSM w konwerterze (Java), podkład z kluczem CARTO, drugi run, spięcie `g6_bake.py`, Łódź. Java i bake nietknięte. `ERRORS.md` bez nowej lekcji. Akceptacji ludzkiej obrazu nie zaliczam. MVP i D23 bez zmian.
 - Tego samego dnia, po obejrzeniu: oś liniowa na dobę runu dawała jazdę jako pasek rzędu piksela. Postój ma teraz wagę 1, jazda co najmniej wagę 8 minut. Pasek ma 36 px i podpis w odcinku. Klik liczy czas wewnątrz odcinka. Self-test: 22 h domu i 8 h pracy mają tę samą szerokość, jazda zajmuje ponad 15% paska. Smoke na `r6510903_5`: niebieski odcinek szerszy niż 12% paska.
+
+## 2026-10-21: D24, łamane OSM w oknie
+
+- Tylko odtwarzacz. `viz_player/curves.py` czyta PBF (`data/raw/osm/lodzkie-*.osm.pbf`, bez zapisu) i sieć runu, składa łańcuch między węzłami from/to i zapisuje `output/<run>/viz/curves.npz`. Java, `viz_index.py`, `viz_engine.py`, sieć, eventy i plany bez zmian.
+- Łuk wchodzi, gdy zgadza się z `length` co do 1 m i choć jeden punkt odchodzi od cięciwy o więcej niż 2 m. Inaczej zostaje prosta. Brak PBF nie wywala okna. Auto, ślad i klik drogi idą po łamanej. Ułamek bierze się z cięciwy, bo tak stoi pozycja w indeksie.
+- R6: 4705 z 10 383 linków, skan OSM 7,2 s, potem cache. `1807611370009f`: length 1969 m, cięciwa 842 m, 11 punktów, środek łamanej ponad 100 m od środka cięciwy. Klatki bez zmian: 849 o 07:56:31, bez `t` 447, szczyt 961.
+- HTML ma 659 KB. 50 196 punktów łamanych dochodzi po starcie okna, kawałkami. Wklejenie ich w stronę dało 1,7 MB i `NavigateToString` odrzucił dokument (lekcja 29).
+- `uv run python -m viz_player --self-test` → `self-test OK`. Self-testy indeksu i silnika też. `--check` i `--smoke` na `output/g5r6_25pct_s4711` przeszły. Smoke: mapa 1106×811, 849 aut, łamane namalowane. Zrzut (pauza 07:56, nie stan otwarcia): `docs/research/wizualizer_okno.png`.
+- Akceptacji ludzkiej obrazu nie zaliczam. Drugi run, spięcie bake'u, klucz CARTO i Łódź bez zmian. MVP i D23 bez zmian.
