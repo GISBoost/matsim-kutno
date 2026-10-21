@@ -69,7 +69,7 @@ Nie planujemy. **Dopóki Kutno nie jest skończone (etapy 2 i 3), do Łodzi nie 
 
 | krok | zadanie | stan |
 |---|---|---|
-| 1 | Ścieżka prędkości (D23): kroki 1–4 zrobione (sieć R7, `f` A 0,95 / B 1,00 / C 0,60 / D 0,70 / E 0,85 / F 0,55); **stop: natężenia GPR zmienione ponad rozrzut, decyzja R7b i terminu kroku 5** ([krok3_4_r7](../../reports/etap2/g5_predkosci_d23/krok3_4_r7.md)) | ▶ czeka na decyzję użytkownika |
+| 1 | Ścieżka prędkości (D23): kroki 1–5 zrobione (sieć R7, R7b: nowa estymacja O-D, walidacja TomTom; MAPE czasu tras 20,5 → 18,2% walidacja, 18,3 → 14,7% analiza, 14/15 odcinków GPR w ±15%); `f` A 0,95 / B 1,00 / C 0,60 / D 0,70 / E 0,85 / F 0,55 do przeglądu ([krok4b_5_r7b](../../reports/etap2/g5_predkosci_d23/krok4b_5_r7b.md)) | ▶ czeka na decyzję użytkownika (R7b jako baza, f_D) |
 | 2 | G3: dwie wersje domów (OSM zawsze; BDOT10k polska); wymaga decyzji w DECISIONS | do decyzji |
 | 3 | Potwierdzenie, że G5 jest zamknięte | do sprawdzenia po D23 (R7) |
 | 4 | Zamknięcie etapu 2 i przejście do etapu 3 | |

@@ -86,9 +86,10 @@ def probe(route, t0, tt, ff, heavy_ff=None):
     return t - t0
 
 
-def cmd_model():
+def cmd_model(P=None, mt="model_times.csv", lc="model_legs_check.csv", outdir=OUT):
     L = links()
-    P = pd.read_csv(OUT / "pairs.csv", dtype={"start_link": str, "end_link": str})
+    if P is None:
+        P = pd.read_csv(OUT / "pairs.csv", dtype={"start_link": str, "end_link": str})
     ff, ffh = L.ff.to_dict(), L.ff_h.to_dict()
     rows = []
     for run in RUNS:
@@ -107,7 +108,7 @@ def cmd_model():
         fr.append(dict(id=p.id, ff_model_s=sum((ffh if p["mode"] == "truck" else ff)[x] for x in r),
                        ff_ors_s=(np.maximum(L.ff_ors[r], L.length[r] / VMAX_HEAVY) if p["mode"] == "truck" else L.ff_ors[r]).sum(), km=L.length[r].sum() / 1000))
     g = g.merge(pd.DataFrame(fr), on="id")
-    g.round(1).to_csv(OUT / "model_times.csv", index=False, lineterminator="\n")
+    g.round(1).to_csv(outdir / mt, index=False, lineterminator="\n")
 
     # kontrola sondy: nogi agentów z próbki w 3 seedach MATSim (te same osoby), czas sondy przy faktycznym wyjeździe
     chk = []
@@ -123,7 +124,7 @@ def cmd_model():
                             probe_s=probe(p.route.split(), t0, tt, ff, ffh if p["mode"] == "truck" else None)))
     C = pd.DataFrame(chk)
     C["ratio"] = C.probe_s / C.leg_s
-    C.round(3).to_csv(OUT / "model_legs_check.csv", index=False, lineterminator="\n")
+    C.round(3).to_csv(outdir / lc, index=False, lineterminator="\n")
     print(g.groupby("okno")[["model_med", "ff_model_s"]].median())
     print("sonda / noga agenta: mediana %.3f, p5 %.3f, p95 %.3f (n=%d)" % (C.ratio.median(), C.ratio.quantile(.05), C.ratio.quantile(.95), len(C)))
 
@@ -209,12 +210,20 @@ def stats(d, a, b):
                 TAG_15pct_i_1min_pct=((e <= 0.15 * d[b]) & (e <= 60)).mean() * 100)
 
 
-def compare(provider, recs):
+def compare(provider, recs, tag="r6"):
+    """tag = r6 (pairs.csv, model_times.csv, segments.csv jak dotąd) albo r7b (D23 krok 5): trasy modelu i czasy z runów R7b,
+    prędkości segmentów z sieci R7; odpowiedzi dostawcy te same (jeden zestaw requestów)."""
     L = links()
     P = pd.read_csv(OUT / "pairs.csv", dtype={"start_link": str, "end_link": str}).set_index("id")
     S = pd.read_csv(OUT / "segments.csv").set_index("id")
     sp = pd.read_csv(OUT / "split.csv").set_index("id")
-    M = pd.read_csv(OUT / "model_times.csv")
+    if tag == "r6":
+        M = pd.read_csv(OUT / "model_times.csv")
+    else:
+        P["route"] = pd.read_csv(R7B_D / "pairs_routes_r7b.csv", index_col="id").route
+        M = pd.read_csv(R7B_D / "model_times_r7b.csv")
+        fs = pd.read_csv(RUNS_R7B[0] / "output_links.csv.zst", sep=";", dtype={"link": str}).set_index("link").freespeed
+        S["freespeed_kmh"] = (S.link.map(fs) * 3.6).round(1)
     rr, sr, chk = [], [], []
     for rec in recs:
         x, meta = parse(provider, rec), rec["meta"]
@@ -560,6 +569,59 @@ def fit_factors(H, seed=4711 + 23, n_boot=1000):  # seed z config/kutno.toml + 2
     return T, summary
 
 
+RUNS_R7B = [Path(f"output/{r}") for r in ("g5r7b_25pct_s4711", "g5r7b_25pct_s1", "g5r7b_25pct_s2", "g5r7bp1_25pct_s4711", "g5r7bp2_25pct_s4711")]
+R7B_D = Path("reports/etap2/g5_predkosci_d23/r7b")
+
+
+def cmd_model_r7b():
+    """D23 krok 5 (wnioski_i_dalej §5 pkt 3a): te same pary i korytarze, trasy z runów R7b. Osoba z planów R7b o tych samych końcach (r, c, o): trasa z experienced_plans
+    s4711; reszta (D23, korytarze, t/h, bo ich id zależą od macierzy): najszybsza po czasie swobodnym sieci R7 (jak sample). Zapis: r7b/pairs_routes_r7b.csv,
+    r7b/model_times_r7b.csv, r7b/model_legs_check_r7b.csv. Cache czasów linków osobno (output/g5_czasy_tomtom_r7b)."""
+    global RUNS, CACHE
+    RUNS, CACHE = RUNS_R7B, Path("output/g5_czasy_tomtom_r7b")
+    import networkx as nx
+    L = links()
+    P = pd.read_csv(OUT / "pairs.csv", dtype={"start_link": str, "end_link": str})
+    persons = {x for x in P.person.dropna() if x}
+    exp = {}
+    for _, el in etree.iterparse(z(RUNS[0] / "output_experienced_plans.xml.zst"), tag="person"):
+        if el.get("id") in persons:
+            exp[el.get("id")] = next(lg.find("route") for lg in el.iter("leg") if lg.get("mode") == "car").text.split()
+        el.clear()
+    G = {k: nx.DiGraph() for k in ("car", "truck")}
+    for k, w in (("car", L.ff), ("truck", L.ff_h)):
+        for lk, a, b, t in zip(L.index, L.from_node, L.to_node, w):
+            G[k].add_edge(a, b, weight=t, link=lk)
+    new, src, same = [], [], 0
+    for _, p in P.iterrows():
+        if isinstance(p.person, str) and p.person in exp and exp[p.person][0] == p.start_link and exp[p.person][-1] == p.end_link:
+            r, src_ = exp[p.person], "experienced_R7b"  # t/h: ten sam id w planach R7b może mieć inne końce (macierz inna), wtedy trasa swobodna
+        else:
+            g = G["truck" if p["mode"] == "truck" else "car"]
+            d, path = nx.single_source_dijkstra(g, L.to_node[p.start_link], L.from_node[p.end_link])
+            r, src_ = [p.start_link] + [g[u][v]["link"] for u, v in zip(path, path[1:])] + [p.end_link], "swobodna_R7"
+        same += r == p.route.split()
+        new.append(" ".join(r)); src.append(src_)
+    print(f"trasy: {len(P)}, z experienced_plans R7b {src.count('experienced_R7b')}, swobodne R7 {src.count('swobodna_R7')}; identyczne z trasą R6: {same}")
+    pd.DataFrame(dict(id=P.id, route_src=src, route=new)).to_csv(R7B_D / "pairs_routes_r7b.csv", index=False, lineterminator="\n")
+    cmd_model(P.assign(route=new), "model_times_r7b.csv", "model_legs_check_r7b.csv", R7B_D)
+
+
+def scatter_times(provider, R, out, tag):
+    """Rozrzut czasu trasy: model (mediana 5 runów) vs historyczny profil dostawcy, po grupach D23 i oknach; wartości per obiekt, więc poza repo (D22)."""
+    d = R[(R.d_start_m <= 50) & (R.d_end_m <= 50)]
+    gs = sorted(d.kind.unique())
+    fig, axs = plt.subplots(2, (len(gs) + 1) // 2, figsize=(4 * ((len(gs) + 1) // 2), 8), squeeze=False)
+    for ax, g in zip(axs.ravel(), gs):
+        for z_, c in (("analiza", "#4fc3f7"), ("walidacja", "#ffb74d")):
+            q = d[(d.kind == g) & (d.zestaw == z_)]
+            ax.scatter(q.hist_s / 60, q.model_med / 60, s=10, color=c, label=z_)
+        m = max(d[d.kind == g].hist_s.max(), d[d.kind == g].model_med.max()) / 60
+        ax.plot([0, m], [0, m], "w--", lw=0.8); ax.set_title(g, fontsize=9)
+        ax.set_xlabel(f"{provider} historic [min]"); ax.set_ylabel(f"model {tag} [min]"); ax.legend(fontsize=7)
+    fig.suptitle(f"Czas trasy: model {tag} vs {provider}", fontsize=10); fig.tight_layout(); fig.savefig(out, dpi=120)
+
+
 def cmd_selftest_fit():
     """Syntetyczny dostawca: czasy z modelu przy znanych f_g (+ Delta z R6) × szum log-normalny 5%; dopasowanie musi je odtworzyć."""
     sp = pd.read_csv(OUT / "split.csv").set_index("id").zestaw
@@ -641,6 +703,8 @@ if __name__ == "__main__":
     a = sys.argv[1:]
     if a[0] == "model":
         cmd_model()
+    elif a[0] == "model_r7b":
+        cmd_model_r7b()
     elif a[0] == "selftest_fit":
         cmd_selftest_fit()
     elif a[0] == "selftest":

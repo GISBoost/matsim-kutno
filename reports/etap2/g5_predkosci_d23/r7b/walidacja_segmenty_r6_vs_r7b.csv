@@ -1,0 +1,14 @@
+,,r6,r6,r6,r6,r7b,r7b,r7b,r7b
+,,n,mediana_model_do_dost,MAPE_pct,MAE_kmh,n,mediana_model_do_dost,MAPE_pct,MAE_kmh
+zestaw,grupa,,,,,,,,
+analiza,wszystkie,11,0.837,20.997,17.454,11,1.011,13.225,9.636
+analiza,A1,2,0.862,13.846,18.0,2,1.023,2.308,3.0
+analiza,DK_poza,3,0.809,19.04,17.0,3,1.011,2.65,2.333
+analiza,DW_poza,3,0.837,25.861,20.667,3,1.046,16.05,12.667
+analiza,miasto,2,0.72,28.035,17.5,2,0.654,34.567,22.5
+analiza,tert_uncl_poza,1,1.125,12.5,8.0,1,0.844,15.625,10.0
+walidacja,wszystkie,5,0.857,17.694,14.0,5,0.989,12.527,7.1
+walidacja,A1,1,0.868,13.178,17.0,1,1.031,3.101,4.0
+walidacja,DK_poza,2,0.824,17.582,15.5,2,1.03,4.121,3.5
+walidacja,DW_poza,1,0.69,31.034,18.0,1,0.862,13.793,8.0
+walidacja,miasto,1,0.909,9.091,4.0,1,0.625,37.5,16.5

@@ -1,0 +1,210 @@
+{
+  "total_delay_veh_h": 246.9,
+  "delay_veh_h_by_hour": {
+    "0": 0.1,
+    "1": 0.2,
+    "3": 0.3,
+    "4": 0.4,
+    "5": 2.7,
+    "6": 14.2,
+    "7": 48.8,
+    "8": 22.4,
+    "9": 9.3,
+    "10": 8.6,
+    "11": 8.2,
+    "12": 8.5,
+    "13": 10.8,
+    "14": 17.6,
+    "15": 32.9,
+    "16": 40.9,
+    "17": 9.2,
+    "18": 5.1,
+    "19": 3.4,
+    "20": 1.8,
+    "21": 0.9,
+    "22": 0.4,
+    "23": 0.3
+  },
+  "top_links": [
+    {
+      "link": "2446692260002r",
+      "type": "primary",
+      "capacity": 3000.0,
+      "vehicles": 1979,
+      "delay_veh_h": 10.6,
+      "avg_delay_s": 19,
+      "coord_EN": [
+        526126,
+        483350
+      ]
+    },
+    {
+      "link": "2001576790001r",
+      "type": "primary",
+      "capacity": 1500.0,
+      "vehicles": 1979,
+      "delay_veh_h": 5.4,
+      "avg_delay_s": 10,
+      "coord_EN": [
+        526192,
+        483395
+      ]
+    },
+    {
+      "link": "2568527430000r",
+      "type": "primary",
+      "capacity": 1500.0,
+      "vehicles": 1916,
+      "delay_veh_h": 5.4,
+      "avg_delay_s": 10,
+      "coord_EN": [
+        526607,
+        483677
+      ]
+    },
+    {
+      "link": "4006523240000f",
+      "type": "motorway_link",
+      "capacity": 1500.0,
+      "vehicles": 2721,
+      "delay_veh_h": 5.1,
+      "avg_delay_s": 7,
+      "coord_EN": [
+        526638,
+        491350
+      ]
+    },
+    {
+      "link": "1888131740012r",
+      "type": "motorway_link",
+      "capacity": 1500.0,
+      "vehicles": 2659,
+      "delay_veh_h": 3.9,
+      "avg_delay_s": 5,
+      "coord_EN": [
+        526737,
+        491208
+      ]
+    },
+    {
+      "link": "2131914840011r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 596,
+      "delay_veh_h": 3.7,
+      "avg_delay_s": 22,
+      "coord_EN": [
+        527318,
+        482287
+      ]
+    },
+    {
+      "link": "410250640002r",
+      "type": "primary",
+      "capacity": 1500.0,
+      "vehicles": 1670,
+      "delay_veh_h": 3.1,
+      "avg_delay_s": 7,
+      "coord_EN": [
+        526942,
+        483905
+      ]
+    },
+    {
+      "link": "2446231250007f",
+      "type": "primary",
+      "capacity": 4500.0,
+      "vehicles": 1966,
+      "delay_veh_h": 3.1,
+      "avg_delay_s": 6,
+      "coord_EN": [
+        525983,
+        483253
+      ]
+    },
+    {
+      "link": "3176338810004f",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 655,
+      "delay_veh_h": 3.0,
+      "avg_delay_s": 17,
+      "coord_EN": [
+        528714,
+        482735
+      ]
+    },
+    {
+      "link": "10273501070000f",
+      "type": "motorway_link",
+      "capacity": 1500.0,
+      "vehicles": 1909,
+      "delay_veh_h": 3.0,
+      "avg_delay_s": 6,
+      "coord_EN": [
+        531937,
+        483975
+      ]
+    },
+    {
+      "link": "3048714920005f",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 621,
+      "delay_veh_h": 2.9,
+      "avg_delay_s": 17,
+      "coord_EN": [
+        527354,
+        482295
+      ]
+    },
+    {
+      "link": "2446692230000r",
+      "type": "primary",
+      "capacity": 1500.0,
+      "vehicles": 1967,
+      "delay_veh_h": 2.8,
+      "avg_delay_s": 5,
+      "coord_EN": [
+        526385,
+        483526
+      ]
+    },
+    {
+      "link": "2915802350003f",
+      "type": "motorway",
+      "capacity": 4000.0,
+      "vehicles": 4219,
+      "delay_veh_h": 2.7,
+      "avg_delay_s": 2,
+      "coord_EN": [
+        532330,
+        483669
+      ]
+    },
+    {
+      "link": "2347118000007r",
+      "type": "tertiary",
+      "capacity": 600.0,
+      "vehicles": 598,
+      "delay_veh_h": 2.7,
+      "avg_delay_s": 16,
+      "coord_EN": [
+        527738,
+        482407
+      ]
+    },
+    {
+      "link": "3066930690005f",
+      "type": "motorway",
+      "capacity": 4000.0,
+      "vehicles": 4219,
+      "delay_veh_h": 2.6,
+      "avg_delay_s": 2,
+      "coord_EN": [
+        534774,
+        471683
+      ]
+    }
+  ]
+}

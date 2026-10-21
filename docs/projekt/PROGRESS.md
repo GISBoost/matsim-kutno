@@ -271,3 +271,10 @@
 - Decyzja użytkownika: f = A 0,95, B 1,00, C 0,60, D 0,70, E 0,85, F 0,55 („na dziś”).
 - Krok 3: `CreateKutnoNetwork.setSpeed` (`factor.<grupa>`, `speed_group`), sieć `network_d23.xml.gz`: te same id i atrybuty jak R6, różni się tylko freespeed (`check_network_r7.py`). `validate_network.py`, smoke (20 nóg car), test 2 iteracji ok. R7 25% × 5 (100 iteracji): `check_events` 5/5 ok, 0 stuck; opóźnienie dobowe +25% względem R6.
 - Krok 4: natężenia vs GPR zmieniają się **ponad rozrzut seedów planów** (lekkie DK 82–105% → 147–152%, DW 60 → 90%, odcinki w ±15%: 12 → 5; A1 bez zmian). STOP: decyzje R7b i terminu kroku 5 u użytkownika. Raport: `reports/etap2/g5_predkosci_d23/krok3_4_r7.md`.
+
+## 2026-10-21 (wieczór): D23 R7b i krok 5 (walidacja TomTom)
+
+- R7b: model pracujących na sieci R7, estymacja O-D (`r7b`, tau 30 min, 3 seedy planów), plany `plans_g5r7b[p1|p2]_25pct`, 5 runów 25% × 100 it.: `check_events` 5/5 ok, 0 stuck, 0 przepełnionych linków, opóźnienie dobowe 209–247 poj.-h (R6 239–298). Natężenia vs GPR: 14/15 odcinków w ±15% w obu klasach (R6: 12/15), A1 98% / 101%, mediana odchyłki lekkie 1,5%.
+- Błąd: skrypty estymacji i planów czytają na sztywno `scenarios/kutno/network.xml.gz` (R6). W worktree `d23` podmieniony na sieć R7 (kopia R6: `network_r6.xml.gz`), estymacja powtórzona. **Przy scalaniu do `main` trzeba to uwzględnić.**
+- Krok 5: walidacja TomTom (385 requestów, łącznie 1 627 z 2 000), R6 i R7b ocenione na jednym zestawie odpowiedzi, trasy R7b z runów (`traffic_metrics.py model_r7b`, `traffic_providers.py run tomtom --validate`). Walidacja (38 tras): MAPE 20,5 → 18,2%, TAG 48 → 58%; analiza (77): 18,3 → 14,7%, TAG 52 → 64%; prędkość swobodna segmentów 0,86 → 0,99 mediany, MAPE 20 → 13%. Najlepsza grupa C (MAPE 17,9 → 7,3%); D pogorszona (38 → 47%); E, F bez zmiany. TAG 85% niespełnione.
+- Analiza `f` po walidacji i decyzje: `reports/etap2/g5_predkosci_d23/krok4b_5_r7b.md`. `f` bez zmian (A 0,95, B 1,00, C 0,60, D 0,70, E 0,85, F 0,55), czeka na decyzję użytkownika.

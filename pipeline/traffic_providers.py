@@ -440,10 +440,49 @@ def cmd_run_fit(provider, dry, test):
     print(json.dumps(s, indent=1, default=float))
 
 
-def cmd_run(provider, dry, test=False, fit=False):
+def cmd_run_validate(provider, dry, test):
+    """D23 krok 5 (jednorazowa walidacja): requesty main + flow dla WSZYSTKICH tras i segmentów (bez sondy), jeden zestaw odpowiedzi w pamięci
+    oceniony dwa razy: model R6 (pairs.csv, model_times.csv) i R7b (trasy i czasy z runów R7b, tm.cmd_model_r7b). Na dysk tylko agregaty (D22, wariant A);
+    wykresy z wartościami per obiekt (rozrzut, mapa) do output/."""
+    import subprocess
+    sys.path.insert(0, str(Path(__file__).parent))
+    import traffic_metrics as tm
+    batches = {b: fetch(provider, b, dry, test) for b in ("main", "flow")}
+    if dry:
+        return
+    recs = batches["main"] + batches["flow"]
+    od = tm.R7B_D
+    tags = ("r6", "r7b")
+    res = {t: tm.compare(provider, recs, t) for t in tags}
+    if test:
+        print("TEST: http", [r["http"] for r in recs])
+        for t, (R, Sg, Mt, kontrole, _) in res.items():
+            print("TEST", t, "trasy", len(R), "segmenty", len(Sg), "metryki", Mt.shape, {k: v for k, v in kontrole.items() if k != "problemy"}, kontrole["problemy"])
+        return
+    meta = dict(dostawca=provider, wyslane_utc=[min(r["utc"] for r in recs), max(r["utc"] for r in recs)], requesty=len(recs),
+                http=pd.Series([r["http"] for r in recs]).value_counts().to_dict(), modele={})
+    Path("output/g5_czasy_tomtom").mkdir(parents=True, exist_ok=True)
+    for t, (R, Sg, Mt, kontrole, indep_in) in res.items():
+        chk = subprocess.run([sys.executable, "-I", str(OUT / "check_niezalezny.py")], input=json.dumps(indep_in), capture_output=True, text=True, check=True)
+        indep = json.loads(chk.stdout)
+        mi = Mt.set_index(["porownanie", "zestaw", "grupa", "okno"])
+        zgodne = all(abs(mi.loc[tuple(k.split("|")), c] - v) < 1e-9 for k, d in indep.items() for c, v in d.items())
+        meta["modele"][t] = dict(kontrole=kontrole, kontrola_niezalezna_zgodna=zgodne)
+        Mt.round(4).to_csv(od / f"walidacja_{t}_{provider}.csv", index=False, lineterminator="\n")
+        tm.plot_errors(provider, Mt, od / f"walidacja_{t}_{provider}_bledy.png")
+        tm.mapa(provider, R, Sg, Path("output/g5_czasy_tomtom") / f"mapa_{provider}_{t}.png")
+        tm.scatter_speeds(provider, R, Sg, Path("output/g5_czasy_tomtom") / f"rozrzut_predkosci_{provider}_{t}.png")
+        tm.scatter_times(provider, R, Path("output/g5_czasy_tomtom") / f"rozrzut_czasow_{provider}_{t}.png", t)
+    json.dump(meta, open(od / f"walidacja_przebieg_{provider}.json", "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False, default=str)
+    print(json.dumps(meta, indent=1, ensure_ascii=False, default=str)[:3000])
+
+
+def cmd_run(provider, dry, test=False, fit=False, validate=False):
     """Cały przebieg w jednym procesie: requesty -> metryki -> niezależna kontrola -> agregaty na dysk; odpowiedzi znikają."""
     if fit:
         return cmd_run_fit(provider, dry, test)
+    if validate:
+        return cmd_run_validate(provider, dry, test)
     import subprocess
     sys.path.insert(0, str(Path(__file__).parent))
     import traffic_metrics as tm
@@ -491,4 +530,4 @@ if __name__ == "__main__":
     elif a[0] == "sample_d23":
         cmd_sample_d23((a[1], int(a[2]), int(a[3])) if len(a) > 1 else None)
     elif a[0] == "run":
-        cmd_run(a[1], "--dry-run" in a, "--test" in a, "--fit" in a)
+        cmd_run(a[1], "--dry-run" in a, "--test" in a, "--fit" in a, "--validate" in a)
