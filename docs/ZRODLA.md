@@ -1,6 +1,6 @@
 # ZRODLA: katalog źródeł i tego, co z nich wiemy
 
-Aktualizacja: 2026-10-17. Pliki leżą w `data/raw/` (poza gitem). Pochodzenie każdego pliku (URL, data, sha256) jest w `data/manifest.csv`. Fakty sprawdzone przy starcie projektu są w `docs/projekt/FACT_CHECK.md`.
+Aktualizacja: 2026-10-22. Pliki leżą w `data/raw/` (poza gitem). Pochodzenie każdego pliku (URL, data, sha256) jest w `data/manifest.csv`. Fakty sprawdzone przy starcie projektu są w `docs/projekt/FACT_CHECK.md`.
 
 Statusy: **UŻYTE** (w pipeline) · **POBRANE** (sprawdzone, jeszcze nieużyte) · **DO POZYSKANIA** (wiemy, że istnieje) · **DO SPRAWDZENIA** (nie wiemy, czy się nada).
 
@@ -103,3 +103,9 @@ Pełny raport: `docs/research/przyklady_matsim_kalibracja.md`. Punkt startu: <ht
 | Ziemke, Kaddoura, Nagel (2019), VSPWP 19-01 | PRZEJRZANE | Open Berlin: 5 planów CEMDAP, CaDyTS na 346 stacjach (8304 godziny), potem ręczny krok trybu **bez** CaDyTS jako test stabilności. Towar z BASt zamrożony. Prędkości OSM w mieście obcięte o połowę | PDF nie leży w `data/raw`. Dzieci < 18 lat pominięte. Specyfikacja CEMDAP przeniesiona z Los Angeles i nieprzestawiana | raport §3.1 |
 | Rakow i in., VSPWP 24-22 | PRZEJRZANE (indeks PDF) | Aktualizacja ASC: `ASC_i ← ASC_i + ln z_i − ln m_i − (ln z_0 − ln m_0)`, jedna stała zamrożona, pętla do progu w punktach procentowych | Artykułu Rakow 2026 (*From Data to Simulation*, nota wydania v7) nie czytałem | raport §3.2 |
 | Scherr i in., STRC 2018 i 2019; Scherr, Manser, Bützberger 2020, TRP 49 | PRZEJRZANE (STRC; TRP z indeksu PDF) | SIMBA MOBi: Mikrozensus 2015 jako kryterium zachowania, liczniki drogi i kolei jako wielkość. SQV, %MAE, %RMSE w raporcie | Liczby SQV nie pochodzą z lokalnej kopii PDF | raport §4 |
+
+## 8. Model Wiednia jako dane testowe wizualizera (2026-10-22)
+
+| źródło | status | co daje | ograniczenia | gdzie |
+|---|---|---|---|---|
+| `github.com/ait-energy/matsim-model-vienna`, 2023.2 (commit `e8dc348`, 2025-03-26), klon `--depth 1` | POBRANE (181 MB, test) | Wejścia modelu: sieć 375 tys. linków (EPSG:3416), populacja 332 335 agentów (12,5% populacji mobilnej, atrybuty `subpopulation`, `carAvail`, `hasLicense`, `bikeAvailable`), PT 764 linie i 52 062 odjazdy, config. Pozwala przetestować wizualizer na modelu z PT, pieszymi i rowerem (patrz `docs/research/wizualizer_test_blokerow_wieden.md`). | **Licencja CC BY-NC 4.0**: tylko użycie niekomercyjne, z podaniem źródła; nie dodawać danych do naszego repo. Klon leży w katalogu tymczasowym sesji, nie w `data/raw/`, nie ma wpisu w `data/manifest.csv`. Brak wyników symulacji (runy zrobione u nas, 1%, capacity factor 0,01). `facilities.xml.gz` w EPSG:31256, reszta w 3416. Narzędzie ARUP PAM nie jest dostępne. | test wizualizera, `output/vienna_1pct_test`, `output/vienna_bike_test` (gitignore) |
