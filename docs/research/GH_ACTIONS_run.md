@@ -1,6 +1,6 @@
 # Run scenariusza Kutna na GitHub Actions (25%, 100 i 400 iteracji)
 
-Data: 2026-10-21. Status: **technicznie możliwe**, szkic workflow gotowy (`.github/workflows/matsim-run.yml`), **nie uruchomiony na GitHubie** (nie wolno bez pushu; push tylko na prośbę użytkownika, CLAUDE.md D12). Lokalnie sprawdzono scenariusz samodzielny i polecenia analizy.
+Data: 2026-10-21. Status: **technicznie możliwe**, workflow (`.github/workflows/matsim-run.yml`) **uruchomiony na GitHubie 2026-10-21 i działa** (run 39668217361, wyniki: `reports/etap2/g5_predkosci_d23/gha_100_vs_400.md`). Lokalnie sprawdzono scenariusz samodzielny i polecenia analizy.
 
 ## Czy się da
 
@@ -42,3 +42,7 @@ Data: 2026-10-21. Status: **technicznie możliwe**, szkic workflow gotowy (`.git
 ## Wynik lokalnego testu scenariusza samodzielnego (2026-10-21)
 
 Run 100 iteracji z `scenarios/kutno_r7b_25pct/config.xml` (seed 4711, 2 wątki) vs `output/g5r7b_25pct_s4711` (ta sama baza uruchomiona z konfiguracji pipeline): `scorestats.csv` **identyczny bajt w bajt**, `vol_car` identyczne na 10 383 linkach, czasy podróży wszystkich 72 912 nóg identyczne. Samodzielny katalog jest więc wiernym odpowiednikiem bazy R7b. Wszystkie kroki analizy z workflow (`check_events` 24 304 nóg car i 0 stuck, `convergence`, `g5_baseline` lcv i heavy, `link_delay`, `queues`) przeszły lokalnie z kodem wyjścia 0 (`reports/etap2/g5_predkosci_d23/r7b/gha_dryrun/`). Lokalny run jest deterministyczny, więc różnica na GitHubie wskazałaby na inny runner albo Javę, nie na losowość.
+
+## Wynik uruchomienia na GitHubie (2026-10-21)
+
+Pierwszy run padł na kroku build (`bash mvnw` bez `./`), poprawione. Drugi run: wszystkie kroki zielone, 100 it. ok. 23 min, 400 it. ok. 109 min. 100 it. na GitHubie jest zgodne z lokalnym (scorestats bajt w bajt). Porównanie 100 vs 400: `reports/etap2/g5_predkosci_d23/gha_100_vs_400.md`.

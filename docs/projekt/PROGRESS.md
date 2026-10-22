@@ -364,3 +364,8 @@
 - D25: R7b nową bazą (configi `scenarios/kutno/config_{10,25,100}pct.xml` i `config/kutno.toml` wskazują `plans_g5r7b_*`, macierze `background_od_r7b_*`), `f_D` bez zmian, G5 zamknięte ze znanymi ograniczeniami. Plany 10% i 100% R7b wygenerowane i zwalidowane (sha256 powtarzalny).
 - Zapisane: obserwacje o `f` (`reports/etap2/g5_predkosci_d23/obserwacje_f.md`), podsumowanie kalibracji i walidacji (`d23_podsumowanie.md`). Dane TomTom: tylko agregaty na dysku; ponowna kalibracja i walidacja wymagają nowych requestów (D22).
 - GitHub Actions: samodzielny scenariusz `scenarios/kutno_r7b_25pct/`, szkic `.github/workflows/matsim-run.yml` (100 i 400 it.), analiza wykonalności `docs/research/GH_ACTIONS_run.md`. Nieuruchomione na GitHubie (push tylko na prośbę).
+
+## 2026-10-22: GitHub Actions, R7b 100 vs 400 iteracji
+
+- Workflow `matsim-run` uruchomiony na GitHubie (run 39668217361, po poprawce `bash ./mvnw`). 100 it. ok. 23 min, 400 it. ok. 109 min. Run 100 it. zgodny z lokalnym (scorestats bajt w bajt, GPR i opóźnienie identyczne).
+- 100 vs 400: czasy podróży i prędkości różnią się o ≤ 0,4 km/h, GPR o ≤ 0,004, opóźnienie 221,5 → 215,1 poj.-h, 0 stuck, 0 przepełnionych. 100 iteracji wystarcza. Raport: `reports/etap2/g5_predkosci_d23/gha_100_vs_400.md`.
