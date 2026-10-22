@@ -57,8 +57,8 @@ jobs:
           mkdir -p pakiet
           cp -r "$OUT/analiza" pakiet/
           cp run.log pakiet/ || true
-          for f in logfile.log scorestats.csv stopwatch.csv modestats.csv output_config.xml output_network.xml.gz output_plans.xml.gz \
-                   output_vehicles.xml.gz output_allVehicles.xml.gz output_legs.csv.zst output_trips.csv.zst output_links.csv.zst \
+          for f in logfile.log scorestats.csv stopwatch.csv modestats.csv output_config.xml output_network.xml.zst output_experienced_plans.xml.zst \
+                   output_allVehicles.xml.zst output_legs.csv.zst output_trips.csv.zst output_links.csv.zst \
                    output_events.xml.zst; do cp "$OUT/$f" pakiet/ 2>/dev/null || true; done
           mkdir -p pakiet/linkstats; cp "$OUT"/ITERS/it.*/*.linkstats.txt.gz pakiet/linkstats/ 2>/dev/null || true
           du -sh pakiet

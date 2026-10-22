@@ -63,7 +63,7 @@ jobs:
           cp -r "$OUT/analiza" pakiet/
           cp run.log pakiet/ || true
           for f in logfile.log scorestats.csv stopwatch.csv modestats.csv output_config.xml output_legs.csv.zst output_trips.csv.zst \
-                   output_links.csv.zst output_events.xml.zst; do cp "$OUT/$f" pakiet/ 2>/dev/null || true; done
+                   output_links.csv.zst output_events.xml.zst output_network.xml.zst; do cp "$OUT/$f" pakiet/ 2>/dev/null || true; done
           mkdir -p pakiet/linkstats; cp "$OUT"/ITERS/it.*/*.linkstats.txt.gz pakiet/linkstats/ 2>/dev/null || true
       - uses: actions/upload-artifact@v4
         with:
