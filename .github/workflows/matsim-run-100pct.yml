@@ -1,0 +1,69 @@
+# Run bazy R7b (Kutno) na 100% populacji na GitHub Actions. Tylko ręcznie (workflow_dispatch).
+# Wejścia: scenarios/kutno_r7b_100pct/ (sieć, plany, pojazdy, config; samodzielne, factors 1,0).
+# Wynik: artefakt kutno-r7b-100pct-<N>it z plikami do wizualizacji (sieć, eventy, plany, config) i analizą.
+name: matsim-run-100pct
+on:
+  workflow_dispatch:
+    inputs:
+      iterations:
+        description: "Liczba iteracji (100% próbki; 10 it. do testu wizualizacji, ok. 20-30 min)"
+        default: "10"
+      seed:
+        description: "randomSeed MATSim"
+        default: "4711"
+      threads:
+        description: "Wątki (global + qsim)"
+        default: "2"
+jobs:
+  run:
+    runs-on: ubuntu-latest   # 4 vCPU, 16 GB RAM, limit joba 6 h
+    timeout-minutes: 350
+    env:
+      OUT: output/gha_100pct_${{ inputs.iterations }}it
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: maven
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build jar
+        working-directory: matsim
+        run: bash ./mvnw -B package -DskipTests
+      - name: MATSim
+        run: |
+          mkdir -p output
+          java -Xmx12g -jar matsim/matsim-example-project-0.0.1-SNAPSHOT.jar run \
+            --config scenarios/kutno_r7b_100pct/config.xml --output "$OUT" \
+            --iterations ${{ inputs.iterations }} \
+            --config:global.randomSeed=${{ inputs.seed }} \
+            --config:global.numberOfThreads=${{ inputs.threads }} --config:qsim.numberOfThreads=${{ inputs.threads }} \
+            2>&1 | tee run.log
+      - name: Analiza (te same skrypty co dla 25%; skalują się z sampleSize z configu)
+        run: |
+          python -m pip install uv
+          uv sync --frozen
+          mkdir -p "$OUT/analiza"
+          uv run python pipeline/check_events.py "$OUT/output_events.xml.zst" > "$OUT/analiza/check_events.json" || true
+          uv run python -W ignore pipeline/convergence.py "$OUT/analiza/convergence" "$OUT" || true
+          for c in lcv heavy; do uv run python -W ignore pipeline/g5_baseline.py "$OUT/analiza/gpr_$c" "$OUT" cls=$c || true; done
+          uv run python -W ignore pipeline/link_delay.py "$OUT" "$OUT/analiza/delay" || true
+          uv run python -W ignore pipeline/queues.py "$OUT" "$OUT/analiza/queues" || true
+      - name: Pakiet wyników
+        run: |
+          mkdir -p pakiet
+          cp -r "$OUT/analiza" pakiet/
+          cp run.log pakiet/ || true
+          for f in logfile.log scorestats.csv stopwatch.csv modestats.csv output_config.xml output_network.xml.gz output_plans.xml.gz \
+                   output_vehicles.xml.gz output_allVehicles.xml.gz output_legs.csv.zst output_trips.csv.zst output_links.csv.zst \
+                   output_events.xml.zst; do cp "$OUT/$f" pakiet/ 2>/dev/null || true; done
+          mkdir -p pakiet/linkstats; cp "$OUT"/ITERS/it.*/*.linkstats.txt.gz pakiet/linkstats/ 2>/dev/null || true
+          du -sh pakiet
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kutno-r7b-100pct-${{ inputs.iterations }}it
+          path: pakiet
+          retention-days: 30
