@@ -58,3 +58,64 @@ Data: 2026-10-22. Cel: sprawdzić na prawdziwych danych dwa blokery z `docs/rese
 - Test na danych i funkcji `lookup`, nie na kliknięciach w oknie.
 - 744 `stuckAndAbort` w runie A (głównie `pt`) nie zbadane.
 - Wynik dotyczy modelu, w którym `walk`, `bike` i `ride` są teleportowane. W modelu z rowerem na sieci (jak w runie B) rower jest widoczny.
+
+## Co znaczy „teleportowane” (ustalone w rozmowie)
+
+Przykład: jedna osoba z runu B (id `10630`), eventy z jednej doby, wybór:
+
+| Czas (s) | Co | Event |
+|---|---|---|
+| 16291 | wychodzi z domu, tryb `walk` | `departure` |
+| 16304 | przeszła 14 m w 13 s | `travelled`, `arrival` |
+| 16304 | auto wjeżdża w sieć (link 223827) | `vehicle enters traffic` |
+| 17008 | wyjeżdża z sieci (link 189057) | `vehicle leaves traffic` |
+| 17118 | przeszła 116 m w 110 s, jest w pracy | `travelled` |
+| 46085 | wychodzi z pracy, idzie 382 m na przystanek | `travelled` |
+| 46447–47182 | czeka na przystanku | `waitingForPt` |
+| 47182–47652 | jedzie autobusem `veh_33876_bus` | `PersonEntersPtVehicle`, `PersonLeavesPtVehicle` |
+
+- Dla nogi teleportowanej model zna moment wyjścia, moment przyjścia i dystans (`travelled`), ale **nie trasę**. Czas wynika ze wzoru: odległość w linii prostej × współczynnik ÷ prędkość (14 m w 13 s to ok. 1,1 m/s).
+- **W obliczeniach teleportowane tryby są:** ich czas wchodzi do czasu podróży, oceny planu (scoring), wyboru trybu i tabel wyników.
+- **W obciążeniu sieci ich nie ma:** pieszy, teleportowany rowerzysta i pasażer `ride` nie zajmują miejsca na drodze i nie tworzą korków. Dla `ride` to uproszczenie modelu Wiednia, a nie wizualizera: pasażer jest teleportowany, więc na drodze nie ma samochodu, którym jedzie (kompensacja przez autorów niesprawdzona).
+- **PT nie jest teleportowane:** autobusy, tramwaje i pociągi to pojazdy w symulacji (52 054 odjazdy w modelu Wiednia). Autobusy jadą po sieci (linki `bus,car,pt`), zajmują miejsce na drodze (pce 0,35) i wpływają na auta. Czas pasażera wynika z rzeczywistego przejazdu pojazdu.
+
+| Tryb | W obliczeniach | W obciążeniu sieci | W oknie |
+|---|---|---|---|
+| car | tak | tak | tak |
+| PT (pojazdy) | tak | tak | tak (jako puste pojazdy) |
+| PT (pasażerowie) | tak | nie dotyczy | nie, choć dane są w eventach |
+| walk, bike, ride (teleportowane) | tak (czas i dystans) | nie | nie, bo nie ma danych o trasie |
+
+## Decyzje i ustalenia z rozmowy (2026-10-22)
+
+1. **Nogi teleportowane nie są ruszane.** Pieszych, teleportowanych rowerzystów i `ride` nie próbujemy rekonstruować (linia prosta, trasa z routera): to byłaby wymyślona geometria, a nie wynik symulacji. Zostają niewidoczne w oknie. (Rower lub pieszy przeniesiony na sieć w samym MATSim byłby widoczny, ale to osobna decyzja o modelu, nie o wizualizerze.)
+2. **Dla Kutna bloker 1 prawie nie istnieje.** Dzisiejszy model to samochód `home → work → home`, a teleportowane są tylko krótkie dojścia i odejścia do auta. Pojawia się z pierwszym runem z PT (etap 3).
+3. **Właściciel chce licznik pasażerów PT w symulacji** i wskazał punkty 2 (przedziały pasażerów) i 3 (ukrywanie pustych pojazdów) jako te, które mu się najbardziej podobają. Punkty 1 i 4 są propozycją, bez decyzji.
+4. **Ten raport ma służyć dalszej pracy.** Zakres poniżej nie został jeszcze wysłany do sesji `viz-fundamenty`. Przed wysłaniem trzeba sprawdzić jej plan (`docs/projekt/wizualizer_aplikacja.md`), żeby się nie dublowało.
+
+## Skala PT w indeksie (run A, 1% agentów, pełny rozkład PT)
+
+- Pojazdy PT to **91,3% węzłów indeksu** (9 757 908 z 10 682 631) i **98,1% wpisów w klatkach**. Auta to 8,7% węzłów.
+- Średnio 2201 pojazdów w klatce (kubełek 1 min), max 4405; w klatkach co 30 min PT dochodzi do 4312 pojazdów.
+- PT **nie skaluje się z próbką**: autobusy jadą w 100%, auta w 1%. Wynik pokazuje strukturę, a nie proporcje dla Kutna 25%. Dla Kutna nie mierzone, bo model nie ma jeszcze PT.
+- Skutek: licznik i wykres szczytu mieszają auta (próbka) z PT (100%).
+
+## Proponowany zakres prac (tylko PT)
+
+Wszystko wymaga jednej zmiany formatu indeksu (`FORMAT`), więc najlepiej zrobić razem. Szacunki pracy to moja ocena, bez pomiaru.
+
+| # | Co | Praca | Status |
+|---|---|---|---|
+| 1 | **Klasy PT z `TransitDriverStarts`** (linia, trasa, tryb) zamiast `?`. Filtr dostaje „autobus”, „tramwaj”, „kolej”, „metro”. | mała | propozycja |
+| 2 | **Przedziały pasażerów:** w indeksie „osoba X w pojeździe Y od t1 do t2” z `PersonEntersPtVehicle` i `PersonLeavesPtVehicle`. Pojazd dostaje **licznik obłożenia**, osoba w trakcie jazdy pozycję pojazdu i da się ją wyszukać. Czekanie na przystanku to punkt stały w miejscu czynności `pt interaction` (współrzędne są w eventach `actstart`). | średnia | **wskazane przez właściciela** |
+| 3 | **Ukrywanie pustych pojazdów PT:** przełącznik „tylko z pasażerami”. Odciąża ekran i wydajność (91% pojazdów jest pustych w teście). Zależy od punktu 2. | mała | **wskazane przez właściciela** |
+| 4 | **Osobne liczenie PT w liczniku pojazdów** (auta w próbce, PT w 100%), żeby wykres szczytu ich nie mieszał. | mała | propozycja |
+
+**Warunki akceptacji (do sprawdzenia na runie z PT):** liczba wejść pasażerów w indeksie = liczba `PersonEntersPtVehicle` w eventach (5507 w runie A), liczba wyjść = `PersonLeavesPtVehicle` (5504, różnica to osoby, które nie wysiadły przed końcem symulacji), klasa żadnego tracka PT nie jest `?`, wyszukanie osoby w trakcie przejazdu PT zwraca jej pozycję i pojazd, a przełącznik pustych pojazdów zmniejsza liczbę rysowanych tracków do wartości zbliżonej do liczby pojazdów z pasażerem (4629 z 52 054 w runie A, 8,9%).
+
+**Czego nie robić:** nie rekonstruować nóg teleportowanych, nie zmieniać modelu MATSim (np. rower na sieci) dla potrzeb wizualizacji bez osobnej decyzji w `DECISIONS.md`.
+
+## Pliki i dane testowe
+
+- Skrypty testu leżą poza repo (katalog sesji: `blokery.py`, `ids.py`, `census.py`). Jeśli mają być wersjonowane, trzeba je przenieść do `viz_player/tests/` (osobna decyzja).
+- Runy: `output/vienna_1pct_test`, `output/vienna_bike_test` (gitignore, mają ok. 120 MB eventów każdy). Model Wiednia jest na licencji CC BY-NC 4.0 i nie wolno go dodawać do repo (`docs/ZRODLA.md` §8).
