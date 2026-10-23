@@ -1,0 +1,33 @@
+{
+  "terms": {
+    "etap": "stage",
+    "baza": "baseline",
+    "zakres": "scope",
+    "dojazdy": "commuting",
+    "dojazd": "commute",
+    "ZAŁOŻENIE": "ASSUMPTION",
+    "założenie": "assumption",
+    "wariant": "variant",
+    "przebieg": "run",
+    "pracujący": "employed person",
+    "przyjeżdżający": "inbound commuter",
+    "wyjeżdżający": "outbound commuter",
+    "obwód": "district",
+    "ruch tła": "background traffic",
+    "kalibracja": "calibration",
+    "walidacja": "validation",
+    "luki": "gaps",
+    "ograniczenia": "limitations",
+    "tranzyt": "transit",
+    "instrukcja": "guide",
+    "Warszawa": "Warsaw"
+  },
+  "keep": [
+    "MATSim", "QSim", "SupersonicOsmNetworkReader", "OSM", "GUS", "BDL", "BREC",
+    "GPR", "TomTom", "HERE", "GTFS", "SimWrapper", "NSP 2021", "EPSG:2180",
+    "seed", "run", "uv", "Java", "Python", "Blender", "QGIS", "GEH", "TERC",
+    "NetworkCleaner", "freespeed", "flowCapacityFactor", "storageCapacityFactor",
+    "stuckTime", "linkDynamics", "PassingQ", "DisallowedNextLinks", "BDOT10k",
+    "Kutno", "Łódź", "Objazdowa", "Bitwy pod Kutnem"
+  ]
+}

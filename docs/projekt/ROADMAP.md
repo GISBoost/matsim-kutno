@@ -101,6 +101,7 @@ Baza: **R7b** (D25; A1 98% / 101%, 14/15 odcinków w ±15% dla lekkich i ciężk
 | Geometria linków z OSM | 💡 propozycja | potrzebna do zgodności tras i walidacji dróg tertiary/unclassified; przyda się w G6 |
 | Lokalny wizualizer runu | ▶ **D24, kroki 1–3 kod ✅, oś harmonogramu ✅, łamane OSM w oknie ✅, spike ✅** (WebView2 + Leaflet). Dalej: plan poprawek okna zaakceptowany, kod jeszcze nie. Podkład, drugi run i bake odłożone. Łódź poza tym krokiem | faza po zamkniętym MVP; nie zastępuje G5 ani D23. Kod: `pipeline/viz_index.py`, `pipeline/viz_engine.py`, `viz_player/`. Plan: `docs/research/wizualizer_plan.md` |
 | Skrzyżowania, aktywności, GTFS i PT, wybór trybu | etap 3 | kolejność w §2 |
+| Dokumentacja EN/PL i strona projektu | 💡 propozycja, nic nie kodujemy | README po angielsku jako domyślny (GitHub), na górze przełącznik na wersję polską (`README.pl.md`). Tłumaczenie lokalnym LLM w pipeline'ie jak w easy-OTP (`tools/i18n`), ale po blokach markdownu: kod, linki, tabele i liczby zostają bez zmian, a pamięć tłumaczeń jest kluczowana hashem bloku. Raporty i `docs/projekt/` zostają po polsku. Ewentualnie osobna strona na GitHub Pages (`GISBoost.github.io`, do ustalenia: repo `GISBoost.github.io` czy projektowe `…/matsim-kutno`). Kroki: test na ok. 20 blokach z dwóch modeli, pełne tłumaczenie, przegląd człowieka, przełącznik w obu plikach README |
 | Łódź | bez fazy | dopiero po zamknięciu całego Kutna |
 
 ## 5. Układ folderów
