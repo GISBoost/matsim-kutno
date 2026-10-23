@@ -374,3 +374,5 @@
 
 - `CreateKutnoNetwork` czyta relacje OSM `restriction` -> `DisallowedNextLinks` (55 relacji, 62 pary linków, 55 linków), `TurnRestrictionsNetworkCleaner` bez zmian w grafie. Sieć R8 = R7b + zakazy; `scenarios/kutno/network.xml.gz` nadpisana (kopia R7b: `network_r7b.xml.gz`). Smoke test i `check_events --expect-car-legs 20` ok.
 - Naruszenia zakazów w eventach 170 -> 10 (ostatni link trasy). Runy R8 25% × 5 × 100 it.: 0 stuck, GPR 14/15 (lekkie i ciężkie) jak R7b, zmiana na odcinek ≤ 0,8% wobec rozrzutu planów 4–5%, opóźnienie 221,5 -> 216,2 poj.-h. Efekt poniżej rozrzutu; `f_E`/`f_F` bez zmian. Raport: `reports/etap3/g1_skrzyzowania/g1.md`.
+
+- G1b (D27): mnożnik k przepustowości wlotów (33 węzły z sygnalizacją, 948 wlotów podporządkowanych), 4 sieci × 5 runów, 25%, 50 iteracji na GitHub Actions. GPR bez zmian (14/15), opóźnienie: k=0,8 w szumie, k=0,6 +26%, k=0,4 +109%. Baza R8 bez zmian. `reports/etap3/g1_skrzyzowania/g1b.md`.
