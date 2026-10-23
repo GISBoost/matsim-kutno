@@ -98,6 +98,8 @@ own = meta.home_src != "entry"
 bad_snap = int(meta[own].home_link.map(link_type).isin(P["snap_exclude_types"]).sum()
                + meta[meta.work_src != "exit"].work_link.map(link_type).isin(P["snap_exclude_types"]).sum())
 missing_link = int((~meta.home_link.isin(link_type.keys())).sum() + (~meta.work_link.isin(link_type.keys())).sum())
+if "home_link_end" in meta:  # D29: dom na końcu dnia ma własny link
+    missing_link += int((~meta.home_link_end.isin(link_type.keys())).sum())
 start_ok = bool((meta.start_s == meta.dep_s).all())  # D16/A
 stem = path.name.removesuffix(".xml.gz")
 

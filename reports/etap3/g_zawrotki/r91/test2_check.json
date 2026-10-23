@@ -1,0 +1,26 @@
+{
+  "events_file": "output/test2_r91/output_events.xml.zst",
+  "event_types": {
+    "actend": 72897,
+    "departure": 72897,
+    "travelled": 48598,
+    "arrival": 72897,
+    "actstart": 72897,
+    "PersonEntersVehicle": 24299,
+    "vehicle enters traffic": 24299,
+    "left link": 1700357,
+    "entered link": 1700357,
+    "vehicle leaves traffic": 24299,
+    "PersonLeavesVehicle": 24299
+  },
+  "persons_departing": 20560,
+  "departures": 72897,
+  "departures_by_mode": {
+    "walk": 48598,
+    "car": 24299
+  },
+  "arrivals": 72897,
+  "stuck": 0,
+  "persons_dep_ne_arr": [],
+  "ok": true
+}

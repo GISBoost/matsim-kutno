@@ -61,6 +61,9 @@ work_buildings = ["retail", "industrial", "warehouse", "office", "commercial", "
                   "government", "kindergarten", "university", "college", "supermarket", "service", "fire_station",
                   "train_station", "transportation", "manufacture", "factory", "hotel"]
 work_landuse = ["industrial", "commercial", "retail"]
+# D29 (R9.1): kierunek linku przypięcia aktywności. "route" = najbliższy link i jego odwrotny, wybór po trasie swobodnej bez zawrotki
+# na początku i końcu trasy; "nearest" = najbliższy link (R9 i wcześniej, baza do akceptacji R9.1). Nadpisanie: plans.py <out> <sample> snap_mode=route.
+snap_mode = "nearest"
 # ZAŁOŻENIE (D9): wjazd spoza powiatu = najbliższy (do centroidu gminy źródłowej) link tych klas
 # zaczynający się w strefie granicy sieci (boundary_zone_m z config/network.properties) i skierowany do Kutna.
 entry_road_types = ["motorway", "trunk", "primary", "secondary"]
