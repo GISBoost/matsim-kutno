@@ -1,6 +1,6 @@
 # Mapa projektu MATSim Kutno
 
-Stan: 2026-10-20. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i miejsce każdej rzeczy w repo.
+Stan: 2026-10-23. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i miejsce każdej rzeczy w repo.
 
 ## 1. Gdzie czego szukać
 
@@ -33,16 +33,16 @@ Dojazdy do pracy autem, `dom → praca → dom`.
 | R3 | naprawy techniczne, wyniki 25% × 3 seedy (D15) | ✅ | [r3_ocena](../../reports/etap1_mvp/r3_ocena/wyniki_25pct/r3_25pct.md) |
 | D16 | przyjeżdżający spoza powiatu | ✅ | [d16](../../reports/etap1_mvp/d16_przyjezdzajacy/d16_przyjezdzajacy.md) |
 
-### Etap 2: rozszerzenia (G1–G7, każde wymaga decyzji w DECISIONS)
+### Etap 2: rozszerzenia (zamknięty 2026-10-23)
 
 | faza | co | stan | gdzie |
 |---|---|---|---|
 | G2 | miejsca pracy (suma z rejestru, wyjeżdżający) | ✅ suma (D17); otwarte: rozkład w gminie (REGON) | [g2](../../reports/etap2/g2_miejsca_pracy/g2_miejsca_pracy.md) |
-| G3 | domy: dwie wersje (OSM, działa zawsze; BDOT10k, polska) | 🔍 do decyzji, plan w §3a | [G3_domy.md](../../docs/research/G3_domy.md) |
+| G3 | domy: dwie wersje (OSM, działa zawsze; BDOT10k, polska) | ➡ przeniesione do etapu 3 (zadanie 2, po G1), decyzja użytkownika 2026-10-23; research i rekomendacja gotowe | [G3_domy.md](../../docs/research/G3_domy.md) |
 | **G5** | **ruch tła i kalibracja do GPR i do prędkości TomTom** | **✅ zamknięte (D25): baza R7b; znane ograniczenia w §3** | niżej, §3, [d23_podsumowanie](../../reports/etap2/g5_predkosci_d23/d23_podsumowanie.md) |
 | G6 | kolejki (D18) i wizualizacja w Blenderze | ✅ D18; Blender w osobnej sesji | [g6_kolejki](../../reports/etap2/g6_kolejki/g6_kolejki.md), [G6_blender.md](../../docs/research/G6_blender.md) |
 
-Etap 2 zamykamy, gdy: (1) D23 zakończone ✅, (2) G3 zrobione w dwóch wersjach (otwarte), (3) G5 potwierdzone ✅ (D25) jako zamknięte (otwarte rozbieżności z §3 zapisane jako znane ograniczenia albo zamknięte). G2 zostaje z otwartym rozkładem w gminie (REGON) jako znane ograniczenie, chyba że zdecydujemy inaczej.
+**Etap 2 zamknięty 2026-10-23** (decyzja użytkownika): (1) D23 zakończone ✅, (2) G3 przeniesione do etapu 3 jako zadanie po G1, (3) G5 zamknięte ✅ (D25), rozbieżności z §3 zostają znanymi ograniczeniami. G2 zostaje z otwartym rozkładem w gminie (REGON) jako znane ograniczenie.
 
 ### Etap 3: pełne Kutno (plan do przemodelowania)
 
@@ -50,13 +50,14 @@ Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 
 | kolejność | zadanie | uwagi |
 |---|---|---|
-| 1 | **G1: skrzyżowania** (tylko geometria i zakazy skrętu) | sygnalizacja świetlna później; rozdziela opóźnienia węzłów od prędkości (D23, `f` w mieście) |
-| 2 | **atrybuty osób** | wiek z NSP 2021; dostęp do auta i odsetek prawa jazdy z ogólnych statystyk GUS (łódzkie); najpierw research |
-| 3 | **dodatkowe aktywności** (szkoła, zakupy, sprawy) | nowa faza, zmiana planów i godzin; dane o celach i rozkładzie godzin z GUS Mobilność |
-| 4 | **GTFS i transport publiczny** | GTFS Kutno: licencja potwierdzona przez użytkownika 2026-10-21; kolej z feedu Kuranowskiego; research: [G4_tryby.md](../../docs/research/G4_tryby.md) |
-| 5 | **wybór trybu i kalibracja ASC**: car, ride (pasażer), pt, bike, walk | wzorzec: Kelheim i Berlin (`ride` jako tryb sieciowy, rower i pieszo wg wzorca); cel kalibracji z GUS Mobilność |
-| 6 | **pomiary miejskie do walidacji** | tylko dane publicznie dostępne; jeśli ich nie ma, zapisujemy to jako ograniczenie |
-| 7 | **odtworzenie od zera i wnioski** | dokończenie README, pipeline na czystym klonie, spis tego, co się przenosi na Łódź |
+| 1 | **G1: skrzyżowania** (tylko geometria i zakazy skrętu) | ▶ w toku (sesja od 2026-10-23, prompt `reports/etap3/g1_skrzyzowania/prompt.md`); sygnalizacja świetlna później; rozdziela opóźnienia węzłów od prędkości (D23, `f` w mieście) |
+| 2 | **G3: domy** (z etapu 2) | rekomendacja: BDOT10k „budynki mieszkalne”, waga obrys × kondygnacje; 5 decyzji do podjęcia w [G3_domy.md](../../docs/research/G3_domy.md) „Rekomendacja dla G3”; zmienia plany, więc nowa baza po G1 |
+| 3 | **atrybuty osób** | wiek z NSP 2021; dostęp do auta i odsetek prawa jazdy z ogólnych statystyk GUS (łódzkie); najpierw research |
+| 4 | **dodatkowe aktywności** (szkoła, zakupy, sprawy) | nowa faza, zmiana planów i godzin; dane o celach i rozkładzie godzin z GUS Mobilność |
+| 5 | **GTFS i transport publiczny** | GTFS Kutno: licencja potwierdzona przez użytkownika 2026-10-21; kolej z feedu Kuranowskiego; research: [G4_tryby.md](../../docs/research/G4_tryby.md) |
+| 6 | **wybór trybu i kalibracja ASC**: car, ride (pasażer), pt, bike, walk | wzorzec: Kelheim i Berlin (`ride` jako tryb sieciowy, rower i pieszo wg wzorca); cel kalibracji z GUS Mobilność |
+| 7 | **pomiary miejskie do walidacji** | tylko dane publicznie dostępne; jeśli ich nie ma, zapisujemy to jako ograniczenie |
+| 8 | **odtworzenie od zera i wnioski** | dokończenie README, pipeline na czystym klonie, spis tego, co się przenosi na Łódź |
 | ewent. | sygnalizacja świetlna | po skrzyżowaniach |
 
 Zasada: dane tylko z ogólnodostępnych źródeł, bez mocno blokowanych. REGON (rozkład miejsc pracy w gminie) poza zakresem, zostaje znanym ograniczeniem G2.
@@ -70,9 +71,9 @@ Nie planujemy. **Dopóki Kutno nie jest skończone (etapy 2 i 3), do Łodzi nie 
 | krok | zadanie | stan |
 |---|---|---|
 | 1 | Ścieżka prędkości (D23): kroki 1–5 ✅, R7b nową bazą (D25); `f` „na dziś”, obserwacje do dopracowania w [obserwacje_f.md](../../reports/etap2/g5_predkosci_d23/obserwacje_f.md) | ✅ |
-| 2 | G3: dwie wersje domów (OSM zawsze; BDOT10k polska); wymaga decyzji w DECISIONS | do decyzji |
+| 2 | G3: dwie wersje domów (OSM zawsze; BDOT10k polska); wymaga decyzji w DECISIONS | ➡ przeniesione do etapu 3 (2026-10-23) |
 | 3 | Potwierdzenie, że G5 jest zamknięte | ✅ D25 (znane ograniczenia w §3) |
-| 4 | Zamknięcie etapu 2 i przejście do etapu 3 | czeka na G3 (krok 2) albo decyzję użytkownika o przeniesieniu G3 do etapu 3. Równolegle: run 25% × 100 i 400 it. na GitHub Actions ([GH_ACTIONS_run.md](../../docs/research/GH_ACTIONS_run.md)) |
+| 4 | Zamknięcie etapu 2 i przejście do etapu 3 | ✅ 2026-10-23 (decyzja użytkownika: G3 do etapu 3). Równolegle: run 25% × 100 i 400 it. na GitHub Actions ([GH_ACTIONS_run.md](../../docs/research/GH_ACTIONS_run.md)) |
 
 ## 3. Bieżąca praca: G5
 
