@@ -14,7 +14,9 @@ import org.matsim.api.core.v01.network.Node;
 import org.matsim.contrib.osm.networkReader.SupersonicOsmNetworkReader;
 import de.topobyte.osm4j.core.model.iface.EntityContainer;
 import de.topobyte.osm4j.core.model.iface.EntityType;
+import de.topobyte.osm4j.core.model.iface.OsmNode;
 import de.topobyte.osm4j.core.model.iface.OsmRelation;
+import de.topobyte.osm4j.core.model.iface.OsmWay;
 import de.topobyte.osm4j.core.model.util.OsmModelUtil;
 import de.topobyte.osm4j.pbf.seq.PbfIterator;
 import org.matsim.core.network.NetworkUtils;
@@ -33,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
@@ -42,6 +45,7 @@ import java.util.Set;
  * Transformacja WGS84 -> EPSG:2180 dzieje się tylko tutaj (parser Supersonic, przed filtrem obszaru).
  * Prędkości (D13, D23): tag maxspeed > limit ustawowy wg typu drogi i położenia (miasto/poza); freespeed = limit x factor.<grupa> (D23), a bez grupy x factor.
  * Zakazy skrętu (D26): relacje OSM type=restriction (from way, via node, to way) -> DisallowedNextLinks trybu car; Supersonic ich nie czyta.
+ * Przepustowość wlotów (D27, opcjonalny 6. argument = mnożnik k): wloty do węzłów z sygnalizacją i wloty niższej klasy na skrzyżowaniach, capacity x k.
  * Zawrotki na granicy: ślepe końce jezdni jednokierunkowych (np. A1) łączone przed NetworkCleaner (inaczej giną).
  */
 public final class CreateKutnoNetwork {
@@ -75,6 +79,7 @@ public final class CreateKutnoNetwork {
 		System.out.printf("F2 network: before cleaner nodes=%d links=%d, after nodes=%d links=%d%n",
 				nodes, links, network.getNodes().size(), network.getLinks().size());
 		applyTurnRestrictions(network, args[0], args[4].replace(".xml.gz", "_zakazy.csv"));
+		if (args.length > 5) applyInflowCapacity(network, args[0], Double.parseDouble(args[5]), args[4].replace(".xml.gz", "_wloty.csv"));
 		NetworkUtils.writeNetwork(network, args[4]);
 	}
 
@@ -156,6 +161,94 @@ public final class CreateKutnoNetwork {
 		System.out.printf("G1 zakazy: relacji restriction w PBF=%d, przeniesionych=%d (par linków=%d), linków z DisallowedNextLinks po cleanerze=%d%n", total, mapped, pairs, withDnl);
 		rej.forEach((k, v) -> System.out.printf("G1 zakazy: odrzucone %d: %s%n", v, k));
 		System.out.printf("G1 zakazy: TurnRestrictionsNetworkCleaner nodes %d -> %d, links %d -> %d%n", nodesBefore, network.getNodes().size(), linksBefore, network.getLinks().size());
+	}
+
+	private static final Map<String, Integer> RANK = Map.ofEntries(Map.entry("motorway", 6), Map.entry("motorway_link", 6), Map.entry("trunk", 5),
+			Map.entry("trunk_link", 5), Map.entry("primary", 4), Map.entry("primary_link", 4), Map.entry("secondary", 3), Map.entry("secondary_link", 3),
+			Map.entry("tertiary", 2), Map.entry("tertiary_link", 2), Map.entry("unclassified", 1), Map.entry("residential", 1), Map.entry("living_street", 0));
+
+	private static int rank(Link l) {
+		Object t = l.getAttributes().getAttribute("type");
+		return t == null ? 1 : RANK.getOrDefault(t.toString(), 1);
+	}
+
+	/**
+	 * D27 (G1b): capacity x k na linkach wlotowych. (1) Węzeł sieci z sygnalizacją OSM (highway=traffic_signals, id węzła albo najbliższy węzeł sieci w 30 m, bo OSM stawia
+	 * sygnał na linii zatrzymania): wszystkie wloty. (2) Skrzyżowanie (>= 3 sąsiednich węzłów, >= 2 wloty): wloty o niższej randze drogi niż najwyższa wśród wlotów
+	 * (rangi: motorway 6 > trunk 5 > primary 4 > secondary 3 > tertiary 2 > unclassified/residential 1 > living_street 0). Znaki give_way/stop nie dają kierunku
+	 * (tag stoi na węźle skrzyżowania), więc oddzielnej reguły nie mają, tylko są liczone w raporcie. Pomijane: jezdnie rangi 6 (węzły autostrady), link boundary_turnaround,
+	 * jezdnia ronda (junction=roundabout|circular, ma pierwszeństwo).
+	 */
+	private static void applyInflowCapacity(Network network, String pbf, double k, String csvOut) throws Exception {
+		var toPl = TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, "EPSG:2180");
+		Set<String> roundabout = new HashSet<>();
+		Map<String, Coord> sigPos = new HashMap<>(), signPos = new HashMap<>();
+		try (InputStream in = Files.newInputStream(Path.of(pbf))) {
+			PbfIterator it = new PbfIterator(in, false);
+			while (it.hasNext()) {
+				EntityContainer c = it.next();
+				if (c.getType() == EntityType.Node) {
+					OsmNode n = (OsmNode) c.getEntity();
+					Map<String, String> t = OsmModelUtil.getTagsAsMap(n);
+					String hw = t.get("highway");
+					if (hw == null) continue;
+					if (hw.equals("traffic_signals")) sigPos.put(Long.toString(n.getId()), toPl.transform(new Coord(n.getLongitude(), n.getLatitude())));
+					else if (hw.equals("give_way") || hw.equals("stop")) signPos.put(Long.toString(n.getId()), toPl.transform(new Coord(n.getLongitude(), n.getLatitude())));
+				} else if (c.getType() == EntityType.Way) {
+					OsmWay w = (OsmWay) c.getEntity();
+					String j = OsmModelUtil.getTagsAsMap(w).get("junction");
+					if ("roundabout".equals(j) || "circular".equals(j)) roundabout.add(Long.toString(w.getId()));
+				}
+			}
+		}
+		Set<Id<Node>> signals = new HashSet<>();
+		int signalsExact = 0;
+		for (Map.Entry<String, Coord> e : sigPos.entrySet()) {
+			Id<Node> id = Id.createNodeId(e.getKey());
+			if (network.getNodes().containsKey(id)) { signals.add(id); signalsExact++; continue; }
+			Node best = null; double bd = 30;
+			for (Node n : network.getNodes().values()) {
+				double d = Math.hypot(n.getCoord().getX() - e.getValue().getX(), n.getCoord().getY() - e.getValue().getY());
+				if (d <= bd) { bd = d; best = n; }
+			}
+			if (best != null) signals.add(best.getId());
+		}
+		Set<String> signNodes = new HashSet<>(signPos.keySet());
+		List<String> csv = new ArrayList<>();
+		csv.add("link;to_node;class;type;capacity_before;capacity_after");
+		Map<String, Integer> cnt = new TreeMap<>();
+		Map<Id<Link>, Double> newCap = new HashMap<>();
+		for (Node n : network.getNodes().values()) {
+			List<Link> ins = new ArrayList<>();
+			Set<Id<Node>> neigh = new HashSet<>();
+			boolean motorway = false;
+			for (Link l : n.getInLinks().values()) { neigh.add(l.getFromNode().getId()); if (rank(l) == 6) motorway = true; }
+			for (Link l : n.getOutLinks().values()) { neigh.add(l.getToNode().getId()); if (rank(l) == 6) motorway = true; }
+			if (motorway) continue;
+			for (Link l : n.getInLinks().values()) {
+				Object type = l.getAttributes().getAttribute("type"), way = l.getAttributes().getAttribute("origid");
+				if ("boundary_turnaround".equals(type) || (way != null && roundabout.contains(way.toString()))) continue;
+				ins.add(l);
+			}
+			if (ins.isEmpty()) continue;
+			boolean sig = signals.contains(n.getId());
+			boolean sign = signNodes.contains(n.getId().toString());
+			int max = ins.stream().mapToInt(CreateKutnoNetwork::rank).max().getAsInt();
+			boolean crossing = neigh.size() >= 3 && ins.size() >= 2;
+			for (Link l : ins) {
+				String cls = sig ? "sygnalizacja" : (crossing && rank(l) < max) ? (sign ? "podporzadkowany_znak" : "podporzadkowany") : null;
+				if (cls == null) continue;
+				double before = l.getCapacity(), after = before * k;
+				newCap.put(l.getId(), after);
+				cnt.merge(cls, 1, Integer::sum);
+				csv.add(String.join(";", l.getId().toString(), n.getId().toString(), cls, String.valueOf(l.getAttributes().getAttribute("type")),
+						String.valueOf(before), String.valueOf(after)));
+			}
+		}
+		newCap.forEach((id, c) -> network.getLinks().get(id).setCapacity(c));
+		Files.write(Path.of(csvOut), csv);
+		System.out.printf("G1b wloty: k=%s, sygnałów OSM=%d (po id węzła=%d), węzłów sieci z sygnalizacją=%d, znaków give_way/stop=%d%n", k, sigPos.size(), signalsExact, signals.size(), signPos.size());
+		cnt.forEach((a, b) -> System.out.printf("G1b wloty: %s: %d linków%n", a, b));
 	}
 
 	/** Łączy węzły-ujścia (tylko wjazdy) z najbliższymi węzłami-źródłami (tylko wyjazdy) w strefie granicy sieci. */

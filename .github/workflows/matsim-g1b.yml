@@ -1,0 +1,74 @@
+# G1b (D27): przepustowość wlotów do skrzyżowań, 4 sieci (k = 1,0 / 0,8 / 0,6 / 0,4) x 5 runów (3 seedy MATSim na planach p0, 2 seedy planów p1 i p2),
+# 25%, domyślnie 50 iteracji. Tylko ręcznie (workflow_dispatch). Wejścia: scenarios/kutno_g1b/. Artefakt per job: wyniki analizy i pliki bez zdarzeń.
+name: matsim-g1b
+on:
+  workflow_dispatch:
+    inputs:
+      iterations:
+        description: "Liczba iteracji (użytkownik 2026-10-23: maks. 50)"
+        default: "50"
+      threads:
+        description: "Wątki (global + qsim); R6/R7b liczone na 2"
+        default: "2"
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ["10", "08", "06", "04"]
+        run:
+          - { id: s4711, seed: 4711, p: p0 }
+          - { id: s1, seed: 1, p: p0 }
+          - { id: s2, seed: 2, p: p0 }
+          - { id: p1, seed: 4711, p: p1 }
+          - { id: p2, seed: 4711, p: p2 }
+    env:
+      OUT: output/g1b_k${{ matrix.k }}_${{ matrix.run.id }}
+      SC: scenarios/kutno_g1b
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: maven
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build jar
+        working-directory: matsim
+        run: bash ./mvnw -B package -DskipTests
+      - name: MATSim
+        run: |
+          mkdir -p output
+          java -Xmx6g -jar matsim/matsim-example-project-0.0.1-SNAPSHOT.jar run \
+            --config $SC/config.xml --output "$OUT" --iterations ${{ inputs.iterations }} \
+            --config:network.inputNetworkFile=network_k${{ matrix.k }}.xml.gz \
+            --config:plans.inputPlansFile=plans_${{ matrix.run.p }}.xml.gz \
+            --config:vehicles.vehiclesFile=vehicles_${{ matrix.run.p }}.xml.gz \
+            --config:global.randomSeed=${{ matrix.run.seed }} \
+            --config:global.numberOfThreads=${{ inputs.threads }} --config:qsim.numberOfThreads=${{ inputs.threads }} \
+            2>&1 | tee run.log
+      - name: Analiza (te same skrypty co lokalnie)
+        run: |
+          python -m pip install uv
+          uv sync --frozen
+          mkdir -p "$OUT/analiza"
+          uv run python pipeline/check_events.py "$OUT/output_events.xml.zst" > "$OUT/analiza/check_events.json" || true
+          for c in lcv heavy; do uv run python -W ignore pipeline/g5_baseline.py "$OUT/analiza/gpr_$c" "$OUT" cls=$c || true; done
+          uv run python -W ignore pipeline/link_delay.py "$OUT" "$OUT/analiza/delay" || true
+          uv run python -W ignore pipeline/queues.py "$OUT" "$OUT/analiza/queues" || true
+      - name: Pakiet wyników (bez zdarzeń)
+        run: |
+          mkdir -p pakiet
+          cp -r "$OUT/analiza" pakiet/
+          cp run.log pakiet/ || true
+          for f in logfile.log scorestats.csv stopwatch.csv modestats.csv output_config.xml output_legs.csv.zst output_trips.csv.zst output_network.xml.zst; do cp "$OUT/$f" pakiet/ 2>/dev/null || true; done
+          mkdir -p pakiet/linkstats; cp "$OUT"/ITERS/it.*/*.linkstats.txt.gz pakiet/linkstats/ 2>/dev/null || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: g1b-k${{ matrix.k }}-${{ matrix.run.id }}
+          path: pakiet
+          retention-days: 14

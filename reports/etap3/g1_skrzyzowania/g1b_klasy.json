@@ -1,0 +1,19 @@
+{
+ "tagowane": {
+  "traffic_signals": 30,
+  "mini_roundabout": 3,
+  "stop": 11,
+  "give_way": 87,
+  "pominiête: <2 wloty (œlepy/przejœcie)": 11
+ },
+ "wloty": {
+  "traffic_signals|g³ówny/równorzêdny": 68,
+  "traffic_signals|podporz¹dkowany": 15,
+  "mini_roundabout|podporz¹dkowany": 2,
+  "mini_roundabout|g³ówny/równorzêdny": 9,
+  "stop|g³ówny/równorzêdny": 22,
+  "stop|podporz¹dkowany": 12,
+  "give_way|g³ówny/równorzêdny": 177,
+  "give_way|podporz¹dkowany": 37
+ }
+}
