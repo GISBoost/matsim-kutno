@@ -68,6 +68,15 @@ b["work_any"] = (b.building.isin(P["work_buildings"]) | b.amenity.notna() | b.sh
 b["work"] = b.work_any & b.pt.within(gmina_kutno)
 b.loc[b.work, "residential"] = False
 homes_b = b[b.residential].set_geometry("pt")
+homes_b["hid"] = [f"osm_{i}" for i in homes_b.osm_id]
+if P["home_source"] == "bdot":  # D28/G3: dom = budynek BDOT10k jedno- lub wielorodzinny, waga = obrys × kondygnacje (area_m2 to tu waga)
+    bd = pyogrio.read_dataframe(P["home_bdot"], encoding="utf-8", columns=["LOKALNYID", "KATEGORIAISTNIENIA", "PRZEWAZAJACAFUNKCJABUDYNKU",
+                                                                          "LICZBAKONDYGNACJI"])
+    bd = bd[(bd.KATEGORIAISTNIENIA == "eksploatowany") & bd.PRZEWAZAJACAFUNKCJABUDYNKU.isin(P["home_bdot_functions"])].copy()
+    assert bd.LOKALNYID.is_unique and len(bd), "BDOT: brak budynków mieszkalnych albo powtórzone LOKALNYID"
+    bd["area_m2"] = bd.geometry.area * bd.LICZBAKONDYGNACJI.fillna(1).clip(lower=1)
+    bd["hid"] = "bdot_" + bd.LOKALNYID.astype(str)
+    homes_b = bd.assign(pt=bd.geometry.representative_point()).set_geometry("pt")[["hid", "area_m2", "pt"]]
 work_b = b[b.work].reset_index(drop=True)
 work_out_b = b[b.work_any & ~b.work].set_geometry("pt")  # D17/O1: praca wyjeżdżających w gminach powiatu
 
@@ -170,7 +179,13 @@ _homes = {}
 
 def homes_in(obwod):
     if obwod not in _homes:
-        _homes[obwod] = homes_b[homes_b.pt.within(obwody[obwod])]
+        c = homes_b[homes_b.pt.within(obwody[obwod])]
+        if not len(c) and P["home_source"] == "bdot":  # D28: budynek na granicy obwodu ma punkt w sąsiednim (np. 6509902)
+            d = homes_b.pt.distance(obwody[obwod])
+            if d.min() <= P["home_nearest_max_m"]:
+                c = homes_b[d == d.min()]
+                print(f"obwód {obwod}: brak domu w obwodzie, najbliższy {c.hid.iloc[0]} w {d.min():.0f} m")
+        _homes[obwod] = c
     return _homes[obwod]
 
 
@@ -180,7 +195,7 @@ for s in strata[strata.agents > 0].itertuples():
         for k, o in enumerate(rng.choice(ob.obwod_id.to_numpy(), size=s.agents, p=p_ob)):
             if len(homes_in(int(o))):
                 h = pick_buildings(homes_in(int(o)), 1).iloc[0]
-                people.append((f"o{s.key}_{k}", s.kind, s.key, h.pt.x, h.pt.y, None, f"osm_{h.osm_id}", 0.0))
+                people.append((f"o{s.key}_{k}", s.kind, s.key, h.pt.x, h.pt.y, None, h.hid, 0.0))
             else:  # jak mieszkańcy: obwód bez budynku mieszkalnego -> losowy punkt
                 p = random_point(obwody[int(o)])
                 people.append((f"o{s.key}_{k}", s.kind, s.key, p.x, p.y, None, "random_point", 0.0))
@@ -199,7 +214,7 @@ for s in strata[strata.agents > 0].itertuples():
         continue
     if len(cands):
         for k, h in enumerate(pick_buildings(cands, s.agents).itertuples()):
-            people.append((f"{s.kind[0]}{s.key}_{k}", s.kind, s.key, h.pt.x, h.pt.y, None, f"osm_{h.osm_id}", 0.0))
+            people.append((f"{s.kind[0]}{s.key}_{k}", s.kind, s.key, h.pt.x, h.pt.y, None, h.hid, 0.0))
     else:
         for k in range(s.agents):
             p = random_point(poly)

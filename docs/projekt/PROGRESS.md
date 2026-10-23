@@ -376,3 +376,5 @@
 - Naruszenia zakazów w eventach 170 -> 10 (ostatni link trasy). Runy R8 25% × 5 × 100 it.: 0 stuck, GPR 14/15 (lekkie i ciężkie) jak R7b, zmiana na odcinek ≤ 0,8% wobec rozrzutu planów 4–5%, opóźnienie 221,5 -> 216,2 poj.-h. Efekt poniżej rozrzutu; `f_E`/`f_F` bez zmian. Raport: `reports/etap3/g1_skrzyzowania/g1.md`.
 
 - G1b (D27): mnożnik k przepustowości wlotów (33 węzły z sygnalizacją, 948 wlotów podporządkowanych), 4 sieci × 5 runów, 25%, 50 iteracji na GitHub Actions. GPR bez zmian (14/15), opóźnienie: k=0,8 w szumie, k=0,6 +26%, k=0,4 +109%. Baza R8 bez zmian. `reports/etap3/g1_skrzyzowania/g1b.md`.
+
+- G3 (D28): domy z BDOT10k (jedno- i wielorodzinne, 19 520 budynków, waga obrys × kondygnacje), `plans.py home_source=bdot` (OSM odtwarza R7b bajt w bajt), zgodność z siatką GUS 250 m TV 10,3 → 8,1 pp. Baza R9 = R8 + domy BDOT + ponowna estymacja O-D (lekkie +0,05%, ciężkie bez zmian) + plany `plans_g3r9_{10,25,100}pct`. 5 runów 25% × 50 it.: 0 stuck, nogi car = plany, GPR 14/15 (lekkie i ciężkie), opóźnienie 231,5 vs 226,6 poj.-h (R8, 50 it.; rozrzut planów 25–30), natężenia i czasy podróży w rozrzucie planów. `reports/etap3/g3_domy/g3.md`.

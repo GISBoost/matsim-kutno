@@ -1,0 +1,30 @@
+{
+ "komorek_GUS_gm_kutno": 540,
+ "suma_GUS": 42052.0,
+ "wyniki": [
+  {
+   "wariant": "OSM (R7b)",
+   "pool_budynkow": 26611,
+   "TV_pp": 10.28,
+   "pearson": 0.9803,
+   "spearman": 0.9442,
+   "masa_poza_siatka_proc": 1.07
+  },
+  {
+   "wariant": "BDOT obrys",
+   "pool_budynkow": 19520,
+   "TV_pp": 9.05,
+   "pearson": 0.9831,
+   "spearman": 0.9457,
+   "masa_poza_siatka_proc": 0.7
+  },
+  {
+   "wariant": "BDOT obrys × kondygnacje (R9)",
+   "pool_budynkow": 19520,
+   "TV_pp": 8.13,
+   "pearson": 0.9855,
+   "spearman": 0.9484,
+   "masa_poza_siatka_proc": 0.63
+  }
+ ]
+}

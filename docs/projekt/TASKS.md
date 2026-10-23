@@ -78,6 +78,7 @@ MVP (F0–F6) jest zamknięty. Każda faza G zmienia zakres lub dane, więc prze
 - **Dane:** kod R5 (`dasymetric_pop.py`, ta sama metoda); BDOT10k (funkcja budynku, ewentualnie kondygnacje); siatki ludności GUS jako kontrola.
 - **Działania:** ujednolicić dobór budynków mieszkalnych z R5 (lista wykluczeń zamiast listy typów; 9 817 budynków `yes` poza `landuse=residential`); decyzja o kondygnacjach (w R5 świadomie pominięte).
 - **Test:** suma per obwód bez zmian; mniej domów w losowych punktach; porównanie z siatką GUS.
+- **Stan (2026-10-23):** zrobione w etapie 3, D28 (BDOT10k, baza R9), `reports/etap3/g3_domy/g3.md`.
 
 ## G4 — Tryby (car / pt / bike / walk) — zmiana zakresu, wymaga decyzji (research w docs/research uaktualniony 2026-10-19)
 - **Dane:** GUS Mobilność 2024, tabl. 13 (łódzkie, wszystkie cele), tabl. 1 (praca z domu 7,3%); GTFS Kutno (licencja do wyjaśnienia); sieć rowerowa i piesza z OSM.
