@@ -60,7 +60,8 @@ jobs:
           for c in lcv heavy; do uv run python -W ignore pipeline/g5_baseline.py "$OUT/analiza/gpr_$c" "$OUT" cls=$c || true; done
           uv run python -W ignore pipeline/link_delay.py "$OUT" "$OUT/analiza/delay" || true
           uv run python -W ignore pipeline/queues.py "$OUT" "$OUT/analiza/queues" || true
-          uv run python -W ignore reports/etap3/g_zawrotki/zawrotki_pomiar.py "$OUT" "$SC/meta_${{ matrix.v }}_${{ matrix.run.p }}.csv" "$OUT/analiza/zawrotki.json" || true
+          uv run python -W ignore reports/etap3/g_zawrotki/zawrotki_pomiar.py "$OUT" "$SC/meta_${{ matrix.v }}_${{ matrix.run.p }}.csv" "$OUT/analiza/zawrotki.json" "$SC/network.xml.gz"
+          test -s "$OUT/analiza/zawrotki.json"
       - name: Pakiet wyników (bez zdarzeń)
         run: |
           mkdir -p pakiet

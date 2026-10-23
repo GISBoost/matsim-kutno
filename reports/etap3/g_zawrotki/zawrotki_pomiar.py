@@ -1,5 +1,5 @@
 """Zawrotki na początku i końcu trasy (link -> link odwrotny w pierwszych/ostatnich 3 linkach): pomiar z eventów.
-Użycie: uv run python -W ignore reports/etap3/g_zawrotki/zawrotki_pomiar.py <katalog_runu> <meta.csv> <wyjscie.json>
+Użycie: uv run python -W ignore reports/etap3/g_zawrotki/zawrotki_pomiar.py <katalog_runu> <meta.csv> <wyjscie.json> [network.xml.gz]
 Zawrotka = kolejne linki A (from u, to v) i B (from v, to u). Dodatkowy czas = czas przejazdu pary (start: tylko link B, bo link startowy opuszcza się od razu).
 Podróż z eventów: 'vehicle enters traffic' -> 'vehicle leaves traffic' (nogi walk są teleportowane i nie mają linków)."""
 import gzip
@@ -14,9 +14,10 @@ import zstandard
 from lxml import etree
 
 run, meta_f, out_f = Path(sys.argv[1]), sys.argv[2], sys.argv[3]
+NET = sys.argv[4] if len(sys.argv) > 4 else "scenarios/kutno/network.xml.gz"  # na GHA sieć leży w scenariuszu (ERRORS 33)
 z = lambda p: zstandard.ZstdDecompressor().stream_reader(open(p, "rb"))
 ends = {}
-with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
+with gzip.open(NET, "rb") as f:
     for _, el in etree.iterparse(f, tag="link"):
         ends[el.get("id")] = (el.get("from"), el.get("to"), float(el.get("length")))
         el.clear()
