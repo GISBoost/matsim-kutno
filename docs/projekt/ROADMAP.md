@@ -50,7 +50,7 @@ Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 
 | kolejność | zadanie | uwagi |
 |---|---|---|
-| 1 | **G1: skrzyżowania** (tylko geometria i zakazy skrętu) | ▶ w toku (sesja od 2026-10-23, prompt `reports/etap3/g1_skrzyzowania/prompt.md`); sygnalizacja świetlna później; rozdziela opóźnienia węzłów od prędkości (D23, `f` w mieście) |
+| 1 | **G1: skrzyżowania** (tylko geometria i zakazy skrętu) | ✅ zakazy skrętu wdrożone (D26, baza R8), efekt poniżej rozrzutu seedów, `f` bez zmian ([g1.md](../../reports/etap3/g1_skrzyzowania/g1.md)); sygnalizacja świetlna później; rozdziela opóźnienia węzłów od prędkości (D23, `f` w mieście) |
 | 2 | **G3: domy** (z etapu 2) | rekomendacja: BDOT10k „budynki mieszkalne”, waga obrys × kondygnacje; 5 decyzji do podjęcia w [G3_domy.md](../../docs/research/G3_domy.md) „Rekomendacja dla G3”; zmienia plany, więc nowa baza po G1 |
 | 3 | **atrybuty osób** | wiek z NSP 2021; dostęp do auta i odsetek prawa jazdy z ogólnych statystyk GUS (łódzkie); najpierw research |
 | 4 | **dodatkowe aktywności** (szkoła, zakupy, sprawy) | nowa faza, zmiana planów i godzin; dane o celach i rozkładzie godzin z GUS Mobilność |

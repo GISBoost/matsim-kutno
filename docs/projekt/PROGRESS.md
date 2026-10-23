@@ -369,3 +369,8 @@
 
 - Workflow `matsim-run` uruchomiony na GitHubie (run 39668217361, po poprawce `bash ./mvnw`). 100 it. ok. 23 min, 400 it. ok. 109 min. Run 100 it. zgodny z lokalnym (scorestats bajt w bajt, GPR i opóźnienie identyczne).
 - 100 vs 400: czasy podróży i prędkości różnią się o ≤ 0,4 km/h, GPR o ≤ 0,004, opóźnienie 221,5 → 215,1 poj.-h, 0 stuck, 0 przepełnionych. 100 iteracji wystarcza. Raport: `reports/etap2/g5_predkosci_d23/gha_100_vs_400.md`.
+
+## 2026-10-23: G1, skrzyżowania (D26), baza R8
+
+- `CreateKutnoNetwork` czyta relacje OSM `restriction` -> `DisallowedNextLinks` (55 relacji, 62 pary linków, 55 linków), `TurnRestrictionsNetworkCleaner` bez zmian w grafie. Sieć R8 = R7b + zakazy; `scenarios/kutno/network.xml.gz` nadpisana (kopia R7b: `network_r7b.xml.gz`). Smoke test i `check_events --expect-car-legs 20` ok.
+- Naruszenia zakazów w eventach 170 -> 10 (ostatni link trasy). Runy R8 25% × 5 × 100 it.: 0 stuck, GPR 14/15 (lekkie i ciężkie) jak R7b, zmiana na odcinek ≤ 0,8% wobec rozrzutu planów 4–5%, opóźnienie 221,5 -> 216,2 poj.-h. Efekt poniżej rozrzutu; `f_E`/`f_F` bez zmian. Raport: `reports/etap3/g1_skrzyzowania/g1.md`.

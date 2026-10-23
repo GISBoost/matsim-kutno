@@ -1,0 +1,122 @@
+{
+ "run": "output\\g5r7b_25pct_s4711",
+ "restrictions_osm_via_node": 2246,
+ "forbidden_link_pairs_in_network": 62,
+ "car_trips": 24304,
+ "violating_transitions": 170,
+ "violating_trips_by_kind_last_trip": {
+  "h": 18,
+  "c": 46,
+  "t": 58,
+  "r": 39,
+  "o": 7
+ },
+ "top_pairs": [
+  {
+   "link_in": "3536285550003f",
+   "link_out": "3536285540003f",
+   "n": 53,
+   "rel": 6023951,
+   "kind": "no_u_turn"
+  },
+  {
+   "link_in": "2001576780003f",
+   "link_out": "2001576810005f",
+   "n": 36,
+   "rel": 21160476,
+   "kind": "no_u_turn"
+  },
+  {
+   "link_in": "5011849670000f",
+   "link_out": "1891392890000f",
+   "n": 19,
+   "rel": 6631937,
+   "kind": "no_u_turn"
+  },
+  {
+   "link_in": "2622659460001f",
+   "link_out": "3536285510001f",
+   "n": 12,
+   "rel": 6023952,
+   "kind": "no_u_turn"
+  },
+  {
+   "link_in": "2446231280003f",
+   "link_out": "2001576800004f",
+   "n": 12,
+   "rel": 21160475,
+   "kind": "no_u_turn"
+  },
+  {
+   "link_in": "5899301040000f",
+   "link_out": "2001576750000f",
+   "n": 8,
+   "rel": 21160471,
+   "kind": "no_u_turn"
+  },
+  {
+   "link_in": "1890209720003r",
+   "link_out": "1890209720003f",
+   "n": 7,
+   "rel": 7886434,
+   "kind": "only_right_turn"
+  },
+  {
+   "link_in": "2000621730002f",
+   "link_out": "5514844930000f",
+   "n": 5,
+   "rel": 7884355,
+   "kind": "only_right_turn"
+  },
+  {
+   "link_in": "4510768500000f",
+   "link_out": "4510768490002f",
+   "n": 4,
+   "rel": 5956120,
+   "kind": "no_left_turn"
+  },
+  {
+   "link_in": "2446692020002f",
+   "link_out": "2394535590000f",
+   "n": 4,
+   "rel": 3345607,
+   "kind": "no_right_turn"
+  },
+  {
+   "link_in": "2446692050004f",
+   "link_out": "3177068500003f",
+   "n": 3,
+   "rel": 21160472,
+   "kind": "no_u_turn"
+  },
+  {
+   "link_in": "2485778050007f",
+   "link_out": "2342521920007f",
+   "n": 2,
+   "rel": 7886435,
+   "kind": "only_right_turn"
+  },
+  {
+   "link_in": "4110316760000f",
+   "link_out": "2000642580000f",
+   "n": 2,
+   "rel": 6146924,
+   "kind": "no_left_turn"
+  },
+  {
+   "link_in": "4461609300002f",
+   "link_out": "4496570650002f",
+   "n": 1,
+   "rel": 7212167,
+   "kind": "no_u_turn"
+  },
+  {
+   "link_in": "2059604960003f",
+   "link_out": "2864484040000f",
+   "n": 1,
+   "rel": 7737549,
+   "kind": "no_u_turn"
+  }
+ ],
+ "watch_links": {}
+}

@@ -12,14 +12,27 @@ import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.api.core.v01.network.Node;
 import org.matsim.contrib.osm.networkReader.SupersonicOsmNetworkReader;
+import de.topobyte.osm4j.core.model.iface.EntityContainer;
+import de.topobyte.osm4j.core.model.iface.EntityType;
+import de.topobyte.osm4j.core.model.iface.OsmRelation;
+import de.topobyte.osm4j.core.model.util.OsmModelUtil;
+import de.topobyte.osm4j.pbf.seq.PbfIterator;
 import org.matsim.core.network.NetworkUtils;
+import org.matsim.core.network.turnRestrictions.DisallowedNextLinks;
+import org.matsim.core.network.turnRestrictions.DisallowedNextLinksUtils;
+import org.matsim.core.network.turnRestrictions.TurnRestrictionsNetworkCleaner;
 import org.matsim.core.network.algorithms.NetworkCleaner;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
 
+import java.io.InputStream;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.Properties;
 import java.util.Set;
 
@@ -28,6 +41,7 @@ import java.util.Set;
  * Użycie: java -cp <jar> org.matsim.kutno.CreateKutnoNetwork <osm.pbf> <area.wkt> <towns.wkt> <network.properties> <network.xml.gz>
  * Transformacja WGS84 -> EPSG:2180 dzieje się tylko tutaj (parser Supersonic, przed filtrem obszaru).
  * Prędkości (D13, D23): tag maxspeed > limit ustawowy wg typu drogi i położenia (miasto/poza); freespeed = limit x factor.<grupa> (D23), a bez grupy x factor.
+ * Zakazy skrętu (D26): relacje OSM type=restriction (from way, via node, to way) -> DisallowedNextLinks trybu car; Supersonic ich nie czyta.
  * Zawrotki na granicy: ślepe końce jezdni jednokierunkowych (np. A1) łączone przed NetworkCleaner (inaczej giną).
  */
 public final class CreateKutnoNetwork {
@@ -60,7 +74,88 @@ public final class CreateKutnoNetwork {
 		System.out.printf("F2 network: boundary turnarounds added=%d%n", turnarounds);
 		System.out.printf("F2 network: before cleaner nodes=%d links=%d, after nodes=%d links=%d%n",
 				nodes, links, network.getNodes().size(), network.getLinks().size());
+		applyTurnRestrictions(network, args[0], args[4].replace(".xml.gz", "_zakazy.csv"));
 		NetworkUtils.writeNetwork(network, args[4]);
+	}
+
+	/**
+	 * D26: zakazy skrętu z relacji OSM. Węzły sieci mają id węzłów OSM, link.origid = id drogi (Supersonic).
+	 * no_* -> zakazana para (link drogi from kończący się w via, link drogi to zaczynający się w via);
+	 * only_* -> zakazane wszystkie inne wyjazdy z via dla linku drogi from. Odrzucane (z licznikiem): via-way, inne rodzaje (no_entry, no_exit),
+	 * wyjątki dla samochodów (except), relacje bez linków w sieci. Po zakazach TurnRestrictionsNetworkCleaner (silna spójność z zakazami).
+	 */
+	private static void applyTurnRestrictions(Network network, String pbf, String csvOut) throws Exception {
+		Map<String, Integer> rej = new TreeMap<>();
+		List<String[]> rels = new ArrayList<>(); // id, kind, from, via, to
+		int total = 0;
+		try (InputStream in = Files.newInputStream(Path.of(pbf))) {
+			PbfIterator it = new PbfIterator(in, false);
+			while (it.hasNext()) {
+				EntityContainer c = it.next();
+				if (c.getType() != EntityType.Relation) continue;
+				OsmRelation r = (OsmRelation) c.getEntity();
+				Map<String, String> tags = OsmModelUtil.getTagsAsMap(r);
+				if (!"restriction".equals(tags.get("type"))) continue;
+				total++;
+				String kind = tags.get("restriction") != null ? tags.get("restriction") : tags.get("restriction:motorcar");
+				if (kind == null) { rej.merge("brak rodzaju dla samochodu (np. restriction:hgv)", 1, Integer::sum); continue; }
+				String ex = tags.getOrDefault("except", "");
+				if (ex.contains("motorcar") || ex.contains("motor_vehicle") || ex.contains("vehicle")) { rej.merge("wyjątek except dla samochodów", 1, Integer::sum); continue; }
+				String from = null, via = null, to = null;
+				int nVia = 0;
+				boolean viaWay = false;
+				for (int i = 0; i < r.getNumberOfMembers(); i++) {
+					var m = r.getMember(i);
+					switch (m.getRole()) {
+						case "from" -> { if (from == null && m.getType() == EntityType.Way) from = Long.toString(m.getId()); }
+						case "to" -> { if (to == null && m.getType() == EntityType.Way) to = Long.toString(m.getId()); }
+						case "via" -> { nVia++; if (m.getType() == EntityType.Node) via = Long.toString(m.getId()); else viaWay = true; }
+						default -> { }
+					}
+				}
+				if (viaWay) { rej.merge("via = droga (via-way)", 1, Integer::sum); continue; }
+				if (nVia != 1 || from == null || to == null) { rej.merge("niekompletna relacja (from/via/to)", 1, Integer::sum); continue; }
+				if (!kind.startsWith("no_") && !kind.startsWith("only_")) { rej.merge("rodzaj nieobsługiwany: " + kind, 1, Integer::sum); continue; }
+				if (!network.getNodes().containsKey(Id.createNodeId(via))) { rej.merge("via poza siecią (obszar lub węzeł usunięty)", 1, Integer::sum); continue; }
+				rels.add(new String[]{Long.toString(r.getId()), kind, from, via, to});
+			}
+		}
+		Map<String, List<Link>> endsAt = new HashMap<>(), startsAt = new HashMap<>();
+		for (Link l : network.getLinks().values()) {
+			Object o = l.getAttributes().getAttribute("origid");
+			if (o == null) continue;
+			endsAt.computeIfAbsent(o + "|" + l.getToNode().getId(), k -> new ArrayList<>()).add(l);
+			startsAt.computeIfAbsent(o + "|" + l.getFromNode().getId(), k -> new ArrayList<>()).add(l);
+		}
+		Map<Id<Link>, DisallowedNextLinks> dnl = new HashMap<>();
+		List<String> csv = new ArrayList<>();
+		csv.add("relation;kind;from_way;via_node;to_way;link_in;link_out");
+		int mapped = 0, pairs = 0;
+		for (String[] r : rels) {
+			List<Link> ins = endsAt.getOrDefault(r[2] + "|" + r[3], List.of());
+			List<Link> tos = startsAt.getOrDefault(r[4] + "|" + r[3], List.of());
+			if (ins.isEmpty() || tos.isEmpty()) { rej.merge("brak linku from lub to w sieci (droga poza obszarem, usunięta przez cleaner, car-only)", 1, Integer::sum); continue; }
+			List<Link> bad = new ArrayList<>();
+			if (r[1].startsWith("no_")) bad.addAll(tos);
+			else for (Link o : network.getNodes().get(Id.createNodeId(r[3])).getOutLinks().values()) if (!tos.contains(o)) bad.add(o);
+			if (bad.isEmpty()) { rej.merge("only_* bez innych wyjazdów (zakaz pusty)", 1, Integer::sum); continue; }
+			mapped++;
+			for (Link a : ins) for (Link b : bad) {
+				dnl.computeIfAbsent(a.getId(), k -> new DisallowedNextLinks()).addDisallowedLinkSequence(TransportMode.car, List.of(b.getId()));
+				csv.add(String.join(";", r[0], r[1], r[2], r[3], r[4], a.getId().toString(), b.getId().toString()));
+				pairs++;
+			}
+		}
+		dnl.forEach((id, d) -> NetworkUtils.setDisallowedNextLinks(network.getLinks().get(id), d));
+		int linksBefore = network.getLinks().size(), nodesBefore = network.getNodes().size();
+		new TurnRestrictionsNetworkCleaner().run(network, TransportMode.car);
+		DisallowedNextLinksUtils.clean(network);
+		if (!DisallowedNextLinksUtils.isValid(network)) throw new IllegalStateException("DisallowedNextLinks niespójne po cleanerze");
+		long withDnl = network.getLinks().values().stream().filter(l -> NetworkUtils.getDisallowedNextLinks(l) != null && !NetworkUtils.getDisallowedNextLinks(l).isEmpty()).count();
+		Files.write(Path.of(csvOut), csv);
+		System.out.printf("G1 zakazy: relacji restriction w PBF=%d, przeniesionych=%d (par linków=%d), linków z DisallowedNextLinks po cleanerze=%d%n", total, mapped, pairs, withDnl);
+		rej.forEach((k, v) -> System.out.printf("G1 zakazy: odrzucone %d: %s%n", v, k));
+		System.out.printf("G1 zakazy: TurnRestrictionsNetworkCleaner nodes %d -> %d, links %d -> %d%n", nodesBefore, network.getNodes().size(), linksBefore, network.getLinks().size());
 	}
 
 	/** Łączy węzły-ujścia (tylko wjazdy) z najbliższymi węzłami-źródłami (tylko wyjazdy) w strefie granicy sieci. */

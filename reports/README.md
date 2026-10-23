@@ -36,3 +36,5 @@ Folder `etap1_mvp/r3_ocena/`:
 Analiza metodyczna jest w `docs/research/` (`R3_ocena_modelu.md`).
 
 Pliki z folderów f5 i f6 pochodzą sprzed napraw R3. Nie porównuj ich liczb wprost z `etap1_mvp/r3_ocena/`.
+
+| `etap3/g1_skrzyzowania/` | G1 (D26): zakazy skrętu z OSM, audyt geometrii, runy R8 vs R7b; raport `g1.md`, mapa `g1_mapa.png` |

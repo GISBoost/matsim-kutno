@@ -1,0 +1,26 @@
+{
+  "events_file": "output/g1r8_25pct_s1/output_events.xml.zst",
+  "event_types": {
+    "actend": 72912,
+    "departure": 72912,
+    "travelled": 48608,
+    "arrival": 72912,
+    "actstart": 72912,
+    "PersonEntersVehicle": 24304,
+    "vehicle enters traffic": 24304,
+    "left link": 1676416,
+    "entered link": 1676416,
+    "vehicle leaves traffic": 24304,
+    "PersonLeavesVehicle": 24304
+  },
+  "persons_departing": 20565,
+  "departures": 72912,
+  "departures_by_mode": {
+    "walk": 48608,
+    "car": 24304
+  },
+  "arrivals": 72912,
+  "stuck": 0,
+  "persons_dep_ne_arr": [],
+  "ok": true
+}

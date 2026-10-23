@@ -1,0 +1,30 @@
+{
+ "run": "output\\g1_test2",
+ "restrictions_osm_via_node": 2246,
+ "forbidden_link_pairs_in_network": 62,
+ "car_trips": 24304,
+ "violating_transitions": 10,
+ "violating_trips_by_kind_last_trip": {
+  "c": 2,
+  "r": 5,
+  "t": 1,
+  "o": 2
+ },
+ "top_pairs": [
+  {
+   "link_in": "1890209720003r",
+   "link_out": "1890209720003f",
+   "n": 7,
+   "rel": 7886434,
+   "kind": "only_right_turn"
+  },
+  {
+   "link_in": "2446692050004f",
+   "link_out": "3177068500003f",
+   "n": 3,
+   "rel": 21160472,
+   "kind": "no_u_turn"
+  }
+ ],
+ "watch_links": {}
+}

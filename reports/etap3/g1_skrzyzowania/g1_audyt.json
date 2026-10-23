@@ -1,0 +1,101 @@
+{
+ "wezly_sieci": 4534,
+ "wezly_bez_odpowiednika_w_OSM": 0,
+ "maks_przesuniecie_m": 0.004,
+ "ronda_drogi_OSM_w_sieci": 62,
+ "ronda_linki": 119,
+ "ronda_linki_z_odwrotnym": 0,
+ "stopnie_wezlow_in_out": {
+  "3/3": 1847,
+  "2/2": 1231,
+  "1/1": 958,
+  "4/4": 230,
+  "1/2": 92,
+  "2/1": 84,
+  "3/2": 43,
+  "2/3": 38
+ },
+ "g1r8_25pct_s4711": {
+  "podroze_car": 24304,
+  "zawrotki": 9702,
+  "zawrotki_na_1000_podrozy": 399.19,
+  "wg_wezla": {
+   "slepy koniec (1/1)": 2876,
+   "wezel 2/2 (zwykly wezel drogi)": 2912,
+   "skrzyzowanie (stopien 3+)": 3914
+  },
+  "wg_polozenia_w_trasie": {
+   "koniec trasy (ostatnie 3 linki)": 4486,
+   "poczatek trasy (pierwsze 3 linki)": 5147,
+   "srodek trasy": 69
+  },
+  "top_pary": [
+   [
+    "2307087560003f",
+    "2307087560003r",
+    222
+   ],
+   [
+    "5452449340001f",
+    "5452449340001r",
+    202
+   ],
+   [
+    "1315471020007f",
+    "1315471020007r",
+    201
+   ],
+   [
+    "1315573290016f",
+    "1315573290016r",
+    197
+   ],
+   [
+    "2131914630002f",
+    "2131914630002r",
+    168
+   ]
+  ]
+ },
+ "g5r7b_25pct_s4711": {
+  "podroze_car": 24304,
+  "zawrotki": 9648,
+  "zawrotki_na_1000_podrozy": 396.97,
+  "wg_wezla": {
+   "slepy koniec (1/1)": 2876,
+   "wezel 2/2 (zwykly wezel drogi)": 2867,
+   "skrzyzowanie (stopien 3+)": 3905
+  },
+  "wg_polozenia_w_trasie": {
+   "koniec trasy (ostatnie 3 linki)": 4502,
+   "poczatek trasy (pierwsze 3 linki)": 5146
+  },
+  "top_pary": [
+   [
+    "2307087560003f",
+    "2307087560003r",
+    222
+   ],
+   [
+    "1315573290016f",
+    "1315573290016r",
+    202
+   ],
+   [
+    "5452449340001f",
+    "5452449340001r",
+    202
+   ],
+   [
+    "1315471020007f",
+    "1315471020007r",
+    201
+   ],
+   [
+    "2131914630002f",
+    "2131914630002r",
+    168
+   ]
+  ]
+ }
+}
