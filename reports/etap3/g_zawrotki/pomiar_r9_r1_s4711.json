@@ -1,0 +1,71 @@
+{
+ "trips": 7478,
+ "wg_rodzaju": {
+  "c": {
+   "n": 2410,
+   "start_pct": 36.76,
+   "end_pct": 40.66,
+   "mid_pct": 0.58,
+   "dur_mean_s": 1077.67,
+   "t_start_s": 38295.0,
+   "t_end_s": 80467.0,
+   "dur_sum_s": 2597178.0,
+   "extra_pct_of_time": 4.57
+  },
+  "o": {
+   "n": 732,
+   "start_pct": 46.72,
+   "end_pct": 22.13,
+   "mid_pct": 0.41,
+   "dur_mean_s": 1240.96,
+   "t_start_s": 9503.0,
+   "t_end_s": 9636.0,
+   "dur_sum_s": 908383.0,
+   "extra_pct_of_time": 2.11
+  },
+  "r": {
+   "n": 4336,
+   "start_pct": 41.05,
+   "end_pct": 31.04,
+   "mid_pct": 0.3,
+   "dur_mean_s": 522.21,
+   "t_start_s": 55697.0,
+   "t_end_s": 92664.0,
+   "dur_sum_s": 2264288.0,
+   "extra_pct_of_time": 6.55
+  }
+ },
+ "razem": {
+  "start_pct": 40.2,
+  "end_pct": 33.3,
+  "mid_pct": 0.4,
+  "any_pct": 59.8,
+  "extra_veh_h": 79.5,
+  "total_veh_h": 1602.7,
+  "extra_pct": 4.96,
+  "mean_extra_s_on_uturn_trips": 64.0,
+  "mean_extra_m_on_uturn_trips": 679.3
+ },
+ "sufiks_linku_przypiecia": {
+  "dom": {
+   "f": 2130,
+   "r": 1609
+  },
+  "praca": {
+   "f": 2120,
+   "r": 1374
+  }
+ },
+ "pracujacy_tam_vs_z_powrotem": {
+  "tam": {
+   "start_pct": 31.7,
+   "end_pct": 30.5,
+   "dur_s": 765.3
+  },
+  "z_powrotem": {
+   "start_pct": 48.8,
+   "end_pct": 36.1,
+   "dur_s": 777.9
+  }
+ }
+}

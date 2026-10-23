@@ -96,13 +96,14 @@ def random_point(poly):
 
 
 # --- wjazdy na granicy sieci (D9) --------------------------------------------------------------------
-nodes, entry, snap, nbr = {}, [], [], defaultdict(set)
+nodes, entry, snap, nbr, lk = {}, [], [], defaultdict(set), {}
 with gzip.open("scenarios/kutno/network.xml.gz", "rb") as f:
     for _, el in etree.iterparse(f, tag=("node", "link")):
         if el.tag == "node":
             nodes[el.get("id")] = Point(float(el.get("x")), float(el.get("y")))
         else:
             t = {a.get("name"): a.text for a in el.iter("attribute")}.get("type")
+            lk[el.get("id")] = (el.get("from"), el.get("to"), float(el.get("length")), float(el.get("freespeed")))
             nbr[el.get("from")].add(el.get("to")); nbr[el.get("to")].add(el.get("from"))
             if t in P["entry_road_types"]:
                 entry.append((el.get("id"), el.get("from"), el.get("to")))
@@ -118,6 +119,44 @@ def snap_links(xs, ys):
     src, dst = snap_tree.query_nearest([Point(x, y) for x, y in zip(xs, ys)], all_matches=False)
     assert (src == np.arange(len(src))).all()
     return [snap_ids[i] for i in dst]
+
+
+# --- D29: kierunek linku przypięcia wg trasy swobodnej (bez zawrotki na początku i końcu trasy) ---------------------
+# Aktywność ma jeden link; na ulicy dwukierunkowej połowa agentów dostawała kierunek przeciwny do celu i zawracała (35% podróży).
+# snap_mode = "route": kandydaci = najbliższy link i jego link odwrotny, wybór po najkrótszej trasie swobodnej (length/freespeed).
+# Start liczy się od końca linku odjazdu, cel od początku linku przyjazdu wraz z jego przejechaniem (jak QSim). "nearest" = R9.
+_by_nodes = {(lk[l][0], lk[l][1]): l for l in snap_ids}
+REV = {l: _by_nodes.get((lk[l][1], lk[l][0])) for l in snap_ids}  # link odwrotny (ta sama para węzłów), jeśli jest w puli przypięcia
+if P["snap_mode"] == "route":
+    from scipy.sparse import csr_matrix
+    from scipy.sparse.csgraph import dijkstra
+    nid = {n: i for i, n in enumerate(nodes)}
+    best = {}
+    for l, (a_, b_, ln, fs) in lk.items():
+        best[(nid[a_], nid[b_])] = min(best.get((nid[a_], nid[b_]), 1e18), ln / fs)
+    gr = csr_matrix(([v for v in best.values()], ([k[0] for k in best], [k[1] for k in best])), shape=(len(nid), len(nid)))
+    _row = {}
+
+    def _t(n1, n2):
+        i = nid[n1]
+        if i not in _row:
+            _row[i] = dijkstra(gr, directed=True, indices=i)
+        return _row[i][nid[n2]]
+
+    def cost(a, b):
+        """czas swobodny: odjazd z linku a (od jego końca) do przyjazdu na link b (z jego przejechaniem)"""
+        return _t(lk[a][1], lk[b][0]) + lk[b][2] / lk[b][3]
+
+    def cand_lists(xs, ys):
+        src, dst = snap_tree.query_nearest([Point(x, y) for x, y in zip(xs, ys)], all_matches=True)
+        out = [set() for _ in xs]
+        for s_, d_ in zip(src, dst):
+            out[s_].add(snap_ids[d_])
+        for c in out:
+            c |= {REV[l] for l in list(c) if REV.get(l)}
+        return [sorted(c) for c in out]
+
+
 interior = area.buffer(-P["entry_zone_m"])
 # audyt G5/K1: PBF obejmuje tylko łódzkie, więc DK92 (zach.) i DK60 (płn.) kończą się ślepo 1,9-2,3 km przed krawędzią obszaru.
 # Ślepy koniec (węzeł z jednym sąsiadem) drogi wjazdowej to też granica sieci.
@@ -244,9 +283,43 @@ for key, grp in meta[~inside].groupby("key", sort=False):  # D17/O1: praca wyje�
         e = exits.iloc[((exits.x - c.x) ** 2 + (exits.y - c.y) ** 2).idxmin()]
         meta.loc[grp.index, ["work_x", "work_y", "work_link", "work_src"]] = e.x, e.y, e.link, "exit"
 own = meta.home_link.isna()
-meta.loc[own, "home_link"] = snap_links(meta.home_x[own], meta.home_y[own])
-own = meta.work_link.isna()
-meta.loc[own, "work_link"] = snap_links(meta.work_x[own], meta.work_y[own])
+own_w = meta.work_link.isna()
+meta["home_link_end"] = None
+if P["snap_mode"] == "nearest":
+    meta.loc[own, "home_link"] = snap_links(meta.home_x[own], meta.home_y[own])
+    meta.loc[own_w, "work_link"] = snap_links(meta.work_x[own_w], meta.work_y[own_w])
+    meta["home_link_end"] = meta.home_link
+else:
+    # D29: dom na starcie i dom na końcu to dwie aktywności, więc mogą mieć różne linki; praca ma jeden link na przyjazd i odjazd.
+    # Przyjeżdżający spoza powiatu (wjazd graniczny) kończą dzień na linku wyjazdowym tej samej drogi (lustro wjazdu).
+    zroad = pd.read_csv("scenarios/kutno/demand/border_zones.csv").drop_duplicates("link").set_index("link").road
+    ex_set = set(exits.link)
+    all_by_nodes = {(v[0], v[1]): l for l, v in lk.items()}
+
+    def mirror(l):
+        r = all_by_nodes.get((lk[l][1], lk[l][0]))
+        if r in ex_set:
+            return r
+        c = exits[exits.link.map(zroad) == zroad.get(l)]
+        if not len(c):
+            return l
+        x, y = nodes[lk[l][1]].x, nodes[lk[l][1]].y
+        return c.iloc[((c.x - x) ** 2 + (c.y - y) ** 2).argmin()].link
+
+    hc = [None] * len(meta); wc = [None] * len(meta)
+    ci = meta.index[own]; cj = meta.index[own_w]
+    for i, c in zip(ci, cand_lists(meta.home_x[own], meta.home_y[own])):
+        hc[i] = c
+    for i, c in zip(cj, cand_lists(meta.work_x[own_w], meta.work_y[own_w])):
+        wc[i] = c
+    hl, hle, wl = [], [], []
+    for i, r in enumerate(meta.itertuples()):
+        Ha = hc[i] if hc[i] is not None else [r.home_link]            # linki odjazdu z domu
+        He = hc[i] if hc[i] is not None else [mirror(r.home_link)]    # linki przyjazdu do domu
+        W = wc[i] if wc[i] is not None else [r.work_link]
+        w = min(W, key=lambda w_: min(cost(a, w_) for a in Ha) + min(cost(w_, d) for d in He))
+        hl.append(min(Ha, key=lambda a: cost(a, w))); hle.append(min(He, key=lambda d: cost(w, d))); wl.append(w)
+    meta["home_link"], meta["home_link_end"], meta["work_link"] = hl, hle, wl
 
 # --- godzina wyjazdu (D10): przedział z udziałem z profilu, jednostajnie w przedziale ---------------------
 prof = pd.read_csv(P["departure_profile"])
@@ -290,9 +363,19 @@ def background(path, prefix, profile_col, pool=b):
     hp = pd.read_csv(P["background_profile"])
     h = rng.choice(len(hp), size=len(bg), p=(hp[profile_col] / hp[profile_col].sum()).to_numpy())
     bg["start_s"] = (hp.hour_from.to_numpy()[h] * 3600 + rng.uniform(0, 3600, len(bg))).astype(int)
-    for e in ("o", "d"):
-        own = bg[f"{e}_link"].isna()
-        bg.loc[own, f"{e}_link"] = snap_links(bg[f"{e}_x"][own], bg[f"{e}_y"][own])
+    if P["snap_mode"] == "nearest":
+        for e in ("o", "d"):
+            own = bg[f"{e}_link"].isna()
+            bg.loc[own, f"{e}_link"] = snap_links(bg[f"{e}_x"][own], bg[f"{e}_y"][own])
+    else:  # D29: kierunki linków początku i końca wg trasy swobodnej; wjazd i wyjazd graniczny zostają
+        oc = {i: c for i, c in zip(bg.index[bg.o_link.isna()], cand_lists(bg.o_x[bg.o_link.isna()], bg.o_y[bg.o_link.isna()]))}
+        dc = {i: c for i, c in zip(bg.index[bg.d_link.isna()], cand_lists(bg.d_x[bg.d_link.isna()], bg.d_y[bg.d_link.isna()]))}
+        ol_, dl_ = [], []
+        for i, r in bg.iterrows():
+            O, D = oc.get(i, [r.o_link]), dc.get(i, [r.d_link])
+            a, b_ = min(((a_, d_) for a_ in O for d_ in D), key=lambda ad: cost(*ad))
+            ol_.append(a); dl_.append(b_)
+        bg["o_link"], bg["d_link"] = ol_, dl_
     assert bg.person.is_unique and len(bg) == round(ex.sum())
     return bg
 
@@ -313,7 +396,7 @@ for r in meta.itertuples():
     etree.SubElement(plan, "leg", mode="car")
     etree.SubElement(plan, "activity", type="work", link=r.work_link, x=f"{r.work_x:.1f}", y=f"{r.work_y:.1f}", max_dur=P["work_max_dur"])
     etree.SubElement(plan, "leg", mode="car")
-    etree.SubElement(plan, "activity", **home)
+    etree.SubElement(plan, "activity", **{**home, "link": r.home_link_end})
 for sub, df in (("tlo", bg), ("ciezkie", hv)):  # D19/K2-2, D20: jedna podróż tlo_start -> tlo_end
     for r in df.itertuples():
         person = etree.SubElement(root, "person", id=r.person)
