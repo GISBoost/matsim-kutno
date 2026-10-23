@@ -4,7 +4,7 @@ Data: 2026-10-22. Cel: sprawdzić na prawdziwych danych dwa blokery z `docs/rese
 
 ## Dane i metoda
 
-**Model.** `ait-energy/matsim-model-vienna` 2023.2 (commit `e8dc348`, 2025-03-26), licencja CC BY-NC 4.0. Repo ma same wejścia (sieć 375 tys. linków, populacja 332 tys. agentów, rozkład PT 52 062 odjazdy, config). Nie ma żadnych wyników symulacji, więc runy zrobiliśmy sami. Klon i scenariusze leżą w katalogu tymczasowym sesji, poza repo (licencja NC, nie redystrybuujemy danych).
+**Model.** `ait-energy/matsim-model-vienna` 2023.2 (commit `e8dc348`, 2025-03-26), licencja CC BY-NC 4.0. Repo ma same wejścia (sieć 375 tys. linków, populacja 332 tys. agentów, rozkład PT 52 062 odjazdy, config). Nie ma żadnych wyników symulacji, więc runy zrobiliśmy sami. Klon leży w `references/matsim-model-vienna/`, scenariusze i skrypty w `references/matsim-model-vienna-test/` (folder `references/` jest w `.gitignore`: licencja NC, nie redystrybuujemy danych).
 
 **Dwa runy (MATSim 2026.0, `-Xmx10g`).**
 
@@ -17,7 +17,7 @@ Data: 2026-10-22. Cel: sprawdzić na prawdziwych danych dwa blokery z `docs/rese
 - Run B: bike dopisany do modów wszystkich linków, które mają `car` (inaczej sieć rowerowa była niespójna i MATSim przerywał). Z configu usunięta domyślna teleportacja roweru (`clearDefaultTeleportedModeParams`, walk i ride dodane jawnie). Rower jedzie po sieci tak szybko jak auto (domyślny typ pojazdu), bo test dotyczy tylko identyfikatorów.
 - Capacity factor 0,01 jest zawyżony wobec spójnego 0,00108 (0,10836 × 0,01). Ruch w runie A nie jest wiarygodny. Wnioski dotyczą struktury pokrycia, nie realnego popytu.
 
-**Pomiar.** Skrypty (poza repo, katalog sesji `scratchpad/vienna/tools/`: `blokery.py`, `ids.py`, `census.py`):
+**Pomiar.** Skrypty (`references/matsim-model-vienna-test/tools/`: `make_sample.py`, `blokery.py`, `ids.py`, `census.py`):
 1. Jeden strumień po `output_events.xml.zst` (10,5 mln linii). Z niego „prawda”: nogi i osobo-godziny per `legMode` (arrival sparowany z departure danej osoby; kierowcy PT `pt_*` pominięci), eventy `travelled`, pary (vehicle, person) z `vehicle enters traffic`, wejścia pasażerów (`PersonEntersPtVehicle`).
 2. Zawartość indeksu z `viz/index.npz` i `meta.json`: `track_id`, `track_person_i`, `ids`, `track_class`.
 3. A/B kodu: ten sam run zindeksowany starym i nowym `viz_index.py` (stary na kopii eventów, żeby nie nadpisać cache nowego).
@@ -117,5 +117,5 @@ Wszystko wymaga jednej zmiany formatu indeksu (`FORMAT`), więc najlepiej zrobi�
 
 ## Pliki i dane testowe
 
-- Skrypty testu leżą poza repo (katalog sesji: `blokery.py`, `ids.py`, `census.py`). Jeśli mają być wersjonowane, trzeba je przenieść do `viz_player/tests/` (osobna decyzja).
+- Skrypty testu leżą w `references/matsim-model-vienna-test/tools/` (gitignore). Jeśli mają być wersjonowane, trzeba je przenieść do `viz_player/tests/` (osobna decyzja).
 - Runy: `output/vienna_1pct_test`, `output/vienna_bike_test` (gitignore, mają ok. 120 MB eventów każdy). Model Wiednia jest na licencji CC BY-NC 4.0 i nie wolno go dodawać do repo (`docs/ZRODLA.md` §8).
