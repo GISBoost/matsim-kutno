@@ -38,7 +38,7 @@ Dojazdy do pracy autem, `dom → praca → dom`.
 | faza | co | stan | gdzie |
 |---|---|---|---|
 | G2 | miejsca pracy (suma z rejestru, wyjeżdżający) | ✅ suma (D17); otwarte: rozkład w gminie (REGON) | [g2](../../reports/etap2/g2_miejsca_pracy/g2_miejsca_pracy.md) |
-| G3 | domy: dwie wersje (OSM, działa zawsze; BDOT10k, polska) | ➡ przeniesione do etapu 3 (zadanie 2, po G1), decyzja użytkownika 2026-10-23; research i rekomendacja gotowe | [G3_domy.md](../../docs/research/G3_domy.md) |
+| G3 | domy: dwie wersje (OSM, działa zawsze; BDOT10k, polska) | ✅ zrobione w etapie 3 (D28, baza R9, 2026-10-23) | [G3_domy.md](../../docs/research/G3_domy.md) |
 | **G5** | **ruch tła i kalibracja do GPR i do prędkości TomTom** | **✅ zamknięte (D25): baza R7b; znane ograniczenia w §3** | niżej, §3, [d23_podsumowanie](../../reports/etap2/g5_predkosci_d23/d23_podsumowanie.md) |
 | G6 | kolejki (D18) i wizualizacja w Blenderze | ✅ D18; Blender w osobnej sesji | [g6_kolejki](../../reports/etap2/g6_kolejki/g6_kolejki.md), [G6_blender.md](../../docs/research/G6_blender.md) |
 
@@ -51,7 +51,7 @@ Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 | kolejność | zadanie | uwagi |
 |---|---|---|
 | 1 | **G1: skrzyżowania** (tylko geometria i zakazy skrętu) | ✅ zakazy skrętu wdrożone (D26, baza R8), efekt poniżej rozrzutu seedów, `f` bez zmian ([g1.md](../../reports/etap3/g1_skrzyzowania/g1.md)); sygnalizacja świetlna później; rozdziela opóźnienia węzłów od prędkości (D23, `f` w mieście) |
-| 2 | **G3: domy** (z etapu 2) | rekomendacja: BDOT10k „budynki mieszkalne”, waga obrys × kondygnacje; 5 decyzji do podjęcia w [G3_domy.md](../../docs/research/G3_domy.md) „Rekomendacja dla G3”; zmienia plany, więc nowa baza po G1 |
+| 2 | **G3: domy** (z etapu 2) | ✅ D28, baza R9: BDOT10k jedno- i wielorodzinne, waga obrys × kondygnacje; zgodność z GUS 250 m TV 10,3 → 8,1 pp, ruch bez zmian ponad rozrzut planów ([g3.md](../../reports/etap3/g3_domy/g3.md)) |
 | 3 | **atrybuty osób** | wiek z NSP 2021; dostęp do auta i odsetek prawa jazdy z ogólnych statystyk GUS (łódzkie); najpierw research |
 | 4 | **dodatkowe aktywności** (szkoła, zakupy, sprawy) | nowa faza, zmiana planów i godzin; dane o celach i rozkładzie godzin z GUS Mobilność |
 | 5 | **GTFS i transport publiczny** | GTFS Kutno: licencja potwierdzona przez użytkownika 2026-10-21; kolej z feedu Kuranowskiego; research: [G4_tryby.md](../../docs/research/G4_tryby.md) |
@@ -71,7 +71,7 @@ Nie planujemy. **Dopóki Kutno nie jest skończone (etapy 2 i 3), do Łodzi nie 
 | krok | zadanie | stan |
 |---|---|---|
 | 1 | Ścieżka prędkości (D23): kroki 1–5 ✅, R7b nową bazą (D25); `f` „na dziś”, obserwacje do dopracowania w [obserwacje_f.md](../../reports/etap2/g5_predkosci_d23/obserwacje_f.md) | ✅ |
-| 2 | G3: dwie wersje domów (OSM zawsze; BDOT10k polska); wymaga decyzji w DECISIONS | ➡ przeniesione do etapu 3 (2026-10-23) |
+| 2 | G3: dwie wersje domów (OSM zawsze; BDOT10k polska); wymaga decyzji w DECISIONS | ✅ zrobione w etapie 3 (D28, R9, 2026-10-23) |
 | 3 | Potwierdzenie, że G5 jest zamknięte | ✅ D25 (znane ograniczenia w §3) |
 | 4 | Zamknięcie etapu 2 i przejście do etapu 3 | ✅ 2026-10-23 (decyzja użytkownika: G3 do etapu 3). Równolegle: run 25% × 100 i 400 it. na GitHub Actions ([GH_ACTIONS_run.md](../../docs/research/GH_ACTIONS_run.md)) |
 

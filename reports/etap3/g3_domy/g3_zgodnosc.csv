@@ -1,0 +1,4 @@
+wariant,pool_budynkow,TV_pp,pearson,spearman,masa_poza_siatka_proc
+OSM (R7b),26611,10.28,0.9803,0.9442,1.07
+BDOT obrys,19520,9.05,0.9831,0.9457,0.7
+BDOT obrys × kondygnacje (R9),19520,8.13,0.9855,0.9484,0.63

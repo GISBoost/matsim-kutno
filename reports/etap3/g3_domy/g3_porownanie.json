@@ -1,0 +1,158 @@
+{
+ "spojnosc_runow": {
+  "s4711": {
+   "nogi_car": 24310,
+   "oczekiwane": 24310,
+   "stuck": 0,
+   "przepelnione_gt2x": 0,
+   "osoby_dep_ne_arr": 0
+  },
+  "s1": {
+   "nogi_car": 24310,
+   "oczekiwane": 24310,
+   "stuck": 0,
+   "przepelnione_gt2x": 0,
+   "osoby_dep_ne_arr": 0
+  },
+  "s2": {
+   "nogi_car": 24310,
+   "oczekiwane": 24310,
+   "stuck": 0,
+   "przepelnione_gt2x": 0,
+   "osoby_dep_ne_arr": 0
+  },
+  "p1": {
+   "nogi_car": 24256,
+   "oczekiwane": 24256,
+   "stuck": 0,
+   "przepelnione_gt2x": 0,
+   "osoby_dep_ne_arr": 0
+  },
+  "p2": {
+   "nogi_car": 24321,
+   "oczekiwane": 24321,
+   "stuck": 0,
+   "przepelnione_gt2x": 0,
+   "osoby_dep_ne_arr": 0
+  }
+ },
+ "gpr_lcv": {
+  "R8_50it": {
+   "w_15proc_ref": 14,
+   "mediana_abs_zmiany_proc": 0.54,
+   "maks_abs_zmiany_proc": 2.44,
+   "odcinki_ponad_rozrzut": 1,
+   "mediana_rozrzutu_planow_proc": 4.4,
+   "zmiana_suma_proc": 0.27,
+   "sekcje_ponad_rozrzut_proc": {
+    "91821": 0.0
+   }
+  },
+  "R7b_100it": {
+   "w_15proc_ref": 14,
+   "mediana_abs_zmiany_proc": 0.43,
+   "maks_abs_zmiany_proc": 2.62,
+   "odcinki_ponad_rozrzut": 1,
+   "mediana_rozrzutu_planow_proc": 4.1,
+   "zmiana_suma_proc": 0.25,
+   "sekcje_ponad_rozrzut_proc": {
+    "91821": 0.0
+   }
+  },
+  "w_15proc_R9": 14,
+  "n_fit": 15,
+  "poza_15proc_R9_proc": {
+   "10043": 21.1
+  },
+  "odcinki_kontrolne_lokalne_R9_proc_GPR": {
+   "91124": 133.0,
+   "91866": 63.0,
+   "10045": 35.0,
+   "91892": 60.0,
+   "91119": 52.0
+  }
+ },
+ "gpr_heavy": {
+  "R8_50it": {
+   "w_15proc_ref": 14,
+   "mediana_abs_zmiany_proc": 0.69,
+   "maks_abs_zmiany_proc": 7.84,
+   "odcinki_ponad_rozrzut": 1,
+   "mediana_rozrzutu_planow_proc": 5.4,
+   "zmiana_suma_proc": 0.12,
+   "sekcje_ponad_rozrzut_proc": {
+    "10044": -7.8
+   }
+  },
+  "R7b_100it": {
+   "w_15proc_ref": 14,
+   "mediana_abs_zmiany_proc": 0.46,
+   "maks_abs_zmiany_proc": 7.84,
+   "odcinki_ponad_rozrzut": 2,
+   "mediana_rozrzutu_planow_proc": 5.4,
+   "zmiana_suma_proc": 0.22,
+   "sekcje_ponad_rozrzut_proc": {
+    "10044": -7.8,
+    "91121": 1.0
+   }
+  },
+  "w_15proc_R9": 14,
+  "n_fit": 15,
+  "poza_15proc_R9_proc": {
+   "91878": -22.6
+  },
+  "odcinki_kontrolne_lokalne_R9_proc_GPR": {
+   "91124": 80.0,
+   "91866": 57.0,
+   "10045": 29.0,
+   "91892": 54.0,
+   "91119": 12.0
+  }
+ },
+ "opoznienia_veh_h_proby": {
+  "R9": [
+   226.8,
+   233.4,
+   231.5,
+   247.7,
+   222.6
+  ],
+  "R8_50it": [
+   228.1,
+   226.6,
+   221.6,
+   240.6,
+   210.1
+  ],
+  "mediana_R9": 231.5,
+  "mediana_R8": 226.6,
+  "rozrzut_planow_R9": 25.1,
+  "rozrzut_planow_R8": 30.5,
+  "przyczyny_mediana_R9": {
+   "capacity": 0.193,
+   "node": 0.469,
+   "spillback": 0.324
+  },
+  "przyczyny_mediana_R8": {
+   "capacity": 0.18,
+   "node": 0.488,
+   "spillback": 0.33
+  }
+ },
+ "podroze_dom_praca_rezydenci_wyjezdzajacy": {
+  "R9_srednie_runow": {
+   "n": 2534.0,
+   "czas_min": 14.78,
+   "dystans_km": 8.33,
+   "euklides_km": 5.69
+  },
+  "R8_50it_srednie_runow": {
+   "n": 2534.0,
+   "czas_min": 14.71,
+   "dystans_km": 8.31,
+   "euklides_km": 5.67
+  },
+  "rozrzut_planow_R8_czas_min": 0.31,
+  "rozrzut_planow_R8_dystans_km": 0.04
+ }
+}
