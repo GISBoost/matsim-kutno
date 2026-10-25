@@ -289,6 +289,7 @@ if P["snap_mode"] == "nearest":
     meta.loc[own, "home_link"] = snap_links(meta.home_x[own], meta.home_y[own])
     meta.loc[own_w, "work_link"] = snap_links(meta.work_x[own_w], meta.work_y[own_w])
     meta["home_link_end"] = meta.home_link
+    meta["work_link_end"] = meta.work_link
 else:
     # D29: dom na starcie i dom na końcu to dwie aktywności, więc mogą mieć różne linki; praca ma jeden link na przyjazd i odjazd.
     # Przyjeżdżający spoza powiatu (wjazd graniczny) kończą dzień na linku wyjazdowym tej samej drogi (lustro wjazdu).
@@ -320,6 +321,33 @@ else:
         w = min(W, key=lambda w_: min(cost(a, w_) for a in Ha) + min(cost(w_, d) for d in He))
         hl.append(min(Ha, key=lambda a: cost(a, w))); hle.append(min(He, key=lambda d: cost(w, d))); wl.append(w)
     meta["home_link"], meta["home_link_end"], meta["work_link"] = hl, hle, wl
+    meta["work_link_end"] = meta.work_link
+    if P["work_split"] == "on":
+        # D31 (krok 4A): praca = dwie aktywności (przyjazd, odjazd) z osobnymi linkami, między nimi teleportowana noga walk o długości 0 m.
+        # Jedna aktywność ma jeden link, więc dojazd i powrót zawracały przy pracy (52% i 25% podróży, D29). Kierunek przyjazdu dobierany
+        # do linku odjazdu z domu, kierunek odjazdu do linku przyjazdu do domu (niezależnie). Wyjeżdżający: odjazd z linku wjazdowego tej drogi.
+        en_set = set(entry.link)
+
+        def mirror_in(l):
+            r = all_by_nodes.get((lk[l][1], lk[l][0]))
+            if r in en_set:
+                return r
+            c = entry[entry.link.map(zroad) == zroad.get(l)]
+            if not len(c):
+                return l
+            x, y = nodes[lk[l][1]].x, nodes[lk[l][1]].y
+            return c.iloc[((c.x - x) ** 2 + (c.y - y) ** 2).argmin()].link
+
+        hl, hle, wl, wle = [], [], [], []
+        for i, r in enumerate(meta.itertuples()):
+            Ha = hc[i] if hc[i] is not None else [r.home_link]
+            He = hc[i] if hc[i] is not None else [mirror(r.home_link)]
+            Wa = wc[i] if wc[i] is not None else [r.work_link]
+            Wd = wc[i] if wc[i] is not None else [mirror_in(r.work_link)]
+            a_, wa_ = min(((x, y) for x in Ha for y in Wa), key=lambda xy: cost(*xy))
+            wd_, d_ = min(((x, y) for x in Wd for y in He), key=lambda xy: cost(*xy))
+            hl.append(a_); wl.append(wa_); wle.append(wd_); hle.append(d_)
+        meta["home_link"], meta["home_link_end"], meta["work_link"], meta["work_link_end"] = hl, hle, wl, wle
 
 # --- godzina wyjazdu (D10): przedział z udziałem z profilu, jednostajnie w przedziale ---------------------
 prof = pd.read_csv(P["departure_profile"])
@@ -402,6 +430,9 @@ for r in meta.itertuples():
     etree.SubElement(plan, "activity", **home, end_time=f"{r.start_s // 3600:02d}:{r.start_s // 60 % 60:02d}:{r.start_s % 60:02d}")
     etree.SubElement(plan, "leg", mode="car")
     etree.SubElement(plan, "activity", type="work", link=r.work_link, x=f"{r.work_x:.1f}", y=f"{r.work_y:.1f}", max_dur=P["work_max_dur"])
+    if r.work_link_end != r.work_link:  # D31: osobny link odjazdu z pracy (aktywność 1 s, noga walk 0 m)
+        etree.SubElement(plan, "leg", mode="walk")
+        etree.SubElement(plan, "activity", type="work", link=r.work_link_end, x=f"{r.work_x:.1f}", y=f"{r.work_y:.1f}", max_dur="00:00:01")
     etree.SubElement(plan, "leg", mode="car")
     etree.SubElement(plan, "activity", **{**home, "link": r.home_link_end})
 for sub, df in (("tlo", bg), ("ciezkie", hv)):  # D19/K2-2, D20: jedna podróż tlo_start -> tlo_end
