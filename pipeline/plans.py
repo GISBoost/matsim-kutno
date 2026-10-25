@@ -384,12 +384,19 @@ bg = background(P["background_od"], "t", "light_pct")
 hv = background(P["heavy_od"], "h", "heavy_pct", b[b.work_any] if P.get("heavy_ends", "all") == "work" else b)  # audyt D9
 
 # --- plans.xml.gz (bez tras; mtime=0, żeby sha256 był powtarzalny) ------------------------------------
+if P["attributes"] == "on":  # D30: wiek, płeć, prawo jazdy, carAvail; osobny generator (attr_seed), reszta planów bez zmian
+    from attributes import Attrs
+    meta = meta.join(Attrs(P).agents(meta))
 root = etree.Element("population")
 for r in meta.itertuples():
     person = etree.SubElement(root, "person", id=r.person)
     attrs = etree.SubElement(person, "attributes")  # subpopulation wymagana przez TripAnalysis (SimWrapper)
     for name, val in (("subpopulation", "person"), ("kind", r.kind)):
         etree.SubElement(attrs, "attribute", name=name, **{"class": "java.lang.String"}).text = val
+    if P["attributes"] == "on":
+        etree.SubElement(attrs, "attribute", name="age", **{"class": "java.lang.Integer"}).text = str(r.age)
+        for name, val in (("sex", r.sex), ("license", r.license), ("carAvail", r.carAvail)):
+            etree.SubElement(attrs, "attribute", name=name, **{"class": "java.lang.String"}).text = val
     plan = etree.SubElement(person, "plan", selected="yes")
     home = dict(type="home", link=r.home_link, x=f"{r.home_x:.1f}", y=f"{r.home_y:.1f}")
     etree.SubElement(plan, "activity", **home, end_time=f"{r.start_s // 3600:02d}:{r.start_s // 60 % 60:02d}:{r.start_s % 60:02d}")
