@@ -70,6 +70,8 @@ snap_mode = "route"
 attributes = "on"
 attr_seed = 30
 licence_denominator = "nsp2021"
+# licence_m65: mężczyźni 65+ w CEPiK mają iloraz > 1 (rejestr z martwymi duszami): "m5564" = udział jak mężczyźni 55-64 (baza D30, ZAŁOŻENIE), "cap098" = górne ograniczenie 0,98.
+licence_m65 = "m5564"
 car_avail_mode = "cars_per_licence"
 # ZAŁOŻENIE (D9): wjazd spoza powiatu = najbliższy (do centroidu gminy źródłowej) link tych klas
 # zaczynający się w strefie granicy sieci (boundary_zone_m z config/network.properties) i skierowany do Kutna.

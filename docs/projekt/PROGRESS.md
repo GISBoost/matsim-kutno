@@ -382,3 +382,5 @@
 - Zawrotki (D29, R9.1): pomiar R9 35,1% podróży z zawrotką na starcie lub końcu (1,99% czasu pojazdów); `plans.py snap_mode=route` (kierunek linku wg trasy swobodnej, osobne linki domu na start i koniec, lustro wjazdu dla przyjeżdżających). GHA run 39986337733 (5 + 5, 25%, 50 it.): zawrotki 12,4% (0,49% czasu), GPR lekkie 14/15, ciężkie 13/15 (DK 10044 −16,3% przy rozrzucie planów 12–14%), opóźnienie 224,3 vs 231,5 poj.-h (rozrzut 25). Baza R9.1 czeka na decyzję użytkownika. `reports/etap3/g_zawrotki/zawrotki.md`.
 
 - Krok 0 etapu 3: workflow GHA `matsim-od` (3 runy bez tła 25% x 50 it. + 6 estymacji O-D + od_warnings, ok. 25 min); runy identyczne z lokalnymi, macierze różnią się szumem losowania punktów (sumy do 0,12%), 0 flag. `reports/etap3/krok0_od_gha/krok0.md`.
+
+- Krok 3 etapu 3 (D30, baza R9.2): atrybuty osób (age, sex, license, carAvail) w planach, pełna populacja Kutna (42 255) w CSV, udział praw jazdy z CEPiK 2019 / NSP 2021 przesunięty do 60,6% (Łódzkie), mężczyźni 65+ jak 55-64. Test GHA: trasy, nogi, natężenia i score identyczne. `reports/etap3/g_atrybuty/atrybuty.md`.
