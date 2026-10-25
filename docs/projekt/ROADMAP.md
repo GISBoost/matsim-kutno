@@ -65,7 +65,7 @@ Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 
 | krok | zawartość | zależność |
 |---|---|---|
-| 0 | **Estymacja O-D na GitHub Actions** (warunek wstępny dla kroków 3 i 4): workflow „runy bez tła × 3 seedy → artefakty z eventami → `background_od.py` → macierze”. Dziś ta część idzie lokalnie (ERRORS 34), a artefakty GHA nie zawierają eventów | blokuje każdą zmianę planów, bo zmiana planów wymaga nowej estymacji O-D |
+| 0 | ✅ **Estymacja O-D na GitHub Actions** (2026-10-25, workflow `matsim-od`, [krok0.md](../../reports/etap3/krok0_od_gha/krok0.md)) (warunek wstępny dla kroków 3 i 4): workflow „runy bez tła × 3 seedy → artefakty z eventami → `background_od.py` → macierze”. Dziś ta część idzie lokalnie (ERRORS 34), a artefakty GHA nie zawierają eventów | blokuje każdą zmianę planów, bo zmiana planów wymaga nowej estymacji O-D |
 | 3 | **Atrybuty osób** (research, potem wdrożenie): wiek z NSP 2021 (BREC), prawo jazdy i dostęp do auta z GUS (łódzkie). Zasięg: atrybuty w `plans.xml` i `car_share` zależne od wieku zamiast jednego 0,64. Sam zapis atrybutów nie zmienia ruchu; zmienia go tylko użycie (wybór, kto jedzie autem), więc to krok danych przed krokami 4 i 6 | po 0 |
 | 4 | **Dodatkowe aktywności** (szkoła, zakupy, sprawy) razem z **rozdzieleniem aktywności pracy na przyjazd i odjazd** (usuwa ostatnie zawrotki, D29) | po 3 (potrzebny wiek: dzieci, emeryci) |
 | 5–6 | GTFS i PT, wybór trybu i kalibracja ASC | po 4 |

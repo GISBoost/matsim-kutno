@@ -1,0 +1,6 @@
+RÓŻNA  lcv
+RÓŻNA  heavy
+RÓŻNA _p1 lcv
+RÓŻNA _p1 heavy
+RÓŻNA _p2 lcv
+RÓŻNA _p2 heavy
