@@ -27,6 +27,12 @@ Plany r91 vs r91a (te same plany + atrybuty), seed 4711, 25%, 50 iteracji, 2 wą
 - Pracujący >75 lat: wskaźnik zatrudnienia 2,4% dla całej grupy 75+, więc wśród agentów trafiają się osoby w wieku do 90 lat (min. 18, maks. 90).
 - Wiek przyjeżdżających (`commuter`) z rozkładu kutnowskiego (brak danych o gminach źródłowych).
 
+## Jak czytać wykres ([atrybuty.png](atrybuty.png))
+**Lewy panel: prawo jazdy wg płci i grupy wieku (cała Polska).** Oś Y to udział (0,8 = 80% osób w grupie ma prawo jazdy), 1,0 = 100%. Niebieski = mężczyźni (M), różowy = kobiety (K). Linia przerywana = surowy iloraz CEPiK 2019 / ludność NSP 2021. Linia ciągła z kropkami = wartości użyte w modelu (D30: mężczyźni 65+ jak 55–64, całość przesunięta tak, by w Łódzkiem wyszło 60,6%). Wartości liczbowe: `scenarios/kutno/demand/licence_rates.csv` (kolumny `rate_raw`, `rate`). Surowy udział > 1 w grupie 65+ mężczyzn oznacza więcej praw jazdy w rejestrze niż osób, czyli artefakt rejestru.
+**Prawy panel: populacja Kutna (42 255 os.), udział osób w 10-letnich grupach wieku.** `prawo jazdy` = udział z `license=yes`; `carAvail=always` = udział z autem zawsze dostępnym; `pracujący` = udział pracujących (D17, łącznie 17 255 os.). Wartości z `scenarios/kutno/demand/population_kutno.csv`. To udział w grupie, a nie liczba osób, więc grupy nie sumują się do 1.
+
+**Zasada projektu:** przy każdym nowym wykresie dopisz taką sekcję w raporcie obok pliku PNG (osie, kolory, skróty, skąd liczby).
+
 ## Odtworzenie
 ```
 uv run python -W ignore pipeline/attributes.py              # licence_rates.csv, population_kutno.csv, atrybuty.json
