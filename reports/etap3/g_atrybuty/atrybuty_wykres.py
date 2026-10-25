@@ -15,5 +15,6 @@ for s, c in (("M", "#4fc3f7"), ("K", "#f48fb1")):
 ax[0].axhline(1, color="gray", lw=.5); ax[0].set_title("udział praw jazdy wg płci i grupy wieku (Polska, CEPiK 2019)"); ax[0].legend(fontsize=7)
 b = pd.cut(p.age, list(range(-1, 95, 10)))
 g = p.groupby(b, observed=True).agg(lic=("license", "mean"), alw=("carAvail", lambda s: (s == "always").mean()), emp=("employed", "mean"))
+g.columns = ["prawo jazdy", "carAvail=always", "pracujący"]
 g.plot(ax=ax[1], marker="o"); ax[1].set_xticks(range(len(g))); ax[1].set_xticklabels([f"{int(i.left) + 1}-{int(i.right)}" for i in g.index], rotation=45, fontsize=8)
-ax[1].set_title("Kutno, 42 255 os.: prawo jazdy, always, pracujący wg wieku"); fig.tight_layout(); fig.savefig("reports/etap3/g_atrybuty/atrybuty.png", dpi=130)
+ax[1].set_title("Kutno, 42 255 os.: udział w grupie wieku"); ax[1].set_xlabel("wiek [lata]"); ax[1].set_ylabel("udział osób w grupie (0-1)"); ax[0].set_xlabel("grupa wieku [lata]"); ax[0].set_ylabel("prawa jazdy / ludność (1 = 100%)"); fig.tight_layout(); fig.savefig("reports/etap3/g_atrybuty/atrybuty.png", dpi=130)
