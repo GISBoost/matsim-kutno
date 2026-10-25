@@ -38,5 +38,6 @@ Analiza metodyczna jest w `docs/research/` (`R3_ocena_modelu.md`).
 Pliki z folderów f5 i f6 pochodzą sprzed napraw R3. Nie porównuj ich liczb wprost z `etap1_mvp/r3_ocena/`.
 
 | `etap3/g_zawrotki/` | Zawrotki na początku i końcu trasy (D29), R9.1; raport `zawrotki.md`, pomiar i porównanie `zawrotki_*`, logi w `r91/` |
+| `etap3/krok0_od_gha/` | krok 0 etapu 3: estymacja O-D na GitHub Actions | `krok0.md` |
 | `etap3/g3_domy/` | G3 (D28): domy z BDOT10k, baza R9; raport `g3.md`, zgodność z siatką GUS `g3_zgodnosc.*`, porównanie runów `g3_porownanie.*`, logi i walidacje w `r9/` |
 | `etap3/g1_skrzyzowania/` | G1 (D26): zakazy skrętu z OSM, audyt geometrii, runy R8 vs R7b; G1b (D27): przepustowość wlotów k=0,8/0,6/0,4; raporty `g1.md`, `g1b.md`, mapa `g1_mapa.png` |
