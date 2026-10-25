@@ -42,8 +42,12 @@ FARM = {"farm_auxiliary", "outbuilding", "garage", "shed"}
 TRIO = {"1002032", "1002044", "1002045"}
 LIM = {"S1_density_vs_kutno": 10.0, "S2_local_km_share": 0.35, "S3_heavy_res_farm_share": 0.25, "S4_trio_trips": 500}
 
-rej = gpd.read_file("data/raw/brec/rej_pl/SU_BREC_2021_REJ.shp", columns=["GMINA"])
-gm = rej[rej.GMINA.str.startswith(P["area"]["teryt_powiat"])].dissolve(by="GMINA")
+GM = Path("scenarios/kutno/area/gminy_powiat.gpkg")  # gminy powiatu z BREC (data/raw jest poza gitem, więc runner GHA czyta tę kopię)
+if GM.exists():
+    gm = gpd.read_file(GM).set_index("GMINA")
+else:
+    rej = gpd.read_file("data/raw/brec/rej_pl/SU_BREC_2021_REJ.shp", columns=["GMINA"])
+    gm = rej[rej.GMINA.str.startswith(P["area"]["teryt_powiat"])].dissolve(by="GMINA")
 b = gpd.read_file("scenarios/kutno/osm/features.gpkg", layer="buildings")
 lu = gpd.read_file("scenarios/kutno/osm/features.gpkg", layer="landuse")
 b["a"] = b.geometry.area
