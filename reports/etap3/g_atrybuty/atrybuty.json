@@ -1,0 +1,163 @@
+{
+ "warianty": {
+  "nsp2021/cars_per_licence": {
+   "theta": 0.0868,
+   "p_always_given_licence": 0.7296,
+   "licence_share_6plus_kutno": 0.6015,
+   "licence_share_18plus_kutno": 0.6766,
+   "always_share_18plus_kutno": 0.4943,
+   "employed": 17255,
+   "employed_license": 0.7408,
+   "employed_always": 0.5383,
+   "national_implied_share": 0.6026,
+   "gus_national_share": 0.6255
+  },
+  "nsp2021/all_licence": {
+   "theta": 0.0868,
+   "p_always_given_licence": 1.0,
+   "licence_share_6plus_kutno": 0.6015,
+   "licence_share_18plus_kutno": 0.6766,
+   "always_share_18plus_kutno": 0.6766,
+   "employed": 17255,
+   "employed_license": 0.7408,
+   "employed_always": 0.7408,
+   "national_implied_share": 0.6026,
+   "gus_national_share": 0.6255
+  },
+  "eurostat2019/cars_per_licence": {
+   "theta": 0.1172,
+   "p_always_given_licence": 0.7296,
+   "licence_share_6plus_kutno": 0.6029,
+   "licence_share_18plus_kutno": 0.6783,
+   "always_share_18plus_kutno": 0.496,
+   "employed": 17255,
+   "employed_license": 0.7436,
+   "employed_always": 0.5409,
+   "national_implied_share": 0.6027,
+   "gus_national_share": 0.6255
+  },
+  "eurostat2019/all_licence": {
+   "theta": 0.1172,
+   "p_always_given_licence": 1.0,
+   "licence_share_6plus_kutno": 0.6029,
+   "licence_share_18plus_kutno": 0.6783,
+   "always_share_18plus_kutno": 0.6783,
+   "employed": 17255,
+   "employed_license": 0.7436,
+   "employed_always": 0.7436,
+   "national_implied_share": 0.6027,
+   "gus_national_share": 0.6255
+  }
+ },
+ "baza": {
+  "diag": {
+   "den": "nsp2021",
+   "theta": 0.08675237095144438,
+   "target_lodzkie": 1379916.5718666096,
+   "raw_national_implied_share_6plus": 0.6025842264373718,
+   "gus_national_share": 0.625464311205339,
+   "gus_lodzkie_share": 0.6060630931670202
+  },
+  "rates": [
+   {
+    "sex": "K",
+    "group": "18-24",
+    "gi": 0,
+    "cepik": 857489.0,
+    "rate_raw": 0.6667,
+    "rate": 0.6856
+   },
+   {
+    "sex": "K",
+    "group": "25-34",
+    "gi": 1,
+    "cepik": 1982762.0,
+    "rate_raw": 0.7842,
+    "rate": 0.7985
+   },
+   {
+    "sex": "K",
+    "group": "35-44",
+    "gi": 2,
+    "cepik": 2285412.0,
+    "rate_raw": 0.7355,
+    "rate": 0.7521
+   },
+   {
+    "sex": "K",
+    "group": "45-54",
+    "gi": 3,
+    "cepik": 1566949.0,
+    "rate_raw": 0.6279,
+    "rate": 0.6479
+   },
+   {
+    "sex": "K",
+    "group": "55-64",
+    "gi": 4,
+    "cepik": 1215380.0,
+    "rate_raw": 0.474,
+    "rate": 0.4957
+   },
+   {
+    "sex": "K",
+    "group": "65-",
+    "gi": 5,
+    "cepik": 904981.0,
+    "rate_raw": 0.2125,
+    "rate": 0.2274
+   },
+   {
+    "sex": "M",
+    "group": "18-24",
+    "gi": 0,
+    "cepik": 971720.0,
+    "rate_raw": 0.7244,
+    "rate": 0.7414
+   },
+   {
+    "sex": "M",
+    "group": "25-34",
+    "gi": 1,
+    "cepik": 2149756.0,
+    "rate_raw": 0.8232,
+    "rate": 0.8355
+   },
+   {
+    "sex": "M",
+    "group": "35-44",
+    "gi": 2,
+    "cepik": 2558926.0,
+    "rate_raw": 0.8051,
+    "rate": 0.8184
+   },
+   {
+    "sex": "M",
+    "group": "45-54",
+    "gi": 3,
+    "cepik": 2007662.0,
+    "rate_raw": 0.8063,
+    "rate": 0.8195
+   },
+   {
+    "sex": "M",
+    "group": "55-64",
+    "gi": 4,
+    "cepik": 2084327.0,
+    "rate_raw": 0.889,
+    "rate": 0.8973
+   },
+   {
+    "sex": "M",
+    "group": "65-",
+    "gi": 5,
+    "cepik": 2951870.0,
+    "rate_raw": 1.043,
+    "rate": 0.9816
+   }
+  ],
+  "n": 42255,
+  "pyramid_tv_pp": 0.7,
+  "sex_male_share": 0.4641
+ }
+}
