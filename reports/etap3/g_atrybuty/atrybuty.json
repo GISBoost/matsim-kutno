@@ -1,7 +1,23 @@
 {
  "warianty": {
-  "nsp2021/cars_per_licence": {
+  "nsp2021/cars_per_licence/m5564": {
+   "theta": 0.1363,
+   "licence_share_65_74_kutno": 0.4927,
+   "licence_share_75plus_kutno": 0.4593,
+   "p_always_given_licence": 0.7296,
+   "licence_share_6plus_kutno": 0.6009,
+   "licence_share_18plus_kutno": 0.676,
+   "always_share_18plus_kutno": 0.4935,
+   "employed": 17255,
+   "employed_license": 0.7463,
+   "employed_always": 0.5418,
+   "national_implied_share": 0.6026,
+   "gus_national_share": 0.6255
+  },
+  "nsp2021/cars_per_licence/cap098": {
    "theta": 0.0868,
+   "licence_share_65_74_kutno": 0.5182,
+   "licence_share_75plus_kutno": 0.4791,
    "p_always_given_licence": 0.7296,
    "licence_share_6plus_kutno": 0.6015,
    "licence_share_18plus_kutno": 0.6766,
@@ -12,39 +28,31 @@
    "national_implied_share": 0.6026,
    "gus_national_share": 0.6255
   },
-  "nsp2021/all_licence": {
-   "theta": 0.0868,
+  "nsp2021/all_licence/m5564": {
+   "theta": 0.1363,
+   "licence_share_65_74_kutno": 0.4927,
+   "licence_share_75plus_kutno": 0.4593,
    "p_always_given_licence": 1.0,
-   "licence_share_6plus_kutno": 0.6015,
-   "licence_share_18plus_kutno": 0.6766,
-   "always_share_18plus_kutno": 0.6766,
+   "licence_share_6plus_kutno": 0.6009,
+   "licence_share_18plus_kutno": 0.676,
+   "always_share_18plus_kutno": 0.676,
    "employed": 17255,
-   "employed_license": 0.7408,
-   "employed_always": 0.7408,
+   "employed_license": 0.7463,
+   "employed_always": 0.7463,
    "national_implied_share": 0.6026,
    "gus_national_share": 0.6255
   },
-  "eurostat2019/cars_per_licence": {
-   "theta": 0.1172,
+  "eurostat2019/cars_per_licence/m5564": {
+   "theta": 0.1913,
+   "licence_share_65_74_kutno": 0.492,
+   "licence_share_75plus_kutno": 0.4613,
    "p_always_given_licence": 0.7296,
-   "licence_share_6plus_kutno": 0.6029,
-   "licence_share_18plus_kutno": 0.6783,
-   "always_share_18plus_kutno": 0.496,
+   "licence_share_6plus_kutno": 0.6025,
+   "licence_share_18plus_kutno": 0.6777,
+   "always_share_18plus_kutno": 0.4953,
    "employed": 17255,
-   "employed_license": 0.7436,
-   "employed_always": 0.5409,
-   "national_implied_share": 0.6027,
-   "gus_national_share": 0.6255
-  },
-  "eurostat2019/all_licence": {
-   "theta": 0.1172,
-   "p_always_given_licence": 1.0,
-   "licence_share_6plus_kutno": 0.6029,
-   "licence_share_18plus_kutno": 0.6783,
-   "always_share_18plus_kutno": 0.6783,
-   "employed": 17255,
-   "employed_license": 0.7436,
-   "employed_always": 0.7436,
+   "employed_license": 0.751,
+   "employed_always": 0.5464,
    "national_implied_share": 0.6027,
    "gus_national_share": 0.6255
   }
@@ -52,7 +60,8 @@
  "baza": {
   "diag": {
    "den": "nsp2021",
-   "theta": 0.08675237095144438,
+   "m65": "m5564",
+   "theta": 0.13629942722571917,
    "target_lodzkie": 1379916.5718666096,
    "raw_national_implied_share_6plus": 0.6025842264373718,
    "gus_national_share": 0.625464311205339,
@@ -65,7 +74,8 @@
     "gi": 0,
     "cepik": 857489.0,
     "rate_raw": 0.6667,
-    "rate": 0.6856
+    "rate_pre": 0.6667,
+    "rate": 0.6962
    },
    {
     "sex": "K",
@@ -73,7 +83,8 @@
     "gi": 1,
     "cepik": 1982762.0,
     "rate_raw": 0.7842,
-    "rate": 0.7985
+    "rate_pre": 0.7842,
+    "rate": 0.8064
    },
    {
     "sex": "K",
@@ -81,7 +92,8 @@
     "gi": 2,
     "cepik": 2285412.0,
     "rate_raw": 0.7355,
-    "rate": 0.7521
+    "rate_pre": 0.7355,
+    "rate": 0.7612
    },
    {
     "sex": "K",
@@ -89,7 +101,8 @@
     "gi": 3,
     "cepik": 1566949.0,
     "rate_raw": 0.6279,
-    "rate": 0.6479
+    "rate_pre": 0.6279,
+    "rate": 0.6591
    },
    {
     "sex": "K",
@@ -97,7 +110,8 @@
     "gi": 4,
     "cepik": 1215380.0,
     "rate_raw": 0.474,
-    "rate": 0.4957
+    "rate_pre": 0.474,
+    "rate": 0.5081
    },
    {
     "sex": "K",
@@ -105,7 +119,8 @@
     "gi": 5,
     "cepik": 904981.0,
     "rate_raw": 0.2125,
-    "rate": 0.2274
+    "rate_pre": 0.2125,
+    "rate": 0.2362
    },
    {
     "sex": "M",
@@ -113,7 +128,8 @@
     "gi": 0,
     "cepik": 971720.0,
     "rate_raw": 0.7244,
-    "rate": 0.7414
+    "rate_pre": 0.7244,
+    "rate": 0.7508
    },
    {
     "sex": "M",
@@ -121,7 +137,8 @@
     "gi": 1,
     "cepik": 2149756.0,
     "rate_raw": 0.8232,
-    "rate": 0.8355
+    "rate_pre": 0.8232,
+    "rate": 0.8422
    },
    {
     "sex": "M",
@@ -129,7 +146,8 @@
     "gi": 2,
     "cepik": 2558926.0,
     "rate_raw": 0.8051,
-    "rate": 0.8184
+    "rate_pre": 0.8051,
+    "rate": 0.8256
    },
    {
     "sex": "M",
@@ -137,7 +155,8 @@
     "gi": 3,
     "cepik": 2007662.0,
     "rate_raw": 0.8063,
-    "rate": 0.8195
+    "rate_pre": 0.8063,
+    "rate": 0.8267
    },
    {
     "sex": "M",
@@ -145,7 +164,8 @@
     "gi": 4,
     "cepik": 2084327.0,
     "rate_raw": 0.889,
-    "rate": 0.8973
+    "rate_pre": 0.889,
+    "rate": 0.9018
    },
    {
     "sex": "M",
@@ -153,7 +173,8 @@
     "gi": 5,
     "cepik": 2951870.0,
     "rate_raw": 1.043,
-    "rate": 0.9816
+    "rate_pre": 0.889,
+    "rate": 0.9018
    }
   ],
   "n": 42255,

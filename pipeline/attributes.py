@@ -67,7 +67,7 @@ def gus():
             "members_pl": float(row("Tabl. 3", "Polska")[1])}
 
 
-def licence_rates(den="nsp2021", B=None, C=None, U=None):
+def licence_rates(den="nsp2021", B=None, C=None, U=None, m65="m5564"):
     """r(płeć, grupa) po przesunięciu logit do 60,6% w Łódzkiem; zwraca (DataFrame, diagnostyka)."""
     B, C, U = B or bdl(), C or cepik(), U or gus()
     pl = B["Polska"] if den == "nsp2021" else eurostat(2019)
@@ -75,13 +75,15 @@ def licence_rates(den="nsp2021", B=None, C=None, U=None):
     lod = B["Lodzkie"]
     target = U["lic_lodzkie"] / U["members_lodzkie"] * float(lod.loc[6:].to_numpy().sum())
     popl = {k: group_pop(lod, k[0], *GROUPS[k[1]]) for k in C}
-    cap = {k: min(raw[k], CAP) for k in C}  # CEPiK liczy też zmarłych i wyjechanych: mężczyźni 65+ mają 1,04 > 1, więc rejestr jest górną granicą
+    cap = {k: min(raw[k], CAP) for k in C}
+    if m65 == "m5564":  # D30: mężczyźni 65+ (iloraz CEPiK/NSP > 1) dostają udział mężczyzn 55-64, bez wzrostu z wiekiem
+        cap[("M", 5)] = cap[("M", 4)]  # CEPiK liczy też zmarłych i wyjechanych: mężczyźni 65+ mają 1,04 > 1, więc rejestr jest górną granicą
     theta = brentq(lambda t: sum(expit(logit(cap[k]) + t) * popl[k] for k in C) - target, -5, 5)
     df = pd.DataFrame([dict(sex=k[0], group=f"{GROUPS[k[1]][0]}-{GROUPS[k[1]][1] if GROUPS[k[1]][1] < 200 else ''}", gi=k[1], cepik=C[k],
-                            rate_raw=raw[k], rate=float(expit(logit(cap[k]) + theta))) for k in sorted(C, key=lambda k: (k[0], k[1]))])
+                            rate_raw=raw[k], rate_pre=cap[k], rate=float(expit(logit(cap[k]) + theta))) for k in sorted(C, key=lambda k: (k[0], k[1]))])
     nat = B["Polska"]
     nat_share = sum(raw[k] * group_pop(nat, k[0], *GROUPS[k[1]]) for k in C) / float(nat.loc[6:].to_numpy().sum())
-    return df, dict(den=den, theta=theta, target_lodzkie=target, raw_national_implied_share_6plus=nat_share,
+    return df, dict(den=den, m65=m65, theta=theta, target_lodzkie=target, raw_national_implied_share_6plus=nat_share,
                     gus_national_share=U["lic_pl"] / U["members_pl"], gus_lodzkie_share=U["lic_lodzkie"] / U["members_lodzkie"])
 
 
@@ -143,7 +145,7 @@ class Attrs:
     def __init__(self, P):
         self.P = P
         self.B, self.U = bdl(), gus()
-        self.rates, self.diag = licence_rates(P.get("licence_denominator", "nsp2021"), self.B, None, self.U)
+        self.rates, self.diag = licence_rates(P.get("licence_denominator", "nsp2021"), self.B, None, self.U, P.get("licence_m65", "m5564"))
         self.lic, self.emp = lic_by_age(self.rates), emp_rate()
         self.carq = car_p(P.get("car_avail_mode", "cars_per_licence"), self.U)
         self.kut = self.B["Kutno"]
@@ -215,18 +217,19 @@ if __name__ == "__main__":
     P = cfg["plans"]
     Path("reports/etap3/g_atrybuty").mkdir(parents=True, exist_ok=True)
     rep = {"warianty": {}}
-    for den in ("nsp2021", "eurostat2019"):
-        for mode in ("cars_per_licence", "all_licence"):
-            a = Attrs({**P, "licence_denominator": den, "car_avail_mode": mode})
+    for den, mode, m65 in (("nsp2021", "cars_per_licence", "m5564"), ("nsp2021", "cars_per_licence", "cap098"), ("nsp2021", "all_licence", "m5564"),
+                           ("eurostat2019", "cars_per_licence", "m5564")):
+        if True:
+            a = Attrs({**P, "licence_denominator": den, "car_avail_mode": mode, "licence_m65": m65})
             pop = a.population(workers_scaled(cfg["demand"]["employed_residents_reg"]))
             emp = pop[pop.employed]
-            rep["warianty"][f"{den}/{mode}"] = dict(
-                theta=round(a.diag["theta"], 4), p_always_given_licence=round(a.carq, 4),
+            rep["warianty"][f"{den}/{mode}/{m65}"] = dict(
+                theta=round(a.diag["theta"], 4), licence_share_65_74_kutno=round(float(pop[(pop.age >= 65) & (pop.age <= 74)].license.mean()), 4), licence_share_75plus_kutno=round(float(pop[pop.age >= 75].license.mean()), 4), p_always_given_licence=round(a.carq, 4),
                 licence_share_6plus_kutno=round(float(pop[pop.age >= 6].license.mean()), 4), licence_share_18plus_kutno=round(float(pop[pop.age >= 18].license.mean()), 4),
                 always_share_18plus_kutno=round(float((pop[pop.age >= 18].carAvail == "always").mean()), 4),
                 employed=int(len(emp)), employed_license=round(float(emp.license.mean()), 4), employed_always=round(float((emp.carAvail == "always").mean()), 4),
                 national_implied_share=round(a.diag["raw_national_implied_share_6plus"], 4), gus_national_share=round(a.diag["gus_national_share"], 4))
-            if den == "nsp2021" and mode == "cars_per_licence":
+            if (den, mode, m65) == ("nsp2021", "cars_per_licence", "m5564"):
                 a.rates.to_csv("scenarios/kutno/demand/licence_rates.csv", index=False, lineterminator="\n")
                 pop.insert(0, "person", [f"p{i}" for i in range(len(pop))])
                 pop.to_csv("scenarios/kutno/demand/population_kutno.csv", index=False, lineterminator="\n")

@@ -10,8 +10,8 @@ r = pd.read_csv("scenarios/kutno/demand/licence_rates.csv"); p = pd.read_csv("sc
 fig, ax = plt.subplots(1, 2, figsize=(13, 4.8))
 for s, c in (("M", "#4fc3f7"), ("K", "#f48fb1")):
     q = r[r.sex == s]
-    ax[0].plot(q.group, q.rate_raw, "--", color=c, label=f"{s} CEPiK / NSP 2021")
-    ax[0].plot(q.group, q.rate, "-o", color=c, label=f"{s} po przesunięciu (Łódzkie 60,6%)")
+    ax[0].plot(q.group, q.rate_raw, "--", color=c, label=f"{s} CEPiK / NSP 2021 (surowy)")
+    ax[0].plot(q.group, q.rate, "-o", color=c, label=f"{s} baza D30 (M 65+ = 55-64, przesunięcie do 60,6%)")
 ax[0].axhline(1, color="gray", lw=.5); ax[0].set_title("udział praw jazdy wg płci i grupy wieku (Polska, CEPiK 2019)"); ax[0].legend(fontsize=7)
 b = pd.cut(p.age, list(range(-1, 95, 10)))
 g = p.groupby(b, observed=True).agg(lic=("license", "mean"), alw=("carAvail", lambda s: (s == "always").mean()), emp=("employed", "mean"))

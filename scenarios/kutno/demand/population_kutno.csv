@@ -62,7 +62,7 @@ p59,6509011,14,M,False,False,never
 p60,6509011,15,M,False,False,never
 p61,6509011,12,K,False,False,never
 p62,6509011,17,K,False,False,never
-p63,6509011,19,K,False,False,never
+p63,6509011,19,K,False,True,sometimes
 p64,6509011,19,K,False,True,always
 p65,6509011,14,M,False,False,never
 p66,6509011,14,M,False,False,never
@@ -71,7 +71,7 @@ p68,6509011,15,M,False,False,never
 p69,6509011,13,M,False,False,never
 p70,6509011,26,K,True,True,always
 p71,6509011,24,K,False,True,sometimes
-p72,6509011,29,K,True,False,never
+p72,6509011,29,K,True,True,sometimes
 p73,6509011,24,K,True,True,always
 p74,6509011,28,K,True,False,never
 p75,6509011,24,M,False,False,never
@@ -80,12 +80,12 @@ p77,6509011,27,M,True,True,always
 p78,6509011,29,K,True,True,sometimes
 p79,6509011,23,M,False,False,never
 p80,6509011,26,K,True,True,always
-p81,6509011,24,M,True,False,never
+p81,6509011,24,M,True,True,sometimes
 p82,6509011,22,M,True,False,never
 p83,6509011,24,M,True,True,always
 p84,6509011,21,K,True,True,always
 p85,6509011,26,M,False,True,always
-p86,6509011,25,K,True,False,never
+p86,6509011,25,K,True,True,sometimes
 p87,6509011,28,K,True,True,always
 p88,6509011,26,M,True,True,always
 p89,6509011,24,M,True,False,never
@@ -191,7 +191,7 @@ p188,6509011,40,M,True,False,never
 p189,6509011,48,K,True,False,never
 p190,6509011,46,M,True,True,always
 p191,6509011,46,M,False,True,always
-p192,6509011,49,K,True,False,never
+p192,6509011,49,K,True,True,always
 p193,6509011,40,M,True,True,sometimes
 p194,6509011,41,M,True,True,sometimes
 p195,6509011,49,K,True,False,never
@@ -279,7 +279,7 @@ p276,6509011,69,M,False,True,always
 p277,6509011,69,M,False,True,sometimes
 p278,6509011,65,K,False,True,always
 p279,6509011,61,M,False,True,always
-p280,6509011,65,M,False,True,always
+p280,6509011,65,M,False,False,never
 p281,6509011,69,K,False,False,never
 p282,6509011,68,K,True,False,never
 p283,6509011,60,K,True,False,never
@@ -309,7 +309,7 @@ p306,6509011,70,K,False,False,never
 p307,6509011,70,K,False,False,never
 p308,6509011,76,M,False,True,always
 p309,6509011,71,K,False,True,always
-p310,6509011,72,M,False,True,always
+p310,6509011,72,M,False,False,never
 p311,6509011,72,M,False,True,always
 p312,6509011,79,K,False,False,never
 p313,6509011,73,M,False,True,sometimes
@@ -619,7 +619,7 @@ p616,6509012,55,M,True,True,always
 p617,6509012,50,M,False,True,always
 p618,6509012,55,K,True,True,sometimes
 p619,6509012,58,M,False,True,sometimes
-p620,6509012,53,K,False,False,never
+p620,6509012,53,K,False,True,always
 p621,6509012,59,K,False,False,never
 p622,6509012,57,M,False,True,always
 p623,6509012,55,K,True,False,never
@@ -748,7 +748,7 @@ p745,6509012,76,K,False,True,always
 p746,6509012,76,M,False,True,sometimes
 p747,6509012,70,M,False,True,always
 p748,6509012,70,K,False,False,never
-p749,6509012,71,M,False,True,sometimes
+p749,6509012,71,M,False,False,never
 p750,6509012,73,M,False,True,sometimes
 p751,6509012,73,K,True,False,never
 p752,6509012,75,K,False,True,always
@@ -806,7 +806,7 @@ p803,6509013,24,K,False,True,always
 p804,6509013,29,K,True,True,sometimes
 p805,6509013,29,K,True,True,always
 p806,6509013,23,K,True,True,sometimes
-p807,6509013,25,K,True,False,never
+p807,6509013,25,K,True,True,always
 p808,6509013,29,M,False,True,always
 p809,6509013,25,K,False,True,always
 p810,6509013,26,M,True,False,never
@@ -889,7 +889,7 @@ p886,6509013,55,M,True,True,sometimes
 p887,6509013,55,M,True,True,sometimes
 p888,6509013,58,M,True,True,sometimes
 p889,6509013,55,K,True,True,always
-p890,6509013,50,M,False,False,never
+p890,6509013,50,M,False,True,always
 p891,6509013,56,M,True,True,always
 p892,6509013,56,K,True,True,always
 p893,6509013,55,K,True,False,never
@@ -905,7 +905,7 @@ p902,6509013,53,M,False,True,sometimes
 p903,6509013,50,M,True,False,never
 p904,6509013,50,K,True,False,never
 p905,6509013,55,M,True,True,always
-p906,6509013,59,K,False,False,never
+p906,6509013,59,K,False,True,sometimes
 p907,6509013,57,K,True,True,always
 p908,6509013,59,K,False,True,always
 p909,6509013,53,M,True,True,sometimes
@@ -961,13 +961,13 @@ p958,6509013,63,M,False,True,sometimes
 p959,6509013,63,M,False,False,never
 p960,6509013,66,K,False,False,never
 p961,6509013,64,K,True,True,sometimes
-p962,6509013,66,M,False,True,always
+p962,6509013,66,M,False,False,never
 p963,6509013,69,K,False,False,never
 p964,6509013,64,K,False,False,never
 p965,6509013,60,K,False,False,never
 p966,6509013,67,K,False,True,always
 p967,6509013,65,K,False,False,never
-p968,6509013,60,K,False,False,never
+p968,6509013,60,K,False,True,sometimes
 p969,6509013,64,K,False,False,never
 p970,6509013,78,M,False,True,always
 p971,6509013,72,M,False,True,always
@@ -1232,7 +1232,7 @@ p1229,6509014,79,K,False,False,never
 p1230,6509014,74,K,False,False,never
 p1231,6509014,75,M,False,True,always
 p1232,6509014,74,K,False,False,never
-p1233,6509014,76,K,False,False,never
+p1233,6509014,76,K,False,True,sometimes
 p1234,6509014,71,K,False,False,never
 p1235,6509014,73,M,True,True,always
 p1236,6509014,75,M,False,True,always
@@ -1284,7 +1284,7 @@ p1281,6509015,13,M,False,False,never
 p1282,6509015,18,M,True,True,always
 p1283,6509015,15,M,False,False,never
 p1284,6509015,16,K,False,False,never
-p1285,6509015,19,K,False,False,never
+p1285,6509015,19,K,False,True,always
 p1286,6509015,10,K,False,False,never
 p1287,6509015,14,M,False,False,never
 p1288,6509015,17,K,False,False,never
@@ -1360,7 +1360,7 @@ p1357,6509015,40,K,False,True,always
 p1358,6509015,41,K,False,True,always
 p1359,6509015,45,K,False,True,always
 p1360,6509015,49,K,False,True,sometimes
-p1361,6509015,43,K,False,False,never
+p1361,6509015,43,K,False,True,always
 p1362,6509015,43,M,True,True,always
 p1363,6509015,45,M,False,True,always
 p1364,6509015,44,K,False,False,never
@@ -1416,7 +1416,7 @@ p1413,6509015,65,K,False,True,sometimes
 p1414,6509015,64,K,True,True,sometimes
 p1415,6509015,62,K,False,False,never
 p1416,6509015,68,K,False,False,never
-p1417,6509015,61,K,True,False,never
+p1417,6509015,61,K,True,True,sometimes
 p1418,6509015,69,K,False,False,never
 p1419,6509015,68,K,False,False,never
 p1420,6509015,64,M,True,False,never
@@ -1711,7 +1711,7 @@ p1708,6509021,67,K,True,False,never
 p1709,6509021,66,K,False,True,always
 p1710,6509021,67,K,False,False,never
 p1711,6509021,69,M,False,False,never
-p1712,6509021,69,M,True,True,always
+p1712,6509021,69,M,True,False,never
 p1713,6509021,67,M,False,True,always
 p1714,6509021,66,M,False,True,sometimes
 p1715,6509021,61,M,False,True,always
@@ -1751,7 +1751,7 @@ p1748,6509021,76,K,False,False,never
 p1749,6509021,75,M,True,True,always
 p1750,6509021,75,K,False,False,never
 p1751,6509021,74,M,False,True,always
-p1752,6509021,77,K,False,False,never
+p1752,6509021,77,K,False,True,sometimes
 p1753,6509021,73,M,False,True,always
 p1754,6509021,78,K,False,False,never
 p1755,6509021,73,K,False,False,never
@@ -1979,7 +1979,7 @@ p1976,6509022,40,K,True,True,always
 p1977,6509022,45,M,True,False,never
 p1978,6509022,44,M,False,True,always
 p1979,6509022,43,M,True,False,never
-p1980,6509022,45,M,True,False,never
+p1980,6509022,45,M,True,True,always
 p1981,6509022,42,M,True,True,sometimes
 p1982,6509022,47,M,False,True,always
 p1983,6509022,45,M,True,True,always
@@ -2175,7 +2175,7 @@ p2172,6509022,90,K,False,True,always
 p2173,6509022,89,M,False,False,never
 p2174,6509022,84,K,False,False,never
 p2175,6509022,87,K,False,False,never
-p2176,6509022,86,M,False,True,sometimes
+p2176,6509022,86,M,False,False,never
 p2177,6509022,82,K,False,False,never
 p2178,6509023,3,M,False,False,never
 p2179,6509023,6,K,False,False,never
@@ -2464,7 +2464,7 @@ p2461,6509023,40,M,True,True,always
 p2462,6509023,44,M,False,True,always
 p2463,6509023,44,M,False,True,always
 p2464,6509023,42,K,False,True,always
-p2465,6509023,42,K,True,False,never
+p2465,6509023,42,K,True,True,always
 p2466,6509023,48,K,True,True,sometimes
 p2467,6509023,45,M,False,True,always
 p2468,6509023,40,K,True,True,always
@@ -2568,7 +2568,7 @@ p2565,6509023,63,K,True,True,sometimes
 p2566,6509023,62,M,False,True,sometimes
 p2567,6509023,66,K,False,False,never
 p2568,6509023,65,M,False,True,sometimes
-p2569,6509023,64,M,True,False,never
+p2569,6509023,64,M,True,True,always
 p2570,6509023,65,M,False,True,always
 p2571,6509023,67,M,False,True,always
 p2572,6509023,65,K,False,False,never
@@ -2590,7 +2590,7 @@ p2587,6509023,71,M,True,True,always
 p2588,6509023,72,K,False,False,never
 p2589,6509023,71,K,False,False,never
 p2590,6509023,73,K,False,False,never
-p2591,6509023,73,M,False,True,always
+p2591,6509023,73,M,False,False,never
 p2592,6509023,72,K,False,False,never
 p2593,6509023,72,M,False,True,sometimes
 p2594,6509023,71,K,True,False,never
@@ -3048,7 +3048,7 @@ p3045,6509025,41,M,True,True,always
 p3046,6509025,47,M,False,True,always
 p3047,6509025,42,K,False,True,always
 p3048,6509025,49,K,False,False,never
-p3049,6509025,40,K,False,False,never
+p3049,6509025,40,K,False,True,always
 p3050,6509025,46,M,True,True,always
 p3051,6509025,48,K,False,True,always
 p3052,6509025,41,M,True,False,never
@@ -3095,7 +3095,7 @@ p3092,6509025,52,M,True,False,never
 p3093,6509025,59,M,True,True,always
 p3094,6509025,57,K,False,True,always
 p3095,6509025,63,M,False,True,always
-p3096,6509025,67,M,False,True,sometimes
+p3096,6509025,67,M,False,False,never
 p3097,6509025,64,K,False,False,never
 p3098,6509025,64,K,False,False,never
 p3099,6509025,60,K,True,True,sometimes
@@ -3112,7 +3112,7 @@ p3109,6509025,65,K,False,False,never
 p3110,6509025,63,K,False,True,always
 p3111,6509025,64,K,True,False,never
 p3112,6509025,67,K,True,True,always
-p3113,6509025,67,M,False,True,sometimes
+p3113,6509025,67,M,False,False,never
 p3114,6509025,61,M,False,True,sometimes
 p3115,6509025,63,M,True,True,always
 p3116,6509025,69,K,False,True,sometimes
@@ -3186,7 +3186,7 @@ p3183,6509026,24,K,False,True,always
 p3184,6509026,29,M,True,True,always
 p3185,6509026,23,M,False,True,always
 p3186,6509026,25,K,False,True,always
-p3187,6509026,21,K,False,False,never
+p3187,6509026,21,K,False,True,always
 p3188,6509026,27,M,False,True,always
 p3189,6509026,21,M,True,True,always
 p3190,6509026,29,M,False,True,always
@@ -3215,7 +3215,7 @@ p3212,6509026,35,M,True,True,always
 p3213,6509026,39,M,True,True,always
 p3214,6509026,30,M,True,True,always
 p3215,6509026,31,K,True,True,always
-p3216,6509026,38,K,False,False,never
+p3216,6509026,38,K,False,True,always
 p3217,6509026,33,K,True,True,always
 p3218,6509026,32,M,True,True,sometimes
 p3219,6509026,38,M,True,True,always
@@ -3240,7 +3240,7 @@ p3237,6509026,44,M,True,True,sometimes
 p3238,6509026,40,K,True,False,never
 p3239,6509026,45,M,True,True,always
 p3240,6509026,40,M,True,True,always
-p3241,6509026,46,K,True,False,never
+p3241,6509026,46,K,True,True,sometimes
 p3242,6509026,43,M,True,True,always
 p3243,6509026,48,M,True,True,always
 p3244,6509026,47,M,True,False,never
@@ -3369,7 +3369,7 @@ p3366,6509027,26,K,True,False,never
 p3367,6509027,22,K,False,False,never
 p3368,6509027,23,M,False,True,always
 p3369,6509027,29,M,False,False,never
-p3370,6509027,23,K,True,False,never
+p3370,6509027,23,K,True,True,sometimes
 p3371,6509027,28,M,True,True,sometimes
 p3372,6509027,23,M,False,False,never
 p3373,6509027,27,M,True,True,always
@@ -3506,7 +3506,7 @@ p3503,6509027,75,K,False,False,never
 p3504,6509027,79,K,False,True,always
 p3505,6509027,73,K,False,True,always
 p3506,6509027,77,K,False,True,always
-p3507,6509027,73,M,True,True,always
+p3507,6509027,73,M,True,False,never
 p3508,6509027,75,M,False,True,always
 p3509,6509027,73,K,False,False,never
 p3510,6509027,72,K,False,False,never
@@ -3601,7 +3601,7 @@ p3598,6509101,28,K,True,True,always
 p3599,6509101,26,M,False,True,always
 p3600,6509101,27,M,True,True,always
 p3601,6509101,20,M,False,True,always
-p3602,6509101,20,M,True,False,never
+p3602,6509101,20,M,True,True,sometimes
 p3603,6509101,27,M,True,True,always
 p3604,6509101,28,K,True,True,always
 p3605,6509101,24,M,True,True,always
@@ -3755,7 +3755,7 @@ p3752,6509101,58,M,False,True,always
 p3753,6509101,55,M,True,True,always
 p3754,6509101,50,K,True,True,always
 p3755,6509101,54,M,False,True,always
-p3756,6509101,58,K,True,False,never
+p3756,6509101,58,K,True,True,always
 p3757,6509101,52,K,True,True,always
 p3758,6509101,50,K,True,True,always
 p3759,6509101,52,K,True,True,always
@@ -3768,7 +3768,7 @@ p3765,6509101,63,K,False,True,always
 p3766,6509101,62,M,True,True,always
 p3767,6509101,62,M,False,True,always
 p3768,6509101,66,M,False,True,always
-p3769,6509101,69,M,True,True,sometimes
+p3769,6509101,69,M,True,False,never
 p3770,6509101,67,K,False,False,never
 p3771,6509101,69,M,True,True,always
 p3772,6509101,63,K,False,True,always
@@ -3778,7 +3778,7 @@ p3775,6509101,61,M,True,True,always
 p3776,6509101,64,K,False,False,never
 p3777,6509101,67,K,False,False,never
 p3778,6509101,67,K,False,False,never
-p3779,6509101,64,K,False,False,never
+p3779,6509101,64,K,False,True,sometimes
 p3780,6509101,64,K,True,True,always
 p3781,6509101,67,M,False,True,always
 p3782,6509101,64,M,True,True,always
@@ -3809,10 +3809,10 @@ p3806,6509101,68,K,True,False,never
 p3807,6509101,61,K,False,True,sometimes
 p3808,6509101,70,M,False,True,always
 p3809,6509101,75,M,False,True,sometimes
-p3810,6509101,78,M,False,True,always
+p3810,6509101,78,M,False,False,never
 p3811,6509101,70,K,False,True,always
 p3812,6509101,78,K,False,False,never
-p3813,6509101,72,M,False,True,sometimes
+p3813,6509101,72,M,False,False,never
 p3814,6509101,78,K,False,True,always
 p3815,6509101,75,K,False,False,never
 p3816,6509101,71,K,False,True,always
@@ -3975,7 +3975,7 @@ p3972,6509102,49,M,False,True,always
 p3973,6509102,43,K,True,False,never
 p3974,6509102,41,K,False,True,always
 p3975,6509102,42,K,False,True,always
-p3976,6509102,48,K,True,False,never
+p3976,6509102,48,K,True,True,always
 p3977,6509102,40,M,True,True,always
 p3978,6509102,45,K,True,True,always
 p3979,6509102,44,K,True,True,sometimes
@@ -3992,7 +3992,7 @@ p3989,6509102,55,M,True,True,always
 p3990,6509102,54,K,False,True,always
 p3991,6509102,59,K,True,True,always
 p3992,6509102,55,M,False,True,always
-p3993,6509102,59,K,True,False,never
+p3993,6509102,59,K,True,True,always
 p3994,6509102,57,M,True,False,never
 p3995,6509102,50,K,False,True,always
 p3996,6509102,55,M,False,True,sometimes
@@ -4011,7 +4011,7 @@ p4008,6509102,55,M,True,False,never
 p4009,6509102,52,M,True,True,always
 p4010,6509102,56,M,True,True,always
 p4011,6509102,58,K,True,False,never
-p4012,6509102,58,K,False,False,never
+p4012,6509102,58,K,False,True,always
 p4013,6509102,58,M,True,True,always
 p4014,6509102,59,K,True,False,never
 p4015,6509102,58,M,False,True,always
@@ -4022,7 +4022,7 @@ p4019,6509102,50,K,False,True,sometimes
 p4020,6509102,55,M,True,True,sometimes
 p4021,6509102,63,M,True,True,sometimes
 p4022,6509102,67,K,False,True,always
-p4023,6509102,66,M,True,True,sometimes
+p4023,6509102,66,M,True,False,never
 p4024,6509102,66,M,False,True,sometimes
 p4025,6509102,60,K,False,True,always
 p4026,6509102,62,M,True,False,never
@@ -4195,7 +4195,7 @@ p4192,6509211,22,K,False,True,always
 p4193,6509211,23,K,True,True,sometimes
 p4194,6509211,23,K,False,False,never
 p4195,6509211,27,K,True,True,always
-p4196,6509211,24,M,True,False,never
+p4196,6509211,24,M,True,True,always
 p4197,6509211,29,K,False,False,never
 p4198,6509211,21,K,True,False,never
 p4199,6509211,26,M,False,True,always
@@ -4403,7 +4403,7 @@ p4400,6509211,62,M,False,True,sometimes
 p4401,6509211,64,K,False,True,always
 p4402,6509211,65,K,False,False,never
 p4403,6509211,67,K,False,False,never
-p4404,6509211,68,M,False,True,always
+p4404,6509211,68,M,False,False,never
 p4405,6509211,64,M,False,True,always
 p4406,6509211,62,K,False,False,never
 p4407,6509211,61,M,False,True,always
@@ -4433,7 +4433,7 @@ p4430,6509211,73,K,False,False,never
 p4431,6509211,83,K,False,False,never
 p4432,6509211,86,K,False,False,never
 p4433,6509211,80,K,False,False,never
-p4434,6509211,86,K,False,False,never
+p4434,6509211,86,K,False,True,always
 p4435,6509211,84,M,False,True,sometimes
 p4436,6509211,90,K,False,True,sometimes
 p4437,6509212,2,K,False,False,never
@@ -4528,7 +4528,7 @@ p4525,6509212,35,K,True,True,sometimes
 p4526,6509212,30,K,True,True,always
 p4527,6509212,33,K,False,True,always
 p4528,6509212,34,M,True,True,always
-p4529,6509212,36,K,True,False,never
+p4529,6509212,36,K,True,True,always
 p4530,6509212,35,M,True,True,always
 p4531,6509212,34,M,True,True,sometimes
 p4532,6509212,32,M,True,False,never
@@ -4673,7 +4673,7 @@ p4670,6509212,71,M,True,True,always
 p4671,6509212,82,K,False,True,sometimes
 p4672,6509212,80,K,False,False,never
 p4673,6509212,90,M,False,True,always
-p4674,6509212,81,M,False,True,always
+p4674,6509212,81,M,False,False,never
 p4675,6509212,80,M,False,True,always
 p4676,6509214,4,K,False,False,never
 p4677,6509214,10,M,False,False,never
@@ -4733,7 +4733,7 @@ p4730,6509214,47,K,False,True,always
 p4731,6509214,48,K,True,False,never
 p4732,6509214,43,M,False,True,always
 p4733,6509214,45,M,False,True,sometimes
-p4734,6509214,58,K,False,False,never
+p4734,6509214,58,K,False,True,sometimes
 p4735,6509214,54,M,False,True,always
 p4736,6509214,57,K,True,False,never
 p4737,6509214,56,K,True,False,never
@@ -4851,7 +4851,7 @@ p4848,6509215,39,M,True,True,always
 p4849,6509215,47,K,False,False,never
 p4850,6509215,43,K,True,True,sometimes
 p4851,6509215,41,M,True,True,always
-p4852,6509215,42,K,True,False,never
+p4852,6509215,42,K,True,True,sometimes
 p4853,6509215,45,M,True,True,always
 p4854,6509215,47,M,False,False,never
 p4855,6509215,44,M,False,False,never
@@ -4883,9 +4883,9 @@ p4880,6509215,50,K,True,True,always
 p4881,6509215,55,M,False,True,sometimes
 p4882,6509215,59,M,False,True,sometimes
 p4883,6509215,55,M,True,True,always
-p4884,6509215,51,M,True,False,never
+p4884,6509215,51,M,True,True,always
 p4885,6509215,57,K,True,True,sometimes
-p4886,6509215,53,K,False,False,never
+p4886,6509215,53,K,False,True,always
 p4887,6509215,57,M,False,True,always
 p4888,6509215,56,M,False,True,always
 p4889,6509215,58,K,False,False,never
@@ -5021,10 +5021,10 @@ p5018,6509216,39,M,True,False,never
 p5019,6509216,34,M,False,True,sometimes
 p5020,6509216,47,K,True,True,always
 p5021,6509216,44,K,False,True,always
-p5022,6509216,43,K,True,False,never
+p5022,6509216,43,K,True,True,always
 p5023,6509216,49,M,False,True,always
 p5024,6509216,43,K,True,False,never
-p5025,6509216,45,K,True,False,never
+p5025,6509216,45,K,True,True,sometimes
 p5026,6509216,43,K,True,True,sometimes
 p5027,6509216,47,M,True,True,sometimes
 p5028,6509216,43,M,True,True,sometimes
@@ -5046,7 +5046,7 @@ p5043,6509216,52,K,False,True,always
 p5044,6509216,58,K,True,False,never
 p5045,6509216,59,M,True,True,always
 p5046,6509216,59,K,False,False,never
-p5047,6509216,58,K,True,False,never
+p5047,6509216,58,K,True,True,always
 p5048,6509216,57,K,False,True,always
 p5049,6509216,51,K,True,True,always
 p5050,6509216,52,K,True,True,always
@@ -5062,7 +5062,7 @@ p5059,6509216,52,K,True,True,always
 p5060,6509216,50,K,True,True,always
 p5061,6509216,51,M,True,True,sometimes
 p5062,6509216,67,K,True,False,never
-p5063,6509216,69,M,False,True,always
+p5063,6509216,69,M,False,False,never
 p5064,6509216,65,M,True,True,always
 p5065,6509216,69,K,True,False,never
 p5066,6509216,65,M,False,True,always
@@ -5083,7 +5083,7 @@ p5080,6509216,68,M,False,True,always
 p5081,6509216,66,M,False,True,sometimes
 p5082,6509216,67,M,False,True,always
 p5083,6509216,66,M,True,True,sometimes
-p5084,6509216,63,K,False,False,never
+p5084,6509216,63,K,False,True,always
 p5085,6509216,65,K,False,True,always
 p5086,6509216,67,K,False,False,never
 p5087,6509216,60,K,False,True,always
@@ -5105,7 +5105,7 @@ p5102,6509216,72,K,False,False,never
 p5103,6509216,73,K,False,False,never
 p5104,6509216,70,K,False,False,never
 p5105,6509216,73,K,False,False,never
-p5106,6509216,72,M,True,True,sometimes
+p5106,6509216,72,M,True,False,never
 p5107,6509216,71,K,False,False,never
 p5108,6509216,75,K,False,False,never
 p5109,6509216,90,M,False,True,always
@@ -5243,7 +5243,7 @@ p5240,6509217,65,M,True,True,always
 p5241,6509217,61,K,True,True,always
 p5242,6509217,61,K,False,True,sometimes
 p5243,6509217,61,K,False,True,always
-p5244,6509217,67,M,False,True,sometimes
+p5244,6509217,67,M,False,False,never
 p5245,6509217,66,M,False,True,always
 p5246,6509217,75,K,False,False,never
 p5247,6509217,77,K,False,False,never
@@ -5273,14 +5273,14 @@ p5270,6509217,73,K,False,False,never
 p5271,6509217,76,M,False,True,always
 p5272,6509217,74,K,False,True,always
 p5273,6509217,73,K,False,False,never
-p5274,6509217,79,K,False,False,never
+p5274,6509217,79,K,False,True,sometimes
 p5275,6509217,84,K,False,False,never
 p5276,6509217,89,K,False,False,never
 p5277,6509217,81,K,False,False,never
 p5278,6509217,90,K,False,False,never
 p5279,6509217,85,K,False,False,never
 p5280,6509217,89,K,False,False,never
-p5281,6509217,83,M,False,True,always
+p5281,6509217,83,M,False,False,never
 p5282,6509217,90,K,False,False,never
 p5283,6509217,87,K,False,False,never
 p5284,6509217,88,K,False,False,never
@@ -5425,7 +5425,7 @@ p5422,6509218,22,M,False,True,always
 p5423,6509218,28,K,False,True,sometimes
 p5424,6509218,21,K,True,False,never
 p5425,6509218,28,M,True,True,always
-p5426,6509218,23,K,True,False,never
+p5426,6509218,23,K,True,True,always
 p5427,6509218,22,K,True,True,always
 p5428,6509218,25,M,True,True,always
 p5429,6509218,23,K,True,True,always
@@ -5544,7 +5544,7 @@ p5541,6509218,48,K,True,True,always
 p5542,6509218,42,K,True,True,always
 p5543,6509218,44,K,True,True,always
 p5544,6509218,48,M,False,True,always
-p5545,6509218,45,K,True,False,never
+p5545,6509218,45,K,True,True,always
 p5546,6509218,41,M,True,True,always
 p5547,6509218,46,M,True,False,never
 p5548,6509218,46,M,True,True,always
@@ -5634,7 +5634,7 @@ p5631,6509218,41,M,True,True,always
 p5632,6509218,49,K,False,True,always
 p5633,6509218,42,K,True,False,never
 p5634,6509218,41,M,False,False,never
-p5635,6509218,49,M,False,False,never
+p5635,6509218,49,M,False,True,always
 p5636,6509218,43,M,False,True,always
 p5637,6509218,49,K,False,False,never
 p5638,6509218,46,M,False,True,always
@@ -5923,7 +5923,7 @@ p5920,6509219,45,M,True,True,always
 p5921,6509219,43,M,False,True,always
 p5922,6509219,47,M,False,True,always
 p5923,6509219,45,M,False,True,always
-p5924,6509219,46,K,False,False,never
+p5924,6509219,46,K,False,True,sometimes
 p5925,6509219,41,M,True,True,always
 p5926,6509219,46,M,True,False,never
 p5927,6509219,41,K,True,False,never
@@ -5966,15 +5966,15 @@ p5963,6509219,62,M,False,True,always
 p5964,6509219,64,M,False,True,sometimes
 p5965,6509219,64,K,False,False,never
 p5966,6509219,64,K,False,False,never
-p5967,6509219,69,M,False,True,sometimes
+p5967,6509219,69,M,False,False,never
 p5968,6509219,73,M,False,True,always
-p5969,6509219,75,M,True,True,sometimes
+p5969,6509219,75,M,True,False,never
 p5970,6509219,70,K,True,False,never
 p5971,6509219,72,K,False,False,never
 p5972,6509219,78,K,False,False,never
 p5973,6509219,74,M,False,True,sometimes
 p5974,6509219,87,M,False,True,always
-p5975,6509219,83,M,False,True,always
+p5975,6509219,83,M,False,False,never
 p5976,6509221,0,M,False,False,never
 p5977,6509221,4,K,False,False,never
 p5978,6509221,6,M,False,False,never
@@ -6020,7 +6020,7 @@ p6017,6509221,26,K,True,True,always
 p6018,6509221,26,K,True,True,always
 p6019,6509221,21,M,True,True,always
 p6020,6509221,35,M,True,True,always
-p6021,6509221,39,M,True,False,never
+p6021,6509221,39,M,True,True,always
 p6022,6509221,38,K,False,True,sometimes
 p6023,6509221,33,M,True,False,never
 p6024,6509221,38,K,False,True,always
@@ -6093,10 +6093,10 @@ p6090,6509221,67,M,False,True,sometimes
 p6091,6509221,63,M,False,True,sometimes
 p6092,6509221,64,K,True,True,always
 p6093,6509221,60,M,True,False,never
-p6094,6509221,68,K,True,False,never
+p6094,6509221,68,K,True,True,always
 p6095,6509221,61,M,True,True,sometimes
 p6096,6509221,64,K,False,False,never
-p6097,6509221,73,M,True,True,sometimes
+p6097,6509221,73,M,True,False,never
 p6098,6509221,72,M,False,True,always
 p6099,6509221,73,K,False,False,never
 p6100,6509221,73,K,False,False,never
@@ -6121,7 +6121,7 @@ p6118,6509221,71,M,True,True,always
 p6119,6509221,76,K,False,False,never
 p6120,6509221,78,K,False,False,never
 p6121,6509221,77,K,False,True,always
-p6122,6509221,79,M,False,True,always
+p6122,6509221,79,M,False,False,never
 p6123,6509221,74,K,False,False,never
 p6124,6509221,74,M,False,True,always
 p6125,6509221,78,M,False,True,sometimes
@@ -6233,7 +6233,7 @@ p6230,6509222,72,K,False,False,never
 p6231,6509222,74,K,False,False,never
 p6232,6509222,72,K,False,False,never
 p6233,6509222,72,K,False,True,always
-p6234,6509222,70,K,False,False,never
+p6234,6509222,70,K,False,True,sometimes
 p6235,6509222,73,M,False,True,always
 p6236,6509222,71,K,False,False,never
 p6237,6509222,77,M,False,True,sometimes
@@ -6426,7 +6426,7 @@ p6423,6509223,68,K,False,False,never
 p6424,6509223,66,K,False,False,never
 p6425,6509223,67,K,False,False,never
 p6426,6509223,65,K,False,False,never
-p6427,6509223,66,M,True,True,always
+p6427,6509223,66,M,True,False,never
 p6428,6509223,65,K,False,False,never
 p6429,6509223,64,M,True,True,sometimes
 p6430,6509223,64,K,False,False,never
@@ -6485,7 +6485,7 @@ p6482,6509223,78,M,False,True,always
 p6483,6509223,70,K,False,False,never
 p6484,6509223,77,M,False,True,sometimes
 p6485,6509223,70,K,False,False,never
-p6486,6509223,71,M,True,True,always
+p6486,6509223,71,M,True,False,never
 p6487,6509223,74,K,False,True,always
 p6488,6509223,70,K,False,False,never
 p6489,6509223,71,K,False,False,never
@@ -6598,7 +6598,7 @@ p6595,6509224,54,M,True,True,sometimes
 p6596,6509224,55,K,True,False,never
 p6597,6509224,50,K,True,True,always
 p6598,6509224,55,M,True,True,always
-p6599,6509224,53,K,False,False,never
+p6599,6509224,53,K,False,True,always
 p6600,6509224,51,K,True,True,always
 p6601,6509224,52,M,True,True,always
 p6602,6509224,52,K,True,False,never
@@ -6623,12 +6623,12 @@ p6620,6509224,62,K,False,False,never
 p6621,6509224,62,M,True,True,sometimes
 p6622,6509224,60,M,True,True,always
 p6623,6509224,62,K,False,True,always
-p6624,6509224,67,M,False,True,always
+p6624,6509224,67,M,False,False,never
 p6625,6509224,66,K,True,True,always
 p6626,6509224,63,K,True,False,never
 p6627,6509224,61,K,False,False,never
 p6628,6509224,69,K,False,False,never
-p6629,6509224,68,M,True,True,always
+p6629,6509224,68,M,True,False,never
 p6630,6509224,60,K,False,False,never
 p6631,6509224,65,K,True,False,never
 p6632,6509224,63,K,False,False,never
@@ -6643,7 +6643,7 @@ p6640,6509224,72,K,False,True,always
 p6641,6509224,76,M,False,True,always
 p6642,6509224,77,M,False,True,always
 p6643,6509224,71,K,False,False,never
-p6644,6509224,71,M,False,True,sometimes
+p6644,6509224,71,M,False,False,never
 p6645,6509224,74,K,False,False,never
 p6646,6509224,75,K,False,False,never
 p6647,6509224,74,K,False,False,never
@@ -6726,7 +6726,7 @@ p6723,6509301,45,M,False,False,never
 p6724,6509301,52,K,True,True,always
 p6725,6509301,55,K,True,False,never
 p6726,6509301,57,M,False,True,always
-p6727,6509301,53,K,True,False,never
+p6727,6509301,53,K,True,True,always
 p6728,6509301,56,M,True,True,always
 p6729,6509301,52,K,False,False,never
 p6730,6509301,55,K,False,True,always
@@ -6782,7 +6782,7 @@ p6779,6509301,90,M,True,True,always
 p6780,6509301,80,M,False,True,always
 p6781,6509301,88,M,False,True,always
 p6782,6509301,83,M,False,True,always
-p6783,6509301,87,M,False,True,sometimes
+p6783,6509301,87,M,False,False,never
 p6784,6509301,80,M,False,True,always
 p6785,6509302,9,K,False,False,never
 p6786,6509302,12,M,False,False,never
@@ -6890,7 +6890,7 @@ p6887,6509303,61,M,False,True,always
 p6888,6509303,69,K,False,False,never
 p6889,6509303,68,M,False,True,always
 p6890,6509303,63,M,False,True,always
-p6891,6509303,68,M,False,True,always
+p6891,6509303,68,M,False,False,never
 p6892,6509303,66,M,True,False,never
 p6893,6509303,68,K,False,False,never
 p6894,6509303,61,M,True,True,always
@@ -7035,13 +7035,13 @@ p7032,6509304,62,M,True,True,always
 p7033,6509304,64,M,True,True,sometimes
 p7034,6509304,60,M,True,True,always
 p7035,6509304,67,K,False,False,never
-p7036,6509304,67,M,False,True,always
+p7036,6509304,67,M,False,False,never
 p7037,6509304,64,K,False,True,always
 p7038,6509304,65,K,False,False,never
 p7039,6509304,63,K,True,False,never
 p7040,6509304,60,K,False,True,sometimes
 p7041,6509304,64,K,True,False,never
-p7042,6509304,64,M,True,False,never
+p7042,6509304,64,M,True,True,always
 p7043,6509304,64,M,False,True,always
 p7044,6509304,62,K,True,True,sometimes
 p7045,6509304,63,M,False,True,sometimes
@@ -7052,8 +7052,8 @@ p7049,6509304,68,K,False,False,never
 p7050,6509304,60,M,True,True,always
 p7051,6509304,70,M,False,True,always
 p7052,6509304,71,K,True,False,never
-p7053,6509304,74,M,False,True,always
-p7054,6509304,76,M,False,True,always
+p7053,6509304,74,M,False,False,never
+p7054,6509304,76,M,False,False,never
 p7055,6509304,73,M,False,True,always
 p7056,6509304,72,K,False,False,never
 p7057,6509304,72,M,False,True,always
@@ -7073,7 +7073,7 @@ p7070,6509304,71,M,True,True,always
 p7071,6509304,75,M,False,True,always
 p7072,6509304,83,K,False,False,never
 p7073,6509304,81,K,False,False,never
-p7074,6509304,81,M,False,True,always
+p7074,6509304,81,M,False,False,never
 p7075,6509304,81,K,False,True,always
 p7076,6509304,88,K,False,False,never
 p7077,6509304,87,K,False,False,never
@@ -7160,7 +7160,7 @@ p7157,6509411,34,K,False,True,always
 p7158,6509411,34,K,False,True,always
 p7159,6509411,38,K,True,False,never
 p7160,6509411,39,K,False,True,always
-p7161,6509411,39,K,False,False,never
+p7161,6509411,39,K,False,True,always
 p7162,6509411,32,M,True,True,always
 p7163,6509411,31,M,True,True,always
 p7164,6509411,37,K,False,True,sometimes
@@ -7199,7 +7199,7 @@ p7196,6509411,45,M,True,False,never
 p7197,6509411,43,K,False,False,never
 p7198,6509411,47,M,True,True,always
 p7199,6509411,47,M,True,True,always
-p7200,6509411,43,M,True,False,never
+p7200,6509411,43,M,True,True,always
 p7201,6509411,45,K,False,False,never
 p7202,6509411,49,K,False,True,always
 p7203,6509411,43,K,True,True,sometimes
@@ -7349,8 +7349,8 @@ p7346,6509411,72,K,False,True,always
 p7347,6509411,72,K,False,False,never
 p7348,6509411,76,M,False,False,never
 p7349,6509411,84,M,False,True,sometimes
-p7350,6509411,90,M,False,True,always
-p7351,6509411,85,M,False,True,sometimes
+p7350,6509411,90,M,False,False,never
+p7351,6509411,85,M,False,False,never
 p7352,6509411,83,K,False,False,never
 p7353,6509411,88,K,False,False,never
 p7354,6509411,87,M,False,True,always
@@ -7463,7 +7463,7 @@ p7460,6509412,50,K,True,True,always
 p7461,6509412,57,M,True,True,always
 p7462,6509412,62,M,False,True,always
 p7463,6509412,64,K,False,False,never
-p7464,6509412,63,K,True,False,never
+p7464,6509412,63,K,True,True,sometimes
 p7465,6509412,67,M,True,True,sometimes
 p7466,6509412,61,K,True,False,never
 p7467,6509412,62,K,False,True,sometimes
@@ -7483,7 +7483,7 @@ p7480,6509412,66,K,False,False,never
 p7481,6509412,65,M,False,True,sometimes
 p7482,6509412,64,K,True,False,never
 p7483,6509412,63,K,False,False,never
-p7484,6509412,67,M,False,True,always
+p7484,6509412,67,M,False,False,never
 p7485,6509412,66,M,False,True,always
 p7486,6509412,64,M,True,True,always
 p7487,6509412,61,K,True,False,never
@@ -7576,7 +7576,7 @@ p7573,6509413,33,K,True,False,never
 p7574,6509413,36,M,True,True,always
 p7575,6509413,31,K,True,False,never
 p7576,6509413,35,K,True,True,always
-p7577,6509413,31,K,True,False,never
+p7577,6509413,31,K,True,True,always
 p7578,6509413,35,M,False,True,sometimes
 p7579,6509413,34,M,False,False,never
 p7580,6509413,30,M,True,False,never
@@ -7705,7 +7705,7 @@ p7702,6509413,66,K,False,False,never
 p7703,6509413,63,M,False,True,always
 p7704,6509413,60,M,True,True,sometimes
 p7705,6509413,60,K,True,True,always
-p7706,6509413,67,K,True,False,never
+p7706,6509413,67,K,True,True,sometimes
 p7707,6509413,64,K,True,True,always
 p7708,6509413,69,K,False,True,always
 p7709,6509413,67,M,True,True,always
@@ -7717,7 +7717,7 @@ p7714,6509413,65,K,False,True,always
 p7715,6509413,65,K,False,False,never
 p7716,6509413,63,K,True,True,always
 p7717,6509413,65,M,False,True,always
-p7718,6509413,66,M,False,True,sometimes
+p7718,6509413,66,M,False,False,never
 p7719,6509413,61,M,False,True,always
 p7720,6509413,61,K,False,False,never
 p7721,6509413,68,M,True,True,always
@@ -7771,7 +7771,7 @@ p7768,6509414,10,K,False,False,never
 p7769,6509414,13,M,False,False,never
 p7770,6509414,14,K,False,False,never
 p7771,6509414,13,K,False,False,never
-p7772,6509414,18,K,False,False,never
+p7772,6509414,18,K,False,True,always
 p7773,6509414,11,M,False,False,never
 p7774,6509414,16,M,False,False,never
 p7775,6509414,20,M,False,True,always
@@ -7859,7 +7859,7 @@ p7856,6509414,62,K,True,False,never
 p7857,6509414,63,M,False,True,always
 p7858,6509414,60,M,False,True,sometimes
 p7859,6509414,61,K,False,True,sometimes
-p7860,6509414,69,M,True,True,always
+p7860,6509414,69,M,True,False,never
 p7861,6509414,67,K,False,True,sometimes
 p7862,6509414,65,K,False,False,never
 p7863,6509414,61,K,True,True,sometimes
@@ -8033,7 +8033,7 @@ p8030,6509415,59,K,True,True,always
 p8031,6509415,58,K,False,True,always
 p8032,6509415,59,K,False,True,always
 p8033,6509415,53,M,False,True,always
-p8034,6509415,51,K,False,False,never
+p8034,6509415,51,K,False,True,always
 p8035,6509415,50,K,False,False,never
 p8036,6509415,55,M,False,True,always
 p8037,6509415,51,M,True,False,never
@@ -8089,11 +8089,11 @@ p8086,6509415,62,M,False,True,sometimes
 p8087,6509415,66,M,False,True,sometimes
 p8088,6509415,63,K,False,False,never
 p8089,6509415,66,M,False,True,always
-p8090,6509415,63,M,True,False,never
+p8090,6509415,63,M,True,True,always
 p8091,6509415,63,M,True,True,always
 p8092,6509415,67,K,True,False,never
 p8093,6509415,62,M,False,False,never
-p8094,6509415,67,M,True,True,always
+p8094,6509415,67,M,True,False,never
 p8095,6509415,60,M,True,True,sometimes
 p8096,6509415,68,M,False,True,always
 p8097,6509415,60,K,False,True,always
@@ -8112,7 +8112,7 @@ p8109,6509415,73,K,False,False,never
 p8110,6509415,74,M,False,True,always
 p8111,6509415,73,M,False,True,always
 p8112,6509415,74,M,False,True,always
-p8113,6509415,71,M,False,True,always
+p8113,6509415,71,M,False,False,never
 p8114,6509415,77,K,False,False,never
 p8115,6509415,72,K,False,False,never
 p8116,6509415,79,M,True,True,always
@@ -8170,7 +8170,7 @@ p8167,6509421,23,K,True,True,sometimes
 p8168,6509421,23,K,True,True,always
 p8169,6509421,23,M,True,True,always
 p8170,6509421,24,M,True,True,always
-p8171,6509421,23,K,True,False,never
+p8171,6509421,23,K,True,True,sometimes
 p8172,6509421,28,K,False,True,always
 p8173,6509421,29,M,True,False,never
 p8174,6509421,29,M,False,True,always
@@ -8198,7 +8198,7 @@ p8195,6509421,32,M,True,True,always
 p8196,6509421,37,M,False,True,sometimes
 p8197,6509421,36,M,True,True,always
 p8198,6509421,39,M,False,False,never
-p8199,6509421,38,K,True,False,never
+p8199,6509421,38,K,True,True,sometimes
 p8200,6509421,38,K,True,True,always
 p8201,6509421,37,M,False,True,always
 p8202,6509421,34,M,False,False,never
@@ -8284,7 +8284,7 @@ p8281,6509421,61,M,True,True,always
 p8282,6509421,64,K,True,True,always
 p8283,6509421,66,K,False,False,never
 p8284,6509421,65,K,False,False,never
-p8285,6509421,66,M,False,True,sometimes
+p8285,6509421,66,M,False,False,never
 p8286,6509421,67,K,False,False,never
 p8287,6509421,67,M,True,True,always
 p8288,6509421,66,K,False,True,always
@@ -8438,7 +8438,7 @@ p8435,6509422,65,M,False,True,always
 p8436,6509422,67,K,False,False,never
 p8437,6509422,65,K,False,True,always
 p8438,6509422,62,K,False,True,always
-p8439,6509422,68,M,False,True,sometimes
+p8439,6509422,68,M,False,False,never
 p8440,6509422,66,K,False,False,never
 p8441,6509422,66,M,True,True,sometimes
 p8442,6509422,67,M,True,True,always
@@ -8452,7 +8452,7 @@ p8449,6509422,66,K,False,True,always
 p8450,6509422,68,M,False,True,sometimes
 p8451,6509422,60,M,True,True,always
 p8452,6509422,64,K,False,False,never
-p8453,6509422,61,K,False,False,never
+p8453,6509422,61,K,False,True,sometimes
 p8454,6509422,68,K,False,True,sometimes
 p8455,6509422,64,M,True,True,always
 p8456,6509422,63,K,False,True,always
@@ -8567,7 +8567,7 @@ p8564,6509423,53,M,False,True,sometimes
 p8565,6509423,53,K,True,False,never
 p8566,6509423,56,K,True,False,never
 p8567,6509423,52,K,True,True,always
-p8568,6509423,51,M,True,False,never
+p8568,6509423,51,M,True,True,always
 p8569,6509423,55,M,True,True,sometimes
 p8570,6509423,57,M,True,True,always
 p8571,6509423,60,K,False,True,always
@@ -8726,7 +8726,7 @@ p8723,6509425,34,M,True,True,sometimes
 p8724,6509425,39,K,True,True,sometimes
 p8725,6509425,33,K,False,True,always
 p8726,6509425,37,K,False,True,sometimes
-p8727,6509425,38,M,True,False,never
+p8727,6509425,38,M,True,True,sometimes
 p8728,6509425,34,M,True,True,always
 p8729,6509425,36,M,True,False,never
 p8730,6509425,33,M,True,True,always
@@ -8759,7 +8759,7 @@ p8756,6509425,54,K,False,True,always
 p8757,6509425,54,M,True,True,always
 p8758,6509425,66,M,False,True,always
 p8759,6509425,66,M,True,True,always
-p8760,6509425,60,K,False,False,never
+p8760,6509425,60,K,False,True,always
 p8761,6509425,62,M,True,True,always
 p8762,6509425,60,M,True,False,never
 p8763,6509425,64,K,False,True,always
@@ -9068,17 +9068,17 @@ p9065,6509427,37,K,True,False,never
 p9066,6509427,38,M,True,True,sometimes
 p9067,6509427,33,K,True,True,sometimes
 p9068,6509427,33,K,False,True,always
-p9069,6509427,34,K,False,False,never
+p9069,6509427,34,K,False,True,sometimes
 p9070,6509427,34,M,True,True,always
 p9071,6509427,34,M,True,True,sometimes
 p9072,6509427,30,K,True,True,sometimes
 p9073,6509427,31,M,False,False,never
 p9074,6509427,31,M,True,True,always
-p9075,6509427,39,K,True,False,never
+p9075,6509427,39,K,True,True,always
 p9076,6509427,36,K,True,True,always
 p9077,6509427,31,K,False,True,always
 p9078,6509427,34,K,True,True,always
-p9079,6509427,35,K,True,False,never
+p9079,6509427,35,K,True,True,always
 p9080,6509427,35,K,True,False,never
 p9081,6509427,38,K,True,True,always
 p9082,6509427,39,M,True,True,always
@@ -9297,7 +9297,7 @@ p9294,6509428,58,K,True,False,never
 p9295,6509428,54,K,True,True,always
 p9296,6509428,54,K,False,False,never
 p9297,6509428,53,K,True,False,never
-p9298,6509428,57,K,True,False,never
+p9298,6509428,57,K,True,True,sometimes
 p9299,6509428,59,K,True,True,always
 p9300,6509428,52,K,True,True,sometimes
 p9301,6509428,54,M,True,True,sometimes
@@ -9323,7 +9323,7 @@ p9320,6509428,54,K,True,True,always
 p9321,6509428,56,M,True,True,always
 p9322,6509428,56,M,True,False,never
 p9323,6509428,51,K,True,True,sometimes
-p9324,6509428,59,K,True,False,never
+p9324,6509428,59,K,True,True,always
 p9325,6509428,51,M,False,True,always
 p9326,6509428,67,K,False,False,never
 p9327,6509428,66,M,True,True,always
@@ -9353,7 +9353,7 @@ p9350,6509428,67,K,False,False,never
 p9351,6509428,62,M,True,False,never
 p9352,6509428,64,M,True,True,always
 p9353,6509428,66,K,False,True,sometimes
-p9354,6509428,68,M,False,True,always
+p9354,6509428,68,M,False,False,never
 p9355,6509428,65,M,False,True,always
 p9356,6509428,67,M,False,True,always
 p9357,6509428,66,M,False,True,always
@@ -9367,7 +9367,7 @@ p9364,6509428,61,M,True,False,never
 p9365,6509428,70,K,False,False,never
 p9366,6509428,72,K,False,True,always
 p9367,6509428,78,M,False,True,always
-p9368,6509428,72,M,True,True,always
+p9368,6509428,72,M,True,False,never
 p9369,6509428,75,K,False,True,always
 p9370,6509428,74,M,False,True,always
 p9371,6509428,78,M,False,True,sometimes
@@ -9377,9 +9377,9 @@ p9374,6509428,74,K,False,False,never
 p9375,6509428,75,M,False,True,always
 p9376,6509428,75,K,False,True,always
 p9377,6509428,75,M,False,True,sometimes
-p9378,6509428,73,M,False,True,sometimes
+p9378,6509428,73,M,False,False,never
 p9379,6509428,75,K,False,False,never
-p9380,6509428,73,M,False,True,always
+p9380,6509428,73,M,False,False,never
 p9381,6509428,72,K,True,False,never
 p9382,6509428,78,M,False,True,always
 p9383,6509428,71,K,False,False,never
@@ -9408,7 +9408,7 @@ p9405,6509428,80,M,False,True,always
 p9406,6509428,90,K,False,False,never
 p9407,6509428,81,K,False,True,always
 p9408,6509428,87,K,False,False,never
-p9409,6509428,81,K,False,False,never
+p9409,6509428,81,K,False,True,always
 p9410,6509428,90,K,False,True,sometimes
 p9411,6509431,5,M,False,False,never
 p9412,6509431,6,M,False,False,never
@@ -9575,7 +9575,7 @@ p9572,6509431,55,K,True,True,always
 p9573,6509431,50,M,True,True,always
 p9574,6509431,55,K,True,True,always
 p9575,6509431,50,M,False,True,always
-p9576,6509431,50,K,False,False,never
+p9576,6509431,50,K,False,True,always
 p9577,6509431,59,K,True,False,never
 p9578,6509431,50,K,False,False,never
 p9579,6509431,57,M,False,True,always
@@ -9612,7 +9612,7 @@ p9609,6509431,64,K,False,True,always
 p9610,6509431,69,K,False,False,never
 p9611,6509431,60,K,False,True,always
 p9612,6509431,61,K,False,False,never
-p9613,6509431,65,M,False,True,always
+p9613,6509431,65,M,False,False,never
 p9614,6509431,60,K,False,False,never
 p9615,6509431,63,M,False,True,always
 p9616,6509431,61,K,True,True,always
@@ -9704,7 +9704,7 @@ p9701,6509431,71,K,False,True,sometimes
 p9702,6509431,71,K,False,False,never
 p9703,6509431,78,M,False,True,sometimes
 p9704,6509431,81,K,False,False,never
-p9705,6509431,86,K,False,False,never
+p9705,6509431,86,K,False,True,always
 p9706,6509431,83,K,False,False,never
 p9707,6509431,82,M,False,True,sometimes
 p9708,6509431,84,M,False,True,always
@@ -9797,7 +9797,7 @@ p9794,6509432,45,M,True,False,never
 p9795,6509432,48,M,False,True,always
 p9796,6509432,45,K,True,True,always
 p9797,6509432,49,M,True,True,always
-p9798,6509432,45,M,False,False,never
+p9798,6509432,45,M,False,True,sometimes
 p9799,6509432,48,M,True,True,always
 p9800,6509432,41,K,True,True,always
 p9801,6509432,46,K,False,True,always
@@ -9875,7 +9875,7 @@ p9872,6509432,74,K,False,False,never
 p9873,6509432,76,K,False,True,always
 p9874,6509432,73,K,False,False,never
 p9875,6509432,77,M,False,True,always
-p9876,6509432,73,M,False,True,always
+p9876,6509432,73,M,False,False,never
 p9877,6509432,73,K,False,True,sometimes
 p9878,6509432,70,K,False,False,never
 p9879,6509432,74,K,False,False,never
@@ -9892,7 +9892,7 @@ p9889,6509432,72,K,False,False,never
 p9890,6509432,70,K,False,False,never
 p9891,6509432,70,K,False,True,always
 p9892,6509432,71,M,False,True,always
-p9893,6509432,73,M,True,True,always
+p9893,6509432,73,M,True,False,never
 p9894,6509432,73,K,False,False,never
 p9895,6509432,77,K,False,False,never
 p9896,6509432,73,K,False,True,always
@@ -10015,7 +10015,7 @@ p10012,6509433,65,M,False,True,sometimes
 p10013,6509433,69,K,False,False,never
 p10014,6509433,64,K,True,False,never
 p10015,6509433,67,K,True,False,never
-p10016,6509433,67,M,False,True,always
+p10016,6509433,67,M,False,False,never
 p10017,6509433,65,M,False,True,always
 p10018,6509433,64,M,True,False,never
 p10019,6509433,63,M,False,True,always
@@ -10050,7 +10050,7 @@ p10047,6509433,70,M,False,True,sometimes
 p10048,6509433,74,K,False,False,never
 p10049,6509433,79,K,False,False,never
 p10050,6509433,73,K,False,False,never
-p10051,6509433,71,M,True,True,sometimes
+p10051,6509433,71,M,True,False,never
 p10052,6509433,72,K,False,True,always
 p10053,6509433,72,K,False,False,never
 p10054,6509433,72,M,False,True,always
@@ -10109,7 +10109,7 @@ p10106,6509434,46,K,False,False,never
 p10107,6509434,57,K,False,True,always
 p10108,6509434,52,M,False,True,always
 p10109,6509434,55,M,True,False,never
-p10110,6509434,69,M,False,True,always
+p10110,6509434,69,M,False,False,never
 p10111,6509434,60,M,True,True,sometimes
 p10112,6509434,69,K,True,True,sometimes
 p10113,6509434,69,K,False,True,always
@@ -10124,7 +10124,7 @@ p10121,6509434,68,M,False,True,always
 p10122,6509434,64,M,True,True,always
 p10123,6509434,65,K,False,False,never
 p10124,6509434,69,K,True,False,never
-p10125,6509434,69,M,False,True,always
+p10125,6509434,69,M,False,False,never
 p10126,6509434,60,M,False,True,always
 p10127,6509434,68,K,True,False,never
 p10128,6509434,63,K,False,False,never
@@ -10296,7 +10296,7 @@ p10293,6509435,49,M,True,False,never
 p10294,6509435,49,M,False,True,always
 p10295,6509435,49,M,True,False,never
 p10296,6509435,49,K,False,True,always
-p10297,6509435,42,K,True,False,never
+p10297,6509435,42,K,True,True,always
 p10298,6509435,42,K,False,True,always
 p10299,6509435,45,M,True,True,always
 p10300,6509435,45,M,True,True,sometimes
@@ -10324,13 +10324,13 @@ p10321,6509435,57,K,False,False,never
 p10322,6509435,56,M,True,True,sometimes
 p10323,6509435,52,M,True,True,sometimes
 p10324,6509435,57,M,False,True,always
-p10325,6509435,55,K,True,False,never
+p10325,6509435,55,K,True,True,sometimes
 p10326,6509435,53,K,False,True,always
 p10327,6509435,59,M,True,True,always
 p10328,6509435,52,M,False,True,sometimes
 p10329,6509435,56,M,True,False,never
 p10330,6509435,51,M,True,True,always
-p10331,6509435,59,M,False,False,never
+p10331,6509435,59,M,False,True,always
 p10332,6509435,53,M,False,True,sometimes
 p10333,6509435,56,M,False,True,always
 p10334,6509435,50,K,True,False,never
@@ -10348,11 +10348,11 @@ p10345,6509435,64,K,False,True,sometimes
 p10346,6509435,69,M,False,True,always
 p10347,6509435,66,K,False,False,never
 p10348,6509435,69,M,False,True,sometimes
-p10349,6509435,69,M,True,True,always
-p10350,6509435,67,M,False,True,always
+p10349,6509435,69,M,True,False,never
+p10350,6509435,67,M,False,False,never
 p10351,6509435,69,K,True,True,sometimes
 p10352,6509435,68,K,True,False,never
-p10353,6509435,66,M,True,True,always
+p10353,6509435,66,M,True,False,never
 p10354,6509435,64,K,True,True,always
 p10355,6509435,64,K,True,True,always
 p10356,6509435,64,K,False,True,always
@@ -10374,7 +10374,7 @@ p10371,6509435,68,K,True,False,never
 p10372,6509435,63,M,True,True,always
 p10373,6509435,65,K,False,False,never
 p10374,6509435,65,K,True,False,never
-p10375,6509435,66,M,True,True,sometimes
+p10375,6509435,66,M,True,False,never
 p10376,6509435,60,M,False,True,always
 p10377,6509435,64,M,False,True,always
 p10378,6509435,65,K,False,True,sometimes
@@ -10414,7 +10414,7 @@ p10411,6509435,64,M,True,True,always
 p10412,6509435,65,K,False,False,never
 p10413,6509435,66,M,True,True,always
 p10414,6509435,63,K,False,True,always
-p10415,6509435,71,M,False,True,always
+p10415,6509435,71,M,False,False,never
 p10416,6509435,79,K,False,False,never
 p10417,6509435,70,K,False,False,never
 p10418,6509435,70,M,False,True,always
@@ -10770,7 +10770,7 @@ p10767,6509512,69,M,False,True,always
 p10768,6509512,64,M,True,True,always
 p10769,6509512,63,M,False,True,always
 p10770,6509512,62,K,False,False,never
-p10771,6509512,67,M,False,True,always
+p10771,6509512,67,M,False,False,never
 p10772,6509512,79,K,False,False,never
 p10773,6509512,77,K,True,True,always
 p10774,6509512,78,M,True,True,always
@@ -10867,7 +10867,7 @@ p10864,6509513,28,M,True,True,always
 p10865,6509513,27,K,True,True,sometimes
 p10866,6509513,34,M,True,True,always
 p10867,6509513,31,K,True,True,sometimes
-p10868,6509513,32,K,False,False,never
+p10868,6509513,32,K,False,True,sometimes
 p10869,6509513,37,M,False,False,never
 p10870,6509513,37,K,False,True,always
 p10871,6509513,32,M,True,True,always
@@ -10985,9 +10985,9 @@ p10982,6509513,63,M,True,True,sometimes
 p10983,6509513,68,K,False,False,never
 p10984,6509513,62,K,False,False,never
 p10985,6509513,69,M,False,True,sometimes
-p10986,6509513,62,K,False,False,never
+p10986,6509513,62,K,False,True,sometimes
 p10987,6509513,61,M,True,True,always
-p10988,6509513,64,K,True,False,never
+p10988,6509513,64,K,True,True,always
 p10989,6509513,69,K,False,False,never
 p10990,6509513,60,M,False,True,sometimes
 p10991,6509513,61,M,False,True,always
@@ -11059,18 +11059,18 @@ p11056,6509513,73,K,False,False,never
 p11057,6509513,75,K,False,False,never
 p11058,6509513,76,K,False,False,never
 p11059,6509513,75,K,False,True,always
-p11060,6509513,76,M,False,True,always
+p11060,6509513,76,M,False,False,never
 p11061,6509513,73,K,False,True,always
 p11062,6509513,75,M,False,True,always
 p11063,6509513,70,M,False,True,always
 p11064,6509513,72,M,True,True,always
 p11065,6509513,73,K,False,False,never
 p11066,6509513,70,M,False,True,always
-p11067,6509513,70,M,False,True,sometimes
+p11067,6509513,70,M,False,False,never
 p11068,6509513,71,K,False,False,never
 p11069,6509513,81,K,False,True,always
 p11070,6509513,81,K,False,True,always
-p11071,6509513,83,M,False,True,always
+p11071,6509513,83,M,False,False,never
 p11072,6509514,2,M,False,False,never
 p11073,6509514,9,K,False,False,never
 p11074,6509514,0,K,False,False,never
@@ -11293,7 +11293,7 @@ p11290,6509515,45,M,True,False,never
 p11291,6509515,47,K,True,False,never
 p11292,6509515,44,M,True,True,sometimes
 p11293,6509515,41,K,True,True,always
-p11294,6509515,44,M,True,False,never
+p11294,6509515,44,M,True,True,sometimes
 p11295,6509515,40,K,True,True,always
 p11296,6509515,43,M,True,True,always
 p11297,6509515,45,K,True,True,always
@@ -11387,7 +11387,7 @@ p11384,6509515,60,K,False,False,never
 p11385,6509515,60,M,False,True,always
 p11386,6509515,61,M,False,True,always
 p11387,6509515,65,K,False,False,never
-p11388,6509515,65,M,False,True,always
+p11388,6509515,65,M,False,False,never
 p11389,6509515,67,M,True,True,always
 p11390,6509515,65,K,False,False,never
 p11391,6509515,63,M,True,True,always
@@ -11459,7 +11459,7 @@ p11456,6509515,70,K,False,False,never
 p11457,6509515,76,K,False,False,never
 p11458,6509515,71,K,False,False,never
 p11459,6509515,78,K,False,True,sometimes
-p11460,6509515,75,M,False,True,always
+p11460,6509515,75,M,False,False,never
 p11461,6509515,74,K,False,False,never
 p11462,6509515,76,K,False,False,never
 p11463,6509515,72,K,False,False,never
@@ -11474,7 +11474,7 @@ p11471,6509515,72,K,False,False,never
 p11472,6509515,79,K,False,False,never
 p11473,6509515,72,K,False,False,never
 p11474,6509515,70,K,False,False,never
-p11475,6509515,70,K,False,False,never
+p11475,6509515,70,K,False,True,always
 p11476,6509515,76,M,False,True,always
 p11477,6509515,76,M,False,True,always
 p11478,6509515,72,K,False,False,never
@@ -11558,7 +11558,7 @@ p11555,6509516,38,K,False,False,never
 p11556,6509516,31,M,False,True,sometimes
 p11557,6509516,34,K,False,True,always
 p11558,6509516,45,M,True,True,always
-p11559,6509516,44,K,False,False,never
+p11559,6509516,44,K,False,True,always
 p11560,6509516,49,K,False,True,sometimes
 p11561,6509516,42,K,False,True,sometimes
 p11562,6509516,48,M,False,True,sometimes
@@ -11628,7 +11628,7 @@ p11625,6509516,63,M,False,True,always
 p11626,6509516,66,K,False,False,never
 p11627,6509516,65,K,False,True,sometimes
 p11628,6509516,61,M,False,True,always
-p11629,6509516,69,M,False,True,sometimes
+p11629,6509516,69,M,False,False,never
 p11630,6509516,66,M,True,True,always
 p11631,6509516,69,M,True,True,always
 p11632,6509516,60,K,True,False,never
@@ -11665,7 +11665,7 @@ p11662,6509516,65,K,False,False,never
 p11663,6509516,65,K,False,False,never
 p11664,6509516,64,M,True,True,always
 p11665,6509516,60,M,True,True,always
-p11666,6509516,68,M,False,True,always
+p11666,6509516,68,M,False,False,never
 p11667,6509516,63,K,True,True,always
 p11668,6509516,72,M,False,True,always
 p11669,6509516,78,K,False,False,never
@@ -12034,7 +12034,7 @@ p12031,6509522,48,M,False,False,never
 p12032,6509522,47,K,False,False,never
 p12033,6509522,45,K,True,False,never
 p12034,6509522,47,K,True,False,never
-p12035,6509522,46,M,True,False,never
+p12035,6509522,46,M,True,True,always
 p12036,6509522,49,K,True,False,never
 p12037,6509522,43,K,True,True,always
 p12038,6509522,45,M,True,True,always
@@ -12089,7 +12089,7 @@ p12086,6509522,63,K,False,True,sometimes
 p12087,6509522,65,K,False,False,never
 p12088,6509522,63,K,False,True,always
 p12089,6509522,63,K,False,True,always
-p12090,6509522,68,M,False,True,always
+p12090,6509522,68,M,False,False,never
 p12091,6509522,66,K,True,False,never
 p12092,6509522,63,K,False,False,never
 p12093,6509522,65,M,False,True,always
@@ -12307,7 +12307,7 @@ p12304,6509523,48,K,True,True,sometimes
 p12305,6509523,44,M,False,True,always
 p12306,6509523,48,M,False,True,sometimes
 p12307,6509523,59,M,True,True,always
-p12308,6509523,50,K,False,False,never
+p12308,6509523,50,K,False,True,always
 p12309,6509523,53,M,True,True,always
 p12310,6509523,57,K,True,True,always
 p12311,6509523,56,M,True,True,always
@@ -12632,7 +12632,7 @@ p12629,6509525,41,M,True,False,never
 p12630,6509525,45,K,True,True,sometimes
 p12631,6509525,48,M,True,True,always
 p12632,6509525,47,K,False,True,sometimes
-p12633,6509525,49,K,True,False,never
+p12633,6509525,49,K,True,True,always
 p12634,6509525,49,K,False,True,always
 p12635,6509525,48,K,True,True,sometimes
 p12636,6509525,41,K,False,True,always
@@ -12764,17 +12764,17 @@ p12761,6509525,79,M,False,True,sometimes
 p12762,6509525,70,K,False,False,never
 p12763,6509525,76,K,False,True,always
 p12764,6509525,72,M,False,True,always
-p12765,6509525,70,M,False,True,always
+p12765,6509525,70,M,False,False,never
 p12766,6509525,75,K,False,False,never
 p12767,6509525,77,K,False,False,never
 p12768,6509525,71,K,False,False,never
-p12769,6509525,72,M,False,True,always
+p12769,6509525,72,M,False,False,never
 p12770,6509525,74,K,False,False,never
 p12771,6509525,75,M,False,True,sometimes
 p12772,6509525,75,K,False,False,never
 p12773,6509525,78,M,False,True,always
 p12774,6509525,70,K,False,True,always
-p12775,6509525,72,M,False,True,always
+p12775,6509525,72,M,False,False,never
 p12776,6509525,79,K,False,False,never
 p12777,6509525,78,K,False,False,never
 p12778,6509525,78,M,False,True,always
@@ -12812,7 +12812,7 @@ p12809,6509525,75,K,False,False,never
 p12810,6509525,71,K,True,True,always
 p12811,6509525,86,M,False,True,always
 p12812,6509525,82,M,False,True,always
-p12813,6509525,84,M,False,True,always
+p12813,6509525,84,M,False,False,never
 p12814,6509525,85,K,False,False,never
 p12815,6509525,84,K,False,False,never
 p12816,6509525,90,K,False,False,never
@@ -12959,7 +12959,7 @@ p12956,6509531,61,K,False,True,sometimes
 p12957,6509531,62,K,False,False,never
 p12958,6509531,65,K,False,False,never
 p12959,6509531,74,M,False,True,always
-p12960,6509531,76,M,False,True,always
+p12960,6509531,76,M,False,False,never
 p12961,6509531,76,K,False,False,never
 p12962,6509531,71,K,True,False,never
 p12963,6509531,79,K,False,True,always
@@ -12970,7 +12970,7 @@ p12967,6509531,71,K,True,True,always
 p12968,6509531,75,K,False,True,always
 p12969,6509531,72,K,False,False,never
 p12970,6509531,76,K,False,False,never
-p12971,6509531,72,K,False,False,never
+p12971,6509531,72,K,False,True,always
 p12972,6509531,73,M,False,True,always
 p12973,6509531,72,K,False,False,never
 p12974,6509531,71,K,False,False,never
@@ -12988,8 +12988,8 @@ p12985,6509531,72,K,True,False,never
 p12986,6509531,75,M,False,True,always
 p12987,6509531,73,M,False,True,always
 p12988,6509531,73,K,False,True,always
-p12989,6509531,74,M,False,True,sometimes
-p12990,6509531,72,M,True,True,always
+p12989,6509531,74,M,False,False,never
+p12990,6509531,72,M,True,False,never
 p12991,6509531,77,K,False,False,never
 p12992,6509531,78,M,False,False,never
 p12993,6509531,76,K,False,False,never
@@ -13181,7 +13181,7 @@ p13178,6509532,60,K,False,True,sometimes
 p13179,6509532,63,K,True,False,never
 p13180,6509532,60,K,False,True,always
 p13181,6509532,65,M,False,True,sometimes
-p13182,6509532,65,M,True,True,always
+p13182,6509532,65,M,True,False,never
 p13183,6509532,60,M,True,True,always
 p13184,6509532,65,M,False,True,sometimes
 p13185,6509532,66,M,True,True,always
@@ -13242,7 +13242,7 @@ p13239,6509532,73,K,False,True,always
 p13240,6509532,70,K,False,False,never
 p13241,6509532,74,K,False,False,never
 p13242,6509532,71,K,False,True,always
-p13243,6509532,74,M,False,True,always
+p13243,6509532,74,M,False,False,never
 p13244,6509532,76,K,False,False,never
 p13245,6509532,73,K,False,False,never
 p13246,6509532,72,K,False,False,never
@@ -13253,7 +13253,7 @@ p13250,6509532,71,K,False,False,never
 p13251,6509532,72,M,False,True,always
 p13252,6509532,76,M,False,True,always
 p13253,6509532,73,M,False,True,sometimes
-p13254,6509532,82,M,False,True,sometimes
+p13254,6509532,82,M,False,False,never
 p13255,6509532,88,M,False,True,always
 p13256,6509532,80,K,False,False,never
 p13257,6509532,90,K,False,False,never
@@ -13369,7 +13369,7 @@ p13366,6509533,54,K,True,True,always
 p13367,6509533,58,M,True,True,always
 p13368,6509533,55,K,False,False,never
 p13369,6509533,56,K,True,True,sometimes
-p13370,6509533,54,K,False,False,never
+p13370,6509533,54,K,False,True,always
 p13371,6509533,52,M,True,True,sometimes
 p13372,6509533,56,K,False,True,always
 p13373,6509533,51,M,False,True,sometimes
@@ -13493,7 +13493,7 @@ p13490,6509534,34,M,True,True,always
 p13491,6509534,39,K,True,False,never
 p13492,6509534,36,K,True,False,never
 p13493,6509534,35,M,False,True,always
-p13494,6509534,38,K,True,False,never
+p13494,6509534,38,K,True,True,always
 p13495,6509534,33,K,True,True,sometimes
 p13496,6509534,39,M,True,True,sometimes
 p13497,6509534,37,K,True,True,always
@@ -13501,7 +13501,7 @@ p13498,6509534,34,M,True,True,sometimes
 p13499,6509534,34,M,False,True,always
 p13500,6509534,37,M,True,True,sometimes
 p13501,6509534,32,K,True,True,always
-p13502,6509534,32,K,True,False,never
+p13502,6509534,32,K,True,True,sometimes
 p13503,6509534,30,K,False,True,sometimes
 p13504,6509534,30,K,True,True,always
 p13505,6509534,32,M,True,True,always
@@ -13619,7 +13619,7 @@ p13616,6509534,77,K,False,True,sometimes
 p13617,6509534,79,K,False,False,never
 p13618,6509534,71,K,False,False,never
 p13619,6509534,71,K,False,True,sometimes
-p13620,6509534,71,M,False,True,sometimes
+p13620,6509534,71,M,False,False,never
 p13621,6509534,73,M,False,True,sometimes
 p13622,6509534,74,K,False,False,never
 p13623,6509534,70,M,False,True,sometimes
@@ -13627,10 +13627,10 @@ p13624,6509534,74,K,False,True,always
 p13625,6509534,81,M,False,True,always
 p13626,6509534,80,K,False,False,never
 p13627,6509534,90,M,False,True,always
-p13628,6509534,90,K,False,False,never
+p13628,6509534,90,K,False,True,always
 p13629,6509534,82,K,False,False,never
 p13630,6509534,83,K,False,False,never
-p13631,6509534,82,M,False,True,always
+p13631,6509534,82,M,False,False,never
 p13632,6509534,82,K,False,False,never
 p13633,6509534,86,K,False,False,never
 p13634,6509534,81,M,False,True,always
@@ -13719,7 +13719,7 @@ p13716,6509535,69,M,False,True,always
 p13717,6509535,64,M,True,True,always
 p13718,6509535,65,K,False,True,sometimes
 p13719,6509535,65,M,False,True,sometimes
-p13720,6509535,66,M,False,True,always
+p13720,6509535,66,M,False,False,never
 p13721,6509535,64,K,True,True,always
 p13722,6509535,66,K,False,False,never
 p13723,6509535,62,M,False,True,always
@@ -13751,7 +13751,7 @@ p13748,6509535,66,K,False,False,never
 p13749,6509535,66,K,False,False,never
 p13750,6509535,60,K,False,True,sometimes
 p13751,6509535,65,K,False,False,never
-p13752,6509535,67,M,False,True,always
+p13752,6509535,67,M,False,False,never
 p13753,6509535,64,K,False,True,sometimes
 p13754,6509535,62,M,False,True,sometimes
 p13755,6509535,64,M,True,True,always
@@ -13872,7 +13872,7 @@ p13869,6509541,55,M,True,True,sometimes
 p13870,6509541,53,M,False,True,always
 p13871,6509541,53,M,True,True,always
 p13872,6509541,51,M,False,True,always
-p13873,6509541,50,M,True,False,never
+p13873,6509541,50,M,True,True,always
 p13874,6509541,52,M,True,False,never
 p13875,6509541,55,M,True,True,always
 p13876,6509541,50,M,True,True,always
@@ -13979,7 +13979,7 @@ p13976,6509542,37,K,True,False,never
 p13977,6509542,36,M,True,True,sometimes
 p13978,6509542,39,M,True,True,always
 p13979,6509542,36,K,True,True,always
-p13980,6509542,30,M,True,False,never
+p13980,6509542,30,M,True,True,always
 p13981,6509542,31,M,True,True,always
 p13982,6509542,33,M,True,True,sometimes
 p13983,6509542,37,M,True,False,never
@@ -14053,7 +14053,7 @@ p14050,6509542,65,M,False,True,sometimes
 p14051,6509542,65,K,False,False,never
 p14052,6509542,66,K,False,False,never
 p14053,6509542,64,K,False,True,sometimes
-p14054,6509542,73,M,False,True,always
+p14054,6509542,73,M,False,False,never
 p14055,6509542,73,K,False,False,never
 p14056,6509542,77,K,False,False,never
 p14057,6509542,78,M,False,True,sometimes
@@ -14083,7 +14083,7 @@ p14080,6509543,21,M,True,True,always
 p14081,6509543,34,M,True,True,always
 p14082,6509543,37,M,True,True,sometimes
 p14083,6509543,31,K,False,True,always
-p14084,6509543,37,M,True,False,never
+p14084,6509543,37,M,True,True,sometimes
 p14085,6509543,39,M,True,True,always
 p14086,6509543,42,M,True,True,always
 p14087,6509543,40,K,True,True,sometimes
@@ -14107,7 +14107,7 @@ p14104,6509543,61,K,True,False,never
 p14105,6509543,64,K,False,False,never
 p14106,6509543,63,M,False,True,sometimes
 p14107,6509543,60,M,False,True,always
-p14108,6509543,65,K,True,False,never
+p14108,6509543,65,K,True,True,always
 p14109,6509543,68,M,False,True,sometimes
 p14110,6509543,64,K,False,False,never
 p14111,6509543,75,K,False,True,always
@@ -14131,7 +14131,7 @@ p14128,6509543,76,M,False,True,always
 p14129,6509543,74,K,False,False,never
 p14130,6509543,72,K,False,False,never
 p14131,6509543,81,K,False,True,always
-p14132,6509543,82,M,False,True,always
+p14132,6509543,82,M,False,False,never
 p14133,6509543,80,K,False,False,never
 p14134,6509543,84,M,False,True,always
 p14135,6509543,84,K,False,False,never
@@ -14310,7 +14310,7 @@ p14307,6509544,64,M,True,True,sometimes
 p14308,6509544,61,K,True,True,always
 p14309,6509544,66,M,False,True,always
 p14310,6509544,66,K,False,False,never
-p14311,6509544,68,M,True,True,always
+p14311,6509544,68,M,True,False,never
 p14312,6509544,72,M,False,True,sometimes
 p14313,6509544,72,M,True,True,always
 p14314,6509544,70,K,False,False,never
@@ -14321,7 +14321,7 @@ p14318,6509544,72,M,False,True,sometimes
 p14319,6509544,76,K,False,False,never
 p14320,6509544,72,K,False,False,never
 p14321,6509544,77,K,False,False,never
-p14322,6509544,78,M,False,True,sometimes
+p14322,6509544,78,M,False,False,never
 p14323,6509544,76,K,False,True,sometimes
 p14324,6509544,70,K,False,False,never
 p14325,6509544,70,K,False,False,never
@@ -14471,7 +14471,7 @@ p14468,6509545,66,K,False,False,never
 p14469,6509545,63,M,True,True,always
 p14470,6509545,65,K,False,False,never
 p14471,6509545,64,M,True,True,always
-p14472,6509545,63,K,True,False,never
+p14472,6509545,63,K,True,True,always
 p14473,6509545,69,M,False,True,always
 p14474,6509545,68,M,True,True,sometimes
 p14475,6509545,60,K,False,False,never
@@ -14483,7 +14483,7 @@ p14480,6509545,66,K,False,False,never
 p14481,6509545,67,M,True,True,always
 p14482,6509545,66,K,False,False,never
 p14483,6509545,68,M,False,True,always
-p14484,6509545,67,M,False,True,always
+p14484,6509545,67,M,False,False,never
 p14485,6509545,61,K,False,False,never
 p14486,6509545,76,K,False,True,sometimes
 p14487,6509545,70,K,False,True,always
@@ -14519,7 +14519,7 @@ p14516,6509545,81,M,False,True,always
 p14517,6509545,83,K,False,False,never
 p14518,6509545,80,M,False,True,always
 p14519,6509545,90,K,False,True,always
-p14520,6509545,82,M,False,True,always
+p14520,6509545,82,M,False,False,never
 p14521,6509545,82,K,False,True,sometimes
 p14522,6509545,80,K,False,True,always
 p14523,6509545,84,K,False,False,never
@@ -14581,7 +14581,7 @@ p14578,6509601,77,K,False,False,never
 p14579,6509601,72,M,True,True,sometimes
 p14580,6509601,75,M,False,True,sometimes
 p14581,6509601,74,M,False,True,always
-p14582,6509601,72,M,False,True,always
+p14582,6509601,72,M,False,False,never
 p14583,6509601,73,M,False,True,always
 p14584,6509601,71,M,False,True,always
 p14585,6509601,79,K,False,False,never
@@ -14777,7 +14777,7 @@ p14774,6509602,83,K,False,True,sometimes
 p14775,6509602,89,M,False,True,sometimes
 p14776,6509602,90,K,False,True,always
 p14777,6509602,88,K,False,False,never
-p14778,6509602,86,M,False,True,always
+p14778,6509602,86,M,False,False,never
 p14779,6509602,81,K,True,False,never
 p14780,6509602,83,K,False,False,never
 p14781,6509602,86,M,True,True,always
@@ -14839,7 +14839,7 @@ p14836,6509603,60,K,False,False,never
 p14837,6509603,67,K,False,False,never
 p14838,6509603,61,M,False,True,always
 p14839,6509603,74,K,True,False,never
-p14840,6509603,71,M,False,True,always
+p14840,6509603,71,M,False,False,never
 p14841,6509603,71,K,False,False,never
 p14842,6509603,73,M,False,True,sometimes
 p14843,6509603,71,K,False,False,never
@@ -14901,7 +14901,7 @@ p14898,6509604,42,K,True,True,always
 p14899,6509604,46,M,True,False,never
 p14900,6509604,40,K,True,True,always
 p14901,6509604,43,M,True,True,always
-p14902,6509604,41,M,True,False,never
+p14902,6509604,41,M,True,True,sometimes
 p14903,6509604,46,M,True,True,sometimes
 p14904,6509604,42,K,True,False,never
 p14905,6509604,43,K,False,True,always
@@ -14930,7 +14930,7 @@ p14927,6509604,52,M,True,True,sometimes
 p14928,6509604,55,M,True,False,never
 p14929,6509604,58,M,True,True,always
 p14930,6509604,55,K,False,False,never
-p14931,6509604,57,K,True,False,never
+p14931,6509604,57,K,True,True,always
 p14932,6509604,58,K,True,False,never
 p14933,6509604,68,M,False,True,always
 p14934,6509604,65,K,False,False,never
@@ -14991,7 +14991,7 @@ p14988,6509604,80,M,False,True,sometimes
 p14989,6509604,85,K,False,True,always
 p14990,6509604,81,K,False,False,never
 p14991,6509604,90,K,False,True,always
-p14992,6509604,82,M,False,True,always
+p14992,6509604,82,M,False,False,never
 p14993,6509604,82,M,False,True,always
 p14994,6509604,83,K,False,False,never
 p14995,6509604,81,K,False,True,sometimes
@@ -15153,7 +15153,7 @@ p15150,6509606,47,M,True,True,always
 p15151,6509606,43,K,True,False,never
 p15152,6509606,45,M,False,True,always
 p15153,6509606,49,K,False,True,sometimes
-p15154,6509606,42,K,True,False,never
+p15154,6509606,42,K,True,True,always
 p15155,6509606,40,K,True,True,sometimes
 p15156,6509606,47,M,True,True,always
 p15157,6509606,45,K,True,False,never
@@ -15181,7 +15181,7 @@ p15178,6509606,50,K,True,False,never
 p15179,6509606,55,K,False,True,always
 p15180,6509606,55,K,False,True,always
 p15181,6509606,53,K,True,False,never
-p15182,6509606,50,K,True,False,never
+p15182,6509606,50,K,True,True,always
 p15183,6509606,57,M,True,True,sometimes
 p15184,6509606,53,M,True,True,always
 p15185,6509606,64,K,False,False,never
@@ -15237,7 +15237,7 @@ p15234,6509606,66,M,False,True,sometimes
 p15235,6509606,78,K,False,False,never
 p15236,6509606,73,K,False,True,always
 p15237,6509606,78,K,False,True,sometimes
-p15238,6509606,75,M,False,True,always
+p15238,6509606,75,M,False,False,never
 p15239,6509606,78,K,False,True,always
 p15240,6509606,75,M,False,True,sometimes
 p15241,6509606,71,M,True,True,sometimes
@@ -15315,7 +15315,7 @@ p15312,6509607,39,M,True,True,sometimes
 p15313,6509607,30,M,False,False,never
 p15314,6509607,30,K,True,True,sometimes
 p15315,6509607,36,K,False,True,always
-p15316,6509607,33,M,True,False,never
+p15316,6509607,33,M,True,True,always
 p15317,6509607,39,M,True,True,always
 p15318,6509607,35,K,True,True,always
 p15319,6509607,36,K,True,True,always
@@ -15376,7 +15376,7 @@ p15373,6509607,52,M,False,True,always
 p15374,6509607,56,M,False,True,sometimes
 p15375,6509607,55,K,True,True,always
 p15376,6509607,54,K,False,True,always
-p15377,6509607,54,K,False,False,never
+p15377,6509607,54,K,False,True,always
 p15378,6509607,55,M,False,True,always
 p15379,6509607,56,K,False,True,always
 p15380,6509607,54,M,True,True,always
@@ -15447,12 +15447,12 @@ p15444,6509607,77,M,False,True,sometimes
 p15445,6509607,74,M,False,True,always
 p15446,6509607,72,K,True,False,never
 p15447,6509607,71,K,False,False,never
-p15448,6509607,78,M,False,True,always
+p15448,6509607,78,M,False,False,never
 p15449,6509607,75,M,False,True,always
 p15450,6509607,70,K,True,False,never
 p15451,6509607,70,M,False,True,always
 p15452,6509607,77,K,False,False,never
-p15453,6509607,73,K,False,False,never
+p15453,6509607,73,K,False,True,always
 p15454,6509607,74,K,False,True,always
 p15455,6509607,70,M,False,True,always
 p15456,6509607,73,K,False,True,always
@@ -15645,7 +15645,7 @@ p15642,6509608,64,M,True,True,always
 p15643,6509608,68,K,False,True,always
 p15644,6509608,65,K,False,False,never
 p15645,6509608,68,K,True,False,never
-p15646,6509608,68,M,False,True,always
+p15646,6509608,68,M,False,False,never
 p15647,6509608,68,K,True,True,always
 p15648,6509608,62,K,True,True,sometimes
 p15649,6509608,64,M,True,True,sometimes
@@ -15843,7 +15843,7 @@ p15840,6509701,74,K,False,False,never
 p15841,6509701,78,K,False,False,never
 p15842,6509701,73,M,True,True,sometimes
 p15843,6509701,71,K,False,False,never
-p15844,6509701,78,M,False,True,always
+p15844,6509701,78,M,False,False,never
 p15845,6509701,70,M,False,True,sometimes
 p15846,6509701,77,K,False,False,never
 p15847,6509701,82,K,False,False,never
@@ -15877,7 +15877,7 @@ p15874,6509702,26,K,True,False,never
 p15875,6509702,29,M,False,False,never
 p15876,6509702,29,K,False,True,always
 p15877,6509702,27,M,True,True,sometimes
-p15878,6509702,24,K,True,False,never
+p15878,6509702,24,K,True,True,always
 p15879,6509702,29,K,True,True,sometimes
 p15880,6509702,24,K,False,True,always
 p15881,6509702,21,M,False,False,never
@@ -16033,7 +16033,7 @@ p16030,6509703,30,M,True,True,always
 p16031,6509703,30,K,False,True,always
 p16032,6509703,31,M,True,True,always
 p16033,6509703,38,K,False,True,always
-p16034,6509703,39,K,True,False,never
+p16034,6509703,39,K,True,True,always
 p16035,6509703,36,M,False,True,sometimes
 p16036,6509703,33,M,True,True,always
 p16037,6509703,34,K,False,True,always
@@ -16112,7 +16112,7 @@ p16109,6509703,62,K,False,False,never
 p16110,6509703,66,K,False,False,never
 p16111,6509703,68,K,False,False,never
 p16112,6509703,65,M,False,True,always
-p16113,6509703,63,K,True,False,never
+p16113,6509703,63,K,True,True,always
 p16114,6509703,64,M,False,True,always
 p16115,6509703,61,M,True,True,always
 p16116,6509703,61,M,True,True,always
@@ -16296,7 +16296,7 @@ p16293,6509705,28,K,True,True,sometimes
 p16294,6509705,29,M,False,False,never
 p16295,6509705,21,K,False,False,never
 p16296,6509705,24,M,True,True,always
-p16297,6509705,25,M,False,False,never
+p16297,6509705,25,M,False,True,always
 p16298,6509705,20,M,False,True,always
 p16299,6509705,27,K,False,True,always
 p16300,6509705,26,M,True,False,never
@@ -16335,7 +16335,7 @@ p16332,6509705,33,K,False,True,always
 p16333,6509705,30,M,True,True,always
 p16334,6509705,39,K,False,False,never
 p16335,6509705,38,M,True,True,always
-p16336,6509705,34,K,True,False,never
+p16336,6509705,34,K,True,True,sometimes
 p16337,6509705,35,K,False,True,sometimes
 p16338,6509705,37,K,False,False,never
 p16339,6509705,30,M,True,False,never
@@ -16405,7 +16405,7 @@ p16402,6509705,67,K,False,False,never
 p16403,6509705,61,M,False,True,sometimes
 p16404,6509705,61,M,True,True,sometimes
 p16405,6509705,66,K,False,False,never
-p16406,6509705,67,M,False,True,always
+p16406,6509705,67,M,False,False,never
 p16407,6509705,65,K,False,False,never
 p16408,6509705,65,K,False,False,never
 p16409,6509705,65,K,False,False,never
@@ -16511,12 +16511,12 @@ p16508,6509706,58,M,True,True,sometimes
 p16509,6509706,56,K,True,False,never
 p16510,6509706,56,M,False,True,always
 p16511,6509706,58,M,False,True,always
-p16512,6509706,59,K,True,False,never
+p16512,6509706,59,K,True,True,sometimes
 p16513,6509706,56,K,True,True,always
 p16514,6509706,59,M,True,True,sometimes
 p16515,6509706,56,K,True,False,never
 p16516,6509706,56,M,True,True,always
-p16517,6509706,68,M,False,True,always
+p16517,6509706,68,M,False,False,never
 p16518,6509706,61,K,True,True,sometimes
 p16519,6509706,65,K,False,False,never
 p16520,6509706,62,M,False,True,sometimes
@@ -16735,7 +16735,7 @@ p16732,6509708,20,K,True,True,always
 p16733,6509708,22,K,True,True,always
 p16734,6509708,21,K,False,False,never
 p16735,6509708,35,M,False,True,sometimes
-p16736,6509708,38,K,True,False,never
+p16736,6509708,38,K,True,True,sometimes
 p16737,6509708,31,M,True,True,always
 p16738,6509708,33,M,True,True,sometimes
 p16739,6509708,33,M,True,True,always
@@ -16833,7 +16833,7 @@ p16830,6509801,27,K,True,True,always
 p16831,6509801,28,M,True,True,always
 p16832,6509801,29,K,True,True,always
 p16833,6509801,29,K,False,True,always
-p16834,6509801,24,K,False,False,never
+p16834,6509801,24,K,False,True,always
 p16835,6509801,29,M,True,True,always
 p16836,6509801,35,K,True,True,always
 p16837,6509801,35,M,False,True,always
@@ -16934,7 +16934,7 @@ p16931,6509801,75,K,False,False,never
 p16932,6509801,71,M,False,True,sometimes
 p16933,6509801,70,K,False,True,always
 p16934,6509801,74,K,False,False,never
-p16935,6509801,77,M,True,True,always
+p16935,6509801,77,M,True,False,never
 p16936,6509801,73,K,True,False,never
 p16937,6509801,75,M,False,True,always
 p16938,6509801,89,K,False,False,never
@@ -17010,7 +17010,7 @@ p17007,6509802,42,M,True,False,never
 p17008,6509802,46,K,False,False,never
 p17009,6509802,49,K,True,True,always
 p17010,6509802,44,M,False,True,always
-p17011,6509802,48,K,False,False,never
+p17011,6509802,48,K,False,True,always
 p17012,6509802,44,M,False,True,sometimes
 p17013,6509802,47,K,True,True,sometimes
 p17014,6509802,48,K,True,False,never
@@ -17046,7 +17046,7 @@ p17043,6509802,79,K,False,False,never
 p17044,6509802,76,K,False,False,never
 p17045,6509802,76,M,False,True,sometimes
 p17046,6509802,70,M,True,True,always
-p17047,6509802,78,M,False,True,always
+p17047,6509802,78,M,False,False,never
 p17048,6509802,83,K,False,True,always
 p17049,6509802,90,K,False,False,never
 p17050,6509802,88,K,False,False,never
@@ -17209,7 +17209,7 @@ p17206,6509803,73,K,False,False,never
 p17207,6509803,74,M,False,True,always
 p17208,6509803,70,K,False,False,never
 p17209,6509803,77,K,False,False,never
-p17210,6509803,70,M,False,True,always
+p17210,6509803,70,M,False,False,never
 p17211,6509803,70,M,False,True,always
 p17212,6509803,71,M,True,True,sometimes
 p17213,6509803,77,K,False,False,never
@@ -17238,7 +17238,7 @@ p17235,6509803,80,M,False,True,always
 p17236,6509803,82,K,False,True,always
 p17237,6509803,81,K,False,False,never
 p17238,6509803,82,K,False,True,always
-p17239,6509803,82,K,False,False,never
+p17239,6509803,82,K,False,True,always
 p17240,6509803,80,K,False,False,never
 p17241,6509803,90,K,False,True,always
 p17242,6509803,90,K,False,False,never
@@ -17274,7 +17274,7 @@ p17271,6509804,19,M,True,True,sometimes
 p17272,6509804,14,K,False,False,never
 p17273,6509804,14,K,False,False,never
 p17274,6509804,29,K,True,False,never
-p17275,6509804,29,K,True,False,never
+p17275,6509804,29,K,True,True,sometimes
 p17276,6509804,20,M,True,True,always
 p17277,6509804,22,M,False,True,sometimes
 p17278,6509804,29,K,True,False,never
@@ -17338,11 +17338,11 @@ p17335,6509804,51,M,False,False,never
 p17336,6509804,54,K,True,True,sometimes
 p17337,6509804,53,K,True,False,never
 p17338,6509804,54,M,True,True,sometimes
-p17339,6509804,53,K,True,False,never
+p17339,6509804,53,K,True,True,always
 p17340,6509804,52,K,True,False,never
 p17341,6509804,51,M,False,True,always
 p17342,6509804,52,M,True,True,always
-p17343,6509804,50,K,False,False,never
+p17343,6509804,50,K,False,True,sometimes
 p17344,6509804,58,K,False,True,always
 p17345,6509804,52,K,True,True,sometimes
 p17346,6509804,57,M,True,True,sometimes
@@ -17361,7 +17361,7 @@ p17358,6509804,64,K,False,True,always
 p17359,6509804,68,M,True,True,sometimes
 p17360,6509804,65,M,False,True,always
 p17361,6509804,63,M,False,False,never
-p17362,6509804,66,M,False,True,always
+p17362,6509804,66,M,False,False,never
 p17363,6509804,62,K,False,True,always
 p17364,6509804,62,K,False,False,never
 p17365,6509804,66,K,False,False,never
@@ -17473,7 +17473,7 @@ p17470,6509805,53,M,True,True,always
 p17471,6509805,69,K,False,False,never
 p17472,6509805,63,M,False,True,always
 p17473,6509805,62,K,False,False,never
-p17474,6509805,66,M,False,True,always
+p17474,6509805,66,M,False,False,never
 p17475,6509805,67,M,True,True,always
 p17476,6509805,63,M,False,True,sometimes
 p17477,6509805,66,K,False,False,never
@@ -17509,7 +17509,7 @@ p17506,6509805,80,K,False,False,never
 p17507,6509805,90,K,False,False,never
 p17508,6509805,80,M,False,True,always
 p17509,6509805,81,K,False,True,sometimes
-p17510,6509805,84,M,False,True,always
+p17510,6509805,84,M,False,False,never
 p17511,6509806,9,M,False,False,never
 p17512,6509806,4,K,False,False,never
 p17513,6509806,6,M,False,False,never
@@ -17546,7 +17546,7 @@ p17543,6509806,25,M,True,True,sometimes
 p17544,6509806,23,K,False,True,always
 p17545,6509806,29,M,True,True,always
 p17546,6509806,26,M,False,False,never
-p17547,6509806,29,M,True,False,never
+p17547,6509806,29,M,True,True,always
 p17548,6509806,22,M,True,True,always
 p17549,6509806,20,M,False,True,sometimes
 p17550,6509806,27,M,True,True,always
@@ -17593,7 +17593,7 @@ p17590,6509806,49,K,True,True,sometimes
 p17591,6509806,49,K,False,True,always
 p17592,6509806,47,M,True,True,always
 p17593,6509806,48,M,False,True,always
-p17594,6509806,42,M,True,False,never
+p17594,6509806,42,M,True,True,sometimes
 p17595,6509806,49,K,False,False,never
 p17596,6509806,45,K,True,False,never
 p17597,6509806,40,M,True,True,always
@@ -17652,7 +17652,7 @@ p17649,6509806,61,M,True,True,always
 p17650,6509806,67,K,False,True,always
 p17651,6509806,67,K,True,False,never
 p17652,6509806,63,M,False,True,always
-p17653,6509806,68,K,False,False,never
+p17653,6509806,68,K,False,True,always
 p17654,6509806,63,M,False,True,always
 p17655,6509806,62,K,False,False,never
 p17656,6509806,68,K,True,False,never
@@ -17802,7 +17802,7 @@ p17799,6509807,69,K,False,False,never
 p17800,6509807,61,K,True,False,never
 p17801,6509807,68,M,False,True,always
 p17802,6509807,67,K,True,False,never
-p17803,6509807,70,M,False,True,always
+p17803,6509807,70,M,False,False,never
 p17804,6509807,76,M,False,True,always
 p17805,6509807,74,M,False,True,always
 p17806,6509807,72,K,False,False,never
@@ -17981,7 +17981,7 @@ p17978,6509901,71,M,True,True,always
 p17979,6509901,75,K,False,False,never
 p17980,6509901,71,M,False,True,always
 p17981,6509901,78,K,False,False,never
-p17982,6509901,72,M,False,True,always
+p17982,6509901,72,M,False,False,never
 p17983,6509901,77,M,False,True,sometimes
 p17984,6509901,74,M,False,True,always
 p17985,6509901,79,M,False,True,always
@@ -18275,7 +18275,7 @@ p18272,6509903,55,M,False,True,always
 p18273,6509903,66,K,False,False,never
 p18274,6509903,60,K,False,False,never
 p18275,6509903,61,M,False,True,sometimes
-p18276,6509903,68,M,False,True,sometimes
+p18276,6509903,68,M,False,False,never
 p18277,6509903,61,M,True,False,never
 p18278,6509903,64,M,True,True,always
 p18279,6509903,62,K,True,False,never
@@ -18319,11 +18319,11 @@ p18316,6509903,83,K,False,True,sometimes
 p18317,6509903,90,M,False,True,always
 p18318,6509903,84,K,False,False,never
 p18319,6509903,90,M,True,True,always
-p18320,6509903,81,K,False,False,never
+p18320,6509903,81,K,False,True,always
 p18321,6509903,83,K,False,False,never
 p18322,6509903,90,K,False,False,never
 p18323,6509903,90,M,False,True,always
-p18324,6509903,90,M,False,True,always
+p18324,6509903,90,M,False,False,never
 p18325,6509903,87,K,False,False,never
 p18326,6509903,89,K,False,False,never
 p18327,6509903,80,M,False,True,always
@@ -18714,7 +18714,7 @@ p18711,6510001,65,M,False,True,always
 p18712,6510001,67,M,False,True,always
 p18713,6510001,66,K,True,True,sometimes
 p18714,6510001,65,K,False,False,never
-p18715,6510001,64,K,True,False,never
+p18715,6510001,64,K,True,True,sometimes
 p18716,6510001,61,K,False,True,sometimes
 p18717,6510001,77,K,False,False,never
 p18718,6510001,73,K,False,False,never
@@ -18829,7 +18829,7 @@ p18826,6510002,48,M,False,False,never
 p18827,6510002,49,K,True,False,never
 p18828,6510002,54,K,True,True,always
 p18829,6510002,50,M,True,True,always
-p18830,6510002,52,K,True,False,never
+p18830,6510002,52,K,True,True,always
 p18831,6510002,54,K,True,True,always
 p18832,6510002,51,M,True,True,always
 p18833,6510002,56,M,True,True,always
@@ -18881,14 +18881,14 @@ p18878,6510002,73,K,False,False,never
 p18879,6510002,72,K,False,True,always
 p18880,6510002,74,K,False,False,never
 p18881,6510002,76,M,False,True,sometimes
-p18882,6510002,71,M,True,True,always
+p18882,6510002,71,M,True,False,never
 p18883,6510002,70,M,True,True,sometimes
 p18884,6510002,73,K,False,False,never
-p18885,6510002,71,M,False,True,sometimes
+p18885,6510002,71,M,False,False,never
 p18886,6510002,74,K,False,False,never
 p18887,6510002,71,M,False,True,always
 p18888,6510002,86,K,False,False,never
-p18889,6510002,88,M,False,True,sometimes
+p18889,6510002,88,M,False,False,never
 p18890,6510002,88,K,False,False,never
 p18891,6510002,82,K,False,False,never
 p18892,6510002,83,M,False,True,always
@@ -19023,7 +19023,7 @@ p19020,6510003,64,K,True,False,never
 p19021,6510003,62,K,False,False,never
 p19022,6510003,64,M,False,True,always
 p19023,6510003,68,M,False,True,always
-p19024,6510003,66,M,True,True,always
+p19024,6510003,66,M,True,False,never
 p19025,6510003,66,K,False,False,never
 p19026,6510003,67,M,True,True,sometimes
 p19027,6510003,64,M,False,True,always
@@ -19033,11 +19033,11 @@ p19030,6510003,74,K,False,False,never
 p19031,6510003,79,K,False,False,never
 p19032,6510003,79,K,False,False,never
 p19033,6510003,75,M,False,True,always
-p19034,6510003,70,K,False,False,never
+p19034,6510003,70,K,False,True,sometimes
 p19035,6510003,70,K,False,False,never
 p19036,6510003,70,K,False,True,always
 p19037,6510003,70,K,False,False,never
-p19038,6510003,70,K,False,False,never
+p19038,6510003,70,K,False,True,always
 p19039,6510003,70,K,False,False,never
 p19040,6510003,75,K,False,False,never
 p19041,6510003,75,M,False,True,always
@@ -19046,7 +19046,7 @@ p19043,6510003,71,M,False,True,always
 p19044,6510003,75,K,False,False,never
 p19045,6510003,75,M,False,True,always
 p19046,6510003,74,K,False,False,never
-p19047,6510003,75,M,False,True,always
+p19047,6510003,75,M,False,False,never
 p19048,6510003,70,M,False,True,always
 p19049,6510003,72,K,False,True,always
 p19050,6510003,73,M,False,True,always
@@ -19157,13 +19157,13 @@ p19154,6510004,73,M,True,True,always
 p19155,6510004,72,K,False,False,never
 p19156,6510004,73,K,False,False,never
 p19157,6510004,74,K,False,True,sometimes
-p19158,6510004,78,M,False,True,always
+p19158,6510004,78,M,False,False,never
 p19159,6510004,74,K,False,False,never
 p19160,6510004,75,K,False,False,never
 p19161,6510004,72,K,False,True,always
 p19162,6510004,76,K,False,False,never
 p19163,6510004,90,M,False,True,sometimes
-p19164,6510004,81,M,False,True,sometimes
+p19164,6510004,81,M,False,False,never
 p19165,6510004,80,K,False,False,never
 p19166,6510004,81,K,False,False,never
 p19167,6510004,84,K,True,False,never
@@ -19393,7 +19393,7 @@ p19390,6510102,74,K,False,False,never
 p19391,6510102,72,K,False,False,never
 p19392,6510102,70,K,False,False,never
 p19393,6510102,71,K,False,False,never
-p19394,6510102,72,M,False,True,always
+p19394,6510102,72,M,False,False,never
 p19395,6510102,76,M,False,True,always
 p19396,6510102,77,K,False,False,never
 p19397,6510102,74,M,False,True,always
@@ -19409,7 +19409,7 @@ p19406,6510102,72,K,True,False,never
 p19407,6510102,72,K,False,False,never
 p19408,6510102,75,M,False,True,always
 p19409,6510102,72,K,False,False,never
-p19410,6510102,70,M,True,True,always
+p19410,6510102,70,M,True,False,never
 p19411,6510102,71,K,False,True,always
 p19412,6510102,73,M,False,True,always
 p19413,6510102,77,K,False,False,never
@@ -19543,7 +19543,7 @@ p19540,6510104,29,K,True,True,always
 p19541,6510104,22,M,True,True,always
 p19542,6510104,28,M,True,True,always
 p19543,6510104,26,K,True,True,sometimes
-p19544,6510104,21,K,False,False,never
+p19544,6510104,21,K,False,True,always
 p19545,6510104,20,M,False,True,sometimes
 p19546,6510104,24,K,False,True,sometimes
 p19547,6510104,25,M,False,True,always
@@ -19656,7 +19656,7 @@ p19653,6510104,65,K,True,False,never
 p19654,6510104,68,K,False,True,always
 p19655,6510104,66,K,False,False,never
 p19656,6510104,68,M,True,True,always
-p19657,6510104,66,M,False,True,sometimes
+p19657,6510104,66,M,False,False,never
 p19658,6510104,78,K,False,False,never
 p19659,6510104,72,M,False,True,sometimes
 p19660,6510104,77,K,True,False,never
@@ -19666,7 +19666,7 @@ p19663,6510104,76,M,False,True,sometimes
 p19664,6510104,70,K,False,False,never
 p19665,6510104,73,K,False,False,never
 p19666,6510104,82,K,False,False,never
-p19667,6510104,90,M,False,True,always
+p19667,6510104,90,M,False,False,never
 p19668,6510104,87,K,False,False,never
 p19669,6510104,81,K,True,False,never
 p19670,6510104,88,K,False,False,never
@@ -19885,7 +19885,7 @@ p19882,6510106,69,K,False,False,never
 p19883,6510106,65,M,False,True,always
 p19884,6510106,64,M,False,True,always
 p19885,6510106,63,M,True,True,sometimes
-p19886,6510106,65,M,False,True,always
+p19886,6510106,65,M,False,False,never
 p19887,6510106,66,M,False,True,always
 p19888,6510106,64,K,True,True,always
 p19889,6510106,66,M,False,True,always
@@ -19895,9 +19895,9 @@ p19892,6510106,61,K,True,False,never
 p19893,6510106,60,K,False,True,sometimes
 p19894,6510106,66,K,False,False,never
 p19895,6510106,62,M,True,True,always
-p19896,6510106,67,M,False,True,always
+p19896,6510106,67,M,False,False,never
 p19897,6510106,61,K,True,False,never
-p19898,6510106,69,M,True,True,always
+p19898,6510106,69,M,True,False,never
 p19899,6510106,68,K,False,False,never
 p19900,6510106,68,K,True,False,never
 p19901,6510106,67,K,False,False,never
@@ -19910,7 +19910,7 @@ p19907,6510106,75,K,False,False,never
 p19908,6510106,76,K,False,False,never
 p19909,6510106,73,K,False,True,always
 p19910,6510106,71,M,True,True,always
-p19911,6510106,72,K,False,False,never
+p19911,6510106,72,K,False,True,always
 p19912,6510106,75,K,False,False,never
 p19913,6510106,72,K,False,False,never
 p19914,6510106,72,K,False,False,never
@@ -19922,10 +19922,10 @@ p19919,6510106,71,K,False,True,always
 p19920,6510106,70,K,False,False,never
 p19921,6510106,77,K,False,True,always
 p19922,6510106,70,M,False,True,always
-p19923,6510106,70,M,False,True,sometimes
+p19923,6510106,70,M,False,False,never
 p19924,6510106,71,M,False,True,always
 p19925,6510106,70,M,False,True,always
-p19926,6510106,74,M,False,True,always
+p19926,6510106,74,M,False,False,never
 p19927,6510106,80,M,False,True,sometimes
 p19928,6510106,84,K,False,True,sometimes
 p19929,6510106,90,M,False,True,always
@@ -20168,7 +20168,7 @@ p20165,6510202,54,M,True,True,always
 p20166,6510202,57,K,True,True,always
 p20167,6510202,56,M,False,True,always
 p20168,6510202,59,M,False,True,always
-p20169,6510202,52,K,False,False,never
+p20169,6510202,52,K,False,True,always
 p20170,6510202,55,M,False,False,never
 p20171,6510202,55,K,False,False,never
 p20172,6510202,59,K,False,False,never
@@ -20187,7 +20187,7 @@ p20184,6510202,66,K,False,False,never
 p20185,6510202,63,K,True,True,always
 p20186,6510202,66,K,False,False,never
 p20187,6510202,65,K,False,False,never
-p20188,6510202,69,M,False,True,always
+p20188,6510202,69,M,False,False,never
 p20189,6510202,60,K,True,True,always
 p20190,6510202,68,M,True,True,sometimes
 p20191,6510202,64,M,True,False,never
@@ -20294,7 +20294,7 @@ p20291,6510203,72,M,True,True,always
 p20292,6510203,74,K,False,False,never
 p20293,6510203,71,M,False,True,always
 p20294,6510203,70,K,False,False,never
-p20295,6510203,72,M,False,True,always
+p20295,6510203,72,M,False,False,never
 p20296,6510203,73,K,False,False,never
 p20297,6510203,80,K,False,False,never
 p20298,6510203,90,K,False,False,never
@@ -20345,7 +20345,7 @@ p20342,6510204,51,K,False,True,always
 p20343,6510204,56,K,True,False,never
 p20344,6510204,54,M,False,True,always
 p20345,6510204,59,K,True,False,never
-p20346,6510204,66,M,False,True,sometimes
+p20346,6510204,66,M,False,False,never
 p20347,6510204,65,M,False,True,sometimes
 p20348,6510204,64,M,False,False,never
 p20349,6510204,69,M,True,True,sometimes
@@ -20540,7 +20540,7 @@ p20537,6510301,47,M,False,True,always
 p20538,6510301,40,M,False,True,always
 p20539,6510301,43,K,True,False,never
 p20540,6510301,48,K,True,False,never
-p20541,6510301,47,M,True,False,never
+p20541,6510301,47,M,True,True,always
 p20542,6510301,44,K,True,False,never
 p20543,6510301,41,M,False,False,never
 p20544,6510301,46,K,False,False,never
@@ -20586,7 +20586,7 @@ p20583,6510301,62,M,False,True,always
 p20584,6510301,76,M,False,True,always
 p20585,6510301,70,M,True,True,always
 p20586,6510301,75,K,False,False,never
-p20587,6510301,71,K,False,False,never
+p20587,6510301,71,K,False,True,sometimes
 p20588,6510301,70,M,False,True,always
 p20589,6510301,71,M,False,True,sometimes
 p20590,6510301,76,K,False,False,never
@@ -20719,7 +20719,7 @@ p20716,6510303,72,K,False,True,sometimes
 p20717,6510303,76,K,False,False,never
 p20718,6510303,71,K,False,False,never
 p20719,6510303,75,M,False,True,always
-p20720,6510303,70,M,False,True,always
+p20720,6510303,70,M,False,False,never
 p20721,6510303,73,K,False,False,never
 p20722,6510303,71,K,False,False,never
 p20723,6510303,88,K,False,False,never
@@ -20844,7 +20844,7 @@ p20841,6510304,71,M,False,True,always
 p20842,6510304,76,K,False,False,never
 p20843,6510304,79,K,False,False,never
 p20844,6510304,70,M,False,True,always
-p20845,6510304,78,M,False,True,always
+p20845,6510304,78,M,False,False,never
 p20846,6510304,73,K,False,False,never
 p20847,6510304,78,M,False,False,never
 p20848,6510304,87,K,False,False,never
@@ -21191,7 +21191,7 @@ p21188,6510402,59,M,False,True,always
 p21189,6510402,52,K,False,False,never
 p21190,6510402,59,K,True,True,always
 p21191,6510402,54,K,False,True,always
-p21192,6510402,53,K,True,False,never
+p21192,6510402,53,K,True,True,sometimes
 p21193,6510402,58,K,False,True,always
 p21194,6510402,52,M,True,True,always
 p21195,6510402,55,M,True,True,always
@@ -21215,12 +21215,12 @@ p21212,6510402,69,K,False,False,never
 p21213,6510402,65,M,False,True,always
 p21214,6510402,68,K,False,False,never
 p21215,6510402,68,K,False,True,always
-p21216,6510402,68,K,True,False,never
+p21216,6510402,68,K,True,True,always
 p21217,6510402,62,K,False,True,always
 p21218,6510402,63,M,False,True,always
 p21219,6510402,69,M,False,True,sometimes
 p21220,6510402,60,M,True,False,never
-p21221,6510402,68,M,True,True,always
+p21221,6510402,68,M,True,False,never
 p21222,6510402,70,M,False,True,always
 p21223,6510402,78,M,True,True,always
 p21224,6510402,75,K,False,False,never
@@ -21230,7 +21230,7 @@ p21227,6510402,72,K,False,False,never
 p21228,6510402,72,M,False,True,always
 p21229,6510402,70,K,False,False,never
 p21230,6510402,72,K,False,False,never
-p21231,6510402,78,M,False,True,always
+p21231,6510402,78,M,False,False,never
 p21232,6510402,84,K,False,False,never
 p21233,6510402,87,K,False,False,never
 p21234,6510402,89,K,False,False,never
@@ -21319,7 +21319,7 @@ p21316,6510403,54,K,False,True,sometimes
 p21317,6510403,60,M,False,True,sometimes
 p21318,6510403,64,M,True,True,always
 p21319,6510403,62,K,True,True,always
-p21320,6510403,65,M,False,True,always
+p21320,6510403,65,M,False,False,never
 p21321,6510403,67,K,False,False,never
 p21322,6510403,63,M,False,True,always
 p21323,6510403,69,K,False,False,never
@@ -21433,7 +21433,7 @@ p21430,6510501,62,K,False,False,never
 p21431,6510501,68,K,True,False,never
 p21432,6510501,69,K,True,False,never
 p21433,6510501,66,M,False,True,always
-p21434,6510501,75,M,False,True,always
+p21434,6510501,75,M,False,False,never
 p21435,6510501,72,M,False,True,always
 p21436,6510501,71,K,False,False,never
 p21437,6510501,74,K,False,False,never
@@ -21504,7 +21504,7 @@ p21501,6510502,48,M,False,True,always
 p21502,6510502,49,K,False,True,always
 p21503,6510502,41,M,True,False,never
 p21504,6510502,45,M,True,True,always
-p21505,6510502,42,K,True,False,never
+p21505,6510502,42,K,True,True,always
 p21506,6510502,41,M,True,True,always
 p21507,6510502,40,K,True,False,never
 p21508,6510502,41,M,True,True,always
@@ -21558,7 +21558,7 @@ p21555,6510502,65,K,False,True,always
 p21556,6510502,67,K,False,False,never
 p21557,6510502,67,K,False,False,never
 p21558,6510502,61,K,False,True,always
-p21559,6510502,65,M,False,True,always
+p21559,6510502,65,M,False,False,never
 p21560,6510502,63,M,False,False,never
 p21561,6510502,63,K,True,True,always
 p21562,6510502,67,K,False,True,sometimes
@@ -21572,7 +21572,7 @@ p21569,6510502,75,K,False,False,never
 p21570,6510502,72,M,False,True,always
 p21571,6510502,78,M,False,True,sometimes
 p21572,6510502,75,K,False,True,sometimes
-p21573,6510502,73,M,False,True,always
+p21573,6510502,73,M,False,False,never
 p21574,6510502,79,K,False,False,never
 p21575,6510502,73,K,False,False,never
 p21576,6510502,71,K,False,False,never
@@ -21584,12 +21584,12 @@ p21581,6510502,74,K,False,False,never
 p21582,6510502,79,K,False,False,never
 p21583,6510502,71,K,False,False,never
 p21584,6510502,79,K,False,False,never
-p21585,6510502,70,M,False,True,always
+p21585,6510502,70,M,False,False,never
 p21586,6510502,72,K,False,True,always
 p21587,6510502,75,M,False,True,always
 p21588,6510502,76,K,False,False,never
 p21589,6510502,70,K,False,True,always
-p21590,6510502,75,M,False,True,always
+p21590,6510502,75,M,False,False,never
 p21591,6510502,72,K,False,False,never
 p21592,6510502,77,M,False,True,sometimes
 p21593,6510502,79,K,False,False,never
@@ -21751,7 +21751,7 @@ p21748,6510503,74,M,False,True,always
 p21749,6510503,73,M,False,True,always
 p21750,6510503,77,M,False,True,always
 p21751,6510503,74,K,False,True,always
-p21752,6510503,70,M,False,True,always
+p21752,6510503,70,M,False,False,never
 p21753,6510503,73,M,False,True,sometimes
 p21754,6510503,71,M,False,True,always
 p21755,6510503,72,M,False,True,sometimes
@@ -21910,7 +21910,7 @@ p21907,6510504,44,M,False,True,always
 p21908,6510504,56,K,False,True,sometimes
 p21909,6510504,53,M,False,True,always
 p21910,6510504,59,K,True,False,never
-p21911,6510504,58,K,True,False,never
+p21911,6510504,58,K,True,True,always
 p21912,6510504,53,K,True,True,always
 p21913,6510504,56,K,True,False,never
 p21914,6510504,59,K,False,False,never
@@ -22134,9 +22134,9 @@ p22131,6510505,65,M,False,True,always
 p22132,6510505,69,M,False,True,always
 p22133,6510505,62,K,False,True,always
 p22134,6510505,69,K,False,True,sometimes
-p22135,6510505,65,M,True,True,always
+p22135,6510505,65,M,True,False,never
 p22136,6510505,69,M,True,True,always
-p22137,6510505,60,K,False,False,never
+p22137,6510505,60,K,False,True,sometimes
 p22138,6510505,67,K,False,False,never
 p22139,6510505,67,M,True,True,sometimes
 p22140,6510505,60,M,False,True,sometimes
@@ -22189,7 +22189,7 @@ p22186,6510505,74,M,False,True,always
 p22187,6510505,70,K,False,True,always
 p22188,6510505,77,M,False,True,sometimes
 p22189,6510505,76,K,False,False,never
-p22190,6510505,79,M,False,True,always
+p22190,6510505,79,M,False,False,never
 p22191,6510505,71,K,False,True,always
 p22192,6510505,79,K,False,False,never
 p22193,6510505,70,K,False,False,never
@@ -22200,7 +22200,7 @@ p22197,6510505,84,K,False,True,always
 p22198,6510505,82,M,False,True,always
 p22199,6510505,81,K,False,False,never
 p22200,6510505,80,K,False,False,never
-p22201,6510505,83,M,False,True,sometimes
+p22201,6510505,83,M,False,False,never
 p22202,6510505,84,K,False,False,never
 p22203,6510505,80,M,False,True,always
 p22204,6510505,81,K,False,False,never
@@ -22341,7 +22341,7 @@ p22338,6510506,41,M,True,True,always
 p22339,6510506,40,M,True,False,never
 p22340,6510506,43,K,True,False,never
 p22341,6510506,44,M,True,True,always
-p22342,6510506,45,K,True,False,never
+p22342,6510506,45,K,True,True,sometimes
 p22343,6510506,42,M,False,True,sometimes
 p22344,6510506,47,K,True,True,always
 p22345,6510506,42,K,False,True,always
@@ -22350,9 +22350,9 @@ p22347,6510506,52,M,True,True,always
 p22348,6510506,58,M,False,True,sometimes
 p22349,6510506,51,M,True,True,always
 p22350,6510506,57,M,False,True,sometimes
-p22351,6510506,50,M,True,False,never
+p22351,6510506,50,M,True,True,sometimes
 p22352,6510506,53,K,False,True,always
-p22353,6510506,57,K,False,False,never
+p22353,6510506,57,K,False,True,always
 p22354,6510506,51,M,True,True,sometimes
 p22355,6510506,51,M,True,True,always
 p22356,6510506,58,M,False,True,always
@@ -22403,7 +22403,7 @@ p22400,6510506,69,K,False,False,never
 p22401,6510506,60,M,False,True,always
 p22402,6510506,65,K,False,True,always
 p22403,6510506,63,M,True,True,sometimes
-p22404,6510506,65,M,False,True,always
+p22404,6510506,65,M,False,False,never
 p22405,6510506,67,K,False,True,always
 p22406,6510506,68,K,False,False,never
 p22407,6510506,64,K,False,False,never
@@ -22420,7 +22420,7 @@ p22417,6510506,70,M,False,True,always
 p22418,6510506,70,K,False,False,never
 p22419,6510506,73,K,False,False,never
 p22420,6510506,77,K,False,True,always
-p22421,6510506,74,K,False,False,never
+p22421,6510506,74,K,False,True,always
 p22422,6510506,70,K,False,False,never
 p22423,6510506,72,M,True,True,always
 p22424,6510506,73,M,False,True,always
@@ -22603,7 +22603,7 @@ p22600,6510507,56,M,True,True,always
 p22601,6510507,59,M,True,True,always
 p22602,6510507,50,K,False,True,sometimes
 p22603,6510507,58,K,True,False,never
-p22604,6510507,52,M,False,False,never
+p22604,6510507,52,M,False,True,always
 p22605,6510507,56,M,False,True,always
 p22606,6510507,52,M,True,True,always
 p22607,6510507,59,M,False,False,never
@@ -22655,7 +22655,7 @@ p22652,6510507,75,M,False,True,always
 p22653,6510507,70,M,False,True,always
 p22654,6510507,72,K,False,True,always
 p22655,6510507,75,K,False,False,never
-p22656,6510507,75,M,False,True,sometimes
+p22656,6510507,75,M,False,False,never
 p22657,6510507,71,K,False,False,never
 p22658,6510507,72,K,False,False,never
 p22659,6510507,72,M,False,True,always
@@ -22814,14 +22814,14 @@ p22811,6510601,61,K,False,False,never
 p22812,6510601,64,M,False,True,always
 p22813,6510601,64,K,False,True,always
 p22814,6510601,72,K,False,False,never
-p22815,6510601,74,M,True,True,always
+p22815,6510601,74,M,True,False,never
 p22816,6510601,70,K,False,False,never
 p22817,6510601,70,K,True,False,never
-p22818,6510601,70,M,False,True,always
+p22818,6510601,70,M,False,False,never
 p22819,6510601,72,K,False,False,never
 p22820,6510601,74,K,False,False,never
 p22821,6510601,72,K,False,False,never
-p22822,6510601,72,K,False,False,never
+p22822,6510601,72,K,False,True,always
 p22823,6510601,73,M,False,True,sometimes
 p22824,6510601,90,K,False,False,never
 p22825,6510601,80,M,False,True,always
@@ -22951,7 +22951,7 @@ p22948,6510602,63,K,True,False,never
 p22949,6510602,64,K,False,True,always
 p22950,6510602,62,K,True,True,always
 p22951,6510602,64,M,True,False,never
-p22952,6510602,67,M,False,True,always
+p22952,6510602,67,M,False,False,never
 p22953,6510602,66,M,False,True,always
 p22954,6510602,61,K,True,True,always
 p22955,6510602,62,M,True,True,always
@@ -23122,9 +23122,9 @@ p23119,6510603,64,K,False,False,never
 p23120,6510603,63,K,False,False,never
 p23121,6510603,68,M,False,True,always
 p23122,6510603,68,M,False,True,sometimes
-p23123,6510603,70,K,False,False,never
+p23123,6510603,70,K,False,True,always
 p23124,6510603,74,K,False,False,never
-p23125,6510603,77,M,True,True,always
+p23125,6510603,77,M,True,False,never
 p23126,6510603,72,K,False,False,never
 p23127,6510603,74,M,False,True,always
 p23128,6510603,74,M,False,True,always
@@ -23256,7 +23256,7 @@ p23253,6510605,26,M,False,True,sometimes
 p23254,6510605,22,M,False,False,never
 p23255,6510605,28,K,True,True,always
 p23256,6510605,28,M,True,True,always
-p23257,6510605,28,M,True,False,never
+p23257,6510605,28,M,True,True,always
 p23258,6510605,28,K,True,True,always
 p23259,6510605,20,M,False,True,always
 p23260,6510605,25,M,True,True,always
@@ -23386,7 +23386,7 @@ p23383,6510605,65,K,False,False,never
 p23384,6510605,64,K,False,False,never
 p23385,6510605,67,M,True,True,always
 p23386,6510605,69,K,False,False,never
-p23387,6510605,67,K,False,False,never
+p23387,6510605,67,K,False,True,sometimes
 p23388,6510605,60,M,False,True,always
 p23389,6510605,63,K,True,False,never
 p23390,6510605,62,M,False,True,always
@@ -23689,7 +23689,7 @@ p23686,6510607,65,M,False,True,always
 p23687,6510607,65,M,False,True,always
 p23688,6510607,69,K,False,False,never
 p23689,6510607,66,K,False,False,never
-p23690,6510607,68,K,False,False,never
+p23690,6510607,68,K,False,True,always
 p23691,6510607,64,K,False,True,always
 p23692,6510607,60,M,True,True,sometimes
 p23693,6510607,67,M,True,True,sometimes
@@ -23698,7 +23698,7 @@ p23695,6510607,75,M,False,True,always
 p23696,6510607,84,M,False,True,sometimes
 p23697,6510607,81,K,False,False,never
 p23698,6510607,82,K,False,False,never
-p23699,6510607,83,M,False,True,always
+p23699,6510607,83,M,False,False,never
 p23700,6510701,0,M,False,False,never
 p23701,6510701,9,K,False,False,never
 p23702,6510701,2,M,False,False,never
@@ -23831,7 +23831,7 @@ p23828,6510701,72,K,False,True,always
 p23829,6510701,72,K,False,True,always
 p23830,6510701,70,K,False,False,never
 p23831,6510701,70,K,False,False,never
-p23832,6510701,75,M,False,True,always
+p23832,6510701,75,M,False,False,never
 p23833,6510701,84,K,False,False,never
 p23834,6510701,82,M,False,True,sometimes
 p23835,6510701,80,M,False,True,always
@@ -23876,7 +23876,7 @@ p23873,6510702,12,M,False,False,never
 p23874,6510702,18,M,False,False,never
 p23875,6510702,10,K,False,False,never
 p23876,6510702,17,K,False,False,never
-p23877,6510702,19,M,False,False,never
+p23877,6510702,19,M,False,True,always
 p23878,6510702,11,K,False,False,never
 p23879,6510702,12,K,False,False,never
 p23880,6510702,14,M,False,False,never
@@ -23990,7 +23990,7 @@ p23987,6510702,58,K,False,True,always
 p23988,6510702,50,K,True,True,sometimes
 p23989,6510702,53,M,False,True,sometimes
 p23990,6510702,56,K,True,True,always
-p23991,6510702,69,M,False,True,sometimes
+p23991,6510702,69,M,False,False,never
 p23992,6510702,66,M,True,True,always
 p23993,6510702,64,M,True,True,sometimes
 p23994,6510702,64,K,False,False,never
@@ -24006,7 +24006,7 @@ p24003,6510702,65,K,True,False,never
 p24004,6510702,61,M,False,True,sometimes
 p24005,6510702,67,M,True,True,always
 p24006,6510702,62,K,False,False,never
-p24007,6510702,69,M,False,True,sometimes
+p24007,6510702,69,M,False,False,never
 p24008,6510702,61,K,False,True,always
 p24009,6510702,68,K,False,False,never
 p24010,6510702,66,M,True,True,sometimes
@@ -24094,7 +24094,7 @@ p24091,6510703,30,K,False,False,never
 p24092,6510703,34,K,False,True,sometimes
 p24093,6510703,32,M,False,True,always
 p24094,6510703,33,K,True,True,always
-p24095,6510703,32,K,True,False,never
+p24095,6510703,32,K,True,True,always
 p24096,6510703,36,K,True,False,never
 p24097,6510703,36,K,True,True,always
 p24098,6510703,38,M,True,True,always
@@ -24430,7 +24430,7 @@ p24427,6510704,66,K,False,False,never
 p24428,6510704,64,K,False,True,always
 p24429,6510704,63,K,True,True,always
 p24430,6510704,61,K,False,True,always
-p24431,6510704,65,M,False,True,always
+p24431,6510704,65,M,False,False,never
 p24432,6510704,64,M,True,True,always
 p24433,6510704,60,M,True,True,sometimes
 p24434,6510704,65,K,False,True,always
@@ -24498,12 +24498,12 @@ p24495,6510704,82,K,False,False,never
 p24496,6510704,80,M,False,True,always
 p24497,6510704,81,M,False,True,always
 p24498,6510704,90,K,False,False,never
-p24499,6510704,82,M,False,True,always
+p24499,6510704,82,M,False,False,never
 p24500,6510704,84,K,False,False,never
 p24501,6510704,90,K,False,False,never
 p24502,6510704,85,K,False,True,always
 p24503,6510704,84,K,False,True,always
-p24504,6510704,86,M,False,True,always
+p24504,6510704,86,M,False,False,never
 p24505,6510705,0,M,False,False,never
 p24506,6510705,4,M,False,False,never
 p24507,6510705,2,M,False,False,never
@@ -24611,7 +24611,7 @@ p24608,6510705,60,K,True,False,never
 p24609,6510705,69,K,False,False,never
 p24610,6510705,67,M,True,True,always
 p24611,6510705,69,K,False,False,never
-p24612,6510705,66,M,False,True,always
+p24612,6510705,66,M,False,False,never
 p24613,6510705,62,K,False,False,never
 p24614,6510705,68,K,False,False,never
 p24615,6510705,61,K,False,False,never
@@ -24643,7 +24643,7 @@ p24640,6510705,75,M,False,True,always
 p24641,6510705,71,M,True,True,always
 p24642,6510705,78,M,False,True,sometimes
 p24643,6510705,70,K,False,False,never
-p24644,6510705,78,K,False,False,never
+p24644,6510705,78,K,False,True,always
 p24645,6510705,78,M,False,True,always
 p24646,6510705,76,K,False,False,never
 p24647,6510705,78,K,True,False,never
@@ -24672,7 +24672,7 @@ p24669,6510705,80,K,False,False,never
 p24670,6510705,84,M,False,True,always
 p24671,6510705,87,M,False,True,always
 p24672,6510705,84,K,False,False,never
-p24673,6510705,80,M,False,True,always
+p24673,6510705,80,M,False,False,never
 p24674,6510705,83,K,False,False,never
 p24675,6510705,80,K,False,False,never
 p24676,6510706,4,M,False,False,never
@@ -24740,7 +24740,7 @@ p24737,6510706,34,M,True,True,sometimes
 p24738,6510706,31,M,False,True,always
 p24739,6510706,31,K,False,True,always
 p24740,6510706,37,K,True,False,never
-p24741,6510706,34,K,True,False,never
+p24741,6510706,34,K,True,True,sometimes
 p24742,6510706,30,M,True,True,always
 p24743,6510706,37,K,True,True,always
 p24744,6510706,34,M,True,True,always
@@ -24786,7 +24786,7 @@ p24783,6510706,46,M,True,False,never
 p24784,6510706,44,M,True,True,sometimes
 p24785,6510706,44,K,True,False,never
 p24786,6510706,43,K,True,True,always
-p24787,6510706,43,K,True,False,never
+p24787,6510706,43,K,True,True,always
 p24788,6510706,48,M,True,False,never
 p24789,6510706,47,K,False,True,always
 p24790,6510706,45,K,False,True,always
@@ -24903,7 +24903,7 @@ p24900,6510706,73,K,False,False,never
 p24901,6510706,71,K,True,False,never
 p24902,6510706,77,K,False,False,never
 p24903,6510706,77,K,False,False,never
-p24904,6510706,73,K,False,False,never
+p24904,6510706,73,K,False,True,sometimes
 p24905,6510706,75,K,False,True,always
 p24906,6510706,76,K,False,True,always
 p24907,6510706,70,K,False,False,never
@@ -25120,13 +25120,13 @@ p25117,6510707,62,K,False,False,never
 p25118,6510707,68,M,False,True,always
 p25119,6510707,68,K,False,False,never
 p25120,6510707,61,K,False,True,sometimes
-p25121,6510707,65,M,False,True,always
+p25121,6510707,65,M,False,False,never
 p25122,6510707,61,M,True,True,always
 p25123,6510707,60,K,False,True,always
 p25124,6510707,60,M,True,True,sometimes
 p25125,6510707,65,K,True,False,never
 p25126,6510707,61,K,True,True,always
-p25127,6510707,67,M,False,True,always
+p25127,6510707,67,M,False,False,never
 p25128,6510707,61,M,True,True,sometimes
 p25129,6510707,62,M,False,True,always
 p25130,6510707,65,K,False,False,never
@@ -25261,11 +25261,11 @@ p25258,6510811,75,M,False,True,always
 p25259,6510811,73,K,False,True,always
 p25260,6510811,71,K,False,False,never
 p25261,6510811,73,K,False,False,never
-p25262,6510811,71,M,False,True,always
+p25262,6510811,71,M,False,False,never
 p25263,6510811,87,K,False,False,never
 p25264,6510811,82,M,True,True,always
 p25265,6510811,88,K,False,False,never
-p25266,6510811,80,M,False,True,always
+p25266,6510811,80,M,False,False,never
 p25267,6510811,81,K,False,False,never
 p25268,6510812,1,K,False,False,never
 p25269,6510812,3,K,False,False,never
@@ -25348,7 +25348,7 @@ p25345,6510812,34,K,True,True,always
 p25346,6510812,36,K,True,True,always
 p25347,6510812,32,K,True,True,always
 p25348,6510812,44,M,True,False,never
-p25349,6510812,45,K,True,False,never
+p25349,6510812,45,K,True,True,always
 p25350,6510812,42,K,True,True,always
 p25351,6510812,48,K,True,True,sometimes
 p25352,6510812,41,K,False,True,always
@@ -25422,7 +25422,7 @@ p25419,6510812,61,K,False,True,always
 p25420,6510812,61,K,False,False,never
 p25421,6510812,71,K,False,False,never
 p25422,6510812,70,M,False,True,always
-p25423,6510812,70,M,False,True,always
+p25423,6510812,70,M,False,False,never
 p25424,6510812,74,K,False,False,never
 p25425,6510812,77,K,True,False,never
 p25426,6510812,73,K,False,True,always
@@ -25433,7 +25433,7 @@ p25430,6510812,73,K,False,True,always
 p25431,6510812,80,K,False,False,never
 p25432,6510812,90,M,False,True,sometimes
 p25433,6510812,87,K,False,False,never
-p25434,6510812,80,M,False,True,always
+p25434,6510812,80,M,False,False,never
 p25435,6510812,85,K,False,True,sometimes
 p25436,6510813,0,M,False,False,never
 p25437,6510813,2,M,False,False,never
@@ -25553,7 +25553,7 @@ p25550,6510813,73,K,False,False,never
 p25551,6510813,74,K,False,False,never
 p25552,6510813,70,K,False,True,sometimes
 p25553,6510813,70,M,False,True,sometimes
-p25554,6510813,70,M,False,True,sometimes
+p25554,6510813,70,M,False,False,never
 p25555,6510813,75,M,False,True,sometimes
 p25556,6510813,74,M,False,True,always
 p25557,6510813,78,K,False,False,never
@@ -25604,7 +25604,7 @@ p25601,6510814,38,K,True,True,always
 p25602,6510814,37,K,False,True,always
 p25603,6510814,35,K,True,True,always
 p25604,6510814,37,M,True,False,never
-p25605,6510814,35,K,True,False,never
+p25605,6510814,35,K,True,True,sometimes
 p25606,6510814,35,M,True,True,always
 p25607,6510814,39,M,True,True,always
 p25608,6510814,32,M,True,False,never
@@ -25680,7 +25680,7 @@ p25677,6510814,68,M,False,True,always
 p25678,6510814,64,M,False,True,always
 p25679,6510814,61,M,True,True,always
 p25680,6510814,69,K,False,False,never
-p25681,6510814,65,M,True,True,always
+p25681,6510814,65,M,True,False,never
 p25682,6510814,61,K,False,False,never
 p25683,6510814,66,K,False,False,never
 p25684,6510814,63,K,False,False,never
@@ -25705,7 +25705,7 @@ p25702,6510814,78,K,False,False,never
 p25703,6510814,75,M,False,True,always
 p25704,6510814,70,K,False,False,never
 p25705,6510814,71,M,False,True,always
-p25706,6510814,73,M,False,True,always
+p25706,6510814,73,M,False,False,never
 p25707,6510814,75,K,False,False,never
 p25708,6510814,74,K,False,False,never
 p25709,6510814,74,M,False,True,always
@@ -25861,7 +25861,7 @@ p25858,6510815,66,K,True,False,never
 p25859,6510815,64,M,False,True,always
 p25860,6510815,63,K,True,False,never
 p25861,6510815,69,K,False,False,never
-p25862,6510815,60,K,True,False,never
+p25862,6510815,60,K,True,True,sometimes
 p25863,6510815,67,K,True,False,never
 p25864,6510815,67,K,False,True,always
 p25865,6510815,65,K,False,False,never
@@ -25876,7 +25876,7 @@ p25873,6510815,65,M,False,True,always
 p25874,6510815,63,M,True,True,always
 p25875,6510815,60,K,False,True,always
 p25876,6510815,72,K,False,False,never
-p25877,6510815,71,M,False,True,always
+p25877,6510815,71,M,False,False,never
 p25878,6510815,75,M,True,True,always
 p25879,6510815,76,K,False,True,always
 p25880,6510815,70,K,False,True,always
@@ -25917,7 +25917,7 @@ p25914,6510816,12,M,False,False,never
 p25915,6510816,11,M,False,False,never
 p25916,6510816,10,K,False,False,never
 p25917,6510816,11,K,False,False,never
-p25918,6510816,28,M,True,False,never
+p25918,6510816,28,M,True,True,sometimes
 p25919,6510816,23,K,False,False,never
 p25920,6510816,28,M,True,True,always
 p25921,6510816,36,M,True,False,never
@@ -25993,7 +25993,7 @@ p25990,6510816,65,M,False,True,always
 p25991,6510816,67,K,False,False,never
 p25992,6510816,66,K,False,False,never
 p25993,6510816,66,K,False,True,always
-p25994,6510816,69,M,True,True,sometimes
+p25994,6510816,69,M,True,False,never
 p25995,6510816,65,K,False,False,never
 p25996,6510816,65,K,False,False,never
 p25997,6510816,68,K,False,True,sometimes
@@ -26028,7 +26028,7 @@ p26025,6510816,71,M,False,True,always
 p26026,6510816,74,M,False,True,sometimes
 p26027,6510816,77,K,False,True,sometimes
 p26028,6510816,71,K,False,False,never
-p26029,6510816,73,M,False,True,sometimes
+p26029,6510816,73,M,False,False,never
 p26030,6510816,70,K,False,False,never
 p26031,6510816,71,K,False,False,never
 p26032,6510816,72,M,False,True,sometimes
@@ -26162,7 +26162,7 @@ p26159,6510821,68,K,False,True,sometimes
 p26160,6510821,62,K,True,True,always
 p26161,6510821,64,K,False,False,never
 p26162,6510821,64,M,True,True,always
-p26163,6510821,68,M,True,True,always
+p26163,6510821,68,M,True,False,never
 p26164,6510821,67,K,False,False,never
 p26165,6510821,65,K,False,True,always
 p26166,6510821,66,K,False,False,never
@@ -26173,7 +26173,7 @@ p26170,6510821,65,K,False,True,always
 p26171,6510821,63,M,False,True,always
 p26172,6510821,64,M,False,True,sometimes
 p26173,6510821,65,K,True,True,sometimes
-p26174,6510821,69,M,False,True,sometimes
+p26174,6510821,69,M,False,False,never
 p26175,6510821,60,K,False,True,always
 p26176,6510821,65,K,False,True,always
 p26177,6510821,65,K,True,False,never
@@ -26190,11 +26190,11 @@ p26187,6510821,61,M,True,True,always
 p26188,6510821,65,K,False,False,never
 p26189,6510821,69,K,False,False,never
 p26190,6510821,65,M,True,True,sometimes
-p26191,6510821,71,K,False,False,never
+p26191,6510821,71,K,False,True,always
 p26192,6510821,74,M,False,True,always
 p26193,6510821,75,M,False,True,always
 p26194,6510821,74,M,False,True,always
-p26195,6510821,72,M,True,True,always
+p26195,6510821,72,M,True,False,never
 p26196,6510821,71,K,False,False,never
 p26197,6510821,74,K,False,False,never
 p26198,6510821,78,M,False,True,sometimes
@@ -26203,7 +26203,7 @@ p26200,6510821,78,M,False,True,sometimes
 p26201,6510821,70,K,False,False,never
 p26202,6510821,78,M,False,True,always
 p26203,6510821,79,M,False,True,always
-p26204,6510821,75,M,False,True,always
+p26204,6510821,75,M,False,False,never
 p26205,6510821,74,K,False,False,never
 p26206,6510821,79,M,False,True,sometimes
 p26207,6510821,71,K,False,True,always
@@ -26257,7 +26257,7 @@ p26254,6510822,44,K,True,True,sometimes
 p26255,6510822,44,K,True,True,always
 p26256,6510822,43,K,True,True,sometimes
 p26257,6510822,44,M,True,True,always
-p26258,6510822,51,K,False,False,never
+p26258,6510822,51,K,False,True,always
 p26259,6510822,56,K,True,True,always
 p26260,6510822,59,K,False,False,never
 p26261,6510822,50,K,False,True,sometimes
@@ -26627,7 +26627,7 @@ p26624,6510824,61,K,False,False,never
 p26625,6510824,67,M,False,True,always
 p26626,6510824,60,M,True,True,always
 p26627,6510824,67,K,False,True,always
-p26628,6510824,60,K,False,False,never
+p26628,6510824,60,K,False,True,sometimes
 p26629,6510824,66,M,False,True,always
 p26630,6510824,64,M,False,True,sometimes
 p26631,6510824,63,K,False,True,sometimes
@@ -26639,8 +26639,8 @@ p26636,6510824,78,K,False,False,never
 p26637,6510824,76,K,False,False,never
 p26638,6510824,73,K,False,False,never
 p26639,6510824,78,M,False,True,always
-p26640,6510824,70,M,True,True,sometimes
-p26641,6510824,75,M,False,True,always
+p26640,6510824,70,M,True,False,never
+p26641,6510824,75,M,False,False,never
 p26642,6510824,70,K,False,False,never
 p26643,6510824,74,M,False,True,always
 p26644,6510824,75,M,False,True,sometimes
@@ -26694,13 +26694,13 @@ p26691,6510824,87,K,False,True,sometimes
 p26692,6510824,81,K,False,True,always
 p26693,6510824,80,K,False,False,never
 p26694,6510824,84,K,False,True,sometimes
-p26695,6510824,88,M,False,True,always
+p26695,6510824,88,M,False,False,never
 p26696,6510824,85,K,False,False,never
 p26697,6510824,81,M,False,True,always
 p26698,6510824,90,M,False,True,always
 p26699,6510824,82,K,False,False,never
 p26700,6510824,82,M,False,True,always
-p26701,6510824,81,M,False,True,always
+p26701,6510824,81,M,False,False,never
 p26702,6510824,82,K,False,True,always
 p26703,6510824,81,M,False,True,always
 p26704,6510824,83,M,False,True,always
@@ -26972,7 +26972,7 @@ p26969,6510901,46,M,True,True,sometimes
 p26970,6510901,46,K,True,True,always
 p26971,6510901,43,M,True,True,always
 p26972,6510901,46,M,True,True,sometimes
-p26973,6510901,41,M,False,False,never
+p26973,6510901,41,M,False,True,sometimes
 p26974,6510901,46,M,True,True,always
 p26975,6510901,49,K,True,True,always
 p26976,6510901,44,M,False,True,always
@@ -27045,7 +27045,7 @@ p27042,6510901,54,K,True,False,never
 p27043,6510901,67,M,False,True,sometimes
 p27044,6510901,68,K,False,False,never
 p27045,6510901,61,K,False,True,always
-p27046,6510901,63,K,True,False,never
+p27046,6510901,63,K,True,True,sometimes
 p27047,6510901,69,K,False,False,never
 p27048,6510901,67,K,False,False,never
 p27049,6510901,62,K,False,True,sometimes
@@ -27057,7 +27057,7 @@ p27054,6510901,63,M,True,True,always
 p27055,6510901,62,K,True,True,sometimes
 p27056,6510901,64,K,False,False,never
 p27057,6510901,63,K,False,True,always
-p27058,6510901,68,M,False,True,always
+p27058,6510901,68,M,False,False,never
 p27059,6510901,65,K,True,False,never
 p27060,6510901,65,K,False,False,never
 p27061,6510901,67,K,False,False,never
@@ -27070,7 +27070,7 @@ p27067,6510901,66,K,False,False,never
 p27068,6510901,63,K,True,False,never
 p27069,6510901,73,K,False,False,never
 p27070,6510901,75,K,False,False,never
-p27071,6510901,74,M,False,True,sometimes
+p27071,6510901,74,M,False,False,never
 p27072,6510901,75,K,False,False,never
 p27073,6510901,70,K,True,False,never
 p27074,6510901,73,M,False,True,always
@@ -27099,7 +27099,7 @@ p27096,6510901,84,K,False,False,never
 p27097,6510901,83,K,False,False,never
 p27098,6510901,80,K,False,False,never
 p27099,6510901,86,K,False,True,always
-p27100,6510901,80,K,False,False,never
+p27100,6510901,80,K,False,True,always
 p27101,6510902,4,M,False,False,never
 p27102,6510902,6,K,False,False,never
 p27103,6510902,4,M,False,False,never
@@ -27265,7 +27265,7 @@ p27262,6510902,74,M,False,True,always
 p27263,6510902,74,K,True,False,never
 p27264,6510902,71,K,False,True,always
 p27265,6510902,75,K,False,False,never
-p27266,6510902,71,K,False,False,never
+p27266,6510902,71,K,False,True,sometimes
 p27267,6510902,71,K,False,False,never
 p27268,6510902,73,K,False,False,never
 p27269,6510902,73,K,False,True,always
@@ -27399,7 +27399,7 @@ p27396,6510903,45,K,False,True,sometimes
 p27397,6510903,48,M,False,True,sometimes
 p27398,6510903,47,M,True,True,always
 p27399,6510903,42,M,True,True,always
-p27400,6510903,47,K,True,False,never
+p27400,6510903,47,K,True,True,always
 p27401,6510903,47,M,True,True,sometimes
 p27402,6510903,48,M,False,True,always
 p27403,6510903,54,K,True,False,never
@@ -27455,7 +27455,7 @@ p27452,6510903,66,M,True,True,sometimes
 p27453,6510903,60,K,False,True,always
 p27454,6510903,63,K,False,False,never
 p27455,6510903,65,K,False,False,never
-p27456,6510903,67,K,False,False,never
+p27456,6510903,67,K,False,True,always
 p27457,6510903,63,K,False,False,never
 p27458,6510903,64,K,True,True,sometimes
 p27459,6510903,66,K,True,True,always
@@ -27470,7 +27470,7 @@ p27467,6510903,68,K,False,True,always
 p27468,6510903,60,M,True,True,always
 p27469,6510903,63,K,False,False,never
 p27470,6510903,73,K,False,True,always
-p27471,6510903,73,M,False,True,always
+p27471,6510903,73,M,False,False,never
 p27472,6510903,71,K,False,False,never
 p27473,6510903,70,M,False,True,sometimes
 p27474,6510903,74,M,False,True,always
@@ -27546,7 +27546,7 @@ p27543,6510904,26,M,True,True,always
 p27544,6510904,20,M,True,True,always
 p27545,6510904,26,M,True,True,always
 p27546,6510904,20,M,True,True,sometimes
-p27547,6510904,20,M,False,False,never
+p27547,6510904,20,M,False,True,sometimes
 p27548,6510904,26,K,True,True,always
 p27549,6510904,33,M,True,True,always
 p27550,6510904,33,K,False,True,always
@@ -27577,7 +27577,7 @@ p27574,6510904,32,M,True,True,always
 p27575,6510904,35,K,True,True,always
 p27576,6510904,37,M,True,True,always
 p27577,6510904,34,K,True,True,sometimes
-p27578,6510904,35,M,True,False,never
+p27578,6510904,35,M,True,True,sometimes
 p27579,6510904,32,K,False,False,never
 p27580,6510904,38,M,True,True,always
 p27581,6510904,31,K,True,True,always
@@ -27668,7 +27668,7 @@ p27665,6510904,66,M,False,True,sometimes
 p27666,6510904,62,K,False,True,always
 p27667,6510904,66,M,False,True,always
 p27668,6510904,64,K,False,True,always
-p27669,6510904,67,M,False,True,sometimes
+p27669,6510904,67,M,False,False,never
 p27670,6510904,63,M,True,True,always
 p27671,6510904,66,K,False,True,always
 p27672,6510904,68,M,True,True,always
@@ -27952,7 +27952,7 @@ p27949,6511001,30,K,True,True,always
 p27950,6511001,37,M,False,True,always
 p27951,6511001,35,K,True,False,never
 p27952,6511001,49,M,True,True,always
-p27953,6511001,41,K,False,False,never
+p27953,6511001,41,K,False,True,sometimes
 p27954,6511001,49,K,True,True,always
 p27955,6511001,48,M,True,True,sometimes
 p27956,6511001,45,M,True,True,always
@@ -28019,7 +28019,7 @@ p28016,6511001,42,K,False,True,sometimes
 p28017,6511001,49,K,False,True,always
 p28018,6511001,47,M,True,True,sometimes
 p28019,6511001,42,M,False,True,always
-p28020,6511001,45,M,True,False,never
+p28020,6511001,45,M,True,True,always
 p28021,6511001,43,M,False,True,always
 p28022,6511001,47,K,True,True,always
 p28023,6511001,44,M,True,True,sometimes
@@ -28071,7 +28071,7 @@ p28068,6511001,56,K,True,False,never
 p28069,6511001,54,K,True,True,always
 p28070,6511001,59,K,True,True,always
 p28071,6511001,55,M,True,True,always
-p28072,6511001,50,K,True,False,never
+p28072,6511001,50,K,True,True,always
 p28073,6511001,57,K,True,False,never
 p28074,6511001,56,K,True,True,always
 p28075,6511001,53,K,True,True,always
@@ -28148,11 +28148,11 @@ p28145,6511001,64,M,False,True,sometimes
 p28146,6511001,65,K,False,False,never
 p28147,6511001,64,M,True,True,sometimes
 p28148,6511001,66,M,True,False,never
-p28149,6511001,67,M,False,True,always
+p28149,6511001,67,M,False,False,never
 p28150,6511001,68,K,False,False,never
 p28151,6511001,67,K,False,False,never
 p28152,6511001,68,K,True,False,never
-p28153,6511001,65,M,False,True,always
+p28153,6511001,65,M,False,False,never
 p28154,6511001,66,K,False,True,always
 p28155,6511001,68,K,False,True,always
 p28156,6511001,65,M,False,True,always
@@ -28178,18 +28178,18 @@ p28175,6511001,60,K,True,True,always
 p28176,6511001,61,M,True,False,never
 p28177,6511001,60,M,True,True,sometimes
 p28178,6511001,74,M,False,True,always
-p28179,6511001,74,M,False,True,always
+p28179,6511001,74,M,False,False,never
 p28180,6511001,73,K,False,True,always
 p28181,6511001,78,K,False,False,never
 p28182,6511001,74,K,True,False,never
-p28183,6511001,75,M,False,True,sometimes
+p28183,6511001,75,M,False,False,never
 p28184,6511001,75,M,False,True,always
 p28185,6511001,70,K,False,True,always
 p28186,6511001,72,M,False,True,always
 p28187,6511001,74,M,False,True,always
 p28188,6511001,73,K,False,False,never
 p28189,6511001,78,K,False,False,never
-p28190,6511001,78,M,False,True,sometimes
+p28190,6511001,78,M,False,False,never
 p28191,6511001,73,K,False,True,always
 p28192,6511001,71,K,False,False,never
 p28193,6511001,75,K,False,False,never
@@ -28205,7 +28205,7 @@ p28202,6511001,75,M,False,True,always
 p28203,6511001,77,K,False,False,never
 p28204,6511001,75,K,False,False,never
 p28205,6511001,77,K,False,False,never
-p28206,6511001,74,K,False,False,never
+p28206,6511001,74,K,False,True,always
 p28207,6511001,75,K,False,False,never
 p28208,6511001,71,K,False,True,always
 p28209,6511001,73,M,False,True,always
@@ -28215,7 +28215,7 @@ p28212,6511001,73,K,False,True,always
 p28213,6511001,78,K,False,False,never
 p28214,6511001,78,K,False,False,never
 p28215,6511001,75,M,False,True,sometimes
-p28216,6511001,84,M,False,True,always
+p28216,6511001,84,M,False,False,never
 p28217,6511001,83,K,False,True,always
 p28218,6511001,89,K,False,False,never
 p28219,6511001,82,K,False,False,never
@@ -28293,7 +28293,7 @@ p28290,6511111,52,M,True,True,sometimes
 p28291,6511111,50,K,True,True,always
 p28292,6511111,58,M,True,True,always
 p28293,6511111,53,K,True,True,always
-p28294,6511111,56,M,True,False,never
+p28294,6511111,56,M,True,True,always
 p28295,6511111,53,K,True,False,never
 p28296,6511111,59,K,False,True,always
 p28297,6511111,50,M,True,True,always
@@ -28465,7 +28465,7 @@ p28462,6511112,72,K,False,True,always
 p28463,6511112,71,M,False,True,always
 p28464,6511112,78,K,False,False,never
 p28465,6511112,70,K,False,False,never
-p28466,6511112,76,K,False,False,never
+p28466,6511112,76,K,False,True,sometimes
 p28467,6511112,73,M,False,True,sometimes
 p28468,6511112,73,K,False,False,never
 p28469,6511112,73,K,False,True,always
@@ -28590,7 +28590,7 @@ p28587,6511113,44,K,True,True,always
 p28588,6511113,44,M,True,True,always
 p28589,6511113,56,M,False,True,sometimes
 p28590,6511113,53,K,True,True,always
-p28591,6511113,59,K,True,False,never
+p28591,6511113,59,K,True,True,always
 p28592,6511113,59,K,True,True,sometimes
 p28593,6511113,58,M,False,True,always
 p28594,6511113,54,M,False,True,always
@@ -28625,7 +28625,7 @@ p28622,6511113,62,K,False,True,always
 p28623,6511113,73,M,False,True,always
 p28624,6511113,75,K,False,False,never
 p28625,6511113,78,K,False,True,sometimes
-p28626,6511113,73,K,False,False,never
+p28626,6511113,73,K,False,True,always
 p28627,6511113,70,K,True,False,never
 p28628,6511113,71,M,False,True,always
 p28629,6511113,70,K,False,False,never
@@ -28633,7 +28633,7 @@ p28630,6511113,76,K,False,False,never
 p28631,6511113,71,M,False,True,sometimes
 p28632,6511113,74,M,False,True,sometimes
 p28633,6511113,71,K,False,False,never
-p28634,6511113,75,M,False,True,always
+p28634,6511113,75,M,False,False,never
 p28635,6511113,74,K,False,False,never
 p28636,6511113,70,M,True,True,sometimes
 p28637,6511113,78,K,False,True,always
@@ -28784,7 +28784,7 @@ p28781,6511114,67,K,True,True,always
 p28782,6511114,61,M,False,True,sometimes
 p28783,6511114,64,K,False,False,never
 p28784,6511114,60,M,True,True,always
-p28785,6511114,68,M,True,True,sometimes
+p28785,6511114,68,M,True,False,never
 p28786,6511114,67,K,False,True,always
 p28787,6511114,62,K,True,True,always
 p28788,6511114,61,K,True,True,always
@@ -28824,7 +28824,7 @@ p28821,6511114,77,M,False,True,sometimes
 p28822,6511114,70,M,False,True,sometimes
 p28823,6511114,70,K,False,False,never
 p28824,6511114,77,M,False,True,sometimes
-p28825,6511114,72,M,True,True,always
+p28825,6511114,72,M,True,False,never
 p28826,6511114,75,K,False,False,never
 p28827,6511114,73,M,False,True,always
 p28828,6511114,70,K,False,False,never
@@ -28842,7 +28842,7 @@ p28839,6511114,82,K,False,False,never
 p28840,6511114,86,K,False,False,never
 p28841,6511114,90,K,False,True,sometimes
 p28842,6511114,83,K,False,True,always
-p28843,6511114,81,M,False,True,sometimes
+p28843,6511114,81,M,False,False,never
 p28844,6511114,84,M,False,True,always
 p28845,6511115,8,K,False,False,never
 p28846,6511115,4,M,False,False,never
@@ -28977,7 +28977,7 @@ p28974,6511115,72,M,False,True,always
 p28975,6511115,77,K,False,False,never
 p28976,6511115,75,K,False,False,never
 p28977,6511115,73,K,False,False,never
-p28978,6511115,71,M,False,True,sometimes
+p28978,6511115,71,M,False,False,never
 p28979,6511115,77,K,False,False,never
 p28980,6511115,72,K,False,False,never
 p28981,6511115,78,K,False,False,never
@@ -28986,7 +28986,7 @@ p28983,6511115,79,K,False,False,never
 p28984,6511115,74,K,False,False,never
 p28985,6511115,76,K,False,False,never
 p28986,6511115,78,M,False,True,always
-p28987,6511115,79,M,False,True,always
+p28987,6511115,79,M,False,False,never
 p28988,6511115,74,M,False,True,sometimes
 p28989,6511115,74,M,False,True,always
 p28990,6511115,71,K,False,False,never
@@ -29130,7 +29130,7 @@ p29127,6511116,41,K,False,True,always
 p29128,6511116,41,M,True,False,never
 p29129,6511116,48,K,True,False,never
 p29130,6511116,41,M,False,True,always
-p29131,6511116,41,K,True,False,never
+p29131,6511116,41,K,True,True,always
 p29132,6511116,42,K,True,True,sometimes
 p29133,6511116,46,K,True,True,always
 p29134,6511116,40,K,False,False,never
@@ -29171,7 +29171,7 @@ p29168,6511116,52,K,True,True,always
 p29169,6511116,58,M,True,True,always
 p29170,6511116,52,K,True,True,always
 p29171,6511116,54,K,False,False,never
-p29172,6511116,53,M,False,False,never
+p29172,6511116,53,M,False,True,always
 p29173,6511116,61,K,False,True,always
 p29174,6511116,64,K,False,True,always
 p29175,6511116,62,K,False,True,always
@@ -29190,7 +29190,7 @@ p29187,6511116,61,M,True,False,never
 p29188,6511116,60,M,True,True,sometimes
 p29189,6511116,67,K,False,False,never
 p29190,6511116,69,K,False,False,never
-p29191,6511116,72,M,True,True,always
+p29191,6511116,72,M,True,False,never
 p29192,6511116,74,K,False,False,never
 p29193,6511116,70,M,False,True,always
 p29194,6511116,74,M,False,True,sometimes
@@ -29198,9 +29198,9 @@ p29195,6511116,72,K,False,False,never
 p29196,6511116,71,M,False,True,sometimes
 p29197,6511116,70,K,False,False,never
 p29198,6511116,77,M,False,True,always
-p29199,6511116,77,M,False,True,always
+p29199,6511116,77,M,False,False,never
 p29200,6511116,78,K,False,False,never
-p29201,6511116,78,M,False,True,always
+p29201,6511116,78,M,False,False,never
 p29202,6511116,70,K,False,False,never
 p29203,6511116,75,M,False,True,sometimes
 p29204,6511116,79,M,False,True,always
@@ -29213,7 +29213,7 @@ p29210,6511116,73,K,False,False,never
 p29211,6511116,78,K,False,False,never
 p29212,6511116,72,K,False,False,never
 p29213,6511116,79,K,False,True,always
-p29214,6511116,73,M,False,True,sometimes
+p29214,6511116,73,M,False,False,never
 p29215,6511116,78,K,False,False,never
 p29216,6511116,78,M,False,False,never
 p29217,6511116,70,M,False,True,always
@@ -29288,7 +29288,7 @@ p29285,6511117,39,M,False,True,always
 p29286,6511117,35,K,True,True,always
 p29287,6511117,36,K,True,True,sometimes
 p29288,6511117,31,K,True,True,always
-p29289,6511117,30,K,True,False,never
+p29289,6511117,30,K,True,True,always
 p29290,6511117,33,K,True,True,always
 p29291,6511117,39,M,False,True,always
 p29292,6511117,33,M,False,True,always
@@ -29350,7 +29350,7 @@ p29347,6511117,59,M,False,True,sometimes
 p29348,6511117,57,K,True,False,never
 p29349,6511117,55,K,True,False,never
 p29350,6511117,58,K,False,True,always
-p29351,6511117,56,K,True,False,never
+p29351,6511117,56,K,True,True,always
 p29352,6511117,55,M,True,False,never
 p29353,6511117,55,M,False,True,always
 p29354,6511117,51,M,True,False,never
@@ -29406,7 +29406,7 @@ p29403,6511117,71,K,True,False,never
 p29404,6511117,75,K,False,False,never
 p29405,6511117,70,K,False,False,never
 p29406,6511117,73,K,False,False,never
-p29407,6511117,73,M,False,True,always
+p29407,6511117,73,M,False,False,never
 p29408,6511117,70,M,False,True,always
 p29409,6511117,78,M,False,True,always
 p29410,6511117,71,K,False,False,never
@@ -29414,18 +29414,18 @@ p29411,6511117,73,K,False,False,never
 p29412,6511117,77,K,False,False,never
 p29413,6511117,72,M,False,True,sometimes
 p29414,6511117,75,K,False,False,never
-p29415,6511117,74,K,False,False,never
+p29415,6511117,74,K,False,True,always
 p29416,6511117,74,K,False,False,never
 p29417,6511117,75,K,False,True,always
 p29418,6511117,70,K,False,True,always
 p29419,6511117,70,M,False,True,sometimes
 p29420,6511117,73,M,False,True,sometimes
-p29421,6511117,72,M,False,True,always
+p29421,6511117,72,M,False,False,never
 p29422,6511117,73,K,False,False,never
 p29423,6511117,74,K,False,False,never
 p29424,6511117,70,K,False,False,never
 p29425,6511117,74,M,False,True,always
-p29426,6511117,73,M,False,True,always
+p29426,6511117,73,M,False,False,never
 p29427,6511117,72,K,False,False,never
 p29428,6511117,74,K,False,False,never
 p29429,6511117,82,K,False,False,never
@@ -29511,7 +29511,7 @@ p29508,6511118,18,M,True,True,always
 p29509,6511118,11,K,False,False,never
 p29510,6511118,11,M,False,False,never
 p29511,6511118,14,M,False,False,never
-p29512,6511118,18,K,False,False,never
+p29512,6511118,18,K,False,True,always
 p29513,6511118,10,M,False,False,never
 p29514,6511118,16,M,False,False,never
 p29515,6511118,19,M,False,False,never
@@ -29667,7 +29667,7 @@ p29664,6511118,51,K,False,True,always
 p29665,6511118,56,K,False,False,never
 p29666,6511118,54,K,True,False,never
 p29667,6511118,52,K,True,True,always
-p29668,6511118,63,K,False,False,never
+p29668,6511118,63,K,False,True,always
 p29669,6511118,62,K,False,False,never
 p29670,6511118,61,M,True,True,always
 p29671,6511118,66,M,False,True,sometimes
@@ -29800,7 +29800,7 @@ p29797,6511121,41,K,False,False,never
 p29798,6511121,40,K,True,False,never
 p29799,6511121,45,M,False,True,sometimes
 p29800,6511121,45,K,True,False,never
-p29801,6511121,45,M,False,False,never
+p29801,6511121,45,M,False,True,always
 p29802,6511121,41,M,True,True,always
 p29803,6511121,40,K,True,True,always
 p29804,6511121,43,M,True,True,always
@@ -29844,7 +29844,7 @@ p29841,6511121,66,M,False,True,always
 p29842,6511121,67,K,False,True,always
 p29843,6511121,69,K,False,False,never
 p29844,6511121,60,K,True,False,never
-p29845,6511121,67,M,False,True,always
+p29845,6511121,67,M,False,False,never
 p29846,6511121,63,K,False,False,never
 p29847,6511121,61,K,False,True,always
 p29848,6511121,64,K,True,True,always
@@ -29883,7 +29883,7 @@ p29880,6511121,62,K,False,False,never
 p29881,6511121,62,M,True,True,always
 p29882,6511121,67,K,False,False,never
 p29883,6511121,65,M,False,True,always
-p29884,6511121,65,M,False,True,always
+p29884,6511121,65,M,False,False,never
 p29885,6511121,69,K,False,False,never
 p29886,6511121,67,K,True,True,sometimes
 p29887,6511121,62,K,False,True,always
@@ -29924,7 +29924,7 @@ p29921,6511121,73,M,False,True,always
 p29922,6511121,70,M,True,True,always
 p29923,6511121,74,K,False,False,never
 p29924,6511121,72,M,True,True,always
-p29925,6511121,74,K,False,False,never
+p29925,6511121,74,K,False,True,always
 p29926,6511121,71,K,False,False,never
 p29927,6511121,78,K,False,False,never
 p29928,6511121,73,K,False,False,never
@@ -29959,7 +29959,7 @@ p29956,6511122,2,M,False,False,never
 p29957,6511122,3,M,False,False,never
 p29958,6511122,2,M,False,False,never
 p29959,6511122,2,K,False,False,never
-p29960,6511122,18,M,True,False,never
+p29960,6511122,18,M,True,True,sometimes
 p29961,6511122,16,M,False,False,never
 p29962,6511122,19,K,False,False,never
 p29963,6511122,16,M,False,False,never
@@ -30005,7 +30005,7 @@ p30002,6511122,34,M,True,True,sometimes
 p30003,6511122,37,K,True,True,always
 p30004,6511122,35,M,False,True,sometimes
 p30005,6511122,33,M,False,True,always
-p30006,6511122,33,K,False,False,never
+p30006,6511122,33,K,False,True,sometimes
 p30007,6511122,30,K,False,True,always
 p30008,6511122,34,M,True,False,never
 p30009,6511122,36,K,True,True,always
@@ -30073,7 +30073,7 @@ p30070,6511122,68,K,False,True,always
 p30071,6511122,64,K,False,True,always
 p30072,6511122,64,M,False,True,always
 p30073,6511122,60,K,False,False,never
-p30074,6511122,60,K,False,False,never
+p30074,6511122,60,K,False,True,always
 p30075,6511122,67,M,False,True,always
 p30076,6511122,63,M,False,True,always
 p30077,6511122,63,K,False,True,always
@@ -30101,7 +30101,7 @@ p30098,6511122,63,K,True,False,never
 p30099,6511122,67,K,False,False,never
 p30100,6511122,61,M,True,True,always
 p30101,6511122,76,M,False,True,always
-p30102,6511122,73,M,False,True,sometimes
+p30102,6511122,73,M,False,False,never
 p30103,6511122,71,K,False,False,never
 p30104,6511122,78,K,False,False,never
 p30105,6511122,77,K,False,False,never
@@ -30121,9 +30121,9 @@ p30118,6511122,77,K,False,False,never
 p30119,6511122,73,K,False,False,never
 p30120,6511122,70,K,False,False,never
 p30121,6511122,79,K,False,False,never
-p30122,6511122,77,M,False,True,always
+p30122,6511122,77,M,False,False,never
 p30123,6511122,70,K,False,False,never
-p30124,6511122,79,M,False,True,sometimes
+p30124,6511122,79,M,False,False,never
 p30125,6511122,70,K,False,True,always
 p30126,6511122,82,K,False,False,never
 p30127,6511122,86,K,False,False,never
@@ -30269,7 +30269,7 @@ p30266,6511123,52,K,True,True,always
 p30267,6511123,52,M,True,False,never
 p30268,6511123,51,K,True,False,never
 p30269,6511123,54,M,False,True,always
-p30270,6511123,54,K,True,False,never
+p30270,6511123,54,K,True,True,always
 p30271,6511123,56,K,True,True,always
 p30272,6511123,55,M,True,True,always
 p30273,6511123,62,M,False,False,never
@@ -30296,7 +30296,7 @@ p30293,6511123,64,K,False,False,never
 p30294,6511123,60,M,True,True,always
 p30295,6511123,69,K,True,False,never
 p30296,6511123,67,K,False,True,always
-p30297,6511123,65,M,False,True,always
+p30297,6511123,65,M,False,False,never
 p30298,6511123,67,M,False,True,always
 p30299,6511123,62,K,False,False,never
 p30300,6511123,60,K,True,True,always
@@ -30319,7 +30319,7 @@ p30316,6511123,78,K,False,False,never
 p30317,6511123,73,M,False,True,always
 p30318,6511123,71,K,False,False,never
 p30319,6511123,70,K,False,False,never
-p30320,6511123,70,M,False,True,sometimes
+p30320,6511123,70,M,False,False,never
 p30321,6511123,76,K,False,False,never
 p30322,6511123,71,K,False,False,never
 p30323,6511123,73,M,True,True,sometimes
@@ -30425,7 +30425,7 @@ p30422,6511124,50,K,True,True,always
 p30423,6511124,52,K,True,False,never
 p30424,6511124,53,M,True,True,sometimes
 p30425,6511124,54,K,False,True,always
-p30426,6511124,68,M,True,True,always
+p30426,6511124,68,M,True,False,never
 p30427,6511124,65,K,False,False,never
 p30428,6511124,66,K,False,False,never
 p30429,6511124,65,M,False,True,sometimes
@@ -30452,10 +30452,10 @@ p30449,6511124,74,K,True,False,never
 p30450,6511124,72,K,False,False,never
 p30451,6511124,74,K,False,True,sometimes
 p30452,6511124,78,K,False,False,never
-p30453,6511124,74,M,False,True,always
+p30453,6511124,74,M,False,False,never
 p30454,6511124,71,K,False,True,always
 p30455,6511124,72,M,True,True,sometimes
-p30456,6511124,72,K,False,False,never
+p30456,6511124,72,K,False,True,always
 p30457,6511124,72,K,False,False,never
 p30458,6511124,71,M,False,True,always
 p30459,6511124,71,M,False,True,always
@@ -30469,7 +30469,7 @@ p30466,6511124,75,K,False,True,always
 p30467,6511124,72,K,True,False,never
 p30468,6511124,74,K,True,False,never
 p30469,6511124,71,K,False,True,sometimes
-p30470,6511124,70,M,False,True,sometimes
+p30470,6511124,70,M,False,False,never
 p30471,6511124,85,M,False,True,always
 p30472,6511124,80,K,False,True,sometimes
 p30473,6511124,80,K,False,False,never
@@ -30611,7 +30611,7 @@ p30608,6511125,77,K,False,False,never
 p30609,6511125,72,K,False,False,never
 p30610,6511125,71,K,False,False,never
 p30611,6511125,70,M,False,True,always
-p30612,6511125,71,K,False,False,never
+p30612,6511125,71,K,False,True,always
 p30613,6511125,74,M,False,True,always
 p30614,6511125,74,K,False,False,never
 p30615,6511125,71,M,False,True,sometimes
@@ -30624,7 +30624,7 @@ p30621,6511125,79,K,False,False,never
 p30622,6511125,75,K,False,False,never
 p30623,6511125,70,K,False,False,never
 p30624,6511125,72,M,False,True,always
-p30625,6511125,74,M,False,True,sometimes
+p30625,6511125,74,M,False,False,never
 p30626,6511125,80,K,False,True,always
 p30627,6511125,86,K,False,True,always
 p30628,6511125,82,K,True,False,never
@@ -30691,7 +30691,7 @@ p30688,6511126,46,K,True,True,always
 p30689,6511126,49,K,True,False,never
 p30690,6511126,46,M,True,True,sometimes
 p30691,6511126,46,K,True,True,always
-p30692,6511126,43,K,True,False,never
+p30692,6511126,43,K,True,True,always
 p30693,6511126,44,K,True,True,sometimes
 p30694,6511126,41,M,False,True,sometimes
 p30695,6511126,41,K,True,False,never
@@ -30726,7 +30726,7 @@ p30723,6511126,58,M,False,True,always
 p30724,6511126,66,K,False,True,always
 p30725,6511126,69,K,False,True,always
 p30726,6511126,62,M,True,True,always
-p30727,6511126,66,M,False,True,always
+p30727,6511126,66,M,False,False,never
 p30728,6511126,63,M,True,True,always
 p30729,6511126,68,M,True,True,always
 p30730,6511126,64,K,False,True,always
@@ -30760,7 +30760,7 @@ p30757,6511126,72,K,False,False,never
 p30758,6511126,79,K,False,False,never
 p30759,6511126,73,K,False,True,always
 p30760,6511126,75,M,False,True,sometimes
-p30761,6511126,70,M,False,True,always
+p30761,6511126,70,M,False,False,never
 p30762,6511126,77,M,False,True,always
 p30763,6511126,72,M,False,True,always
 p30764,6511126,71,K,False,False,never
@@ -30772,7 +30772,7 @@ p30769,6511126,72,M,False,True,always
 p30770,6511126,72,K,False,False,never
 p30771,6511126,74,M,True,True,sometimes
 p30772,6511126,80,M,False,True,always
-p30773,6511126,80,M,False,True,sometimes
+p30773,6511126,80,M,False,False,never
 p30774,6511126,86,K,False,False,never
 p30775,6511126,81,K,False,False,never
 p30776,6511126,87,K,False,False,never
@@ -31117,7 +31117,7 @@ p31114,6511128,69,K,False,True,always
 p31115,6511128,60,K,False,False,never
 p31116,6511128,60,M,True,True,always
 p31117,6511128,67,K,False,False,never
-p31118,6511128,67,M,False,True,always
+p31118,6511128,67,M,False,False,never
 p31119,6511128,64,M,True,True,sometimes
 p31120,6511128,71,M,False,True,always
 p31121,6511128,73,M,False,True,always
@@ -31354,7 +31354,7 @@ p31351,6511211,42,M,True,True,always
 p31352,6511211,42,M,True,True,sometimes
 p31353,6511211,42,K,False,True,always
 p31354,6511211,49,M,False,True,always
-p31355,6511211,42,M,True,False,never
+p31355,6511211,42,M,True,True,always
 p31356,6511211,41,M,True,False,never
 p31357,6511211,46,K,True,True,always
 p31358,6511211,43,M,True,True,always
@@ -31488,7 +31488,7 @@ p31485,6511211,72,K,False,False,never
 p31486,6511211,71,K,False,False,never
 p31487,6511211,72,K,False,False,never
 p31488,6511211,70,K,False,True,always
-p31489,6511211,77,K,False,False,never
+p31489,6511211,77,K,False,True,always
 p31490,6511211,73,K,False,False,never
 p31491,6511211,71,M,False,True,always
 p31492,6511211,79,K,False,False,never
@@ -31669,7 +31669,7 @@ p31666,6511213,29,K,False,False,never
 p31667,6511213,27,M,True,True,always
 p31668,6511213,25,K,True,True,always
 p31669,6511213,29,M,True,True,sometimes
-p31670,6511213,29,K,True,False,never
+p31670,6511213,29,K,True,True,sometimes
 p31671,6511213,27,K,True,True,sometimes
 p31672,6511213,22,K,False,True,always
 p31673,6511213,22,M,False,False,never
@@ -31869,7 +31869,7 @@ p31866,6511214,62,K,True,True,sometimes
 p31867,6511214,62,M,False,True,always
 p31868,6511214,68,M,True,True,always
 p31869,6511214,61,M,True,True,always
-p31870,6511214,69,M,False,True,always
+p31870,6511214,69,M,False,False,never
 p31871,6511214,68,K,False,False,never
 p31872,6511214,65,K,False,False,never
 p31873,6511214,78,M,False,False,never
@@ -32090,7 +32090,7 @@ p32087,6511215,60,K,False,False,never
 p32088,6511215,66,K,False,True,always
 p32089,6511215,67,M,False,True,always
 p32090,6511215,62,M,False,True,always
-p32091,6511215,64,M,True,False,never
+p32091,6511215,64,M,True,True,always
 p32092,6511215,77,K,False,True,sometimes
 p32093,6511215,76,K,False,True,always
 p32094,6511215,73,M,False,True,sometimes
@@ -32171,7 +32171,7 @@ p32168,6511216,29,K,True,True,sometimes
 p32169,6511216,25,M,True,True,always
 p32170,6511216,26,K,False,True,always
 p32171,6511216,29,K,True,True,always
-p32172,6511216,20,M,True,False,never
+p32172,6511216,20,M,True,True,always
 p32173,6511216,26,M,True,True,sometimes
 p32174,6511216,25,K,True,True,sometimes
 p32175,6511216,29,M,False,True,always
@@ -32194,7 +32194,7 @@ p32191,6511216,39,K,False,True,always
 p32192,6511216,31,M,True,False,never
 p32193,6511216,38,K,True,True,sometimes
 p32194,6511216,31,K,True,True,always
-p32195,6511216,39,K,True,False,never
+p32195,6511216,39,K,True,True,sometimes
 p32196,6511216,33,K,True,False,never
 p32197,6511216,37,M,True,True,sometimes
 p32198,6511216,32,M,True,True,always
@@ -32245,7 +32245,7 @@ p32242,6511216,44,M,True,True,always
 p32243,6511216,42,K,True,True,sometimes
 p32244,6511216,46,K,False,True,always
 p32245,6511216,45,K,False,False,never
-p32246,6511216,48,M,True,False,never
+p32246,6511216,48,M,True,True,sometimes
 p32247,6511216,42,K,True,True,always
 p32248,6511216,48,M,True,True,always
 p32249,6511216,43,K,False,True,sometimes
@@ -32323,7 +32323,7 @@ p32320,6511216,68,M,True,True,always
 p32321,6511216,66,M,False,True,always
 p32322,6511216,62,M,False,True,always
 p32323,6511216,64,K,True,True,always
-p32324,6511216,69,M,True,True,always
+p32324,6511216,69,M,True,False,never
 p32325,6511216,61,M,False,True,always
 p32326,6511216,65,K,False,True,always
 p32327,6511216,65,K,False,False,never
@@ -32344,7 +32344,7 @@ p32341,6511216,70,M,False,True,always
 p32342,6511216,71,K,False,False,never
 p32343,6511216,71,K,False,False,never
 p32344,6511216,72,K,False,False,never
-p32345,6511216,78,K,True,False,never
+p32345,6511216,78,K,True,True,always
 p32346,6511216,72,K,False,True,always
 p32347,6511216,70,K,False,True,always
 p32348,6511216,77,K,False,False,never
@@ -32392,7 +32392,7 @@ p32389,6511217,12,K,False,False,never
 p32390,6511217,19,M,False,True,always
 p32391,6511217,10,M,False,False,never
 p32392,6511217,16,M,False,False,never
-p32393,6511217,19,K,False,False,never
+p32393,6511217,19,K,False,True,always
 p32394,6511217,18,K,True,True,always
 p32395,6511217,16,K,False,False,never
 p32396,6511217,17,M,True,False,never
@@ -32433,7 +32433,7 @@ p32430,6511217,35,K,True,False,never
 p32431,6511217,38,M,False,True,always
 p32432,6511217,30,K,True,True,always
 p32433,6511217,34,K,True,True,always
-p32434,6511217,35,M,True,False,never
+p32434,6511217,35,M,True,True,always
 p32435,6511217,37,K,False,True,sometimes
 p32436,6511217,34,M,False,True,always
 p32437,6511217,39,K,True,False,never
@@ -32508,7 +32508,7 @@ p32505,6511217,41,M,True,True,always
 p32506,6511217,40,M,True,True,always
 p32507,6511217,45,M,False,False,never
 p32508,6511217,46,M,False,True,always
-p32509,6511217,41,K,True,False,never
+p32509,6511217,41,K,True,True,always
 p32510,6511217,48,M,False,True,always
 p32511,6511217,43,K,True,True,always
 p32512,6511217,48,K,True,False,never
@@ -32549,12 +32549,12 @@ p32546,6511217,68,K,True,False,never
 p32547,6511217,69,K,False,False,never
 p32548,6511217,62,K,False,False,never
 p32549,6511217,69,K,False,False,never
-p32550,6511217,66,M,False,True,always
+p32550,6511217,66,M,False,False,never
 p32551,6511217,66,M,False,True,always
 p32552,6511217,65,K,False,True,sometimes
 p32553,6511217,65,K,False,False,never
 p32554,6511217,66,K,True,True,sometimes
-p32555,6511217,65,M,False,True,always
+p32555,6511217,65,M,False,False,never
 p32556,6511217,66,K,True,False,never
 p32557,6511217,66,K,False,True,sometimes
 p32558,6511217,61,M,False,True,always
@@ -32580,7 +32580,7 @@ p32577,6511217,63,M,True,True,always
 p32578,6511217,64,M,False,True,always
 p32579,6511217,62,M,False,True,always
 p32580,6511217,67,K,False,True,always
-p32581,6511217,65,M,False,True,always
+p32581,6511217,65,M,False,False,never
 p32582,6511217,65,M,False,True,sometimes
 p32583,6511217,67,M,True,True,always
 p32584,6511217,67,M,True,True,always
@@ -32620,7 +32620,7 @@ p32617,6511217,68,K,True,False,never
 p32618,6511217,65,M,False,True,always
 p32619,6511217,63,K,False,True,sometimes
 p32620,6511217,66,K,False,False,never
-p32621,6511217,75,K,False,False,never
+p32621,6511217,75,K,False,True,always
 p32622,6511217,72,K,False,False,never
 p32623,6511217,70,K,False,False,never
 p32624,6511217,76,K,False,False,never
@@ -32749,7 +32749,7 @@ p32746,6511218,64,M,False,True,always
 p32747,6511218,67,K,False,False,never
 p32748,6511218,63,K,True,True,always
 p32749,6511218,62,K,True,True,always
-p32750,6511218,67,K,False,False,never
+p32750,6511218,67,K,False,True,always
 p32751,6511218,72,K,False,True,always
 p32752,6511218,72,M,False,True,always
 p32753,6511218,72,M,False,True,always
@@ -32837,7 +32837,7 @@ p32834,6511221,43,K,True,True,always
 p32835,6511221,40,M,False,True,always
 p32836,6511221,40,M,False,True,always
 p32837,6511221,43,M,True,False,never
-p32838,6511221,42,K,True,False,never
+p32838,6511221,42,K,True,True,always
 p32839,6511221,48,K,False,True,always
 p32840,6511221,42,M,True,True,sometimes
 p32841,6511221,41,M,True,False,never
@@ -32883,7 +32883,7 @@ p32880,6511221,53,K,True,False,never
 p32881,6511221,54,M,False,True,sometimes
 p32882,6511221,54,K,True,True,always
 p32883,6511221,52,M,False,True,always
-p32884,6511221,52,M,True,False,never
+p32884,6511221,52,M,True,True,always
 p32885,6511221,54,K,False,True,sometimes
 p32886,6511221,50,K,True,False,never
 p32887,6511221,51,K,False,False,never
@@ -32932,7 +32932,7 @@ p32929,6511221,60,K,False,True,sometimes
 p32930,6511221,65,K,False,False,never
 p32931,6511221,62,M,True,True,always
 p32932,6511221,69,M,True,True,always
-p32933,6511221,61,K,False,False,never
+p32933,6511221,61,K,False,True,always
 p32934,6511221,62,K,False,True,always
 p32935,6511221,69,K,False,False,never
 p32936,6511221,64,M,True,True,sometimes
@@ -32967,19 +32967,19 @@ p32964,6511221,69,K,False,False,never
 p32965,6511221,69,M,True,True,always
 p32966,6511221,64,K,False,True,always
 p32967,6511221,70,K,False,True,always
-p32968,6511221,76,K,False,False,never
+p32968,6511221,76,K,False,True,always
 p32969,6511221,74,K,False,False,never
 p32970,6511221,71,M,False,True,always
 p32971,6511221,73,M,False,True,always
 p32972,6511221,70,K,False,True,sometimes
 p32973,6511221,71,K,False,False,never
-p32974,6511221,75,M,False,True,always
+p32974,6511221,75,M,False,False,never
 p32975,6511221,70,K,False,False,never
 p32976,6511221,75,K,False,True,sometimes
 p32977,6511221,77,K,False,False,never
 p32978,6511221,73,M,False,True,sometimes
 p32979,6511221,78,M,False,True,always
-p32980,6511221,79,M,False,True,always
+p32980,6511221,79,M,False,False,never
 p32981,6511221,72,K,True,False,never
 p32982,6511221,74,M,False,True,sometimes
 p32983,6511221,73,K,False,False,never
@@ -33073,7 +33073,7 @@ p33070,6511222,47,K,True,False,never
 p33071,6511222,48,K,True,True,sometimes
 p33072,6511222,41,M,True,True,always
 p33073,6511222,48,K,True,False,never
-p33074,6511222,49,K,False,False,never
+p33074,6511222,49,K,False,True,always
 p33075,6511222,44,K,True,True,always
 p33076,6511222,46,K,True,False,never
 p33077,6511222,46,K,True,False,never
@@ -33110,7 +33110,7 @@ p33107,6511222,56,K,True,True,always
 p33108,6511222,55,K,True,False,never
 p33109,6511222,57,K,True,True,sometimes
 p33110,6511222,51,M,True,True,always
-p33111,6511222,56,M,True,False,never
+p33111,6511222,56,M,True,True,always
 p33112,6511222,56,M,True,True,always
 p33113,6511222,61,M,True,True,always
 p33114,6511222,67,K,True,False,never
@@ -33127,7 +33127,7 @@ p33124,6511222,68,M,False,True,always
 p33125,6511222,68,K,False,False,never
 p33126,6511222,63,K,True,False,never
 p33127,6511222,62,M,False,True,always
-p33128,6511222,67,M,False,True,always
+p33128,6511222,67,M,False,False,never
 p33129,6511222,60,M,False,True,always
 p33130,6511222,67,M,False,True,always
 p33131,6511222,60,M,False,True,always
@@ -33135,8 +33135,8 @@ p33132,6511222,67,M,True,True,always
 p33133,6511222,67,M,False,True,always
 p33134,6511222,62,M,False,True,always
 p33135,6511222,69,K,False,True,always
-p33136,6511222,66,M,False,True,sometimes
-p33137,6511222,61,K,False,False,never
+p33136,6511222,66,M,False,False,never
+p33137,6511222,61,K,False,True,sometimes
 p33138,6511222,65,M,True,True,always
 p33139,6511222,62,M,False,True,always
 p33140,6511222,62,M,True,True,always
@@ -33147,7 +33147,7 @@ p33144,6511222,69,K,False,False,never
 p33145,6511222,60,M,False,False,never
 p33146,6511222,61,K,False,True,sometimes
 p33147,6511222,63,K,True,True,always
-p33148,6511222,73,M,False,True,always
+p33148,6511222,73,M,False,False,never
 p33149,6511222,79,M,False,False,never
 p33150,6511222,74,K,False,False,never
 p33151,6511222,78,K,False,True,sometimes
@@ -33266,7 +33266,7 @@ p33263,6511223,64,K,False,True,always
 p33264,6511223,67,K,True,False,never
 p33265,6511223,60,K,True,True,always
 p33266,6511223,66,M,False,True,sometimes
-p33267,6511223,66,M,False,True,always
+p33267,6511223,66,M,False,False,never
 p33268,6511223,65,M,False,True,always
 p33269,6511223,61,M,False,True,always
 p33270,6511223,68,M,False,True,always
@@ -33284,11 +33284,11 @@ p33281,6511223,69,K,False,False,never
 p33282,6511223,62,K,False,False,never
 p33283,6511223,65,M,False,True,sometimes
 p33284,6511223,68,M,False,True,sometimes
-p33285,6511223,69,M,False,True,always
+p33285,6511223,69,M,False,False,never
 p33286,6511223,65,M,False,True,sometimes
 p33287,6511223,69,K,False,False,never
 p33288,6511223,63,M,False,True,always
-p33289,6511223,63,M,True,False,never
+p33289,6511223,63,M,True,True,always
 p33290,6511223,75,K,False,False,never
 p33291,6511223,70,K,False,False,never
 p33292,6511223,73,K,False,False,never
@@ -33429,7 +33429,7 @@ p33426,6511224,40,K,True,True,always
 p33427,6511224,49,K,True,True,always
 p33428,6511224,48,K,True,False,never
 p33429,6511224,49,M,True,True,always
-p33430,6511224,40,M,True,False,never
+p33430,6511224,40,M,True,True,sometimes
 p33431,6511224,45,M,True,False,never
 p33432,6511224,49,M,True,True,always
 p33433,6511224,47,M,True,True,sometimes
@@ -33481,10 +33481,10 @@ p33478,6511224,52,M,True,True,always
 p33479,6511224,57,M,False,True,sometimes
 p33480,6511224,67,M,False,True,always
 p33481,6511224,65,M,True,True,sometimes
-p33482,6511224,65,M,False,True,always
+p33482,6511224,65,M,False,False,never
 p33483,6511224,67,K,False,False,never
 p33484,6511224,64,M,True,True,sometimes
-p33485,6511224,68,M,False,True,always
+p33485,6511224,68,M,False,False,never
 p33486,6511224,64,K,False,True,sometimes
 p33487,6511224,64,M,True,True,always
 p33488,6511224,63,K,True,True,always
@@ -33504,15 +33504,15 @@ p33501,6511224,69,M,False,True,always
 p33502,6511224,65,M,False,True,always
 p33503,6511224,60,K,True,True,always
 p33504,6511224,62,M,True,True,always
-p33505,6511224,68,K,False,False,never
+p33505,6511224,68,K,False,True,sometimes
 p33506,6511224,63,K,True,True,sometimes
 p33507,6511224,62,K,False,False,never
 p33508,6511224,66,K,False,False,never
-p33509,6511224,62,K,False,False,never
+p33509,6511224,62,K,False,True,always
 p33510,6511224,63,M,True,True,always
 p33511,6511224,60,M,True,True,always
 p33512,6511224,69,K,False,False,never
-p33513,6511224,68,M,True,True,always
+p33513,6511224,68,M,True,False,never
 p33514,6511224,63,K,False,True,always
 p33515,6511224,67,K,False,False,never
 p33516,6511224,67,K,False,False,never
@@ -33542,7 +33542,7 @@ p33539,6511224,72,K,False,False,never
 p33540,6511224,78,K,False,False,never
 p33541,6511224,73,K,False,True,sometimes
 p33542,6511224,72,K,False,False,never
-p33543,6511224,73,M,False,True,always
+p33543,6511224,73,M,False,False,never
 p33544,6511224,73,K,False,True,always
 p33545,6511224,78,K,False,True,always
 p33546,6511224,71,M,True,True,sometimes
@@ -33714,7 +33714,7 @@ p33711,6511225,58,K,True,False,never
 p33712,6511225,52,M,True,True,always
 p33713,6511225,55,K,False,True,always
 p33714,6511225,59,M,True,True,sometimes
-p33715,6511225,50,K,False,False,never
+p33715,6511225,50,K,False,True,sometimes
 p33716,6511225,54,M,True,True,always
 p33717,6511225,50,M,True,True,always
 p33718,6511225,67,M,False,True,always
@@ -33773,7 +33773,7 @@ p33770,6511225,73,K,False,False,never
 p33771,6511225,73,K,False,False,never
 p33772,6511225,73,M,False,True,sometimes
 p33773,6511225,75,K,False,False,never
-p33774,6511225,72,M,False,True,always
+p33774,6511225,72,M,False,False,never
 p33775,6511225,74,K,False,False,never
 p33776,6511225,71,K,False,True,always
 p33777,6511225,73,K,False,False,never
@@ -33788,7 +33788,7 @@ p33785,6511225,74,M,False,True,sometimes
 p33786,6511225,78,M,False,True,sometimes
 p33787,6511225,78,K,False,True,sometimes
 p33788,6511225,72,K,False,False,never
-p33789,6511225,71,M,False,True,always
+p33789,6511225,71,M,False,False,never
 p33790,6511225,74,K,True,False,never
 p33791,6511225,76,K,False,False,never
 p33792,6511225,79,M,False,True,always
@@ -33855,7 +33855,7 @@ p33852,6511226,39,M,True,True,always
 p33853,6511226,37,M,True,True,always
 p33854,6511226,31,M,True,True,sometimes
 p33855,6511226,30,K,False,False,never
-p33856,6511226,38,M,False,False,never
+p33856,6511226,38,M,False,True,always
 p33857,6511226,39,K,True,True,sometimes
 p33858,6511226,34,M,True,True,always
 p33859,6511226,38,K,False,True,always
@@ -33930,7 +33930,7 @@ p33927,6511226,65,K,False,False,never
 p33928,6511226,67,K,False,False,never
 p33929,6511226,67,K,False,False,never
 p33930,6511226,60,M,False,False,never
-p33931,6511226,66,M,False,True,always
+p33931,6511226,66,M,False,False,never
 p33932,6511226,67,K,False,True,always
 p33933,6511226,64,K,False,False,never
 p33934,6511226,68,M,False,True,always
@@ -33955,7 +33955,7 @@ p33952,6511226,75,K,False,False,never
 p33953,6511226,74,M,False,True,always
 p33954,6511226,71,M,False,True,sometimes
 p33955,6511226,72,M,False,True,always
-p33956,6511226,78,M,False,True,sometimes
+p33956,6511226,78,M,False,False,never
 p33957,6511226,78,M,False,True,sometimes
 p33958,6511226,70,K,False,False,never
 p33959,6511226,74,K,False,False,never
@@ -34113,7 +34113,7 @@ p34110,6511227,79,K,False,False,never
 p34111,6511227,71,K,False,False,never
 p34112,6511227,72,K,False,False,never
 p34113,6511227,71,K,False,False,never
-p34114,6511227,76,M,False,True,always
+p34114,6511227,76,M,False,False,never
 p34115,6511227,72,M,False,True,always
 p34116,6511227,71,K,False,False,never
 p34117,6511227,79,K,False,False,never
@@ -34219,7 +34219,7 @@ p34216,6511231,57,M,True,True,always
 p34217,6511231,51,K,True,True,always
 p34218,6511231,58,M,True,True,sometimes
 p34219,6511231,55,K,False,True,always
-p34220,6511231,54,K,True,False,never
+p34220,6511231,54,K,True,True,always
 p34221,6511231,57,K,False,True,always
 p34222,6511231,56,K,True,True,sometimes
 p34223,6511231,59,K,True,True,always
@@ -34377,7 +34377,7 @@ p34374,6511232,36,M,True,True,always
 p34375,6511232,30,M,True,True,always
 p34376,6511232,32,K,True,True,always
 p34377,6511232,33,M,True,True,always
-p34378,6511232,38,K,True,False,never
+p34378,6511232,38,K,True,True,always
 p34379,6511232,32,M,True,True,sometimes
 p34380,6511232,37,M,True,True,always
 p34381,6511232,37,K,False,True,always
@@ -34418,12 +34418,12 @@ p34415,6511232,46,K,False,True,always
 p34416,6511232,46,K,False,False,never
 p34417,6511232,42,M,True,False,never
 p34418,6511232,41,M,False,True,sometimes
-p34419,6511232,46,K,True,False,never
+p34419,6511232,46,K,True,True,always
 p34420,6511232,42,M,True,False,never
 p34421,6511232,42,M,True,True,always
 p34422,6511232,44,K,True,False,never
 p34423,6511232,43,K,True,True,always
-p34424,6511232,40,M,True,False,never
+p34424,6511232,40,M,True,True,always
 p34425,6511232,40,M,True,True,sometimes
 p34426,6511232,46,K,False,True,sometimes
 p34427,6511232,48,M,True,True,always
@@ -34513,7 +34513,7 @@ p34510,6511232,71,M,True,True,always
 p34511,6511232,72,M,False,True,always
 p34512,6511232,74,K,False,False,never
 p34513,6511232,74,M,False,True,always
-p34514,6511232,77,M,False,True,always
+p34514,6511232,77,M,False,False,never
 p34515,6511232,72,M,False,True,sometimes
 p34516,6511232,73,K,True,True,always
 p34517,6511232,74,M,False,True,sometimes
@@ -34651,7 +34651,7 @@ p34648,6511233,69,M,False,True,always
 p34649,6511233,65,M,False,True,always
 p34650,6511233,62,M,False,True,always
 p34651,6511233,68,M,False,True,always
-p34652,6511233,65,M,False,True,always
+p34652,6511233,65,M,False,False,never
 p34653,6511233,64,K,False,False,never
 p34654,6511233,60,K,True,False,never
 p34655,6511233,69,K,False,False,never
@@ -34736,7 +34736,7 @@ p34733,6511234,26,M,True,True,always
 p34734,6511234,23,K,True,True,always
 p34735,6511234,25,K,False,False,never
 p34736,6511234,20,M,True,True,always
-p34737,6511234,22,K,False,False,never
+p34737,6511234,22,K,False,True,always
 p34738,6511234,28,K,True,True,always
 p34739,6511234,26,M,True,True,always
 p34740,6511234,24,K,False,True,sometimes
@@ -34800,7 +34800,7 @@ p34797,6511234,44,K,False,False,never
 p34798,6511234,54,K,False,False,never
 p34799,6511234,59,M,False,False,never
 p34800,6511234,52,M,True,True,always
-p34801,6511234,52,K,True,False,never
+p34801,6511234,52,K,True,True,always
 p34802,6511234,56,K,True,True,sometimes
 p34803,6511234,52,M,True,True,sometimes
 p34804,6511234,58,K,False,True,always
@@ -34836,7 +34836,7 @@ p34833,6511234,65,K,False,True,always
 p34834,6511234,64,M,False,True,always
 p34835,6511234,66,K,True,False,never
 p34836,6511234,65,K,False,False,never
-p34837,6511234,69,K,True,False,never
+p34837,6511234,69,K,True,True,always
 p34838,6511234,64,K,True,True,always
 p34839,6511234,61,M,False,True,always
 p34840,6511234,62,M,False,True,always
@@ -34870,7 +34870,7 @@ p34867,6511234,70,K,False,False,never
 p34868,6511234,70,M,False,True,always
 p34869,6511234,73,K,False,False,never
 p34870,6511234,76,M,False,True,always
-p34871,6511234,70,M,False,True,always
+p34871,6511234,70,M,False,False,never
 p34872,6511234,73,K,False,False,never
 p34873,6511234,70,M,False,True,always
 p34874,6511234,73,M,True,True,always
@@ -34892,7 +34892,7 @@ p34889,6511234,72,K,False,False,never
 p34890,6511234,79,K,False,True,sometimes
 p34891,6511234,86,K,False,False,never
 p34892,6511234,83,K,False,True,always
-p34893,6511234,83,M,False,True,always
+p34893,6511234,83,M,False,False,never
 p34894,6511234,85,K,False,False,never
 p34895,6511234,90,K,False,False,never
 p34896,6511234,83,K,False,False,never
@@ -35035,7 +35035,7 @@ p35032,6511235,46,K,False,True,sometimes
 p35033,6511235,44,K,True,False,never
 p35034,6511235,48,M,True,True,sometimes
 p35035,6511235,49,M,True,True,always
-p35036,6511235,44,K,False,False,never
+p35036,6511235,44,K,False,True,always
 p35037,6511235,48,K,True,True,always
 p35038,6511235,40,K,True,True,always
 p35039,6511235,40,K,True,True,always
@@ -35248,7 +35248,7 @@ p35245,6511236,57,K,False,True,sometimes
 p35246,6511236,55,K,False,False,never
 p35247,6511236,54,K,True,True,always
 p35248,6511236,55,K,True,True,always
-p35249,6511236,62,K,False,False,never
+p35249,6511236,62,K,False,True,sometimes
 p35250,6511236,66,K,False,True,always
 p35251,6511236,68,K,False,False,never
 p35252,6511236,65,K,True,False,never
@@ -35269,7 +35269,7 @@ p35266,6511236,67,K,False,False,never
 p35267,6511236,69,K,False,True,sometimes
 p35268,6511236,66,K,False,False,never
 p35269,6511236,65,K,False,False,never
-p35270,6511236,67,M,False,True,always
+p35270,6511236,67,M,False,False,never
 p35271,6511236,68,K,False,False,never
 p35272,6511236,62,K,False,False,never
 p35273,6511236,61,K,True,True,sometimes
@@ -35285,9 +35285,9 @@ p35282,6511236,76,K,True,False,never
 p35283,6511236,71,K,False,False,never
 p35284,6511236,70,M,False,True,always
 p35285,6511236,71,K,False,False,never
-p35286,6511236,74,M,False,True,always
+p35286,6511236,74,M,False,False,never
 p35287,6511236,72,K,False,False,never
-p35288,6511236,76,M,False,True,sometimes
+p35288,6511236,76,M,False,False,never
 p35289,6511236,72,K,False,False,never
 p35290,6511236,75,K,False,False,never
 p35291,6511236,77,K,False,False,never
@@ -35301,7 +35301,7 @@ p35298,6511236,78,M,False,True,always
 p35299,6511236,75,M,False,True,sometimes
 p35300,6511236,74,M,False,True,always
 p35301,6511236,74,K,False,False,never
-p35302,6511236,75,M,False,True,always
+p35302,6511236,75,M,False,False,never
 p35303,6511236,76,K,False,True,sometimes
 p35304,6511236,78,M,False,True,sometimes
 p35305,6511236,85,K,False,False,never
@@ -35309,12 +35309,12 @@ p35306,6511236,89,M,True,True,always
 p35307,6511236,80,M,False,True,always
 p35308,6511236,83,M,False,True,always
 p35309,6511236,90,M,False,True,sometimes
-p35310,6511236,88,M,False,True,sometimes
+p35310,6511236,88,M,False,False,never
 p35311,6511236,83,M,False,True,always
 p35312,6511236,80,M,False,True,sometimes
 p35313,6511236,82,K,False,False,never
 p35314,6511236,82,K,False,False,never
-p35315,6511236,86,M,False,True,always
+p35315,6511236,86,M,False,False,never
 p35316,6511237,4,K,False,False,never
 p35317,6511237,5,K,False,False,never
 p35318,6511237,1,K,False,False,never
@@ -35425,7 +35425,7 @@ p35422,6511237,65,K,False,False,never
 p35423,6511237,68,M,False,True,always
 p35424,6511237,63,K,True,True,always
 p35425,6511237,62,K,False,False,never
-p35426,6511237,66,M,False,True,sometimes
+p35426,6511237,66,M,False,False,never
 p35427,6511237,61,M,True,False,never
 p35428,6511237,69,K,False,False,never
 p35429,6511237,65,K,False,False,never
@@ -35505,7 +35505,7 @@ p35502,6511301,29,M,True,True,sometimes
 p35503,6511301,24,K,True,False,never
 p35504,6511301,25,K,False,True,always
 p35505,6511301,28,M,True,False,never
-p35506,6511301,23,K,True,False,never
+p35506,6511301,23,K,True,True,always
 p35507,6511301,20,M,False,False,never
 p35508,6511301,24,K,False,True,always
 p35509,6511301,26,K,True,True,always
@@ -35591,7 +35591,7 @@ p35588,6511301,48,K,True,False,never
 p35589,6511301,59,K,True,False,never
 p35590,6511301,55,K,True,True,always
 p35591,6511301,53,M,True,True,always
-p35592,6511301,52,M,True,False,never
+p35592,6511301,52,M,True,True,always
 p35593,6511301,50,M,True,True,always
 p35594,6511301,57,M,True,False,never
 p35595,6511301,55,M,True,True,always
@@ -35817,7 +35817,7 @@ p35814,6511302,53,K,False,False,never
 p35815,6511302,55,M,False,True,always
 p35816,6511302,50,K,True,True,always
 p35817,6511302,50,M,True,True,always
-p35818,6511302,58,K,False,False,never
+p35818,6511302,58,K,False,True,always
 p35819,6511302,55,K,True,True,always
 p35820,6511302,59,K,False,True,always
 p35821,6511302,51,K,True,False,never
@@ -35989,7 +35989,7 @@ p35986,6511303,67,M,False,True,always
 p35987,6511303,69,M,False,True,sometimes
 p35988,6511303,66,M,False,True,always
 p35989,6511303,64,K,True,False,never
-p35990,6511303,60,K,False,False,never
+p35990,6511303,60,K,False,True,sometimes
 p35991,6511303,66,K,True,False,never
 p35992,6511303,66,M,False,True,always
 p35993,6511303,63,M,True,True,always
@@ -36021,7 +36021,7 @@ p36018,6511303,78,M,False,True,always
 p36019,6511303,76,K,False,False,never
 p36020,6511303,90,K,False,False,never
 p36021,6511303,83,K,False,False,never
-p36022,6511303,80,M,False,True,always
+p36022,6511303,80,M,False,False,never
 p36023,6511303,83,M,False,True,sometimes
 p36024,6511303,80,K,False,True,always
 p36025,6511303,83,K,False,False,never
@@ -36500,7 +36500,7 @@ p36497,6511402,52,M,True,True,always
 p36498,6511402,59,K,True,True,always
 p36499,6511402,59,M,False,True,always
 p36500,6511402,52,M,True,True,always
-p36501,6511402,53,M,True,False,never
+p36501,6511402,53,M,True,True,always
 p36502,6511402,56,M,True,True,sometimes
 p36503,6511402,50,M,True,True,always
 p36504,6511402,58,M,False,True,always
@@ -36509,7 +36509,7 @@ p36506,6511402,51,K,True,True,always
 p36507,6511402,57,M,True,True,always
 p36508,6511402,52,M,True,True,always
 p36509,6511402,50,K,False,True,always
-p36510,6511402,50,K,True,False,never
+p36510,6511402,50,K,True,True,sometimes
 p36511,6511402,59,K,True,False,never
 p36512,6511402,53,M,False,True,always
 p36513,6511402,51,K,False,True,always
@@ -36550,7 +36550,7 @@ p36547,6511402,69,M,False,True,always
 p36548,6511402,61,M,True,True,always
 p36549,6511402,60,K,False,False,never
 p36550,6511402,62,M,True,True,always
-p36551,6511402,66,M,False,True,always
+p36551,6511402,66,M,False,False,never
 p36552,6511402,69,K,False,False,never
 p36553,6511402,69,K,True,False,never
 p36554,6511402,66,M,True,True,always
@@ -36581,7 +36581,7 @@ p36578,6511402,61,M,True,True,always
 p36579,6511402,61,M,False,True,always
 p36580,6511402,64,K,False,True,always
 p36581,6511402,67,K,False,False,never
-p36582,6511402,70,M,False,True,always
+p36582,6511402,70,M,False,False,never
 p36583,6511402,71,K,False,False,never
 p36584,6511402,70,K,False,False,never
 p36585,6511402,73,M,False,True,always
@@ -36593,7 +36593,7 @@ p36590,6511402,73,M,True,True,sometimes
 p36591,6511402,70,M,True,True,always
 p36592,6511402,74,M,False,True,always
 p36593,6511402,71,K,False,False,never
-p36594,6511402,74,M,False,True,always
+p36594,6511402,74,M,False,False,never
 p36595,6511402,71,K,True,False,never
 p36596,6511402,78,K,False,False,never
 p36597,6511402,71,K,True,False,never
@@ -36606,7 +36606,7 @@ p36603,6511402,70,K,False,False,never
 p36604,6511402,72,K,False,False,never
 p36605,6511402,73,K,True,True,always
 p36606,6511402,77,M,False,True,always
-p36607,6511402,70,M,False,True,always
+p36607,6511402,70,M,False,False,never
 p36608,6511402,79,K,False,False,never
 p36609,6511402,76,M,False,True,always
 p36610,6511402,80,M,False,True,always
@@ -36654,8 +36654,8 @@ p36651,6511403,51,M,True,True,always
 p36652,6511403,66,M,True,True,always
 p36653,6511403,66,K,False,False,never
 p36654,6511403,68,K,False,True,always
-p36655,6511403,68,M,False,True,sometimes
-p36656,6511403,67,M,False,True,always
+p36655,6511403,68,M,False,False,never
+p36656,6511403,67,M,False,False,never
 p36657,6511403,76,K,False,False,never
 p36658,6511403,70,M,False,True,sometimes
 p36659,6511403,79,K,True,False,never
@@ -37084,7 +37084,7 @@ p37081,6511501,63,M,True,True,sometimes
 p37082,6511501,68,K,True,False,never
 p37083,6511501,61,M,False,True,always
 p37084,6511501,65,K,False,False,never
-p37085,6511501,63,K,True,False,never
+p37085,6511501,63,K,True,True,always
 p37086,6511501,63,M,True,True,always
 p37087,6511501,68,M,False,True,always
 p37088,6511501,62,K,False,False,never
@@ -37123,7 +37123,7 @@ p37120,6511501,71,K,False,True,always
 p37121,6511501,73,K,False,False,never
 p37122,6511501,72,M,False,True,always
 p37123,6511501,73,K,False,False,never
-p37124,6511501,74,M,False,True,sometimes
+p37124,6511501,74,M,False,False,never
 p37125,6511501,74,M,False,True,always
 p37126,6511501,71,K,False,False,never
 p37127,6511501,73,M,False,True,always
@@ -37258,10 +37258,10 @@ p37255,6511502,44,M,False,True,always
 p37256,6511502,47,M,False,True,always
 p37257,6511502,44,M,True,True,always
 p37258,6511502,41,K,False,True,always
-p37259,6511502,48,K,True,False,never
+p37259,6511502,48,K,True,True,always
 p37260,6511502,45,K,True,True,always
 p37261,6511502,40,M,True,True,sometimes
-p37262,6511502,45,K,False,False,never
+p37262,6511502,45,K,False,True,always
 p37263,6511502,47,K,True,False,never
 p37264,6511502,40,M,True,False,never
 p37265,6511502,44,K,True,False,never
@@ -37310,7 +37310,7 @@ p37307,6511502,65,M,False,True,always
 p37308,6511502,64,K,False,False,never
 p37309,6511502,66,K,False,True,always
 p37310,6511502,66,K,True,False,never
-p37311,6511502,66,M,False,True,sometimes
+p37311,6511502,66,M,False,False,never
 p37312,6511502,67,K,False,False,never
 p37313,6511502,60,K,True,True,always
 p37314,6511502,60,K,True,False,never
@@ -37318,7 +37318,7 @@ p37315,6511502,63,K,False,True,sometimes
 p37316,6511502,62,M,True,True,always
 p37317,6511502,68,K,False,True,always
 p37318,6511502,64,K,True,False,never
-p37319,6511502,65,M,False,True,always
+p37319,6511502,65,M,False,False,never
 p37320,6511502,66,M,False,True,always
 p37321,6511502,65,M,True,True,sometimes
 p37322,6511502,60,M,True,True,sometimes
@@ -37343,7 +37343,7 @@ p37340,6511502,70,M,False,True,always
 p37341,6511502,70,K,False,False,never
 p37342,6511502,78,M,False,True,always
 p37343,6511502,72,M,False,True,always
-p37344,6511502,72,M,False,True,always
+p37344,6511502,72,M,False,False,never
 p37345,6511502,72,K,False,False,never
 p37346,6511502,70,K,False,False,never
 p37347,6511502,79,K,False,False,never
@@ -37357,14 +37357,14 @@ p37354,6511502,76,M,False,True,always
 p37355,6511502,73,M,False,True,always
 p37356,6511502,73,M,False,True,always
 p37357,6511502,78,M,False,True,sometimes
-p37358,6511502,85,M,False,True,sometimes
+p37358,6511502,85,M,False,False,never
 p37359,6511502,86,M,False,True,sometimes
 p37360,6511502,80,K,False,False,never
 p37361,6511502,81,M,False,True,always
 p37362,6511502,90,K,False,False,never
 p37363,6511502,81,K,False,False,never
 p37364,6511502,89,M,False,True,always
-p37365,6511502,80,K,False,False,never
+p37365,6511502,80,K,False,True,always
 p37366,6511502,88,M,False,True,always
 p37367,6511502,80,K,False,False,never
 p37368,6511502,84,M,False,True,sometimes
@@ -37529,7 +37529,7 @@ p37526,6511504,29,M,True,True,always
 p37527,6511504,25,M,False,False,never
 p37528,6511504,20,K,False,True,always
 p37529,6511504,25,K,True,True,always
-p37530,6511504,27,K,False,False,never
+p37530,6511504,27,K,False,True,sometimes
 p37531,6511504,23,K,True,False,never
 p37532,6511504,28,M,True,True,sometimes
 p37533,6511504,21,K,False,True,sometimes
@@ -37610,12 +37610,12 @@ p37607,6511504,63,M,False,True,sometimes
 p37608,6511504,66,K,False,False,never
 p37609,6511504,68,K,False,False,never
 p37610,6511504,65,M,False,True,always
-p37611,6511504,68,K,False,False,never
+p37611,6511504,68,K,False,True,always
 p37612,6511504,62,K,True,False,never
 p37613,6511504,62,M,False,True,always
 p37614,6511504,61,K,True,False,never
 p37615,6511504,69,K,False,False,never
-p37616,6511504,66,K,False,False,never
+p37616,6511504,66,K,False,True,always
 p37617,6511504,68,K,False,False,never
 p37618,6511504,64,K,False,False,never
 p37619,6511504,67,K,False,False,never
@@ -37850,13 +37850,13 @@ p37847,6511505,62,K,False,False,never
 p37848,6511505,63,K,True,False,never
 p37849,6511505,63,M,False,True,sometimes
 p37850,6511505,69,K,True,False,never
-p37851,6511505,65,M,False,True,always
+p37851,6511505,65,M,False,False,never
 p37852,6511505,67,K,False,False,never
 p37853,6511505,64,M,True,False,never
 p37854,6511505,63,M,False,False,never
 p37855,6511505,62,K,True,False,never
 p37856,6511505,63,K,False,True,always
-p37857,6511505,67,K,True,False,never
+p37857,6511505,67,K,True,True,always
 p37858,6511505,64,K,True,True,always
 p37859,6511505,64,M,False,True,always
 p37860,6511505,66,M,False,True,sometimes
@@ -37998,7 +37998,7 @@ p37995,6511506,29,K,False,True,always
 p37996,6511506,25,M,False,False,never
 p37997,6511506,27,M,True,True,always
 p37998,6511506,24,M,True,True,always
-p37999,6511506,22,K,False,False,never
+p37999,6511506,22,K,False,True,always
 p38000,6511506,26,K,False,True,sometimes
 p38001,6511506,25,M,True,True,always
 p38002,6511506,25,M,True,True,always
@@ -38061,7 +38061,7 @@ p38058,6511506,42,M,True,True,always
 p38059,6511506,46,K,True,True,always
 p38060,6511506,57,K,False,True,always
 p38061,6511506,53,M,False,True,always
-p38062,6511506,59,K,False,False,never
+p38062,6511506,59,K,False,True,sometimes
 p38063,6511506,51,K,True,True,always
 p38064,6511506,57,M,True,True,always
 p38065,6511506,58,M,True,True,always
@@ -38134,7 +38134,7 @@ p38131,6511506,61,K,False,True,sometimes
 p38132,6511506,73,K,True,False,never
 p38133,6511506,78,M,True,True,always
 p38134,6511506,74,K,False,False,never
-p38135,6511506,72,M,True,True,sometimes
+p38135,6511506,72,M,True,False,never
 p38136,6511506,74,K,False,False,never
 p38137,6511506,75,K,False,True,always
 p38138,6511506,75,M,False,True,always
@@ -38157,7 +38157,7 @@ p38154,6511506,84,K,False,False,never
 p38155,6511506,83,K,False,False,never
 p38156,6511506,83,K,False,False,never
 p38157,6511506,80,M,False,True,always
-p38158,6511506,81,M,False,True,always
+p38158,6511506,81,M,False,False,never
 p38159,6511506,80,K,False,False,never
 p38160,6511507,2,K,False,False,never
 p38161,6511507,8,K,False,False,never
@@ -38209,7 +38209,7 @@ p38206,6511507,31,M,True,True,sometimes
 p38207,6511507,39,K,True,True,sometimes
 p38208,6511507,38,M,False,False,never
 p38209,6511507,31,M,True,False,never
-p38210,6511507,36,M,True,False,never
+p38210,6511507,36,M,True,True,always
 p38211,6511507,32,M,False,True,always
 p38212,6511507,32,M,True,True,always
 p38213,6511507,32,M,False,True,always
@@ -38262,7 +38262,7 @@ p38259,6511507,64,M,True,True,always
 p38260,6511507,63,K,False,False,never
 p38261,6511507,64,M,True,True,always
 p38262,6511507,67,M,False,True,always
-p38263,6511507,67,M,False,True,sometimes
+p38263,6511507,67,M,False,False,never
 p38264,6511507,60,M,True,True,sometimes
 p38265,6511507,62,K,False,False,never
 p38266,6511507,73,K,False,False,never
@@ -38277,7 +38277,7 @@ p38274,6511507,71,M,False,True,always
 p38275,6511507,83,K,True,False,never
 p38276,6511507,86,K,False,False,never
 p38277,6511507,82,K,False,False,never
-p38278,6511507,80,K,False,False,never
+p38278,6511507,80,K,False,True,always
 p38279,6511508,0,K,False,False,never
 p38280,6511508,3,M,False,False,never
 p38281,6511508,9,M,False,False,never
@@ -38336,7 +38336,7 @@ p38333,6511508,31,K,False,True,always
 p38334,6511508,32,M,False,False,never
 p38335,6511508,38,K,False,False,never
 p38336,6511508,35,M,True,False,never
-p38337,6511508,34,K,True,False,never
+p38337,6511508,34,K,True,True,always
 p38338,6511508,37,M,True,True,sometimes
 p38339,6511508,34,K,True,True,always
 p38340,6511508,33,M,False,True,always
@@ -38392,7 +38392,7 @@ p38389,6511508,62,M,True,True,always
 p38390,6511508,67,K,True,False,never
 p38391,6511508,61,M,True,True,always
 p38392,6511508,67,M,False,True,always
-p38393,6511508,60,K,False,False,never
+p38393,6511508,60,K,False,True,sometimes
 p38394,6511508,66,K,True,False,never
 p38395,6511508,64,K,False,False,never
 p38396,6511508,69,M,False,True,always
@@ -38408,7 +38408,7 @@ p38405,6511508,79,K,False,False,never
 p38406,6511508,71,M,True,True,sometimes
 p38407,6511508,70,K,False,False,never
 p38408,6511508,70,K,False,False,never
-p38409,6511508,78,M,False,True,always
+p38409,6511508,78,M,False,False,never
 p38410,6511508,74,M,True,True,always
 p38411,6511508,75,K,False,False,never
 p38412,6511508,70,K,False,False,never
@@ -38607,7 +38607,7 @@ p38604,6511611,68,M,False,True,sometimes
 p38605,6511611,64,K,True,False,never
 p38606,6511611,66,M,True,True,sometimes
 p38607,6511611,69,K,False,True,sometimes
-p38608,6511611,69,M,False,True,always
+p38608,6511611,69,M,False,False,never
 p38609,6511611,67,M,True,True,always
 p38610,6511611,66,M,False,True,always
 p38611,6511611,68,K,False,False,never
@@ -38648,7 +38648,7 @@ p38645,6511611,70,M,False,True,always
 p38646,6511611,74,M,False,True,always
 p38647,6511611,76,M,False,True,sometimes
 p38648,6511611,70,K,False,False,never
-p38649,6511611,75,M,False,True,always
+p38649,6511611,75,M,False,False,never
 p38650,6511611,73,K,True,False,never
 p38651,6511611,70,K,False,False,never
 p38652,6511611,76,K,False,True,always
@@ -38678,7 +38678,7 @@ p38675,6511612,3,M,False,False,never
 p38676,6511612,5,K,False,False,never
 p38677,6511612,0,K,False,False,never
 p38678,6511612,9,K,False,False,never
-p38679,6511612,19,K,False,False,never
+p38679,6511612,19,K,False,True,always
 p38680,6511612,13,M,False,False,never
 p38681,6511612,12,K,False,False,never
 p38682,6511612,14,M,False,False,never
@@ -38839,7 +38839,7 @@ p38836,6511612,75,M,False,True,always
 p38837,6511612,75,K,False,True,always
 p38838,6511612,70,M,False,True,always
 p38839,6511612,72,M,False,True,always
-p38840,6511612,70,M,False,True,always
+p38840,6511612,70,M,False,False,never
 p38841,6511612,73,K,False,False,never
 p38842,6511612,73,K,True,False,never
 p38843,6511612,73,M,False,True,always
@@ -38932,7 +38932,7 @@ p38929,6511613,24,K,True,True,always
 p38930,6511613,26,M,False,True,always
 p38931,6511613,31,M,True,True,sometimes
 p38932,6511613,31,M,False,True,always
-p38933,6511613,38,M,True,False,never
+p38933,6511613,38,M,True,True,sometimes
 p38934,6511613,32,K,True,True,always
 p38935,6511613,38,M,True,False,never
 p38936,6511613,37,M,True,True,always
@@ -38968,7 +38968,7 @@ p38965,6511613,47,M,True,True,sometimes
 p38966,6511613,42,K,False,True,sometimes
 p38967,6511613,47,M,True,True,always
 p38968,6511613,47,K,True,True,always
-p38969,6511613,41,K,True,False,never
+p38969,6511613,41,K,True,True,sometimes
 p38970,6511613,44,K,False,True,always
 p38971,6511613,42,M,True,True,always
 p38972,6511613,40,M,True,True,always
@@ -39018,7 +39018,7 @@ p39015,6511613,52,M,True,True,sometimes
 p39016,6511613,50,K,True,True,always
 p39017,6511613,53,K,False,True,always
 p39018,6511613,58,M,True,True,always
-p39019,6511613,55,K,True,False,never
+p39019,6511613,55,K,True,True,sometimes
 p39020,6511613,59,K,False,True,always
 p39021,6511613,55,M,False,True,always
 p39022,6511613,56,M,True,True,always
@@ -39028,7 +39028,7 @@ p39025,6511613,58,K,True,False,never
 p39026,6511613,51,K,True,False,never
 p39027,6511613,52,K,False,True,sometimes
 p39028,6511613,55,M,False,True,always
-p39029,6511613,51,M,True,False,never
+p39029,6511613,51,M,True,True,always
 p39030,6511613,56,K,False,True,sometimes
 p39031,6511613,55,K,True,True,always
 p39032,6511613,53,M,True,True,always
@@ -39044,7 +39044,7 @@ p39041,6511613,55,M,False,True,always
 p39042,6511613,52,M,True,True,sometimes
 p39043,6511613,53,M,True,True,sometimes
 p39044,6511613,52,K,True,True,sometimes
-p39045,6511613,50,K,False,False,never
+p39045,6511613,50,K,False,True,always
 p39046,6511613,53,M,True,True,always
 p39047,6511613,55,M,False,True,sometimes
 p39048,6511613,55,M,True,True,sometimes
@@ -39083,7 +39083,7 @@ p39080,6511613,68,K,False,False,never
 p39081,6511613,67,K,False,True,always
 p39082,6511613,60,K,False,True,always
 p39083,6511613,63,M,True,True,always
-p39084,6511613,70,K,False,False,never
+p39084,6511613,70,K,False,True,always
 p39085,6511613,75,K,False,False,never
 p39086,6511613,79,K,False,False,never
 p39087,6511613,76,K,False,False,never
@@ -39153,7 +39153,7 @@ p39150,6511614,30,M,True,True,always
 p39151,6511614,39,M,True,True,always
 p39152,6511614,31,M,True,False,never
 p39153,6511614,36,M,True,False,never
-p39154,6511614,34,K,False,False,never
+p39154,6511614,34,K,False,True,always
 p39155,6511614,37,K,True,True,always
 p39156,6511614,30,M,False,True,always
 p39157,6511614,38,K,True,False,never
@@ -39192,7 +39192,7 @@ p39189,6511614,43,K,True,True,always
 p39190,6511614,49,M,True,True,always
 p39191,6511614,44,M,True,True,always
 p39192,6511614,44,K,True,True,always
-p39193,6511614,49,K,True,False,never
+p39193,6511614,49,K,True,True,always
 p39194,6511614,45,M,True,True,always
 p39195,6511614,40,K,True,True,sometimes
 p39196,6511614,59,M,True,True,always
@@ -39255,10 +39255,10 @@ p39252,6511614,67,M,False,True,sometimes
 p39253,6511614,65,M,False,True,always
 p39254,6511614,67,M,False,True,always
 p39255,6511614,65,K,False,False,never
-p39256,6511614,66,M,True,True,always
+p39256,6511614,66,M,True,False,never
 p39257,6511614,65,M,False,True,always
 p39258,6511614,61,K,True,False,never
-p39259,6511614,66,M,False,True,sometimes
+p39259,6511614,66,M,False,False,never
 p39260,6511614,62,K,True,True,sometimes
 p39261,6511614,67,K,False,False,never
 p39262,6511614,69,M,False,True,always
@@ -39394,7 +39394,7 @@ p39391,6511615,64,K,True,False,never
 p39392,6511615,69,M,True,True,sometimes
 p39393,6511615,62,K,False,False,never
 p39394,6511615,68,M,False,True,always
-p39395,6511615,68,M,False,True,always
+p39395,6511615,68,M,False,False,never
 p39396,6511615,63,K,False,False,never
 p39397,6511615,61,M,False,True,always
 p39398,6511615,69,K,False,False,never
@@ -39407,7 +39407,7 @@ p39404,6511615,68,K,False,False,never
 p39405,6511615,65,M,False,True,always
 p39406,6511615,65,K,False,False,never
 p39407,6511615,65,M,True,True,always
-p39408,6511615,67,K,False,False,never
+p39408,6511615,67,K,False,True,always
 p39409,6511615,68,M,True,True,sometimes
 p39410,6511615,67,K,True,False,never
 p39411,6511615,62,M,True,True,always
@@ -39644,7 +39644,7 @@ p39641,6511616,59,K,True,False,never
 p39642,6511616,56,K,False,True,always
 p39643,6511616,50,K,True,False,never
 p39644,6511616,50,K,True,True,always
-p39645,6511616,56,K,False,False,never
+p39645,6511616,56,K,False,True,always
 p39646,6511616,57,M,True,True,always
 p39647,6511616,52,K,False,True,always
 p39648,6511616,58,K,False,False,never
@@ -39653,7 +39653,7 @@ p39650,6511616,61,K,False,False,never
 p39651,6511616,69,M,True,True,always
 p39652,6511616,62,M,True,True,always
 p39653,6511616,67,M,True,True,sometimes
-p39654,6511616,66,M,False,True,sometimes
+p39654,6511616,66,M,False,False,never
 p39655,6511616,62,M,False,True,always
 p39656,6511616,61,M,True,True,always
 p39657,6511616,60,K,False,True,always
@@ -39753,11 +39753,11 @@ p39750,6511617,31,K,True,True,always
 p39751,6511617,34,M,True,False,never
 p39752,6511617,31,M,True,True,always
 p39753,6511617,32,K,True,True,sometimes
-p39754,6511617,32,M,True,False,never
+p39754,6511617,32,M,True,True,sometimes
 p39755,6511617,39,K,True,True,always
 p39756,6511617,38,K,True,True,always
 p39757,6511617,44,K,True,False,never
-p39758,6511617,49,K,False,False,never
+p39758,6511617,49,K,False,True,always
 p39759,6511617,46,K,True,False,never
 p39760,6511617,40,K,True,True,always
 p39761,6511617,43,M,False,True,sometimes
@@ -39890,7 +39890,7 @@ p39887,6511617,61,K,True,True,always
 p39888,6511617,65,M,False,True,always
 p39889,6511617,76,M,False,True,always
 p39890,6511617,72,M,False,False,never
-p39891,6511617,80,M,False,True,always
+p39891,6511617,80,M,False,False,never
 p39892,6511617,81,M,False,True,always
 p39893,6511617,86,K,False,True,always
 p39894,6511618,9,K,False,False,never
@@ -39920,7 +39920,7 @@ p39917,6511618,13,M,False,False,never
 p39918,6511618,17,M,False,False,never
 p39919,6511618,15,M,False,False,never
 p39920,6511618,13,M,False,False,never
-p39921,6511618,18,K,True,False,never
+p39921,6511618,18,K,True,True,always
 p39922,6511618,12,K,False,False,never
 p39923,6511618,14,K,False,False,never
 p39924,6511618,15,M,False,False,never
@@ -40058,7 +40058,7 @@ p40055,6511618,60,K,True,False,never
 p40056,6511618,60,K,False,False,never
 p40057,6511618,62,K,True,True,always
 p40058,6511618,67,K,False,False,never
-p40059,6511618,66,K,True,False,never
+p40059,6511618,66,K,True,True,always
 p40060,6511618,69,K,False,False,never
 p40061,6511618,68,K,False,False,never
 p40062,6511618,72,K,False,False,never
@@ -40191,7 +40191,7 @@ p40188,6511621,30,K,True,True,always
 p40189,6511621,30,M,False,True,always
 p40190,6511621,31,M,False,True,always
 p40191,6511621,36,K,False,False,never
-p40192,6511621,30,K,True,False,never
+p40192,6511621,30,K,True,True,sometimes
 p40193,6511621,47,K,True,False,never
 p40194,6511621,43,M,True,True,sometimes
 p40195,6511621,40,K,True,True,always
@@ -40319,7 +40319,7 @@ p40316,6511621,64,M,True,True,always
 p40317,6511621,67,M,True,True,always
 p40318,6511621,68,K,False,True,always
 p40319,6511621,62,M,False,True,sometimes
-p40320,6511621,65,M,False,True,always
+p40320,6511621,65,M,False,False,never
 p40321,6511621,63,M,False,True,always
 p40322,6511621,64,K,True,True,always
 p40323,6511621,60,M,False,True,always
@@ -40332,9 +40332,9 @@ p40329,6511621,67,K,False,False,never
 p40330,6511621,60,K,True,True,always
 p40331,6511621,68,K,False,False,never
 p40332,6511621,65,K,True,False,never
-p40333,6511621,65,M,False,True,sometimes
+p40333,6511621,65,M,False,False,never
 p40334,6511621,67,M,False,True,sometimes
-p40335,6511621,69,M,False,True,always
+p40335,6511621,69,M,False,False,never
 p40336,6511621,63,M,False,False,never
 p40337,6511621,61,M,False,True,always
 p40338,6511621,69,K,False,False,never
@@ -40343,7 +40343,7 @@ p40340,6511621,74,M,False,True,always
 p40341,6511621,71,M,False,True,always
 p40342,6511621,70,M,False,True,sometimes
 p40343,6511621,79,M,False,True,always
-p40344,6511621,72,M,False,True,sometimes
+p40344,6511621,72,M,False,False,never
 p40345,6511621,70,K,False,True,always
 p40346,6511621,76,K,False,False,never
 p40347,6511621,70,M,True,True,always
@@ -40370,14 +40370,14 @@ p40367,6511621,77,K,False,True,always
 p40368,6511621,72,K,False,False,never
 p40369,6511621,73,M,False,True,always
 p40370,6511621,71,K,False,False,never
-p40371,6511621,79,K,False,False,never
+p40371,6511621,79,K,False,True,always
 p40372,6511621,77,K,False,True,always
 p40373,6511621,71,M,False,True,always
 p40374,6511621,82,M,False,True,always
 p40375,6511621,81,M,False,True,always
 p40376,6511621,83,K,False,False,never
 p40377,6511621,87,K,False,False,never
-p40378,6511621,89,M,True,True,always
+p40378,6511621,89,M,True,False,never
 p40379,6511621,80,K,False,True,always
 p40380,6511621,83,M,False,True,always
 p40381,6511621,88,K,False,False,never
@@ -40711,7 +40711,7 @@ p40708,6511623,69,M,False,True,sometimes
 p40709,6511623,67,M,False,True,always
 p40710,6511623,62,K,False,False,never
 p40711,6511623,63,K,True,False,never
-p40712,6511623,65,M,True,True,always
+p40712,6511623,65,M,True,False,never
 p40713,6511623,64,K,False,True,sometimes
 p40714,6511623,63,K,False,False,never
 p40715,6511623,69,M,False,True,sometimes
@@ -40776,13 +40776,13 @@ p40773,6511623,71,K,False,False,never
 p40774,6511623,70,K,False,True,sometimes
 p40775,6511623,78,M,False,True,always
 p40776,6511623,76,K,False,False,never
-p40777,6511623,71,M,False,True,always
-p40778,6511623,70,M,False,True,always
+p40777,6511623,71,M,False,False,never
+p40778,6511623,70,M,False,False,never
 p40779,6511623,71,K,False,False,never
-p40780,6511623,79,M,True,True,always
+p40780,6511623,79,M,True,False,never
 p40781,6511623,74,K,True,False,never
 p40782,6511623,75,K,False,False,never
-p40783,6511623,79,M,False,True,always
+p40783,6511623,79,M,False,False,never
 p40784,6511623,72,K,False,True,sometimes
 p40785,6511623,72,M,False,True,always
 p40786,6511623,71,K,False,True,always
@@ -40796,7 +40796,7 @@ p40793,6511623,75,K,False,False,never
 p40794,6511623,71,M,False,True,always
 p40795,6511623,70,K,False,True,sometimes
 p40796,6511623,79,M,False,True,always
-p40797,6511623,76,M,False,True,always
+p40797,6511623,76,M,False,False,never
 p40798,6511623,70,M,False,True,always
 p40799,6511623,75,M,False,True,always
 p40800,6511623,72,K,False,True,sometimes
@@ -40828,7 +40828,7 @@ p40825,6511623,81,K,False,False,never
 p40826,6511623,82,K,False,False,never
 p40827,6511623,85,K,False,False,never
 p40828,6511623,80,K,False,False,never
-p40829,6511623,80,K,False,False,never
+p40829,6511623,80,K,False,True,sometimes
 p40830,6511623,87,K,False,True,always
 p40831,6511623,84,M,False,True,always
 p40832,6511623,84,K,False,False,never
@@ -41063,7 +41063,7 @@ p41060,6511624,68,K,False,False,never
 p41061,6511624,65,K,False,False,never
 p41062,6511624,60,M,True,False,never
 p41063,6511624,61,K,False,True,always
-p41064,6511624,66,M,False,True,always
+p41064,6511624,66,M,False,False,never
 p41065,6511624,68,K,False,False,never
 p41066,6511624,69,M,True,True,always
 p41067,6511624,62,M,False,True,sometimes
@@ -41078,7 +41078,7 @@ p41075,6511624,72,K,False,True,always
 p41076,6511624,73,K,False,False,never
 p41077,6511624,72,K,False,False,never
 p41078,6511624,72,K,False,False,never
-p41079,6511624,76,M,False,True,sometimes
+p41079,6511624,76,M,False,False,never
 p41080,6511624,71,M,False,True,always
 p41081,6511624,72,K,False,True,always
 p41082,6511624,75,K,False,False,never
@@ -41155,7 +41155,7 @@ p41152,6511701,23,M,False,True,always
 p41153,6511701,27,M,True,True,always
 p41154,6511701,26,M,True,True,always
 p41155,6511701,26,K,True,True,sometimes
-p41156,6511701,20,M,True,False,never
+p41156,6511701,20,M,True,True,always
 p41157,6511701,28,K,False,True,always
 p41158,6511701,24,M,False,True,always
 p41159,6511701,28,M,True,True,sometimes
@@ -41231,7 +41231,7 @@ p41228,6511701,47,K,False,True,always
 p41229,6511701,49,M,True,False,never
 p41230,6511701,41,M,False,False,never
 p41231,6511701,43,K,True,True,always
-p41232,6511701,47,K,True,False,never
+p41232,6511701,47,K,True,True,always
 p41233,6511701,46,M,True,True,always
 p41234,6511701,41,K,True,False,never
 p41235,6511701,48,K,True,True,always
@@ -41357,9 +41357,9 @@ p41354,6511701,50,K,False,True,always
 p41355,6511701,59,M,False,True,always
 p41356,6511701,50,K,True,False,never
 p41357,6511701,64,K,False,False,never
-p41358,6511701,63,M,False,False,never
+p41358,6511701,63,M,False,True,always
 p41359,6511701,69,K,False,False,never
-p41360,6511701,69,M,False,True,sometimes
+p41360,6511701,69,M,False,False,never
 p41361,6511701,64,M,False,True,always
 p41362,6511701,64,M,False,True,sometimes
 p41363,6511701,63,M,True,True,sometimes
@@ -41388,7 +41388,7 @@ p41385,6511701,66,K,False,True,always
 p41386,6511701,65,K,False,True,always
 p41387,6511701,68,M,False,True,sometimes
 p41388,6511701,61,K,True,False,never
-p41389,6511701,62,K,True,False,never
+p41389,6511701,62,K,True,True,always
 p41390,6511701,61,M,True,True,sometimes
 p41391,6511701,65,M,False,True,sometimes
 p41392,6511701,69,K,False,False,never
@@ -41414,17 +41414,17 @@ p41411,6511701,72,K,False,False,never
 p41412,6511701,71,M,False,True,always
 p41413,6511701,78,K,False,True,always
 p41414,6511701,79,K,False,False,never
-p41415,6511701,77,M,False,True,sometimes
+p41415,6511701,77,M,False,False,never
 p41416,6511701,72,K,False,False,never
 p41417,6511701,76,M,False,True,always
-p41418,6511701,74,M,False,True,always
+p41418,6511701,74,M,False,False,never
 p41419,6511701,75,M,False,True,always
 p41420,6511701,75,K,False,True,always
 p41421,6511701,71,K,False,False,never
 p41422,6511701,78,M,False,True,sometimes
 p41423,6511701,75,M,False,True,always
 p41424,6511701,76,K,False,False,never
-p41425,6511701,71,M,True,True,always
+p41425,6511701,71,M,True,False,never
 p41426,6511701,70,K,False,False,never
 p41427,6511701,70,K,False,True,sometimes
 p41428,6511701,74,K,False,True,sometimes
@@ -41436,7 +41436,7 @@ p41433,6511701,76,M,False,True,always
 p41434,6511701,73,K,False,False,never
 p41435,6511701,78,K,False,False,never
 p41436,6511701,76,M,False,True,always
-p41437,6511701,70,M,False,True,always
+p41437,6511701,70,M,False,False,never
 p41438,6511701,75,K,False,False,never
 p41439,6511701,71,K,True,False,never
 p41440,6511701,70,M,False,True,sometimes
@@ -41467,7 +41467,7 @@ p41464,6511701,80,M,False,True,always
 p41465,6511701,82,M,False,True,always
 p41466,6511701,81,K,False,False,never
 p41467,6511701,82,M,False,True,always
-p41468,6511701,85,M,False,True,always
+p41468,6511701,85,M,False,False,never
 p41469,6511701,83,M,False,True,sometimes
 p41470,6511701,81,K,False,False,never
 p41471,6511701,80,K,False,True,always
@@ -41479,7 +41479,7 @@ p41476,6511701,90,K,False,True,always
 p41477,6511701,86,M,False,True,always
 p41478,6511701,87,K,False,False,never
 p41479,6511701,80,M,False,True,always
-p41480,6511701,89,K,False,False,never
+p41480,6511701,89,K,False,True,always
 p41481,6511701,90,K,False,False,never
 p41482,6511701,82,M,False,True,sometimes
 p41483,6511701,80,K,False,False,never
@@ -41541,7 +41541,7 @@ p41538,6511702,15,K,False,False,never
 p41539,6511702,19,M,False,True,always
 p41540,6511702,19,K,True,False,never
 p41541,6511702,11,K,False,False,never
-p41542,6511702,24,M,False,False,never
+p41542,6511702,24,M,False,True,always
 p41543,6511702,25,K,True,True,always
 p41544,6511702,20,M,True,True,sometimes
 p41545,6511702,23,M,False,True,always
@@ -41568,7 +41568,7 @@ p41565,6511702,34,M,True,True,always
 p41566,6511702,33,K,True,True,sometimes
 p41567,6511702,39,M,True,True,sometimes
 p41568,6511702,36,M,False,True,always
-p41569,6511702,36,K,True,False,never
+p41569,6511702,36,K,True,True,sometimes
 p41570,6511702,37,K,True,True,always
 p41571,6511702,34,M,True,True,sometimes
 p41572,6511702,37,M,True,True,always
@@ -41691,7 +41691,7 @@ p41688,6511702,68,K,False,False,never
 p41689,6511702,63,K,False,True,always
 p41690,6511702,62,M,False,True,always
 p41691,6511702,69,M,True,True,always
-p41692,6511702,73,K,True,False,never
+p41692,6511702,73,K,True,True,always
 p41693,6511702,76,K,False,False,never
 p41694,6511702,74,M,True,True,always
 p41695,6511702,77,M,False,True,always
@@ -41712,7 +41712,7 @@ p41709,6511702,71,K,False,False,never
 p41710,6511702,76,K,False,False,never
 p41711,6511702,72,M,True,True,always
 p41712,6511702,73,K,False,False,never
-p41713,6511702,72,M,False,True,sometimes
+p41713,6511702,72,M,False,False,never
 p41714,6511702,78,K,False,False,never
 p41715,6511702,80,M,True,True,always
 p41716,6511702,82,K,False,False,never
@@ -41914,7 +41914,7 @@ p41911,6511703,67,K,True,False,never
 p41912,6511703,66,M,True,True,sometimes
 p41913,6511703,62,M,True,True,always
 p41914,6511703,66,K,False,False,never
-p41915,6511703,66,K,False,False,never
+p41915,6511703,66,K,False,True,sometimes
 p41916,6511703,69,K,True,False,never
 p41917,6511703,67,M,False,True,always
 p41918,6511703,64,K,False,False,never
@@ -42036,7 +42036,7 @@ p42033,6511704,26,M,True,False,never
 p42034,6511704,29,M,True,True,always
 p42035,6511704,22,K,True,True,always
 p42036,6511704,20,K,True,False,never
-p42037,6511704,36,K,True,False,never
+p42037,6511704,36,K,True,True,always
 p42038,6511704,33,M,True,False,never
 p42039,6511704,35,M,False,True,sometimes
 p42040,6511704,38,M,False,False,never
@@ -42155,7 +42155,7 @@ p42152,6511704,62,K,False,False,never
 p42153,6511704,77,M,False,True,always
 p42154,6511704,78,K,False,False,never
 p42155,6511704,71,K,True,False,never
-p42156,6511704,77,M,False,True,always
+p42156,6511704,77,M,False,False,never
 p42157,6511704,70,M,False,True,always
 p42158,6511704,73,K,False,False,never
 p42159,6511704,78,K,False,True,sometimes
@@ -42163,7 +42163,7 @@ p42160,6511704,70,M,True,True,always
 p42161,6511704,72,K,False,False,never
 p42162,6511704,88,K,False,True,sometimes
 p42163,6511704,90,K,True,False,never
-p42164,6511704,80,M,True,True,sometimes
+p42164,6511704,80,M,True,False,never
 p42165,6511704,85,K,False,False,never
 p42166,6511801,0,M,False,False,never
 p42167,6511801,8,M,False,False,never
@@ -42224,13 +42224,13 @@ p42221,6511801,68,K,False,False,never
 p42222,6511801,69,K,False,True,sometimes
 p42223,6511801,68,K,False,False,never
 p42224,6511801,61,K,True,True,sometimes
-p42225,6511801,68,M,False,True,sometimes
+p42225,6511801,68,M,False,False,never
 p42226,6511801,67,M,True,True,always
 p42227,6511801,63,K,False,False,never
 p42228,6511801,66,M,False,True,always
 p42229,6511801,68,K,False,False,never
 p42230,6511801,65,M,False,True,sometimes
-p42231,6511801,64,M,False,False,never
+p42231,6511801,64,M,False,True,always
 p42232,6511801,68,M,False,True,always
 p42233,6511801,61,M,True,True,always
 p42234,6511801,68,M,False,False,never

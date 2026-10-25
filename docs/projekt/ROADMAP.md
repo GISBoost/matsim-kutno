@@ -52,7 +52,7 @@ Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 |---|---|---|
 | 1 | **G1: skrzyżowania** (tylko geometria i zakazy skrętu) | ✅ zakazy skrętu wdrożone (D26, baza R8), efekt poniżej rozrzutu seedów, `f` bez zmian ([g1.md](../../reports/etap3/g1_skrzyzowania/g1.md)); sygnalizacja świetlna później; rozdziela opóźnienia węzłów od prędkości (D23, `f` w mieście) |
 | 2 | **G3: domy** (z etapu 2) | ✅ D28, baza R9: BDOT10k jedno- i wielorodzinne, waga obrys × kondygnacje; zgodność z GUS 250 m TV 10,3 → 8,1 pp, ruch bez zmian ponad rozrzut planów ([g3.md](../../reports/etap3/g3_domy/g3.md)) |
-| 3 | **atrybuty osób** | wiek z NSP 2021; dostęp do auta i odsetek prawa jazdy z ogólnych statystyk GUS (łódzkie); najpierw research |
+| 3 | ✅ **atrybuty osób** (D30, baza R9.2: wiek, płeć, prawo jazdy, carAvail; pełna populacja Kutna w CSV; [atrybuty.md](../../reports/etap3/g_atrybuty/atrybuty.md)) | wiek z NSP 2021; dostęp do auta i odsetek prawa jazdy z ogólnych statystyk GUS (łódzkie); najpierw research |
 | 4 | **dodatkowe aktywności** (szkoła, zakupy, sprawy) | nowa faza, zmiana planów i godzin; dane o celach i rozkładzie godzin z GUS Mobilność |
 | 5 | **GTFS i transport publiczny** | GTFS Kutno: licencja potwierdzona przez użytkownika 2026-10-21; kolej z feedu Kuranowskiego; research: [G4_tryby.md](../../docs/research/G4_tryby.md) |
 | 6 | **wybór trybu i kalibracja ASC**: car, ride (pasażer), pt, bike, walk | wzorzec: Kelheim i Berlin (`ride` jako tryb sieciowy, rower i pieszo wg wzorca); cel kalibracji z GUS Mobilność |
@@ -66,7 +66,7 @@ Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 | krok | zawartość | zależność |
 |---|---|---|
 | 0 | ✅ **Estymacja O-D na GitHub Actions** (2026-10-25, workflow `matsim-od`, [krok0.md](../../reports/etap3/krok0_od_gha/krok0.md)) (warunek wstępny dla kroków 3 i 4): workflow „runy bez tła × 3 seedy → artefakty z eventami → `background_od.py` → macierze”. Dziś ta część idzie lokalnie (ERRORS 34), a artefakty GHA nie zawierają eventów | blokuje każdą zmianę planów, bo zmiana planów wymaga nowej estymacji O-D |
-| 3 | **Atrybuty osób** (research, potem wdrożenie): wiek z NSP 2021 (BREC), prawo jazdy i dostęp do auta z GUS (łódzkie). Zasięg: atrybuty w `plans.xml` i `car_share` zależne od wieku zamiast jednego 0,64. Sam zapis atrybutów nie zmienia ruchu; zmienia go tylko użycie (wybór, kto jedzie autem), więc to krok danych przed krokami 4 i 6 | po 0 |
+| 3 | ✅ **Atrybuty osób** (D30, baza R9.2, [atrybuty.md](../../reports/etap3/g_atrybuty/atrybuty.md)) (research, potem wdrożenie): wiek z NSP 2021 (BREC), prawo jazdy i dostęp do auta z GUS (łódzkie). Zasięg: atrybuty w `plans.xml` i `car_share` zależne od wieku zamiast jednego 0,64. Sam zapis atrybutów nie zmienia ruchu; zmienia go tylko użycie (wybór, kto jedzie autem), więc to krok danych przed krokami 4 i 6 | po 0 |
 | 4 | **Dodatkowe aktywności** (szkoła, zakupy, sprawy) razem z **rozdzieleniem aktywności pracy na przyjazd i odjazd** (usuwa ostatnie zawrotki, D29) | po 3 (potrzebny wiek: dzieci, emeryci) |
 | 5–6 | GTFS i PT, wybór trybu i kalibracja ASC | po 4 |
 | 7–8 | pomiary miejskie, odtworzenie od zera | na końcu |
