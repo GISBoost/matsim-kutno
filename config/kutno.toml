@@ -68,8 +68,8 @@ snap_mode = "route"
 # licence_denominator: mianownik udziału praw jazdy CEPiK 2019 ("nsp2021" baza, "eurostat2019" wariant); car_avail_mode: "cars_per_licence"
 # (ZAŁOŻENIE: always z p = auta/posiadacze prawa jazdy, łódzkie GUS 2024) albo "all_licence"; attr_seed: osobny generator losowy.
 attributes = "on"
-# D31 (krok 4A): rozdzielenie aktywności pracy na przyjazd i odjazd (osobne linki, noga walk 0 m); "off" odtwarza R9.2 bajt w bajt.
-work_split = "on"
+# D31 (krok 4A): rozdzielenie aktywności pracy na przyjazd i odjazd (osobne linki, noga walk 0 m); "off" = baza R9.2 (decyzja użytkownika), "on" = wariant (zawrotki 12,4% -> 1,1% podróży, ruch bez zmian ponad rozrzut).
+work_split = "off"
 attr_seed = 30
 licence_denominator = "nsp2021"
 # licence_m65: mężczyźni 65+ w CEPiK mają iloraz > 1 (rejestr z martwymi duszami): "m5564" = udział jak mężczyźni 55-64 (baza D30, ZAŁOŻENIE), "cap098" = górne ograniczenie 0,98.
