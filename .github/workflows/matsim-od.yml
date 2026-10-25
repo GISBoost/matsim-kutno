@@ -20,6 +20,9 @@ on:
       threads:
         description: "Wątki (global + qsim)"
         default: "2"
+      plans:
+        description: "Plik planów bez tła w scenarios/kutno_od (plans.py ... background_od= heavy_od=)"
+        default: "plans_k1.xml.gz"
 env:
   SC: scenarios/kutno_od
 jobs:
@@ -48,6 +51,7 @@ jobs:
           cp scenarios/kutno_r91/network.xml.gz $SC/network.xml.gz
           java -Xmx6g -jar matsim/matsim-example-project-0.0.1-SNAPSHOT.jar run \
             --config $SC/config.xml --output "$OUT" --iterations ${{ inputs.iterations }} \
+            --config:plans.inputPlansFile=${{ inputs.plans }} \
             --config:global.randomSeed=${{ matrix.seed }} \
             --config:global.numberOfThreads=${{ inputs.threads }} --config:qsim.numberOfThreads=${{ inputs.threads }} \
             2>&1 | tee run.log

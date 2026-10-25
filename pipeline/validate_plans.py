@@ -2,7 +2,7 @@
 
 Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> [sample [out_dir [klucz=wartość ...]]]
   (out_dir: gdzie zapisać raport, domyślnie folder fazy; klucz=wartość jak w plans.py, np. jobs_total=17486)
-Test (TASKS F4): każda osoba ma dokładnie home-car-work-car-home; współrzędne w obszarze sieci; praca w gminie Kutno;
+Test (TASKS F4): każda osoba ma dokładnie home-car-work-car-home (D31: albo home-car-work-walk-work-car-home); współrzędne w obszarze sieci; praca w gminie Kutno;
 liczba osób = round(sample x (pracujący w Kutnie + przyjeżdżający)); ten sam sha256 po ponownym uruchomieniu plans.py.
 Wyjście: reports/etap1_mvp/f4_plans/f4_plans.* (sample 0,1), reports/etap1_mvp/f6_run_100pct/f6_plans.* (1,0), inaczej reports/etap1_mvp/r3_ocena/wyniki_<N>pct/r3_<N>pct_plans.*. Kod 1, gdy test nie przechodzi.
 """
@@ -59,14 +59,15 @@ with gzip.open(path, "rb") as f:
                                                  d=acts[-1].get("link") if acts else None))
             el.clear()
             continue
-        timing_ok = (len(acts) == 3 and acts[0].get("end_time") and not acts[0].get("max_dur")
-                     and acts[1].get("max_dur") and not acts[1].get("end_time"))
-        if seq != ["home", "car", "work", "car", "home"] or not timing_ok:
+        split = seq == ["home", "car", "work", "walk", "work", "car", "home"]  # D31: praca = przyjazd + odjazd (osobne linki, noga walk 0 m)
+        timing_ok = (len(acts) in (3, 4) and acts[0].get("end_time") and not acts[0].get("max_dur")
+                     and all(a.get("max_dur") and not a.get("end_time") for a in acts[1:-1]))
+        if (seq != ["home", "car", "work", "car", "home"] and not split) or not timing_ok:
             bad_chain.append(el.get("id"))
         else:
             h, w = (Point(float(a.get("x")), float(a.get("y"))) for a in acts[:2])
-            persons.append(dict(id=el.get("id"), h=h, w=w, same_home=acts[0].get("x") == acts[2].get("x")
-                                and acts[0].get("y") == acts[2].get("y")))
+            persons.append(dict(id=el.get("id"), h=h, w=w, same_home=acts[0].get("x") == acts[-1].get("x")
+                                and acts[0].get("y") == acts[-1].get("y")))
         el.clear()
 
 df = pd.DataFrame(persons)
