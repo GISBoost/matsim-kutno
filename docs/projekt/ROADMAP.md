@@ -1,6 +1,6 @@
 # Mapa projektu MATSim Kutno
 
-Stan: 2026-10-23. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i miejsce każdej rzeczy w repo.
+Stan: 2026-10-25. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i miejsce każdej rzeczy w repo.
 
 ## 1. Gdzie czego szukać
 
@@ -58,7 +58,20 @@ Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 | 6 | **wybór trybu i kalibracja ASC**: car, ride (pasażer), pt, bike, walk | wzorzec: Kelheim i Berlin (`ride` jako tryb sieciowy, rower i pieszo wg wzorca); cel kalibracji z GUS Mobilność |
 | 7 | **pomiary miejskie do walidacji** | tylko dane publicznie dostępne; jeśli ich nie ma, zapisujemy to jako ograniczenie |
 | 8 | **odtworzenie od zera i wnioski** | dokończenie README, pipeline na czystym klonie, spis tego, co się przenosi na Łódź |
+| 2b | **zawrotki na początku i końcu trasy** | ✅ D29, baza **R9.1** (kierunek linku wg trasy, 2026-10-25): zawrotki 35% → 12% podróży; zostaje jedna przy pracy (jedna aktywność pracy), do rozdzielenia razem z krokiem 4 ([zawrotki.md](../../reports/etap3/g_zawrotki/zawrotki.md)) |
 | ewent. | sygnalizacja świetlna | po skrzyżowaniach |
+
+**Plan dalszych prac etapu 3 (2026-10-25).** Zasada: runy MATSim tylko na GitHub Actions, 25%, maks. 50 iteracji; każdy krok z decyzją w DECISIONS i porównaniem z rozrzutem seedów planów.
+
+| krok | zawartość | zależność |
+|---|---|---|
+| 0 | **Estymacja O-D na GitHub Actions** (warunek wstępny dla kroków 3 i 4): workflow „runy bez tła × 3 seedy → artefakty z eventami → `background_od.py` → macierze”. Dziś ta część idzie lokalnie (ERRORS 34), a artefakty GHA nie zawierają eventów | blokuje każdą zmianę planów, bo zmiana planów wymaga nowej estymacji O-D |
+| 3 | **Atrybuty osób** (research, potem wdrożenie): wiek z NSP 2021 (BREC), prawo jazdy i dostęp do auta z GUS (łódzkie). Zasięg: atrybuty w `plans.xml` i `car_share` zależne od wieku zamiast jednego 0,64. Sam zapis atrybutów nie zmienia ruchu; zmienia go tylko użycie (wybór, kto jedzie autem), więc to krok danych przed krokami 4 i 6 | po 0 |
+| 4 | **Dodatkowe aktywności** (szkoła, zakupy, sprawy) razem z **rozdzieleniem aktywności pracy na przyjazd i odjazd** (usuwa ostatnie zawrotki, D29) | po 3 (potrzebny wiek: dzieci, emeryci) |
+| 5–6 | GTFS i PT, wybór trybu i kalibracja ASC | po 4 |
+| 7–8 | pomiary miejskie, odtworzenie od zera | na końcu |
+
+Poza kolejką, do decyzji użytkownika: ponowna walidacja czasów (TomTom, D22: nowe requesty wymagają zgody), DK 91878 (ciężkie −21%, poza ±15% od R7b).
 
 Zasada: dane tylko z ogólnodostępnych źródeł, bez mocno blokowanych. REGON (rozkład miejsc pracy w gminie) poza zakresem, zostaje znanym ograniczeniem G2.
 
