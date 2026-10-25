@@ -13,7 +13,7 @@ Data: 2026-10-25. Zakres wg ROADMAP: wiek z NSP 2021, prawo jazdy i dostęp do a
 |---|---|---|
 | `gus/ludnosc_rejony_obwody_nsp2021.xlsx` | per obwód spisowy: ogółem, płeć, grupy ekonomiczne (0–17 / 15–59·64 / 60·65+, z podziałem produkcyjny mobilny i niemobilny), **10-letnie grupy wieku** (0–9 … 80+). Gm. m. Kutno: 42 255 os., 0–9: 3 510, 10–19: 3 572, 20–29: 3 821, 30–39: 5 987, 40–49: 6 234, 50–59: 5 510, 60–69: 7 136, 70–79: 4 485, 80+: 2 000 | płeć i wiek **nie są skrzyżowane** (brak mężczyzn 30–39 itp.); grupy 10-letnie, nie 5-letnie |
 | `gus/rynek_pracy_nsp2021_tablice.xlsx` | aktywność ekonomiczna wg grup wieku i płci, wykształcenia; TABL. 5 (miasta łódzkie) już użyta w `demand.py` do wskaźników zatrudnienia | poziom miasta/województwa, nie obwodu |
-| `gus_transport/mobilnosc_..._2024_tablice.xlsx` | Tabl. 5: członkowie gospodarstw (6+) z prawem jazdy A lub B wg województwa: **łódzkie 1 314 406 z 2 168 761 (60,6%)**, Polska 21,32 mln; Tabl. 2: samochody osobowe do dyspozycji gospodarstw, łódzkie 958 925 (0,44 na osobę 6+); Tabl. 6: podróżujący z prawem jazdy | tylko województwo (i klasy lokalizacji w tabelach 13+), **bez wieku i bez gminy**; prawo jazdy A lub B razem (nie samo B); badanie próbkowe, błąd względny bywa >20% |
+| `gus_transport/mobilnosc_..._2024_tablice.xlsx` | Tabl. 5: członkowie gospodarstw (6+) z prawem jazdy A lub B wg województwa: **łódzkie 1 314 406 z 2 168 761 (60,6%)**, Polska 21,32 mln; Tabl. 2: samochody osobowe do dyspozycji gospodarstw, łódzkie 958 925 (0,44 na osobę 6+); Tabl. 6: podróżujący z prawem jazdy | tylko województwo (i klasy lokalizacji w tabelach 13+), **bez wieku i bez gminy**; prawo jazdy A lub B razem (nie samo B); badanie próbkowe; błąd względny dla łódzkiego (Tabl. 21, 24): samochody osobowe 2,5%, prawo jazdy A lub B 1,9% (>20% dotyczy tylko dostawczych 24,2% i motocykli 18,7%). 0,44 to mój iloraz 958 925 (Tabl. 2) / 2 168 761 (Tabl. 3, członkowie 6+; = 22 608 za granicą + 2 146 153 w Polsce z Tabl. 4), nie liczba z GUS |
 
 NSP 2021 nie pytał o samochód ani prawo jazdy (nie znalazłem takiej zmiennej w publikowanych tablicach; to wniosek z braku, nie dowód). Gminnych danych o posiadaniu auta z GUS nie ma.
 
@@ -50,3 +50,24 @@ Ograniczenia: liczba dokumentów, nie osób z kategorią B; stan 2019 (nie 2021)
 2. `pipeline/population.py`: pełna populacja Kutna per obwód (wiek z 10-letnich grup, status pracujący/niepracujący z istniejącego `demand.py`, licencja z gradientu, auto w gosp. z 0,44 auta na osobę 6+; warianty jawne).
 3. Obecni agenci (pracujący autem) dostają atrybuty `age`, `licence`, `carAvail`; plany i ruch bez zmian (test: sha256 planów poza atrybutami, GPR, opóźnienia na GHA nie powinny się zmienić ponad szum).
 4. Decyzja D30 w DECISIONS, raport `reports/etap3/g_atrybuty/`.
+
+## 7. Uzupełnienie 2026-10-25 (po pytaniach użytkownika)
+
+**Poprawka.** Błąd względny dla łódzkiego: samochody osobowe 2,5%, prawo jazdy A lub B 1,9% (GUS Mobilność 2024, Tabl. 21 i 24), więc dane są dobre; >20% mają tylko dostawcze (24,2%) i motocykle (18,7%). 0,44 to nasz iloraz (958 925 / 2 168 761), nie liczba z GUS (ERRORS 35).
+
+**Posiadanie i używanie auta, łódzkie (GUS Mobilność 2024, typowy dzień roboczy; wyliczenia własne oznaczone „obl.”):**
+
+| miara | wartość | źródło |
+|---|---|---|
+| członkowie gosp. 6+ z prawem jazdy A lub B | 60,6% (1 314 406 / 2 168 761, obl.) | Tabl. 5, 3 |
+| samochody osobowe do dyspozycji gospodarstw na 1000 mieszk. | 410 (958 925 / 2 343 021 mieszk. wg Eurostat 2023, obl.) | Tabl. 2; Eurostat demo_r_d2jan |
+| osoby 6+ odbywające ≥1 podróż w dniu | 72,6% (1 573 642 / 2 168 761, obl.) | Tabl. 3 |
+| podróże: samochód osobowy łącznie | 60,1% z 3 958 088 (2 379 060); kierowca 47,9% (1 894 401), pasażer 12,2% (484 658) | Tabl. 13 |
+| podróże: pieszo / rower / autobus miejski / kolej | 20,5% / 5,2% / 7,2% / 1,3% | Tabl. 13 |
+| praca z domu lub nauka w domu (przebywający w Polsce) | 59 685 z 2 146 153 (2,8%, obl.) | Tabl. 3 |
+
+Nie wiem, czy kategorie w Tabl. 13 są wyłączne (jeden środek na podróż) czy podróż z kilku środków liczy się wielokrotnie; udziały wyżej to ilorazy do „ogółem” i mogą się nie sumować do 100%. Do sprawdzenia w uwagach metodologicznych przed użyciem w kalibracji. Udziału **gospodarstw** z autem w tych tablicach nie ma (jest liczba pojazdów).
+
+**Eurostat (samochody na 1000 mieszk., rejestr):** PL71 Łódzkie 550 (2019), 589 (2021), 602 (2023); Polska 541, 579, 595 (zbiór `tran_r_vehst` i `road_eqs_carhab`). Różnica wobec 410 z GUS to rejestr (firmy, pojazdy wyrejestrowane tylko administracyjnie, [czyszczenie 2024](https://demagog.org.pl/analizy_i_raporty/samochody-w-polsce-mit-obsesji-czy-zmiana-w-statystykach/)) vs auta faktycznie do dyspozycji gospodarstw. Eurostat nie ma tu prawa jazdy ani gminy. Powiat kutnowski (GUS Łódź): 686 w 2019 (rejestr), czyli ok. 1,25 × województwo.
+
+**BDL (NSP 2021) ma wiek pojedynczymi rocznikami × płeć na poziomie gminy** (P4254, P4253), więc ograniczenie „10-letnie grupy, brak skrzyżowania z płcią” z pliku obwodowego znika dla całej gminy Kutno (obwody nadal tylko 10-letnie). Dostępność tabeli dla gm. Kutno nie została jeszcze sprawdzona zapytaniem o dane (API chwilowo zwróciło 429).
