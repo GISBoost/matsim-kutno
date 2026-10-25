@@ -1,0 +1,64 @@
+# D30 (krok 3 etapu 3): atrybuty osób (age, sex, license, carAvail) nie mogą zmienić symulacji. Plan r91 (bez atrybutów) vs r91a (z atrybutami),
+# ten sam seed, 25%, 50 iteracji; porównanie sha256 zdarzeń (po dekompresji) i trips. Wejścia: scenarios/kutno_r91/. Tylko ręcznie.
+name: matsim-attr
+on:
+  workflow_dispatch:
+    inputs:
+      iterations:
+        description: "Liczba iteracji"
+        default: "50"
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        v: [r91, r91a]
+    env:
+      OUT: output/${{ matrix.v }}
+      SC: scenarios/kutno_r91
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: maven
+      - name: Build jar
+        working-directory: matsim
+        run: bash ./mvnw -B package -DskipTests
+      - name: MATSim
+        run: |
+          mkdir -p output
+          java -Xmx6g -jar matsim/matsim-example-project-0.0.1-SNAPSHOT.jar run \
+            --config $SC/config.xml --output "$OUT" --iterations ${{ inputs.iterations }} \
+            --config:plans.inputPlansFile=plans_${{ matrix.v }}_p0.xml.gz \
+            --config:vehicles.vehiclesFile=vehicles_r91_p0.xml.gz \
+            --config:global.randomSeed=4711 --config:global.numberOfThreads=2 --config:qsim.numberOfThreads=2 \
+            2>&1 | tee run.log
+      - name: Skróty wyników
+        run: |
+          python -m pip install uv
+          uv sync --frozen
+          mkdir -p pakiet
+          uv run python - <<'PY'
+          import hashlib, io, zstandard
+          o = "${{ env.OUT }}"
+          out = {}
+          for f in ("output_events.xml.zst", "output_trips.csv.zst", "output_legs.csv.zst", "output_links.csv.zst"):
+              h = hashlib.sha256()
+              with zstandard.ZstdDecompressor().stream_reader(open(f"{o}/{f}", "rb")) as r:
+                  while (b := r.read(1 << 20)):
+                      h.update(b)
+              out[f] = h.hexdigest()
+          out["scorestats"] = hashlib.sha256(open(f"{o}/scorestats.csv", "rb").read()).hexdigest()
+          import json; json.dump(out, open("pakiet/hash.json", "w"), indent=1)
+          print(out)
+          PY
+          cp "$OUT/scorestats.csv" run.log pakiet/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: attr-${{ matrix.v }}
+          path: pakiet
+          retention-days: 14

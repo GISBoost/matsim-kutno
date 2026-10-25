@@ -64,6 +64,13 @@ work_landuse = ["industrial", "commercial", "retail"]
 # D29 (R9.1): kierunek linku przypięcia aktywności. "route" = najbliższy link i jego odwrotny, wybór po trasie swobodnej bez zawrotki
 # na początku i końcu trasy; "nearest" = najbliższy link (R9 i wcześniej). Nadpisanie: plans.py <out> <sample> snap_mode=route.
 snap_mode = "route"
+# D30 (krok 3 etapu 3): atrybuty osób (age, sex, license, carAvail) z pipeline/attributes.py; "off" odtwarza plany R9.1 bajt w bajt.
+# licence_denominator: mianownik udziału praw jazdy CEPiK 2019 ("nsp2021" baza, "eurostat2019" wariant); car_avail_mode: "cars_per_licence"
+# (ZAŁOŻENIE: always z p = auta/posiadacze prawa jazdy, łódzkie GUS 2024) albo "all_licence"; attr_seed: osobny generator losowy.
+attributes = "on"
+attr_seed = 30
+licence_denominator = "nsp2021"
+car_avail_mode = "cars_per_licence"
 # ZAŁOŻENIE (D9): wjazd spoza powiatu = najbliższy (do centroidu gminy źródłowej) link tych klas
 # zaczynający się w strefie granicy sieci (boundary_zone_m z config/network.properties) i skierowany do Kutna.
 entry_road_types = ["motorway", "trunk", "primary", "secondary"]
