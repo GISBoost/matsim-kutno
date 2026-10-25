@@ -112,8 +112,12 @@ for r in bz.itertuples():
         zones.append(("entry", r.zone, bl.x[r.zone], bl.y[r.zone], w, [b] * K, None, r.road))
     else:                   # koniec: wjazd na link wyjazdowy
         zones.append(("exit", r.zone, bl.x[r.zone], bl.y[r.zone], w, None, [(a, r.zone)] * K, r.road))
-rej = gpd.read_file("data/raw/brec/rej_pl/SU_BREC_2021_REJ.shp", columns=["GMINA"])
-gm = rej[rej.GMINA.str.startswith(POWIAT)].dissolve(by="GMINA").geometry
+GM = Path("scenarios/kutno/area/gminy_powiat.gpkg")  # gminy powiatu z BREC (data/raw jest poza gitem, więc runner GHA czyta tę kopię)
+if GM.exists():
+    gm = gpd.read_file(GM).set_index("GMINA").geometry
+else:
+    rej = gpd.read_file("data/raw/brec/rej_pl/SU_BREC_2021_REJ.shp", columns=["GMINA"])
+    gm = rej[rej.GMINA.str.startswith(POWIAT)].dissolve(by="GMINA").geometry
 bld = gpd.read_file("scenarios/kutno/osm/features.gpkg", layer="buildings")
 bld["pt"], bld["a"] = bld.geometry.representative_point(), bld.geometry.area
 if CLS == "heavy" and P["plans"].get("heavy_ends", "all") == "work":  # audyt D9: końce ciężkich w budynkach pracy, jak plans.py work_any
