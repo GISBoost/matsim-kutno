@@ -70,6 +70,21 @@ snap_mode = "route"
 attributes = "on"
 # D31 (krok 4A): rozdzielenie aktywności pracy na przyjazd i odjazd (osobne linki, noga walk 0 m); "off" = baza R9.2 (decyzja użytkownika), "on" = wariant (zawrotki 12,4% -> 1,1% podróży, ruch bez zmian ponad rozrzut).
 work_split = "off"
+# D32 (krok 4C): zakupy i usługi mieszkańców jako osobne wyjścia home -> shop|service -> home (kierowca, auto) z pipeline/errands.py;
+# "off" odtwarza R9.2 bajt w bajt. Liczba wyjść = stawka GUS Mobilność 2024 (łódzkie, tabl. 10: dom-zakupy w CH, dom-inne zakupy, dom-usługi; osoby 6+
+# z tabl. 4) x populacja Kutna 6+ x errand_car_share x próbka.
+errands = "on"
+errand_seed = 32
+# ZAŁOŻENIE: udział jazd autem jako kierowca = 53,2% (Radom GOFR 2022, podróże fakultatywne, ze wszystkimi pasażerami) x 0,797 (kierowcy wśród jazd
+# autem, GUS łódzkie 47,9/60,1). Warianty: 0,304 (Gdańsk dom-inne 38,2% x 0,797) i 0,479 (GUS wszystkie cele, kierowca).
+errand_car_share = 0.424
+errand_gus_pop6 = 2146153
+errand_gus_shop_cc = 102892
+errand_gus_shop = 229380
+errand_gus_service = 25702
+errand_dur = "00:57:00"   # ZAŁOŻENIE: GUS Budżet czasu 2023, zakupy i korzystanie z usług 0.57 (h.mm) na wykonującego, bez dojazdu (dolna granica)
+errand_participation = "config/errand_participation_bcl2023.csv"   # GUS Budżet czasu 2023, tabl. 2: odsetek osób robiących zakupy i usługi wg wieku (waga wyboru)
+errand_departure = "config/departure_home_inne_gbr2022.csv"        # GBR Gdańsk 2022 rys. 46 „dom - inne” (ZAŁOŻENIE: Gdańsk != Kutno), pipeline/digitize_gbr_inne.py
 attr_seed = 30
 licence_denominator = "nsp2021"
 # licence_m65: mężczyźni 65+ w CEPiK mają iloraz > 1 (rejestr z martwymi duszami): "m5564" = udział jak mężczyźni 55-64 (baza D30, ZAŁOŻENIE), "cap098" = górne ograniczenie 0,98.

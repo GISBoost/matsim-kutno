@@ -63,6 +63,17 @@
 			<param name="activityType" value="work" />
 			<param name="typicalDuration" value="08:00:00" />
 		</parameterset>
+		<!-- D32 (krok 4C): zakupy i usługi mieszkańców. Score tylko diagnostyczny, jak tło: bez użyteczności aktywności, typicalDuration wymagane przez config. -->
+		<parameterset type="activityParams">
+			<param name="activityType" value="shop" />
+			<param name="typicalDuration" value="00:57:00" />
+			<param name="scoringThisActivityAtAll" value="false" />
+		</parameterset>
+		<parameterset type="activityParams">
+			<param name="activityType" value="service" />
+			<param name="typicalDuration" value="00:57:00" />
+			<param name="scoringThisActivityAtAll" value="false" />
+		</parameterset>
 		<!-- D19/K2-2: aktywności tła (początek i koniec jednej podróży). Bez użyteczności aktywności: tło wybiera tylko trasę.
 		     typicalDuration jest wymagane przez config, przy scoringThisActivityAtAll=false nie wpływa na score. -->
 		<parameterset type="activityParams">
