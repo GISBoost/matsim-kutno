@@ -43,6 +43,7 @@ gmina = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
 powiat = gpd.read_file("scenarios/kutno/area/powiat.geojson").geometry.iloc[0]
 
 persons, bad_chain = [], []
+ERR = ([], [])  # D32: zakupy i usługi (kind=errand): (poprawne, złe łańcuchy)
 BG = {"tlo": ([], []), "ciezkie": ([], [])}  # D19/K2-2, D20: subpopulacja -> (poprawne, złe łańcuchy)
 veh_attr = 0
 with gzip.open(path, "rb") as f:
@@ -53,6 +54,12 @@ with gzip.open(path, "rb") as f:
         at = {a.get("name"): a.text for a in el.iter("attribute")}
         sub = at.get("subpopulation")
         veh_attr += at.get("vehicles") == '{"car":"%s"}' % el.get("id")
+        if at.get("kind") == "errand":  # D32: home -> shop|service -> home, start z end_time, pobyt z max_dur
+            ok = (seq in (["home", "car", "shop", "car", "home"], ["home", "car", "service", "car", "home"]) and acts[0].get("end_time")
+                  and acts[1].get("max_dur") and not acts[1].get("end_time") and sub == "person")
+            ERR[0 if ok else 1].append(el.get("id"))
+            el.clear()
+            continue
         if sub in BG:  # D19/K2-2, D20: tło = jedna podróż tlo_start -> tlo_end, start z end_time
             ok = seq == ["tlo_start", "car", "tlo_end"] and acts[0].get("end_time") and not acts[1].get("end_time")
             BG[sub][0 if ok else 1].append(dict(id=el.get("id"), o=acts[0].get("link") if acts else None,
@@ -128,7 +135,7 @@ if veh_report["heavy"]:  # D20: plik pojazdów, każda osoba ma swój pojazd, ci
     types = {v.get("id"): v.get("type") for v in vt.findall("v:vehicle", ns)}
     pce = {t.get("id"): float(t.find("v:passengerCarEquivalents", ns).get("pce")) for t in vt.findall("v:vehicleType", ns)}
     hid = {x["id"] for x in BG["ciezkie"][0]}
-    n_all = len(df) + len(bad_chain) + sum(len(a) + len(b) for a, b in BG.values())
+    n_all = len(df) + len(bad_chain) + sum(len(a) + len(b) for a, b in BG.values()) + len(ERR[0]) + len(ERR[1])
     veh_report.update(vehicles=len(types), persons_all=n_all, persons_with_vehicle_attr=veh_attr, pce=pce,
                       heavy_type_ok=all(types.get(i) == "ciezki" for i in hid),
                       others_car=sum(t == "car" for t in types.values()) == len(types) - len(hid))
@@ -169,7 +176,10 @@ report = {
     "times": {"departure_profile": P["departure_profile"], "work_max_dur": P["work_max_dur"],
               "departure_by_hour": meta.dep_h.astype(int).value_counts().sort_index().to_dict()},
 }
-report["ok"] = (report["deterministic"] and not bad_chain and report["persons"] == expected
+err_csv = path.with_name(path.name.removesuffix(".xml.gz") + "_errands.csv")
+err_expected = len(pd.read_csv(err_csv)) if err_csv.exists() else 0
+report["errands"] = {"ok_chain": len(ERR[0]), "bad_chain": len(ERR[1]), "expected": err_expected}
+report["ok"] = (report["deterministic"] and not bad_chain and not ERR[1] and len(ERR[0]) == err_expected and report["persons"] == expected
                 and report["home_outside_area"] == 0 and report["work_outside_gmina"] == 0 and report["return_home_differs"] == 0
                 and report["outbound"]["home_outside_gmina"] == 0 and report["outbound"]["work_inside_gmina"] == 0
                 and bad_snap == 0 and missing_link == 0 and start_ok

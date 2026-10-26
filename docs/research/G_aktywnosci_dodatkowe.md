@@ -67,3 +67,11 @@ Uwaga: to rząd wielkości; 74 tys. liczy też podróże piesze i rowerowe, któ
 - Digitalizacja GBR rys. 46 nie była wykonana (to implementacja); odczyt wartości ze szczytów jest tylko opisowy.
 - Szacunek „24 tys. podróży autem" jest różnicą dwóch przybliżeń (łódzkie × populacja 6+ vs model); do weryfikacji w kroku wdrożenia.
 - BCL 2023 liczy 15+; wartości w formacie `h.mm`, w niektórych komórkach przecinek zamiast kropki.
+
+## 9. Korekta po przeglądzie badań ruchu (2026-10-26, [badania_ruchu_PL.md](badania_ruchu_PL.md)) i decyzje użytkownika
+- **Kolejność:** użytkownik 2026-10-26: najpierw **zakupy i usługi** (krok 4C), szkoła i tryby później. Łańcuchy osobno. Tło zmniejszane ponowną estymacją O-D, godziny z GBR 2022 (ZAŁOŻENIE).
+- **Ruchliwość, kontrola zewnętrzna:** GUS łódzkie 1,84 podróży/os. 6+ mieści się w przedziale badań dzienniczkowych miast 20–200 tys.: Toruń 1,7 (poza Toruniem 1,5), Olsztyn 1,77, Szczecin 1,90, Radom 2,74 (CATI, zawyżone). Parametry bierzemy z GUS dla łódzkiego, inne badania służą kontroli.
+- **Podróże dom–„inne" na osobę:** GUS łódzkie (dom–zakupy CH, inne zakupy, usługi, odwiedziny, rekreacja, podwożenie, medyczne = 743 321 na 2 146 153 osób 6+) = **0,346**; Szczecin KBR 2016 (tab. 1, s. 12): dom–inne **0,343**. Zgodność potwierdza skalę. Zakupy i usługi to ok. połowa (0,167).
+- **Udział samochodu poza pracą:** Radom (CATI, ośrodek centralny + gminy) podróże fakultatywne **53,2%** (samochód razem z pasażerami), obligatoryjne 67,3%; Toruń poza miastem 54,9%; Gdańsk dom–inne 38,2% (do) i 43,0% (z). GUS łódzkie wszystkie cele 60,1% (kierowca 47,9%, czyli 79,7% jazd autem to kierowcy). Baza 4C: 53,2% × 0,797 = **42,4% jako kierowca**; warianty 30,4% (Gdańsk) i 47,9% (GUS wszystkie cele).
+- **Szkoła (4B, później):** do walidacji dom–szkoła na osobę: GUS 0,123, Szczecin 0,09, Radom 0,108 (3,95% × 2,74). Przedział 0,09–0,12.
+- **Czego nie ma:** godzin wyjazdu wg celu poza GBR (Olsztyn ma wykres godzin dnia roboczego, Kraków 13% podróży w godzinie 7–8); to prośba do ZIT Olsztyn o bazę, nie do zrobienia automatycznie.

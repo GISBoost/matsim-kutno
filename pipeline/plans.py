@@ -411,6 +411,21 @@ def background(path, prefix, profile_col, pool=b):
 bg = background(P["background_od"], "t", "light_pct")
 hv = background(P["heavy_od"], "h", "heavy_pct", b[b.work_any] if P.get("heavy_ends", "all") == "work" else b)  # audyt D9
 
+# --- D32 (krok 4C): zakupy i usługi mieszkańców, osobne wyjścia home -> shop|service -> home (errands.py, własny seed) ----------------
+er = pd.DataFrame()
+if P["errands"] == "on":
+    import errands
+    er = errands.draw(P, homes_in, gmina_kutno)
+    if P["snap_mode"] == "nearest":
+        er["home_link"] = er["home_link_end"] = snap_links(er.home_x, er.home_y)
+        er["dst_link"] = snap_links(er.dst_x, er.dst_y)
+    else:  # jak D29: dom start i dom koniec to osobne linki, link celu = najkrótsza trasa tam i z powrotem
+        hl_, hle_, dl_ = [], [], []
+        for H, D in zip(cand_lists(er.home_x, er.home_y), cand_lists(er.dst_x, er.dst_y)):
+            d = min(D, key=lambda w_: min(cost(a, w_) for a in H) + min(cost(w_, e) for e in H))
+            hl_.append(min(H, key=lambda a: cost(a, d))); hle_.append(min(H, key=lambda e: cost(d, e))); dl_.append(d)
+        er["home_link"], er["home_link_end"], er["dst_link"] = hl_, hle_, dl_
+
 # --- plans.xml.gz (bez tras; mtime=0, żeby sha256 był powtarzalny) ------------------------------------
 if P["attributes"] == "on":  # D30: wiek, płeć, prawo jazdy, carAvail; osobny generator (attr_seed), reszta planów bez zmian
     from attributes import Attrs
@@ -446,6 +461,21 @@ for sub, df in (("tlo", bg), ("ciezkie", hv)):  # D19/K2-2, D20: jedna podróż 
                          end_time=f"{r.start_s // 3600:02d}:{r.start_s // 60 % 60:02d}:{r.start_s % 60:02d}")
         etree.SubElement(plan, "leg", mode="car")
         etree.SubElement(plan, "activity", type="tlo_end", link=r.d_link, x=f"{r.d_x:.1f}", y=f"{r.d_y:.1f}")
+for r in er.itertuples():  # D32: kierowca jedzie autem z domu do sklepu lub punktu usługowego i wraca
+    person = etree.SubElement(root, "person", id=r.person)
+    attrs = etree.SubElement(person, "attributes")
+    for name, val in (("subpopulation", "person"), ("kind", "errand")):
+        etree.SubElement(attrs, "attribute", name=name, **{"class": "java.lang.String"}).text = val
+    etree.SubElement(attrs, "attribute", name="age", **{"class": "java.lang.Integer"}).text = str(r.age)
+    for name, val in (("sex", r.sex), ("license", r.license), ("carAvail", r.carAvail)):
+        etree.SubElement(attrs, "attribute", name=name, **{"class": "java.lang.String"}).text = val
+    plan = etree.SubElement(person, "plan", selected="yes")
+    home = dict(type="home", x=f"{r.home_x:.1f}", y=f"{r.home_y:.1f}")
+    etree.SubElement(plan, "activity", **home, link=r.home_link, end_time=f"{r.start_s // 3600:02d}:{r.start_s // 60 % 60:02d}:{r.start_s % 60:02d}")
+    etree.SubElement(plan, "leg", mode="car")
+    etree.SubElement(plan, "activity", type=r.etype, link=r.dst_link, x=f"{r.dst_x:.1f}", y=f"{r.dst_y:.1f}", max_dur=P["errand_dur"])
+    etree.SubElement(plan, "leg", mode="car")
+    etree.SubElement(plan, "activity", **home, link=r.home_link_end)
 if len(hv):  # D20: pojazdy z pliku (qsim.vehiclesSource=fromVehiclesData): osobowy pce 1, ciężarowy heavy_pce i 80 km/h
     for person in root:
         etree.SubElement(person[0], "attribute", name="vehicles", **{"class": "org.matsim.vehicles.PersonVehicles"}).text =             '{"car":"%s"}' % person.get("id")
@@ -457,6 +487,8 @@ stem = OUT.name.removesuffix(".xml.gz")
 meta.to_csv(OUT.with_name(stem + "_meta.csv"), index=False)
 strata.to_csv(OUT.with_name(stem + "_strata.csv"), index=False)
 bg.to_csv(OUT.with_name(stem + "_tlo.csv"), index=False)
+if len(er):
+    er.to_csv(OUT.with_name(stem + "_errands.csv"), index=False)
 if len(hv):
     hv.to_csv(OUT.with_name(stem + "_ciezkie.csv"), index=False)
     NS = "http://www.matsim.org/files/dtd"
