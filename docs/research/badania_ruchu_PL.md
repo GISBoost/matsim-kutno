@@ -9,19 +9,18 @@ Zasady czytania: „(PDF, s. X)” = liczba odczytana z pobranego pliku w `data/
 ### Radom + 12 gmin GOFR, SUMP 2030+, ankieta CATI z dzienniczkiem, X 2022
 - Link: [Raport z aktualizacji modelu](https://www.radom.pl/wp-content/uploads/2023/07/SUMPGOFR_2022_Raport-z-aktualizacji-modelu_2023.02.02.pdf) (PDF pobrany; sprawdzony). Diagnoza SUMP: [Raport diagnostyczno-strategiczny](https://www.radom.pl/wp-content/uploads/2023/07/SUMPGOFR_2022_Raport_Diagnostyczno-Strategiczny_2023.02.28.pdf) (nie czytany szczegółowo).
 - Próba: **750 osób** z 13 gmin (CATI, typowy dzień wt–czw, dzienniczek podróży), poziom ufności 0,95, błąd maks. 0,05 (diagnoza s. 118).
-- Ruchliwość: **2,74 podróży/os./dzień roboczy**; rozkład liczby podróży: 0: 7%, 1: 18%, 2: 47%, 3: 3%, 4: 23% (rys. 2.19, s. 24–25 PDF modelu). Ruchliwość wysoka, bo CATI + dzienniczek zawyża względem wywiadów domowych (hipoteza, nie weryfikowane).
+- Ruchliwość: **2,74 podróży/os./dzień roboczy**; najwięcej respondentów 2 podróże (47%), 4 podróże 23% (tekst przy rys. 2.19, s. 24–25 PDF modelu). Ruchliwość wysoka, bo CATI + dzienniczek zawyża względem wywiadów domowych (hipoteza, nie weryfikowane).
 - Podział modalny (wszystkie podróże, rys. 2.22, s. 26): samochód 57,80%, pieszo 17,55%, TZ 14,20%, rower 10,45%. Obligatoryjne (rys. 2.20): samochód 67,26%, TZ 17,19%, pieszo 9,19%, rower 6,37%. Fakultatywne (rys. 2.21): samochód 53,18%, pieszo 21,64%, TZ 12,74%, rower 12,45%. Uwaga: opisy wykresów w tekście są niespójne co do kolejności kategorii.
 - Cele (tab. 2.11, s. 27): dom→praca 29,16%, praca→dom 26,69%, dom→nauka 3,95%, nauka→dom 3,61% (reszta: inne i niezwiązane z domem).
 - Godziny szczytu z pomiarów: poranny 7:00–8:00, popołudniowy 15:30–16:30 (s. 30). Brak rozkładu godzin wyjazdów z ankiety.
-- Wniosek: **najbliższy Kutnu typ i skala (ośrodek centralny + gminy wiejskie wokół, 210 tys. w mieście, więc ~5× większy)**. Dobry do: łańcuchów (tab. 2.11 pozwala policzyć udział home-work-home), udziału samochodu w pracy (67%). Słaby: n=750 na 13 gmin, CATI. Podział modalny nie rozdziela miasta od gmin w tekście (jest w załączniku 1 raportu, nie otwarty).
+- Wniosek: **najbliższy Kutnu typ i skala (ośrodek centralny + gminy wokół; miasto ok. 5× większe od Kutna)**. Dobry do: łańcuchów (tab. 2.11 pozwala policzyć udział home-work-home), udziału samochodu w pracy (67%). Słaby: n=750 na 13 gmin, CATI. Podział modalny nie rozdziela miasta od gmin w tekście (jest w załączniku 1 raportu, nie otwarty).
 
 ### Toruń + 32 gminy MOFT, SUMP, badania mobilności, jesień 2022 (prezentacja I.2023)
 - Link: [prezentacja SUMP MOFT](https://cms-v1-files.idcom-jst.pl/sites/944/wiadomosci/217463/files/sump_moft_konferencja_19_01_2023.pdf) (PDF pobrany).
 - Próba: **4 447 osób** (Toruń 1 826, reszta MOFT 2 621) w badaniu mobilności, 7 167 podróży opisanych; 802 w badaniu ilościowym opinii. Podróż = ≥ 250 m (s. 9–11).
 - Ruchliwość: **1,7 podróży/os.** ogółem; Toruń 1,9; poza Toruniem 1,5; powiat toruński 1,6, aleksandrowski 1,5, chełmiński 2,1, golubsko-dobrzyński 0,9. 77,2% mieszkańców zrobiło ≥ 1 podróż poprzedniego dnia roboczego (s. 9–10).
 - Podział modalny wstępny (s. 13, odczyt z ekstrakcji tekstu, kolejność zgodna z sumą 100%): ogółem pieszo 31,9 / samochód 47,6 / TZ 13,8 / rower+hulajnoga 5,4 / inne 1,3. Toruń: 33,7 / 39,8 / 21,6 / 4,3 / 0,7. Poza Toruniem: 30,3 / 54,9 / 6,5 / 6,4 / 1,9.
-- Średni czas podróży ogółem 20 min (Toruń 19, poza 20); pieszo 13, samochód 21, TZ ok. 32 (s. 14). Rozkład czasu: 6–15 min 46,6%, 16–30 min 33,1% (ogółem).
-- Cele: ogółem dom–praca 22,5%, praca–dom 19,8% (s. 12, z wykresu). Kategorie rozdzielają zakupy (też w CH), rekreację, „inne”.
+- Średni czas podróży ogółem 20 min (Toruń 19, poza 20); pieszo 13, samochód 21, TZ ok. 32 (s. 14).- Cele: ogółem dom–praca 22,5%, praca–dom 19,8% (s. 12, z wykresu). Kategorie rozdzielają zakupy (też w CH), rekreację, „inne”.
 - Wniosek: **dobre do rozróżnienia miasto vs strefa wiejska wokół** (ruchliwość 1,5 vs 1,9, samochód 55% vs 40%). Dla Kutna (miasto bez wielkiego zaplecza) sensowne jest porównanie z „poza Toruniem” i z samym Toruniem jako ograniczeniami z dołu i z góry. Tylko prezentacja, bez tabel; brak godzin.
 
 ### Olsztyn + 10 gmin MOF, badanie SUMBA, jesień 2018
