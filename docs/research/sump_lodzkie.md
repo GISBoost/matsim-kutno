@@ -97,7 +97,7 @@ Oba SUMP-y przeczytane w całości pod kątem słów kluczowych (podział zadań
 | Mieszkańcy z dobrym lub bardzo dobrym dostępem do TZ | 24,4%; 131 z 285 miejscowości bez regularnej linii | s. 21 |
 | Dojazdy do pracy | tylko opis i mapa (GUS): silne relacje m. Sieradz – gm. Sieradz, m. Zduńska Wola – gm. Zduńska Wola, m. Łask – obszar wiejski gm. Łask; bez liczb w tekście | s. 13–14, rys. 2.3 |
 
-Braki: liczebność próby, termin i metoda ankiety nie są podane; wynik jest opisany jako uproszczony, a pytania dotyczyły chyba zwykłego środka (odpowiedzi nie sumują się z podziałem podróży). Traktować jako rząd wielkości udziału samochodu w mieście 30–40 tys. z gminami wiejskimi. Plan przewiduje dopiero zadania „pomiary ruchu pieszych i rowerów" i badania dojazdów (s. 1496–1583 w tekście, zadania w rozdz. działań).
+Braki: liczebność próby, termin i metoda ankiety nie są podane; wynik jest opisany jako uproszczony, a pytania dotyczyły chyba zwykłego środka (odpowiedzi nie sumują się z podziałem podróży). Traktować jako rząd wielkości udziału samochodu w mieście 30–40 tys. z gminami wiejskimi. Plan przewiduje dopiero zadania „pomiary ruchu pieszych i rowerów" i badania dojazdów (s. 58 i dalej, rozdział działań).
 
 ### 9.2 MOF Tomaszów Mazowiecki – Opoczno – Lubochnia (projekt z konsultacji 29.04–20.05.2024)
 
@@ -107,7 +107,7 @@ Braki: liczebność próby, termin i metoda ankiety nie są podane; wynik jest o
 |---|---|---|
 | Wskaźnik motoryzacji 2022 (samochody osobowe na 1 000 mieszk., powiaty) | opoczyński 671,1; tomaszowski 697,4; łódzkie 715,9; Polska 700,6 | s. 40 |
 | Iloraz przepływów zatrudnienia (przyjeżdżający/wyjeżdżający) dla obszaru | wzrósł z 0,76 (2006) do 1,16 (2021) | s. 18 |
-| Budżet czasu dojazdu do pracy przyjęty w analizie dostępności koleją | 40 min | s. 25 (tekst o połączeniu Tomaszów–Opoczno) |
+| Budżet czasu dojazdu do pracy przyjęty w analizie dostępności koleją | 40 min | s. 28 |
 | Ofiary wypadków na 100 tys.: powiat opoczyński / tomaszowski | 5,51 / 5,37 (łódzkie 6,87; Polska 5,01) | s. 40 |
 
 W dokumencie brak: podziału modalnego, ruchliwości, ankiety ilościowej (są wywiady FGI i IDI jakościowe), pomiarów ruchu (jest tylko opis GPR natężeń na drogach krajowych/wojewódzkich). Dla modelu zasadniczo nie do użycia poza kontekstem (motoryzacja, kierunek przepływów).
