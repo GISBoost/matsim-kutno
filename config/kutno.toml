@@ -26,12 +26,12 @@ car_share = 0.64
 work_from_home = 0.073
 # D19/K2-2: ruch tła (pojazdy lekkie), macierz O-D z pipeline/background_od.py (W2: τ = 30 min, waga wjazdu = capacity;
 # R3: incydencja ułamkowa, bez liczników lokalnych 10045/91892/91119). "" = bez tła (stan do R1). R2: background_od_r1_w2_cap.csv.
-background_od = "scenarios/kutno/demand/background_od_r91_lcv_gpr.csv"  # D29: baza R9.1 (R9: background_od_r9_lcv_gpr.csv; R7b: background_od_r7b_lcv_gpr.csv; R6: background_od_r6b_lcv_gpr.csv; R6a, krok 4 bez D1/D2: background_od_r6_lcv_gpr.csv; R4: background_od_r4_lcv_cap.csv; R3: background_od_r1_w2_frac_droplocal_cap.csv)
+background_od = "scenarios/kutno/demand/background_od_r93_lcv_gpr.csv"  # D32: baza R9.3 (R9.1: background_od_r91_lcv_gpr.csv) (R9: background_od_r9_lcv_gpr.csv; R7b: background_od_r7b_lcv_gpr.csv; R6: background_od_r6b_lcv_gpr.csv; R6a, krok 4 bez D1/D2: background_od_r6_lcv_gpr.csv; R4: background_od_r4_lcv_cap.csv; R3: background_od_r1_w2_frac_droplocal_cap.csv)
 # D19/K3-2: godzina startu tła = profil dnia roboczego, pojazdy lekkie, SCPR 14005 Lisica 2025 (pipeline/digitize_lisica.py)
 background_profile = "config/hourly_profile_lisica2025.csv"
 # D20 (P1): tło lekkie z dostawczymi (cls=lcv) i ciężkie (cls=heavy) z pipeline/background_od.py; "" = bez ciężkich (stan R3).
 # R4: background_od = "scenarios/kutno/demand/background_od_r4_lcv_cap.csv", heavy_od = "scenarios/kutno/demand/background_od_r4_heavy_cap.csv".
-heavy_od = "scenarios/kutno/demand/background_od_r91_heavy_gpr.csv"  # D29: baza R9.1 (R9: background_od_r9_heavy_gpr.csv; R7b: background_od_r7b_heavy_gpr.csv; R6: background_od_r6b_heavy_gpr.csv; R6a: background_od_r6_heavy_gpr.csv; R4: background_od_r4_heavy_cap.csv); "" = bez ciężkich
+heavy_od = "scenarios/kutno/demand/background_od_r93_heavy_gpr.csv"  # D32: baza R9.3 (R9.1: background_od_r91_heavy_gpr.csv) (R9: background_od_r9_heavy_gpr.csv; R7b: background_od_r7b_heavy_gpr.csv; R6: background_od_r6b_heavy_gpr.csv; R6a: background_od_r6_heavy_gpr.csv; R4: background_od_r4_heavy_cap.csv); "" = bez ciężkich
 # D20: pce typu pojazdu ciężkiego, WR-D-13-01 tab. 4.3.1 (zamiejski z przyczepą = miejski bez przyczepy). Wrażliwość: 3.0.
 heavy_pce = 2.5
 # Audyt G5/D9, ZAŁOŻENIE (D21, krok 4): końce ciężkich w gminach powiatu = budynki pracy (work_any w plans.py: typy work_buildings,

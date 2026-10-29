@@ -12,7 +12,7 @@
 	</module>
 	<module name="plans">
 		<!-- audyt G5/D6 (D21, krok 6): baza R6, plany i pojazdy z pipeline/plans.py (config/kutno.toml), run wynika z samego configu -->
-		<param name="inputPlansFile" value="plans_g3r91_10pct.xml.gz" />
+		<param name="inputPlansFile" value="plans_g3r93_10pct.xml.gz" />
 	</module>
 	<module name="controller">
 		<!-- UWAGA: MATSim rozwiązuje outputDirectory względem katalogu roboczego, nie configu. Uruchamiaj z katalogu projektu. -->
@@ -53,7 +53,7 @@
 		<param name="numberOfThreads" value="8" />
 	</module>
 	<module name="vehicles">
-		<param name="vehiclesFile" value="plans_g3r91_10pct_vehicles.xml.gz" />
+		<param name="vehiclesFile" value="plans_g3r93_10pct_vehicles.xml.gz" />
 	</module>
 	<module name="scoring">
 		<!-- ZAŁOŻENIE: domyślne MATSim, bez openingTime (są zmiany nocne). Score tylko diagnostyczny (DECISIONS: otwarte). -->
