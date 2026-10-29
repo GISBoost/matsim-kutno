@@ -80,3 +80,38 @@ GUS opublikował „Zasady metodologiczne ankietowego badania mobilności komuni
 ## 8. Czego nie sprawdziłem
 
 BIP każdej gminy ŁOM (uchwały przyjęcia SUMP poza Rogowem; ewentualne lokalne plany transportu zbiorowego, Plan Gospodarki Niskoemisyjnej Pabianic, opracowanie dla Konstantynowa). Załączników 1, 3, 4 i prognozy środowiskowej SUMP ŁOM nie pobrano do repozytorium (przejrzane pod kątem słów kluczowych, bez liczb o podróżach). Rysunki godzinowe (wykresy 8–9 w artykule o Łodzi) i rozkład celów szkoły wymagają odczytu z PDF-a.
+
+## 9. Dodatek: dwa MOF spoza ŁOM (na życzenie 2026-10-29)
+
+Oba SUMP-y przeczytane w całości pod kątem słów kluczowych (podział zadań, ruchliwość, dzienniczek, CATI/CAWI/PAPI, n, pomiary ruchu). **Żaden nie zawiera badania podróży z dzienniczkiem ani modelu ruchu.** Pliki: `data/raw/badania_ruchu/sump_lodzkie/`.
+
+### 9.1 MOF Sieradz – Zduńska Wola – Łask (SUMP przyjęty 2026, horyzont 2035)
+
+Źródło: SUMP MOF, wersja uchwalona (uchwała Rady Miejskiej w Sieradzu XXXVII/278/2026, z errata 14.07.2026), https://sieradz.eu/uploads/files/579e33dfabea2a2f67e772c46209297543892/sumpsieradz2026-07-14errata_dokument_uchwalony_i_obowiazujacy.pdf ; prezentacja z warsztatów 18.02.2026, https://sieradz.eu/uploads/files/46bb2b310e26b5903872c9dc6f57cee083927/sump_sieradzprezentacja20260218warsztaty.pdf . Osobnej diagnozy ani raportu z ankiety strona projektu nie udostępnia.
+
+| Parametr | Wartość | Gdzie |
+|---|---|---|
+| Ankieta mieszkańców z etapu diagnozy, „uproszczony pogląd" na podział zadań: samochód | **64%** (55% kierowca, 9% pasażer); autobus miejski 15%; kolej 6%; rower 5% | SUMP s. 44 |
+| tamże, w prezentacji (wykres kołowy, odpowiedzi „jak poruszają się mieszkańcy") | 64% samochód; reszta jako 19%, 6%, 5%, 3%, 3%, 1% bez czytelnych etykiet w ekstrakcji; pozycja „podróż łączona" | warsztat, slajd „Jak poruszają się mieszkańcy" |
+| Przeprowadzka z miejskich na wiejskie w ostatnich 10 latach | 25% respondentów; 93% z nich nadal pracuje/uczy się w mieście; ponad 2/3 uważa dojazdy za gorsze | s. 81 |
+| Mieszkańcy z dobrym lub bardzo dobrym dostępem do TZ | 24,4%; 131 z 285 miejscowości bez regularnej linii | s. 21 |
+| Dojazdy do pracy | tylko opis i mapa (GUS): silne relacje m. Sieradz – gm. Sieradz, m. Zduńska Wola – gm. Zduńska Wola, m. Łask – obszar wiejski gm. Łask; bez liczb w tekście | s. 13–14, rys. 2.3 |
+
+Braki: liczebność próby, termin i metoda ankiety nie są podane; wynik jest opisany jako uproszczony, a pytania dotyczyły chyba zwykłego środka (odpowiedzi nie sumują się z podziałem podróży). Traktować jako rząd wielkości udziału samochodu w mieście 30–40 tys. z gminami wiejskimi. Plan przewiduje dopiero zadania „pomiary ruchu pieszych i rowerów" i badania dojazdów (s. 1496–1583 w tekście, zadania w rozdz. działań).
+
+### 9.2 MOF Tomaszów Mazowiecki – Opoczno – Lubochnia (projekt z konsultacji 29.04–20.05.2024)
+
+Źródło: Projekt Planu Zrównoważonej Mobilności Miejskiej dla MOF (190 s.), pobrany z BIP Tomaszowa, http://bip.tomaszow.miasta.pl/public/getFile?id=587412 (`tomaszow_opoczno_lubochnia_sump_projekt_2024.pdf`). Wersji uchwalonej nie szukałem; plik to projekt, treść mogła się zmienić.
+
+| Parametr | Wartość | Gdzie |
+|---|---|---|
+| Wskaźnik motoryzacji 2022 (samochody osobowe na 1 000 mieszk., powiaty) | opoczyński 671,1; tomaszowski 697,4; łódzkie 715,9; Polska 700,6 | s. 40 |
+| Iloraz przepływów zatrudnienia (przyjeżdżający/wyjeżdżający) dla obszaru | wzrósł z 0,76 (2006) do 1,16 (2021) | s. 18 |
+| Budżet czasu dojazdu do pracy przyjęty w analizie dostępności koleją | 40 min | s. 25 (tekst o połączeniu Tomaszów–Opoczno) |
+| Ofiary wypadków na 100 tys.: powiat opoczyński / tomaszowski | 5,51 / 5,37 (łódzkie 6,87; Polska 5,01) | s. 40 |
+
+W dokumencie brak: podziału modalnego, ruchliwości, ankiety ilościowej (są wywiady FGI i IDI jakościowe), pomiarów ruchu (jest tylko opis GPR natężeń na drogach krajowych/wojewódzkich). Dla modelu zasadniczo nie do użycia poza kontekstem (motoryzacja, kierunek przepływów).
+
+### 9.3 Wniosek
+
+Dla Kutna (miasto powiatowe) oba MOF mają znaczenie jedynie kontekstowe. Wskaźniki motoryzacji powiatów (671–697) i udział samochodu 64% w ankiecie Sieradza to jedyne liczby. Nie rozszerzają bazy parametrów popytu poza tym, co dają Rzeszów, Subregion Zachodni i BydOF (sump_PL.md).
