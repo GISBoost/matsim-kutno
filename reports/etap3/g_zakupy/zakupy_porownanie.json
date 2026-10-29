@@ -1,0 +1,266 @@
+{
+ "spojnosc": {
+  "r93": {
+   "s4711": {
+    "nogi_car": 25703,
+    "oczekiwane": 25703,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "s1": {
+    "nogi_car": 25703,
+    "oczekiwane": 25703,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "s2": {
+    "nogi_car": 25703,
+    "oczekiwane": 25703,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "p1": {
+    "nogi_car": 25648,
+    "oczekiwane": 25648,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "p2": {
+    "nogi_car": 25707,
+    "oczekiwane": 25707,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   }
+  },
+  "r91": {
+   "s4711": {
+    "nogi_car": 24299,
+    "oczekiwane": 24299,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "s1": {
+    "nogi_car": 24299,
+    "oczekiwane": 24299,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "s2": {
+    "nogi_car": 24299,
+    "oczekiwane": 24299,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "p1": {
+    "nogi_car": 24245,
+    "oczekiwane": 24245,
+    "stuck": 0,
+    "przepelnione_gt2x": 1
+   },
+   "p2": {
+    "nogi_car": 24309,
+    "oczekiwane": 24309,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   }
+  }
+ },
+ "zawrotki": {
+  "r93": {
+   "razem_mediana": {
+    "start_pct": 9.1,
+    "end_pct": 4.5,
+    "any_pct": 13.5,
+    "mid_pct": 0.33,
+    "extra_pct": 0.54,
+    "extra_veh_h": 43.5,
+    "mean_extra_s_on_uturn_trips": 45.3
+   },
+   "wg_rodzaju_mediana": {
+    "c": {
+     "start_pct": 25.64,
+     "end_pct": 12.9,
+     "extra_pct_of_time": 1.71
+    },
+    "e": {
+     "start_pct": 20.96,
+     "end_pct": 11.74,
+     "extra_pct_of_time": 4.11
+    },
+    "h": {
+     "start_pct": 0.31,
+     "end_pct": 0.19,
+     "extra_pct_of_time": 0.02
+    },
+    "o": {
+     "start_pct": 30.33,
+     "end_pct": 7.79,
+     "extra_pct_of_time": 1.15
+    },
+    "r": {
+     "start_pct": 27.17,
+     "end_pct": 13.49,
+     "extra_pct_of_time": 3.53
+    },
+    "t": {
+     "start_pct": 0.1,
+     "end_pct": 0.18,
+     "extra_pct_of_time": 0.01
+    }
+   },
+   "pracujacy_tam_vs_z_powrotem": {
+    "tam": {
+     "start_pct": 0.9,
+     "end_pct": 24.8,
+     "dur_s": 783.3
+    },
+    "z_powrotem": {
+     "start_pct": 52.8,
+     "end_pct": 0.7,
+     "dur_s": 798.8
+    }
+   }
+  },
+  "r91": {
+   "razem_mediana": {
+    "start_pct": 8.3,
+    "end_pct": 4.1,
+    "any_pct": 12.4,
+    "mid_pct": 0.3,
+    "extra_pct": 0.49,
+    "extra_veh_h": 38.8,
+    "mean_extra_s_on_uturn_trips": 46.7
+   },
+   "wg_rodzaju_mediana": {
+    "c": {
+     "start_pct": 25.1,
+     "end_pct": 13.07,
+     "extra_pct_of_time": 1.71
+    },
+    "h": {
+     "start_pct": 0.21,
+     "end_pct": 0.27,
+     "extra_pct_of_time": 0.01
+    },
+    "o": {
+     "start_pct": 29.78,
+     "end_pct": 7.92,
+     "extra_pct_of_time": 1.14
+    },
+    "r": {
+     "start_pct": 27.03,
+     "end_pct": 13.75,
+     "extra_pct_of_time": 3.58
+    },
+    "t": {
+     "start_pct": 0.13,
+     "end_pct": 0.12,
+     "extra_pct_of_time": 0.01
+    }
+   },
+   "pracujacy_tam_vs_z_powrotem": {
+    "tam": {
+     "start_pct": 1.0,
+     "end_pct": 25.0,
+     "dur_s": 776.1
+    },
+    "z_powrotem": {
+     "start_pct": 52.3,
+     "end_pct": 0.9,
+     "dur_s": 790.5
+    }
+   }
+  }
+ },
+ "gpr_lcv": {
+  "w_15proc_r93": 15,
+  "w_15proc_r91": 14,
+  "n_fit": 15,
+  "poza_15proc_r93_proc": {},
+  "mediana_abs_zmiany_proc": 0.67,
+  "maks_abs_zmiany_proc": 4.65,
+  "odcinki_ponad_rozrzut": 2,
+  "sekcje_ponad_rozrzut_proc": {
+   "71410": -0.2,
+   "91821": 0.1
+  },
+  "mediana_rozrzutu_planow_proc": 4.2,
+  "kontrolne_lokalne_r93_proc_GPR": {
+   "91124": 130.0,
+   "91866": 64.0,
+   "10045": 34.0,
+   "91892": 60.0,
+   "91119": 54.0
+  }
+ },
+ "gpr_heavy": {
+  "w_15proc_r93": 13,
+  "w_15proc_r91": 13,
+  "n_fit": 15,
+  "poza_15proc_r93_proc": {
+   "10044": -16.3,
+   "91878": -19.4
+  },
+  "mediana_abs_zmiany_proc": 0.76,
+  "maks_abs_zmiany_proc": 16.07,
+  "odcinki_ponad_rozrzut": 1,
+  "sekcje_ponad_rozrzut_proc": {
+   "10043": 16.1
+  },
+  "mediana_rozrzutu_planow_proc": 6.5,
+  "kontrolne_lokalne_r93_proc_GPR": {
+   "91124": 77.0,
+   "91866": 58.0,
+   "10045": 28.0,
+   "91892": 55.0,
+   "91119": 11.0
+  }
+ },
+ "opoznienia_veh_h_proby": {
+  "r93": [
+   246.1,
+   237.4,
+   226.6,
+   242.3,
+   222.5
+  ],
+  "r91": [
+   224.2,
+   224.3,
+   228.6,
+   248.6,
+   217.5
+  ],
+  "mediana_r93": 237.4,
+  "mediana_r91": 224.3,
+  "rozrzut_planow_r91": 31.1,
+  "przyczyny_r93": {
+   "capacity": 0.196,
+   "node": 0.446,
+   "spillback": 0.329
+  },
+  "przyczyny_r91": {
+   "capacity": 0.187,
+   "node": 0.444,
+   "spillback": 0.369
+  }
+ },
+ "podroze_pracujacych_car": {
+  "r93": {
+   "n": 7478.0,
+   "czas_min": 17.13,
+   "dystans_km": 11.1
+  },
+  "r91": {
+   "n": 7478.0,
+   "czas_min": 17.11,
+   "dystans_km": 11.1
+  },
+  "rozrzut_planow_r91_czas_min": 0.36
+ },
+ "podroze_zakupy_i_uslugi_car_r93": {
+  "n": 1422.0,
+  "czas_min": 7.05,
+  "dystans_km": 2.96
+ }
+}
