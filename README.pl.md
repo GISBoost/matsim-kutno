@@ -59,7 +59,7 @@ uv run python -W ignore pipeline/demand.py
 uv run python -W ignore pipeline/plans.py scenarios/kutno/plans_25pct_k1.xml.gz 0.25
 # plany referencyjne bez K1-1 (wejście config_25pct.xml; sha256 1be78c27…027)
 uv run python -W ignore pipeline/plans.py scenarios/kutno/plans_25pct_bez_k1.xml.gz 0.25 car_share=1.0 work_from_home=0.0
-uv run python -W ignore pipeline/validate_plans.py scenarios/kutno/plans_25pct_bez_k1.xml.gz 0.25
+uv run python -W ignore pipeline/validate_plans.py scenarios/kutno/plans_25pct_bez_k1.xml.gz 0.25 <katalog_raportu>
 
 # 7. Run MATSim (z katalogu projektu, nie z katalogu configu)
 java -Xmx10g -jar matsim/matsim-example-project-0.0.1-SNAPSHOT.jar run \
