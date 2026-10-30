@@ -1,4 +1,4 @@
-# Krok 4C (D32): zakupy i usługi mieszkańców (r93, errands=on, tło z estymacji r93) vs R9.2 (r91, kontrola na tej samej platformie), 5 runów każdy (3 seedy MATSim na p0, 2 seedy planów p1, p2), 25%, 50 it.
+# Parametry variant/control (D34: r93o vs r93). Krok 4C (D32): zakupy i usługi mieszkańców (r93, errands=on, tło z estymacji r93) vs R9.2 (r91, kontrola na tej samej platformie), 5 runów każdy (3 seedy MATSim na p0, 2 seedy planów p1, p2), 25%, 50 it.
 # (3 seedy MATSim na planach p0, 2 seedy planów p1, p2), 25%, domyślnie 50 iteracji. Tylko ręcznie (workflow_dispatch).
 # Wejścia: scenarios/kutno_r91/. Artefakt per job: wyniki analizy i pliki bez zdarzeń.
 name: matsim-r93
@@ -11,6 +11,12 @@ on:
       threads:
         description: "Wątki (global + qsim); lokalnie liczone na 2"
         default: "2"
+      variant:
+        description: "Wariant (pliki plans/vehicles/meta_<variant>_p*); D34: r93o"
+        default: "r93"
+      control:
+        description: "Kontrola na tej samej platformie; D34: r93"
+        default: "r91"
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -18,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        v: ["r93", "r91"]
+        v: ["${{ inputs.variant }}", "${{ inputs.control }}"]
         run:
           - { id: s4711, seed: 4711, p: p0 }
           - { id: s1, seed: 1, p: p0 }
@@ -71,6 +77,6 @@ jobs:
           mkdir -p pakiet/linkstats; cp "$OUT"/ITERS/it.*/*.linkstats.txt.gz pakiet/linkstats/ 2>/dev/null || true
       - uses: actions/upload-artifact@v4
         with:
-          name: r93-${{ matrix.v }}-${{ matrix.run.id }}
+          name: ${{ inputs.variant }}-${{ matrix.v }}-${{ matrix.run.id }}
           path: pakiet
           retention-days: 14
