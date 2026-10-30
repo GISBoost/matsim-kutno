@@ -82,7 +82,7 @@ errand_gus_pop6 = 2146153
 errand_gus_shop_cc = 102892
 errand_gus_shop = 229380
 errand_gus_service = 25702
-errand_dur = "00:57:00"   # ZAŁOŻENIE: GUS Budżet czasu 2023, zakupy i korzystanie z usług 0.57 (h.mm) na wykonującego, bez dojazdu (dolna granica)
+errand_dur = "00:57:00"   # ZAŁOŻENIE: GUS Budżet czasu 2023, zakupy i korzystanie z usług 0.57 (h.mm) na wykonującego (suma z dnia), bez dojazdu; dla jednej wizyty kierunek błędu niepewny
 errand_participation = "config/errand_participation_bcl2023.csv"   # GUS Budżet czasu 2023, tabl. 2: odsetek osób robiących zakupy i usługi wg wieku (waga wyboru)
 errand_departure = "config/departure_home_inne_gbr2022.csv"        # GBR Gdańsk 2022 rys. 46 „dom - inne” (ZAŁOŻENIE: Gdańsk != Kutno), pipeline/digitize_gbr_inne.py
 attr_seed = 30

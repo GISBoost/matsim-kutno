@@ -1,10 +1,10 @@
-# Krok 4C etapu 3: zakupy i usługi (D32, baza R9.3 do potwierdzenia)
+# Krok 4C etapu 3: zakupy i usługi (D32, baza R9.3, potwierdzona 2026-10-29)
 
 Data: 2026-10-29. Kod: `pipeline/errands.py`, `pipeline/plans.py` (`errands = on|off`), config `[plans]`. Research: [G_aktywnosci_dodatkowe.md](../../../docs/research/G_aktywnosci_dodatkowe.md), [badania_ruchu_PL.md](../../../docs/research/badania_ruchu_PL.md). Wykres: [zakupy_porownanie.png](zakupy_porownanie.png). Liczby: [zakupy_porownanie.json](zakupy_porownanie.json). Logi walidacji planów: `validate_p{0,1,2}.log`.
 
 ## Co zrobiono
 - Osobne wyjścia `home → shop|service → home`, tylko kierowca samochodu. Częstość na osobę: GUS Mobilność 2024 (Łódzkie, tabl. 10) dom–zakupy + dom–inne zakupy + dom–usługi = 357 974 podróży / 2 146 153 osób 6+, × 40 232 osób 6+ w Kutnie × udział auta jako kierowca 0,424 (ZAŁOŻENIE: Radom fakultatywne 53,2% × 0,797 kierowców; warianty 0,304 Gdańsk, 0,479 GUS) × próbka.
-- Uczestnicy: wiek ≥ 18, `license=yes`, `carAvail≠never`, waga wg wieku z BCL 2023. Cele: budynki BDOT10k w gm. Kutno (centrum handlowe/hipermarket, dom towarowy/obiekt handlowo-usługowy, bank/urząd/poczta/starostwo), waga = obrys. Godziny wyjścia z wykresu GBR 2022 „dom–inne” (Gdańsk, przedział 5–20 h, ZAŁOŻENIE), pobyt 57 min (BCL 2023, dolna granica).
+- Uczestnicy: wiek ≥ 18, `license=yes`, `carAvail≠never`, waga wg wieku z BCL 2023. Cele: budynki BDOT10k w gm. Kutno (centrum handlowe/hipermarket, dom towarowy/obiekt handlowo-usługowy, bank/urząd/poczta/starostwo), waga = obrys. Godziny wyjścia z wykresu GBR 2022 „dom–inne” (Gdańsk, przedział 5–20 h, ZAŁOŻENIE), pobyt 57 min (BCL 2023: dzienna suma na osobę wykonującą, bez dojazdu; kierunek błędu dla jednej wizyty niepewny, ZAŁOŻENIE).
 - Osobny generator losowy (`errand_seed`), więc `errands = off` odtwarza R9.2 bajt w bajt.
 - Przy 25%: 711 agentów-wypraw (456 zakupy, 204 centra handlowe, 51 usługi), ok. 5 700 podróży autem na dobę w 100%.
 
@@ -28,7 +28,7 @@ Wnioski liczbami:
 - Wypady prawie nie zmniejszają tła (O-D r93: −0,13% lekkie, −0,03% ciężkie), bo przekroje GPR leżą na drogach tranzytowych, nie na ulicach miasta. Wzrost ruchu w mieście nie jest sprawdzony licznikami (TomTom zablokowany przez D22).
 
 ## Znane ograniczenia
-Udział auta (0,424) i godziny (Gdańsk) to ZAŁOŻENIA; pobyt 57 min to dolna granica; ta sama osoba może być pracującym i agentem-wyprawy (łańcuchy dopiero w osobnym kroku); brak uczniów spoza Kutna, odwiedzających i pasażerów; wypady tylko dorośli z prawem jazdy.
+Udział auta (0,424) i godziny (Gdańsk) to ZAŁOŻENIA; pobyt 57 min to dzienna suma z BCL, nie czas jednej wizyty; cel wyprawy losowany wagą obrysu, bez zależności od odległości (przegląd 2026-10-29: mediana 1,6 km w linii prostej, 24% wypraw autem < 1 km, 5 budynków bierze 30% wypraw); ruchu wypraw w mieście nie sprawdza żaden licznik; ta sama osoba może być pracującym i agentem-wyprawy (łańcuchy dopiero w osobnym kroku); brak uczniów spoza Kutna, odwiedzających i pasażerów; wypady tylko dorośli z prawem jazdy.
 
 ## Jak czytać wykres ([zakupy_porownanie.png](zakupy_porownanie.png))
 **Lewy panel: zawrotka na starcie i końcu trasy [% podróży].** Słupki wg rodzaju agenta (c = dojeżdżający spoza Kutna, e = wypady, h = ciężkie, o = mieszkańcy pracujący, r = przyjeżdżający, t = tło lekkie; skróty wg prefiksu id). Szary/pierwszy = R9.2, drugi = z zakupami i usługami. Wartość = udział podróży, w których pierwszy lub ostatni link trasy wymusza zawrócenie.
