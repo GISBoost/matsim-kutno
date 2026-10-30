@@ -1,10 +1,10 @@
 """F4: walidacja plans.xml.gz + mapa kontrolna.
 
-Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> [sample [out_dir [klucz=wartość ...]]]
-  (out_dir: gdzie zapisać raport, domyślnie folder fazy; klucz=wartość jak w plans.py, np. jobs_total=17486)
+Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> <sample> <out_dir> [klucz=wartość ...]
+  (sample i out_dir wymagane, out_dir musi istnieć: brak domyślnych katalogów, by nie nadpisać raportu fazy; klucz=wartość jak w plans.py, np. jobs_total=17486)
 Test (TASKS F4): każda osoba ma dokładnie home-car-work-car-home (D31: albo home-car-work-walk-work-car-home); współrzędne w obszarze sieci; praca w gminie Kutno;
 liczba osób = round(sample x (pracujący w Kutnie + przyjeżdżający)); ten sam sha256 po ponownym uruchomieniu plans.py.
-Wyjście: reports/etap1_mvp/f4_plans/f4_plans.* (sample 0,1), reports/etap1_mvp/f6_run_100pct/f6_plans.* (1,0), inaczej reports/etap1_mvp/r3_ocena/wyniki_<N>pct/r3_<N>pct_plans.*. Kod 1, gdy test nie przechodzi.
+Wyjście: <out_dir>/plans_<N>pct_plans.{json,png}. Kod 1, gdy test nie przechodzi; kod 2, gdy brak argumentów lub out_dir nie istnieje.
 """
 import gzip
 import hashlib
@@ -25,18 +25,18 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 plt.style.use("dark_background")  # mapy w ciemnym motywie (prośba użytkownika)
 
+if len(sys.argv) < 4 or not Path(sys.argv[3]).is_dir():
+    print("Użycie: validate_plans.py <plans.xml.gz> <sample> <out_dir> [klucz=wartość ...]  (out_dir musi istnieć)", file=sys.stderr)
+    sys.exit(2)
 path = Path(sys.argv[1])
 P = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))["plans"]
-if len(sys.argv) > 2:  # sample jak w plans.py
-    P["sample"] = float(sys.argv[2])
+P["sample"] = float(sys.argv[2])  # sample jak w plans.py
 OVR = sys.argv[4:]
 for kv in OVR:
     k, v = kv.split("=")
     P[k] = type(P[k])(v)
-PHASE = {0.1: "f4", 1.0: "f6"}.get(P["sample"], f"r3_{round(P['sample'] * 100)}pct")
-if len(sys.argv) > 3:
-    PHASE = f"plans_{round(P['sample'] * 100)}pct"
-OUT = sys.argv[3] if len(sys.argv) > 3 else {"f4": "reports/etap1_mvp/f4_plans", "f6": "reports/etap1_mvp/f6_run_100pct"}.get(PHASE, f"reports/etap1_mvp/r3_ocena/wyniki_{PHASE[3:]}")
+PHASE = f"plans_{round(P['sample'] * 100)}pct"
+OUT = sys.argv[3]
 f3 = json.load(open("scenarios/kutno/validation/f3_demand.json", encoding="utf-8"))
 area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[0]
 gmina = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
