@@ -6,7 +6,10 @@ Liczba wyjść: stawka na osobę 6+ z GUS Mobilność 2024 (łódzkie, tabl. 10 
 z tabl. 4) x populacja Kutna 6+ (population_kutno.csv, NSP 2021) x udział jazd autem jako kierowca (errand_car_share, ZAŁOŻENIE: Radom
 fakultatywne 53,2% x 0,797 kierowców) x próbka. Uczestnicy: osoby 18+ z license=yes i carAvail != never, waga = odsetek osób robiących
 zakupy i usługi w grupie wieku (GUS Budżet czasu 2023, tabl. 2). Cel: budynki BDOT10k w gm. Kutno, waga = obrys. Godzina: GBR 2022 rys. 46 dom-inne.
+D34 (errand_dest = "osm"): cele zakupów c i s = sklepy OSM (osm_poi.py), c = OSM_C, s = pozostałe shop=*; punkt = budynek BDOT ze sklepem
+(do errand_poi_m), waga = liczba sklepów typu w budynku. Usługi u bez zmian (BDOT). "bdot" odtwarza R9.3 bajt w bajt.
 """
+import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pyogrio
@@ -17,6 +20,23 @@ TYPES = {  # kod, typ aktywności, klucz stawki GUS, funkcje przeważające BDOT
     "u": ("service", "errand_gus_service", ["bank", "inny urząd administracji publicznej", "urząd miasta", "urząd gminy",
                                             "starostwo powiatowe", "placówka operatora pocztowego"]),
 }
+OSM_C = ["supermarket", "mall", "department_store"]  # D34: typ c wg OSM
+
+
+def osm_pool(code, bd, P):
+    """D34: cele c|s ze sklepów OSM; każdy sklep -> najbliższy budynek BDOT do errand_poi_m (inaczej punkt sklepu), waga = liczba sklepów."""
+    sh = pd.read_csv(P["errand_shops"], keep_default_na=False)
+    sh = sh[sh.shop.isin(OSM_C) == (code == "c")]
+    pt = gpd.GeoDataFrame(sh, geometry=gpd.points_from_xy(sh.x, sh.y), crs=bd.crs)
+    j = gpd.sjoin_nearest(pt, bd[["PRZEWAZAJACAFUNKCJABUDYNKU", "pt", "geometry"]], how="left", max_distance=P["errand_poi_m"])
+    j = j[~j.index.duplicated()]  # remis odległości: pierwszy budynek
+    hit = j.index_right.notna()
+    j["key"] = np.where(hit, "b" + j.index_right.astype("Int64").astype(str), "p" + j.osm_type + j.osm_id.astype(str))
+    j["pt"] = [bd.pt.loc[int(i)] if h else g for i, h, g in zip(j.index_right.fillna(-1), hit, j.geometry)]
+    j["PRZEWAZAJACAFUNKCJABUDYNKU"] = np.where(hit, "osm:" + j.shop + " / " + j.PRZEWAZAJACAFUNKCJABUDYNKU.fillna(""), "osm:" + j.shop)
+    g = j.groupby("key", sort=True)
+    return pd.DataFrame(dict(PRZEWAZAJACAFUNKCJABUDYNKU=g.PRZEWAZAJACAFUNKCJABUDYNKU.first(), pt=g.pt.first(),
+                             area_m2=g.size().astype(float))).reset_index(drop=True)  # area_m2 = waga (liczba sklepów)
 
 
 def draw(P, homes_in, gmina):
@@ -38,7 +58,10 @@ def draw(P, homes_in, gmina):
     prof = prof[prof.to_h - prof.from_h == 1]  # tylko przedziały godzinne (bez 0-5 i 20-24)
     rows = []
     for code, (atype, rate_key, funcs) in TYPES.items():
-        pool = bd[bd.PRZEWAZAJACAFUNKCJABUDYNKU.isin(funcs)].reset_index(drop=True)
+        if P.get("errand_dest", "bdot") == "osm" and code in "cs":
+            pool = osm_pool(code, bd, P)
+        else:
+            pool = bd[bd.PRZEWAZAJACAFUNKCJABUDYNKU.isin(funcs)].reset_index(drop=True)
         assert len(pool), (code, funcs)
         target = round(P[rate_key] / P["errand_gus_pop6"] * n6 * P["errand_car_share"] * P["sample"])
         pick = rng.choice(len(el), size=target, replace=False, p=(el.w / el.w.sum()).to_numpy())

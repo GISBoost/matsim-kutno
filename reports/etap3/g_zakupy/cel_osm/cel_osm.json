@@ -1,0 +1,102 @@
+{
+ "te_same_osoby_domy_godziny": true,
+ "bdot": {
+  "c": {
+   "n": 204,
+   "cele": 5,
+   "top1_pct": 36.8,
+   "top5_pct": 100.0,
+   "dom_cel_med_km": 1.67,
+   "dom_cel_lt1km_pct": 17.2,
+   "centrum_med_km": 1.61,
+   "centrum_gt2km_pct": 0.0
+  },
+  "s": {
+   "n": 456,
+   "cele": 159,
+   "top1_pct": 7.0,
+   "top5_pct": 18.9,
+   "dom_cel_med_km": 1.69,
+   "dom_cel_lt1km_pct": 25.0,
+   "centrum_med_km": 1.0,
+   "centrum_gt2km_pct": 23.5
+  },
+  "u": {
+   "n": 51,
+   "cele": 18,
+   "top1_pct": 13.7,
+   "top5_pct": 51.0,
+   "dom_cel_med_km": 1.11,
+   "dom_cel_lt1km_pct": 45.1,
+   "centrum_med_km": 0.35,
+   "centrum_gt2km_pct": 7.8
+  },
+  "wszystkie": {
+   "n": 711,
+   "dom_cel_med_km": 1.62,
+   "dom_cel_lt1km_pct": 24.2,
+   "centrum_med_km": 1.27,
+   "centrum_lt05km_pct": 24.5
+  },
+  "top_cele_s": {
+   "obiekt handlowo-usługowy": 241,
+   "dom towarowy lub handlowy": 215
+  },
+  "top_cele_c": {
+   "centrum handlowe": 130,
+   "hipermarket lub supermarket": 74
+  }
+ },
+ "osm": {
+  "c": {
+   "n": 204,
+   "cele": 21,
+   "top1_pct": 9.3,
+   "top5_pct": 35.8,
+   "dom_cel_med_km": 1.52,
+   "dom_cel_lt1km_pct": 27.9,
+   "centrum_med_km": 0.96,
+   "centrum_gt2km_pct": 6.9
+  },
+  "s": {
+   "n": 456,
+   "cele": 144,
+   "top1_pct": 10.1,
+   "top5_pct": 21.9,
+   "dom_cel_med_km": 1.4,
+   "dom_cel_lt1km_pct": 31.8,
+   "centrum_med_km": 0.65,
+   "centrum_gt2km_pct": 6.6
+  },
+  "u": {
+   "n": 51,
+   "cele": 18,
+   "top1_pct": 13.7,
+   "top5_pct": 51.0,
+   "dom_cel_med_km": 1.11,
+   "dom_cel_lt1km_pct": 45.1,
+   "centrum_med_km": 0.35,
+   "centrum_gt2km_pct": 7.8
+  },
+  "wszystkie": {
+   "n": 711,
+   "dom_cel_med_km": 1.41,
+   "dom_cel_lt1km_pct": 31.6,
+   "centrum_med_km": 0.76,
+   "centrum_lt05km_pct": 34.6
+  },
+  "top_cele_s": {
+   "osm:clothes / centrum handlowe": 46,
+   "osm:convenience / obiekt handlowo-usługowy": 41,
+   "osm:convenience / dom towarowy lub handlowy": 22,
+   "osm:yes / obiekt handlowo-usługowy": 15,
+   "osm:optician / budynek wielorodzinny": 15
+  },
+  "top_cele_c": {
+   "osm:supermarket / dom towarowy lub handlowy": 140,
+   "osm:mall / centrum handlowe": 29,
+   "osm:supermarket / hipermarket lub supermarket": 25,
+   "osm:supermarket / magazyn": 10
+  }
+ }
+}

@@ -85,6 +85,12 @@ errand_gus_service = 25702
 errand_dur = "00:57:00"   # ZAŁOŻENIE: GUS Budżet czasu 2023, zakupy i korzystanie z usług 0.57 (h.mm) na wykonującego (suma z dnia), bez dojazdu; dla jednej wizyty kierunek błędu niepewny
 errand_participation = "config/errand_participation_bcl2023.csv"   # GUS Budżet czasu 2023, tabl. 2: odsetek osób robiących zakupy i usługi wg wieku (waga wyboru)
 errand_departure = "config/departure_home_inne_gbr2022.csv"        # GBR Gdańsk 2022 rys. 46 „dom - inne” (ZAŁOŻENIE: Gdańsk != Kutno), pipeline/digitize_gbr_inne.py
+# D34 (wariant, inspekcja reports/etap3/g_zakupy/inspekcja_qgis/): cel zakupów "bdot" = funkcje BDOT, waga obrys (baza R9.3);
+# "osm" = sklepy OSM (pipeline/osm_poi.py): c = supermarket|mall|department_store, s = pozostałe shop=*, także w budynkach mieszkalnych;
+# ZAŁOŻENIE: waga = liczba sklepów w budynku (nie obrys), sklep przypisany do budynku BDOT do errand_poi_m. Usługi u bez zmian.
+errand_dest = "bdot"
+errand_shops = "scenarios/kutno/osm/shops.csv"
+errand_poi_m = 15.0
 attr_seed = 30
 licence_denominator = "nsp2021"
 # licence_m65: mężczyźni 65+ w CEPiK mają iloraz > 1 (rejestr z martwymi duszami): "m5564" = udział jak mężczyźni 55-64 (baza D30, ZAŁOŻENIE), "cap098" = górne ograniczenie 0,98.

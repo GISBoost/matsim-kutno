@@ -397,3 +397,14 @@
 - Ustalenia (do decyzji przed krokiem 5): cel wypraw bez zależności od odległości (mediana 1,6 km, 24% wypraw autem < 1 km, 5 budynków bierze 30%); pula „centra handlowe” to 6 budynków BDOT; popyt to generator kierowców (`car_share`, osobne osoby wypraw), a wybór trybu wymaga populacji osób z planem dnia; ruchu w mieście nie sprawdza żaden licznik.
 - Poprawki dokumentów: D32 przeniesione do tabeli DECISIONS z listą ZAŁOŻEŃ, punkt otwarty o wyborze celu; ROADMAP (data, D1–D32, krok 4, 4B, wiersz przeglądu); `zakupy.md` (baza potwierdzona, ograniczenia); 57 min z BCL to suma dzienna, nie „dolna granica” (`zakupy.md`, `kutno.toml`, `G_aktywnosci_dodatkowe.md`); plan 4B: prefiks `d`, numer D33, godzina 8:00 jako ZAŁOŻENIE bez źródła.
 - `reports/etap1_mvp/f4_plans/f4_plans.*` przywrócone z gita (nadpisane przez `validate_plans.py` wywołane bez `sample` i katalogu wyjścia, fałszywe `deterministic: false`).
+
+## 2026-10-30: inspekcja celów zakupów w QGIS (BDOT vs OSM)
+
+- Pula `errands.py` z BDOT ma 326 budynków: c 6, s 287, u 33. Porównanie z 359 POI OSM (`shop`, wybrane `amenity`): w budynkach puli jest 81% POI dużego handlu, 58% sklepów i 43% banków, poczt i urzędów. 49 sklepów (cała ul. Królewska) i 8 banków lub poczt stoi w budynkach „wielorodzinny”, które są poza pulą. 34% wagi s przypada na budynki bez POI OSM, w tym hala 3 866 m² w strefie przemysłowej (4,2 km od centrum).
+- Podział c/s wg funkcji BDOT nie odpowiada podziałowi GUS: Kaufland, Lidl, Aldi i Biedronki są w s, a Dino i Leroy Merlin w c.
+- Warianty (a)–(c) do decyzji w punkcie otwartym D32. Raport z mapami i sekcjami „Jak czytać wykres”: [inspekcja.md](../../reports/etap3/g_zakupy/inspekcja_qgis/inspekcja.md), projekt QGIS `inspekcja.qgz`.
+
+## 2026-10-30: D34, cel zakupów wg sklepów OSM (wariant (a)+(c), propozycja)
+
+- `pipeline/osm_poi.py` → `scenarios/kutno/osm/shops.csv` (264 sklepy). `errands.py` z `errand_dest = osm`: c = OSM supermarket/mall/department_store, s = pozostałe sklepy (także w budynkach mieszkalnych), waga = liczba sklepów w budynku; u bez zmian. `errand_dest = bdot` daje plany R9.3 bajt w bajt (sha256 `efcbe80…`); przepis k1 odtwarza `plans_k1_r93` (sha `2100a8a…`), `plans_k1_r93o` deterministyczny (`bfa8abb…`).
+- Plany 25% p0 (te same osoby, domy, godziny): mediana celu od centrum 1,27 → 0,76 km, dom–cel 1,62 → 1,41 km, cele c 5 → 21 budynków. Raport [cel_osm.md](../../reports/etap3/g_zakupy/cel_osm/cel_osm.md). Workflow `matsim-r93o` gotowy; dalej push, `matsim-od` tag r93o, plany p0–p2 (`seed=n errand_seed=32+n`), test GHA.
