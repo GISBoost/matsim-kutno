@@ -1,13 +1,13 @@
 # Mapa projektu MATSim Kutno
 
-Stan: 2026-10-25. Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i miejsce każdej rzeczy w repo.
+Stan: 2026-10-30 (baza R9.3, D32). Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i miejsce każdej rzeczy w repo.
 
 ## 1. Gdzie czego szukać
 
 | pytanie | plik |
 |---|---|
 | Na jakim etapie jesteśmy, co dalej? | **ten plik** |
-| Co zdecydowaliśmy i dlaczego? | [DECISIONS.md](DECISIONS.md) (D1–D25) |
+| Co zdecydowaliśmy i dlaczego? | [DECISIONS.md](DECISIONS.md) (D1–D32) |
 | Co zrobione, z jakim dowodem? | [PROGRESS.md](PROGRESS.md) (dziennik chronologiczny) |
 | Kontrakty faz (wejścia, test, zaliczenie) | [TASKS.md](TASKS.md) |
 | Jak działa model i jak go odtworzyć | [README.md](../../README.md) |
@@ -53,7 +53,7 @@ Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 | 1 | **G1: skrzyżowania** (tylko geometria i zakazy skrętu) | ✅ zakazy skrętu wdrożone (D26, baza R8), efekt poniżej rozrzutu seedów, `f` bez zmian ([g1.md](../../reports/etap3/g1_skrzyzowania/g1.md)); sygnalizacja świetlna później; rozdziela opóźnienia węzłów od prędkości (D23, `f` w mieście) |
 | 2 | **G3: domy** (z etapu 2) | ✅ D28, baza R9: BDOT10k jedno- i wielorodzinne, waga obrys × kondygnacje; zgodność z GUS 250 m TV 10,3 → 8,1 pp, ruch bez zmian ponad rozrzut planów ([g3.md](../../reports/etap3/g3_domy/g3.md)) |
 | 3 | ✅ **atrybuty osób** (D30, baza R9.2: wiek, płeć, prawo jazdy, carAvail; pełna populacja Kutna w CSV; [atrybuty.md](../../reports/etap3/g_atrybuty/atrybuty.md)) | wiek z NSP 2021; dostęp do auta i odsetek prawa jazdy z ogólnych statystyk GUS (łódzkie); najpierw research |
-| 4 | **dodatkowe aktywności** (szkoła, zakupy, sprawy) | nowa faza, zmiana planów i godzin; dane o celach i rozkładzie godzin z GUS Mobilność |
+| 4 | 🔶 **dodatkowe aktywności** (szkoła, zakupy, sprawy) | 4A praca przyjazd + odjazd (D31, `off`), 4C zakupy i usługi (D32, baza R9.3) ✅; 4B szkoła otwarta (plan, czeka na decyzje) |
 | 5 | **GTFS i transport publiczny** | GTFS Kutno: licencja potwierdzona przez użytkownika 2026-10-21; kolej z feedu Kuranowskiego; research: [G4_tryby.md](../../docs/research/G4_tryby.md) |
 | 6 | **wybór trybu i kalibracja ASC**: car, ride (pasażer), pt, bike, walk | wzorzec: Kelheim i Berlin (`ride` jako tryb sieciowy, rower i pieszo wg wzorca); cel kalibracji z GUS Mobilność |
 | 7 | **pomiary miejskie do walidacji** | tylko dane publicznie dostępne; jeśli ich nie ma, zapisujemy to jako ograniczenie |
@@ -68,7 +68,9 @@ Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 | 0 | ✅ **Estymacja O-D na GitHub Actions** (2026-10-25, workflow `matsim-od`, [krok0.md](../../reports/etap3/krok0_od_gha/krok0.md)) (warunek wstępny dla kroków 3 i 4): workflow „runy bez tła × 3 seedy → artefakty z eventami → `background_od.py` → macierze”. Dziś ta część idzie lokalnie (ERRORS 34), a artefakty GHA nie zawierają eventów | blokuje każdą zmianę planów, bo zmiana planów wymaga nowej estymacji O-D |
 | 3 | ✅ **Atrybuty osób** (D30, baza R9.2, [atrybuty.md](../../reports/etap3/g_atrybuty/atrybuty.md)) (research, potem wdrożenie): wiek z NSP 2021 (BREC), prawo jazdy i dostęp do auta z GUS (łódzkie). Zasięg: atrybuty w `plans.xml` i `car_share` zależne od wieku zamiast jednego 0,64. Sam zapis atrybutów nie zmienia ruchu; zmienia go tylko użycie (wybór, kto jedzie autem), więc to krok danych przed krokami 4 i 6 | po 0 |
 | 4A | ✅ **Praca = przyjazd + odjazd** (D31, [praca_split.md](../../reports/etap3/g_praca_split/praca_split.md)): zawrotki 12,4% → 1,1%, ruch bez zmian; użytkownik wybrał `work_split = off`, baza zostaje R9.2, wariant w kodzie | po 3 |
-| 4B | 🔶 **Dodatkowe aktywności** (szkoła, zakupy, sprawy) razem z **rozdzieleniem aktywności pracy na przyjazd i odjazd** (usuwa ostatnie zawrotki, D29). **Research gotowy** ([G_aktywnosci_dodatkowe.md](../research/G_aktywnosci_dodatkowe.md)), czeka na odpowiedzi użytkownika (zakres A–D, tryb, bilans tła, godziny, uczniowie spoza Kutna, łańcuchy); potem D31 | po 3 (potrzebny wiek: dzieci, emeryci) |
+| 4C | ✅ D32, baza R9.3 **Zakupy i usługi** (tylko auto, osobne wyjścia): test GHA 40871126965 w rozrzucie, [zakupy.md](../../reports/etap3/g_zakupy/zakupy.md); szkoła (4B) i tryby później | po 4A |
+| 4B | 🔶 **Szkoła**: plan bez wdrożenia ([G_szkola_4B_plan.md](../research/G_szkola_4B_plan.md)), czeka na odpowiedzi użytkownika; numer decyzji D33. Przegląd 2026-10-29: w modelu tylko-auto szkoła wymaga osobnego agenta „rodzic wożący”, więc razem z populacją osób i trybami (kroki 5–6) może być prostsza | po 4C |
+| przegląd | ✅ **Przegląd kroków 0–4C (2026-10-29)**: plany R9.3 odtwarzalne (sha256), `errands=off` = R9.2 bajt w bajt. Do decyzji przed krokiem 5: (1) wybór celu zakupów bez odległości (D32 ZAŁOŻENIE 3); (2) popyt to dziś generator kierowców (`car_share`, osobne osoby wypraw), a wybór trybu wymaga populacji osób z planem dnia; (3) wnętrze miasta bez pomiarów (krok 7), więc zmiany popytu w mieście wychodzą „w rozrzucie” | przed 5 |
 | 5–6 | GTFS i PT, wybór trybu i kalibracja ASC | po 4 |
 | 7–8 | pomiary miejskie, odtworzenie od zera | na końcu |
 
@@ -115,6 +117,7 @@ Baza: **R7b** (D25; A1 98% / 101%, 14/15 odcinków w ±15% dla lekkich i ciężk
 | Geometria linków z OSM | 💡 propozycja | potrzebna do zgodności tras i walidacji dróg tertiary/unclassified; przyda się w G6 |
 | Lokalny wizualizer runu | ▶ **D24, kroki 1–3 kod ✅, oś harmonogramu ✅, łamane OSM w oknie ✅, spike ✅** (WebView2 + Leaflet). Dalej: plan poprawek okna zaakceptowany, kod jeszcze nie. Podkład, drugi run i bake odłożone. Łódź poza tym krokiem | faza po zamkniętym MVP; nie zastępuje G5 ani D23. Kod: `pipeline/viz_index.py`, `pipeline/viz_engine.py`, `viz_player/`. Plan: `docs/research/wizualizer_plan.md` |
 | Skrzyżowania, aktywności, GTFS i PT, wybór trybu | etap 3 | kolejność w §2 |
+| Dokumentacja EN/PL i strona projektu | 💡 propozycja, nic nie kodujemy | README po angielsku jako domyślny (GitHub), na górze przełącznik na wersję polską (`README.pl.md`). Tłumaczenie lokalnym LLM w pipeline'ie jak w easy-OTP (`tools/i18n`), ale po blokach markdownu: kod, linki, tabele i liczby zostają bez zmian, a pamięć tłumaczeń jest kluczowana hashem bloku. Raporty i `docs/projekt/` zostają po polsku. Ewentualnie osobna strona na GitHub Pages (`GISBoost.github.io`, do ustalenia: repo `GISBoost.github.io` czy projektowe `…/matsim-kutno`). Kroki: test na ok. 20 blokach z dwóch modeli, pełne tłumaczenie, przegląd człowieka, przełącznik w obu plikach README |
 | Łódź | bez fazy | dopiero po zamknięciu całego Kutna |
 
 ## 5. Układ folderów

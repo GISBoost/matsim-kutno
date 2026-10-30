@@ -1,34 +1,36 @@
-# MATSim Kutno: instrukcja modelu
+# MATSim Kutno: model guide
 
-Stan: 2026-10-20. Opis zakłada decyzje D1–D23 z `docs/projekt/DECISIONS.md` i wyniki z `docs/projekt/PROGRESS.md`. Rozdziały 5–13 opisują model do D19 (baza D18 i R1); zmiany D20–D23 (ruch tła, dostawcze i ciężkie, baza R6, prędkości per grupa dróg) są w rozdziale 11.4 i 12, a szczegóły w `docs/projekt/ROADMAP.md`.
-Każde założenie jest oznaczone **ZAŁOŻENIE** albo ma źródło (plik, wiersz, URL w `data/manifest.csv` i `docs/ZRODLA.md`).
-Brakujące elementy są w rozdziale 14 („Luki”), z odsyłaczem do dokumentu, który je opisuje. Mapa projektu (fazy, stan, plany): [docs/projekt/ROADMAP.md](docs/projekt/ROADMAP.md).
+**English** | [Polski](README.pl.md)
 
-> **Ważne:** to model ruchu dojazdów do pracy autem w gminie Kutno, nie prognoza ruchu. Wyniki służą do sprawdzenia poprawności pipeline'u i sensowności geografii (D2). Porównania z pomiarami są na etapie kalibracji (G5, D19).
+Status: 2026-10-20. The description assumes decisions D1–D23 from `docs/projekt/DECISIONS.md` and results from `docs/projekt/PROGRESS.md`. Chapters 5–13 describe the model up to D19 (baseline D18 and R1); changes D20–D23 (background traffic, delivery and heavy, baseline R6, speeds per road group) are in chapter 11.4 and 12, with details in `docs/projekt/ROADMAP.md`.
+Each assumption is marked as **ASSUMPTION** or has a source (file, line, URL in `data/manifest.csv` and `docs/ZRODLA.md`).
+Missing elements are in chapter 14 ("Gaps"), with a reference to the document that describes them. Project map (stages, status, plans): [docs/projekt/ROADMAP.md](docs/projekt/ROADMAP.md).
 
----
-
-## 1. Cel, zakres i to, czego model nie robi
-
-**Cel:** agentowa symulacja MATSim dla gminy miejskiej Kutno (TERC 1002011, 42 255 mieszkańców wg NSP 2021). Kutno jest poligonem metodologii, którą później przeniesiemy na Łódź, ale dopiero po zakończeniu prac nad samym Kutnem.
-
-**Zakres MVP (D3, D6):**
-- agent jedzie **samochodem** w łańcuchu `dom → praca → dom`;
-- popyt obejmuje: mieszkańców Kutna pracujących w Kutnie (D17, rejestr), przyjeżdżających do pracy w Kutnie z macierzy GUS, a od D17 także **wyjeżdżających** z Kutna do pracy poza miastem;
-- od D19 do popytu dodany jest współczynnik udziału auta i obecności w pracy (K1-1).
-
-**Czego model NIE robi (świadomie, zakres zamrożony):**
-- nie modeluje transportu publicznego, pieszych, rowerzystów (tryby: rozdział G4, nieaktywne);
-- nie modeluje innych celów podróży (zakupy, szkoła, sprawy); ruch dostawczy i ciężki jest tylko tłem z estymacji O-D (D20), a nie modelem zachowań;
-- nie modeluje sygnalizacji, skrzyżowań, pierwszeństwa ani zakazów skrętu (G1 odłożony przez użytkownika);
-- nie ma wyboru trybu (mode choice) ani kalibracji scoringu;
-- ruch tranzytowy i tło (ruch z zewnątrz sieci) jest od D19–D21 w runach jako subpopulacje `tlo` (lekkie i dostawcze) i `ciezkie`, z macierzy O-D estymowanych z liczników GPR. To estymacja kalibrowana do pomiarów, nie obserwacja (rozdział 11.4).
+> **Important:** this is a model of commuting traffic by car in the Kutno municipality, not a traffic forecast. The results are used to check the correctness of the pipeline and the sensibility of the geography (D2). Comparisons with measurements are at the calibration stage (G5, D19).
 
 ---
 
-## 2. Jak odtworzyć wyniki
+## 1. Purpose, scope and what the model does not do
 
-Wszystkie kroki są w projekcie. Dane surowe (`data/raw/`) nie są w gicie, ale każdy plik ma URL i sumę SHA-256 w `data/manifest.csv`.
+**Goal:** agent-based simulation of MATSim for the urban commune of Kutno (TERC 1002011, 42,255 inhabitants according to NSP 2021). Kutno is a testing ground for the methodology, which we will later transfer to Łódź, but only after completing work on Kutno itself.
+
+Scope of the MVP (D3, D6):
+- agent travels by **car** in the chain `dom → praca → dom`;
+- demand includes: residents of Kutno employed in Kutno (D17, register), inbound commuters to Kutno from the GUS matrix, and from D17 also outbound commuters from Kutno for work outside the city;
+- from D19 to demand the vehicle share and presence at work factor (K1-1) is added.
+
+What the model DOES NOT do (consciously, scope frozen):
+- does not model public transit, pedestrians, cyclists (modes: chapter G4, inactive);
+- does not model other trip purposes (shopping, school, errands); freight and heavy traffic is only background traffic from the O-D estimation (D20), not a behavior model;
+- does not model traffic light signals, intersections, priority or turning restrictions (G1 set by user);
+- no mode choice or scoring calibration available;
+- transit and background traffic (traffic from outside the network) is from D19–D21 in runs as subpopulations `tlo` (light and freight) and `ciezkie`, estimated from GPR counter matrices O-D. This is a calibration estimation to measurements, not an observation (chapter 11.4).
+
+---
+
+## 2. How to replay the results
+
+All steps are in the project. Raw data (`data/raw/`) is not in git, but each file has a URL and SHA-256 checksum in `data/manifest.csv`.
 
 ```bash
 # 0. Python (uv, Py 3.12) i zależności
@@ -68,15 +70,15 @@ uv run python pipeline/check_events.py output/r3_25pct/output_events.xml.zst --e
 uv run python pipeline/queues.py ...   # przepełnione linki (D18), argumenty: patrz nagłówek skryptu
 ```
 
-**Baza referencyjna od D21 to R6** (zastępuje R4). Configi wskazują plany i pojazdy `plans_g5r6_*pct`, więc run nie wymaga nadpisań. Macierze tła (`scenarios/kutno/demand/background_od_r6b_*_gpr.csv`) powstają w `pipeline/background_od.py`, strefy graniczne w `pipeline/border_zones.py`. Po każdej estymacji uruchom `pipeline/od_warnings.py`. Referencja 25%: `output/g5r6_25pct_s{4711,1,2}` oraz seedy planów `g5r6p{1,2}_25pct_s4711` (`reports/etap2/g5_kalibracja/g5_r6_ref.md`). Kroki 6–8 powyżej opisują stan z D18/R1.
+Baseline from D21 to R6 (replaces R4). Configs indicate plans and vehicles `plans_g5r6_*pct`, so the run does not require overrides. Background matrices (`scenarios/kutno/demand/background_od_r6b_*_gpr.csv`) are created in `pipeline/background_od.py`, boundary zones in `pipeline/border_zones.py`. After each estimation, run `pipeline/od_warnings.py`. Reference 25%: `output/g5r6_25pct_s{4711,1,2}` and plan seeds `g5r6p{1,2}_25pct_s4711` (`reports/etap2/g5_kalibracja/g5_r6_ref.md`). Steps 6–8 above describe the state from D18/R1.
 
-**Test regresyjny** (po każdej zmianie w `matsim/`): `scenarios/smoke/config.xml` (10 agentów, sieć syntetyczna), potem `check_events.py --expect-car-legs 20`. Przed testem usuń stary output.
+Regression test (after every change in `matsim/`): `scenarios/smoke/config.xml` (10 agents, synthetic network), then `check_events.py --expect-car-legs 20`. Before the test, delete the old output.
 
-**Uwaga:** przed ponownym generowaniem planów przeczytaj rozdział 13, punkt R-1 (`car_share` w `config/kutno.toml`). Bez tego plany 25% nie będą zgodne z wynikami referencyjnymi.
+Note: before regenerating the plans read chapter 13, point R-1 (`car_share` in `config/kutno.toml`). Without this, 25% of the plans will not match the reference results.
 
 ---
 
-## 3. Przepływ danych (pipeline)
+## 3. Data flow (pipeline)
 
 ```
 GUS NSP 2021: ludność per obwód, macierz dojazdów, rynek pracy ─┐
@@ -96,451 +98,451 @@ config_*.xml (MATSim 2026.0, seed, factors, QSim) ◄─────────
 MATSim run ─► output/ (events, linkstats, modestats) ─► check_events.py, queues.py, convergence.py, g5_baseline.py ─► reports/
 ```
 
-**Podział odpowiedzialności:** Python liczy dane i plany, Java konwertuje sieć i uruchamia symulację. Każdy plik powstaje w jednym miejscu.
+Responsibility division: Python counts the data and plans, Java converts the network and runs the simulation. Each file is created in one place.
 
 ---
 
-## 4. Źródła danych
+## 4. Data sources
 
-Pełna lista z ograniczeniami: `docs/ZRODLA.md`. Poniżej to, co wpływa na model.
+Full list of limitations: `docs/ZRODLA.md`. Below is what influences the model.
 
-| Źródło | Co dostajemy | Gdzie w modelu | Ograniczenia |
+| Source | What we get | Where in the model | limitations |
 |---|---|---|---|
-| **GUS NSP 2021, ludność w rejonach i obwodach spisowych** (`gus/ludnosc_rejony_obwody_nsp2021.xlsx`) | 232 obwody Kutna: ludność ogółem, grupy wieku (przed/produkcyjny/poprodukcyjny). Suma 42 255. | Rozkład mieszkańców pracujących na obwody (D5, D17) | Brak krzyżowania płci z wiekiem i brak statusu zatrudnienia. |
-| **GUS NSP 2021, rynek pracy, TABL. 5** (`gus/rynek_pracy_nsp2021_tablice.xlsx`) | Wskaźniki zatrudnienia dla miast woj. łódzkiego: produkcyjny 0,739 (wariant niski: pracujący / ogółem) lub 0,784 (bazowy: bez nieustalonego statusu, metoda GUS); poprodukcyjny ok. 0,12 | Szacunek pracujących per obwód (D5), wariant „base” | Tylko województwo, nie gmina. Estymacja, nie obserwacja. Wartości: `scenarios/kutno/validation/f3_demand.json`. |
-| **GUS NSP 2021, macierz przepływów do pracy** (`gus/macierz_przeplywow_nsp2021.xlsx`) | Przyjeżdżający do Kutna: 8 186 osób w 134 gminach. Wyjeżdżający: 2 669 w 83 gminach. | Przyjeżdżający i wyjeżdżający (D3, D9, D17) | Tylko pracownicy najemni. Pomija przepływy < 3 osób i ruch wewnątrz gminy. Miejsce pracy to adres pracodawcy (np. siedziba firmy w Warszawie). |
-| **BDL P4507 i P4508, 2024** (`g2/bdl_kutno.json`, API BDL) | P4507: pracujący mieszkańcy gminy (17 255). P4508: miejsca pracy wg siedziby płatnika (17 486). | Kotwica liczby mieszkańców pracujących w Kutnie (D17/B) i wariant C | Rejestry ZUS/KRUS, liczą według siedziby płatnika. Między P4507 + NSP a P4508 jest luka 30%, której nie da się wyjaśnić (G2). |
-| **GUS BREC 2021, geometria** (`brec/AreaStatisticalUnit_10_2021.zip`, `brec/SU_BREC_2021_REJ.zip`) | Granice gminy, powiatu, rejonów i obwodów w EPSG:2180 | Obszar, obwody, gminy źródłowe (D9, D11) | Miasta na prawach powiatu mają w BREC kody dzielnic (łączymy po kodzie powiatu). |
-| **OSM Geofabrik, `lodzkie-261015.osm.pbf`** (dane do 2026-10-15) | Sieć drogowa, budynki (tag `building`), landuse (`residential`, `industrial`, `commercial`, `retail`), tagi `amenity`/`shop`/`office` | Sieć (rozdział 5), budynki domów i pracy (rozdział 7) | Jakość tagów zależy od wolontariuszy. W gm. Kutno 72% budynków ma `building=yes` (bez typu), a `building:levels` jest w tej grupie tylko w 2% (bloki: 84%). |
-| **GBR Gdańsk 2022, Raport 3a, Rys. 46** (`gbr/GBR2022_raport3a.pdf`) | Godzinowy rozkład wyjazdów „dom–praca” (`config/departure_home_work_gbr2022.csv`) | Godziny wyjazdu (D14) | Metropolia Gdańsk, nie Kutno. Dane odczytane z wykresu wektorowego PDF. |
-| **GDDKiA GPR 2025** (`g5/gpr2025/`) | Średni dobowy ruch na 19 odcinkach w sieci (A1, DK, DW), SDRR/SDRDR, udział lekkich i ciężkich | Walidacja (G5), cel kalibracji | Jedna wartość na cały odcinek, bez godzin. Brak ulic miejskich poza DK. |
-| **GDDKiA SCPR 2025, stacja 14005 Lisica** (`g5/scpr2025/st_14005.pdf`) | Krzywe godzinowe dnia roboczego (zdigitalizowane) | Profil godzinowy ruchu tła (K3-2) | Stacja 13 km od Kutna, na DK60. Digitalizacja z wykresu. |
-| **GUS Mobilność 2024** (`gus_transport/mobilnosc_*`) | Praca z domu łódzkie 7,3%, udział samochodu w podróżach wszystkich celów 60,1% | Obecność w pracy (K1-1) | Dla wszystkich celów, nie dla dojazdów do pracy. Tylko województwo. |
-| **Bochnia 2016, Radom 2022** (`g4/`) | Udział auta w dojazdach dom–praca: 61–67% | Udział auta (K1-1) | Inne miasta, wartości z wykresów. |
-| **BDOT10k powiat 1002, 2025-12-09** (`g3/bdot10k/1002_GPKG.zip`) | Budynki mieszkalne z liczbą kondygnacji (99,9% wypełnione) | **Nie używane w modelu** (rekomendacja G3, decyzja otwarta) | 39% geometrii z ortofotomapy. |
-| **GUS statystyczne punkty adresowe, NSP** (`g2/adr_kutno_2026_0.csv`) | 4 807 punktów adresowych budynków mieszkalnych w Kutnie | Tylko kontrola (G2, G3) | Nic o podmiotach i pracy. |
-| **GUS macierz dostępności** (`gus_transport/macierz_dostepnosci_20210331.xlsx`) | Czas przejazdu autem między gminami | Kontrola czasów (G5), próg D16 w minutach (nieużyte) | Model drogowy GUS, bez kongestii. |
-| **GTFS zbiorkom.live Kutno, GTFS kolej (Kuranowski)** | Rozkłady autobusów i kolei | Poza MVP (G4) | Brak licencji w feedzie zbiorkom.live. Feed kolei ważny 30 dni. |
-| **Literatura VSP i MATSim MUM 2026** (`g5/lit/`, `mum2026/`) | Konfiguracje referencyjne (matsim-berlin v6.3, matsim-kelheim v3.1), praktyka kalibracji | Uzasadnienie `stuckTime` (D18) i dynamiki `queue` | Inne skale. Nie są kopiowane wprost. |
+| GUS NSP 2021, population in regions and statistical districts `gus/ludnosc_rejony_obwody_nsp2021.xlsx` | 232 districts of Kutno: total population, age groups (pre/productive/post-productive). Total 42,255. | Distribution of employed persons on districts (D5, D17) | Lack of gender cross-section with age and lack of employment status. |
+| GUS NSP 2021, labor market, TABLE 5 `gus/rynek_pracy_nsp2021_tablice.xlsx` | Employment indicators for cities in the Łódź voivodeship: production 0.739 (low variant: employed person / total) or 0.784 (baseline: without undetermined status, GUS method); post-production approx. 0.12 | Employed person estimate per district (D5), "baseline" variant | Only the voivodeship, not the commune. Estimation, not observation. Values: `scenarios/kutno/validation/f3_demand.json`. |
+| GUS NSP 2021, employment flow matrix `gus/macierz_przeplywow_nsp2021.xlsx` | Inbound commuter to Kutno: 8,186 persons in 134 municipalities. Outbound: 2,669 in 83 municipalities. | Inbound and outbound @@N@@ (D3, D9, D17) | Only employed persons. Ignores flows < 3 people and background traffic within the municipality. The workplace is the employer's address (e.g., company headquarters in Warsaw). |
+| BDL P4507 and P4508, 2024 `g2/bdl_kutno.json`, BDL API | P4507: employed person residents of the municipality (17 255). P4508: workplaces by payer headquarters (17 486). | Anchor of the number of employed persons in Kutno (D17/B) and variant C | ZUS/KRUS registers, counted by payer's headquarters. There is a 30% gap between P4507 + NSP and P4508 that cannot be explained (G2). |
+| GUS BREC 2021, geometry (`brec/AreaStatisticalUnit_10_2021.zip`, `brec/SU_BREC_2021_REJ.zip`) | Municipal boundaries, county, region and district boundaries in EPSG:2180 | Area, districts, source municipalities (D9, D11) | Cities with county rights have district codes in BREC (we combine by county code). |
+| OSM Geofabrik, `lodzkie-261015.osm.pbf` (data up to 2026-10-15) | Road network, buildings (tag `building`), landuse (`residential`, `industrial`, `commercial`, `retail`), tags `amenity`/`shop`/`office` | Network (chapter 5), buildings of homes and work (chapter 7) | Tag quality depends on volunteers. In the Kutno municipality, 72% of buildings have `building=yes` (without type), and `building:levels` is in this group only at 2% (blocks: 84%). |
+| GBR Gdańsk 2022, Report 3a, Fig. 46 `gbr/GBR2022_raport3a.pdf` | Hourly schedule of "home-work" `config/departure_home_work_gbr2022.csv` commutes | Departure hours (D14) | Gdańsk Metropolis, not Kutno. Data read from the vector PDF chart. |
+| GDDKiA GPR 2025 `g5/gpr2025/` | Average daily traffic on 19 segments in the network (A1, DK, DW), SDRR/SDRDR, share of light and heavy | Validation (G5), calibration goal | One value for the entire segment, without hours. No urban streets except DK. |
+| GDDKiA SCPR 2025, station 14005 Lisica `g5/scpr2025/st_14005.pdf` | Weekday hourly curves (digitized) | Background traffic hourly profile (K3-2) | Station 13 km from Kutno, on DK60. Digitization from the graph. |
+| GUS Mobility 2024 `gus_transport/mobilnosc_*` | Working from home Łódź 7.3%, share of car in trips for all purposes 60.1% | Presence at work (K1-1) | For all purposes, not for commuting to work. Only the voivodeship. |
+| Bochnia 2016, Radom 2022 `g4/` | Share of car in commuting home-work: 61–67% | Vehicle share (K1-1) | Other cities, values from the charts. |
+| BDOT10k district 1002, 2025-12-09 `g3/bdot10k/1002_GPKG.zip` | Residential buildings with number of floors (99.9% filled) | Not used in the model (G3 recommendation, open decision) | 39% of the geometry from the orthophoto map. |
+| GUS statistical address points, NSP `g2/adr_kutno_2026_0.csv` | 4 807 address points of residential buildings in Kutno | Only control (G2, G3) | Nothing about entities and work. |
+| GUS accessibility matrix `gus_transport/macierz_dostepnosci_20210331.xlsx` | Travel time by car between municipalities | Time control (G5), threshold D16 in minutes (unused) | GUS road model, without congestion. |
+| GTFS collection.live Kutno, GTFS rail (Kuranowski) | Bus and train schedules | Beyond MVP (G4) | No license in the zbiorkom.live feed. Railway feed valid for 30 days. |
+| VSP and MATSim MUM 2026 Literature (`g5/lit/`, `mum2026/`) | Reference configurations (matsim-berlin v6.3, matsim-kelheim v3.1), calibration practice | Justification `stuckTime` (D18) and dynamics `queue` | Other scales. They are not copied directly. |
 
-**Zasada:** liczby i parametry bierzemy tylko ze źródeł z `docs/ZRODLA.md` i z `data/manifest.csv`. Twierdzenia z raportów pomocniczych są sprawdzone w `docs/projekt/FACT_CHECK.md`.
+Principle: numbers and parameters are taken only from sources `docs/ZRODLA.md` and `data/manifest.csv`. Assertions from auxiliary reports are checked in `docs/projekt/FACT_CHECK.md`.
 
 ---
 
-## 5. Sieć drogowa
+## 5. Road network
 
-### 5.1 Obszar
+### 5.1 Area
 
-- **Gmina Kutno** (gm. miejska 1002011): suma 41 rejonów BREC, 33,55 km².
-- **Powiat kutnowski** (1002): 117 rejonów, 885,6 km².
-- **Obszar sieci** = powiat + **bufor 3 km** (`network_buffer_m = 3000` w `config/kutno.toml`).
-  **ZAŁOŻENIE:** bufor zatrzymuje drogi wjazdowe za granicą powiatu, żeby przyjeżdżający z dalszych gmin miały gdzie wjechać. Szerokość bufora poza powiatem jest otwarta (D-otwarte).
-- Współrzędne: EPSG:2180, kolejność osi **E, N** (x ≈ 525 000, y ≈ 485 000). Transformacja z WGS84 odbywa się raz, w konwerterze Java.
+- Kutno Municipality (gm. miejska 1002011): total of 41 BREC districts, 33.55 km².
+- Kutno county @@N@@ (1002): 117 districts, 885.6 km².
+- Network area = county + **3 km buffer** (`network_buffer_m = 3000` in `config/kutno.toml`).
+  ASSUMPTION: the buffer retains the entry roads outside the county so that inbound commuters from further municipalities have somewhere to enter. The width of the buffer outside the county is open (D-open).
+- Coordinates: EPSG:2180, axis order **E, N** (x ≈ 525 000, y ≈ 485 000). Transformation from WGS84 is performed once in the Java converter.
 
-### 5.2 Konwersja z OSM
+### 5.2 Conversion from OSM
 
-- Konwerter: `SupersonicOsmNetworkReader` (contrib `osm`, MATSim 2026.0), tylko tryb `car`.
-- Filtr obszaru: linki, których węzły leżą wewnątrz obszaru sieci.
+- Converter: `SupersonicOsmNetworkReader` (contrib `osm`, MATSim 2026.0), only `car` mode.
+- Area filter: links whose nodes lie within the network area.
 - `NetworkCleaner` usuwa węzły i linki nieosiągalne (F2: usunięto 116 węzłów i 127 linków).
-- **Zawrotki na granicy** (poprawka F2, A1): przy przycięciu autostrada A1 zostaje z jednokierunkowymi jezdniami, które kończą się ślepo na granicy, i `NetworkCleaner` usunąłby je aż do najbliższego węzła. Dlatego każdy węzeł-ujście (tylko wjazdy) łączymy z najbliższym węzłem-źródłem (tylko wyjazdy) w promieniu **300 m**. Linki dostają typ `boundary_turnaround`, prędkość 30 km/h i capacity 5 000 poj./h (wartości ZAŁOŻENIE). Działają tylko w pasie **1 km** od granicy (`boundary_zone_m`).
+- Border loops (correction F2, A1): when the A1 motorway is truncated, it remains with unidirectional lanes that end blindly at the border, and `NetworkCleaner` would remove them until the nearest node. Therefore, every node-exit (only entrances) we connect with the nearest node-source (only exits) within a radius of **300 m**. Links receive type `boundary_turnaround`, speed 30 km/h and capacity 5 000 veh/h (ASSUMPTION values). They operate only in the band of **1 km** from the border (`boundary_zone_m`).
 
-**Wynik sieci (F2):** 4 453 węzły, 10 296 linków, 4 426 km. Największa silnie spójna składowa obejmuje **100%** węzłów. 90/90 par tras testowych jest osiągalnych. Żaden link nie ma capacity, freespeed, length ani lanes ≤ 0.
+Network result (F2): 4 453 nodes, 10 296 links, 4 426 km. The largest strongly connected component includes **100%** of the nodes. 90/90 test route pairs are reachable. No link has capacity, freespeed, length or lanes ≤ 0.
 
-### 5.3 Prędkości (D13)
+### 5.3 Speeds (D13)
 
-Domyślne prędkości Supersonic (wartości VSP dla miast niemieckich) dawały **15 km/h** na ok. 3 000 km dróg lokalnych, głównie wiejskich. Dlatego prędkości są ustawiane jawnie w `config/network.properties`, w kolejności:
+Default Supersonic speeds (VSP values for German cities) yielded **15 km/h** on approx. 3,000 km of local roads, mainly rural. Therefore, the speeds are explicitly set in `config/network.properties`, in the following order:
 
-1. tag OSM `maxspeed` (także `PL:urban`, `PL:rural` itd.) przeliczony na km/h;
-2. brak tagu → limit ustawowy wg typu drogi (Prawo o ruchu drogowym, art. 20): miasto 50, poza miastem 90, residential 50, living_street 20, motorway 140, trunk 100 (**ZAŁOŻENIE**: trunk 100, bo w PL to zwykle GP lub droga ekspresowa);
-3. **freespeed = prędkość dozwolona × 0,8** (**ZAŁOŻENIE**: 0,8 to wartość praktyki VSP, nie wyliczona dla Kutna).
+1. OSM `maxspeed` (also `PL:urban`, `PL:rural` etc.) converted to km/h;
+2. no tag → statutory limit according to road type (Road Traffic Law, art. 20): city 50, outside city 90, residential 50, living_street 20, motorway 140, trunk 100 (**ASSUMPTION**: trunk 100, because in PL it is usually GP or express road);
+3. freespeed = allowed speed × 0,8 (ASSUMPTION: 0,8 is the practical VSP value, not calculated for Kutno).
 
-„Miasto” = gmina miejska i miasta w gminach miejsko-wiejskich z BREC (`towns.wkt`). **ZAŁOŻENIE:** wsie z zabudową traktujemy jak drogi zamiejskie (OSM nie ma granic obszaru zabudowanego).
+"City" = urban municipality and cities in urban-rural municipalities with BREC `towns.wkt`. **ASSUMPTION**: villages with development are treated as urban roads (OSM does not have built-up area boundaries).
 
-**Kontrola:** czas swobodny w sieci to mediana **0,76 × czas GUS** (29 gmin, `scenarios/kutno/validation/gus_vs_siec.csv`). Sieć jest szybsza niż ORS/GUS, więc nie ma sygnału, że prędkości są zaniżone. Sam ORS to też model.
+Control: the free time in the network is the median **0,76 × GUS time** (29 municipalities, `scenarios/kutno/validation/gus_vs_siec.csv`). The network is faster than ORS/GUS, so there is no indication that speeds are underestimated. ORS itself is also a model.
 
-**Zmiana D23 (2026-10-18, w toku):** jeden współczynnik 0,8 jest zastępowany współczynnikami per grupa dróg (A autostrada, B DK/DW poza miastem, C tertiary/unclassified poza miastem, D osiedlowe poza miastem, E główne w mieście, F lokalne w mieście), dopasowanymi do czasów TomTom (D22, wariant A: w repo tylko metryki). Wartości po kalibracji są w `reports/etap2/g5_predkosci_d23/`. Walidacja D22 wykazała prędkości swobodne ok. 15% niższe od TomTom na A1, DK i DW; czasy 48–77% tras mieszczą się w kryterium TAG M3.1.
+**Change D23 (2026-10-18, in progress):** one factor of 0.8 is replaced by factors per road group (A motorway, B DK/DW outside city, C tertiary/unclassified outside city, D residential outside city, E main inside city, F local inside city), matched to TomTom times (D22, variant A: metrics only in repo). Values after calibration are in `reports/etap2/g5_predkosci_d23/`. Validation of D22 showed free-flow speeds approx. 15% lower than TomTom on A1, DK and DW; times for 48–77% of routes fall within the TAG M3.1 criterion.
 
-### 5.4 Przepustowość i dynamika (nie skalibrowane)
+### 5.4 Throughput and dynamics (uncalibrated)
 
-- **Capacity** i liczba pasów: domyślne wartości Supersonic (np. tertiary 600 poj./h/pas, primary 1 500 poj./h/pas). **Nie są skalibrowane** i nie mają lokalnego źródła. Połowa opóźnień siedzi na ulicach tertiary (`reports/etap2/g6_kolejki/g6_kolejki.md`).
-- **Skrzyżowania:** brak sygnalizacji i pierwszeństwa. Przepustowość to tylko właściwość linku (G1, odłożony).
-- **Dynamika kolejek:** `trafficDynamics = queue`. kinematicWaves (jak Berlin, Kelheim) dał +56% opóźnień, a przy 300 s stuck time gridlock (D18, G5 K5).
-- **`qsim.stuckTime = 30 s`** (D18). Przy 10 s i `removeStuckVehicles=false` QSim wpychał pojazdy na pełne krótkie linki (82 pojazdy na linku o pojemności 1,2). Po zmianie: przepełnione linki 13 → 4–7.
+- Capacity and number of lanes: default Supersonic values (e.g., tertiary 600 veh./h/lane, primary 1 500 veh./h/lane). They are not calibrated and do not have a local source. Half of the delays are on tertiary streets `reports/etap2/g6_kolejki/g6_kolejki.md`.
+- Intersections: lack of signaling and priority. Throughput is only a link property (G1, delayed).
+- Queue dynamics: `trafficDynamics = queue`. kinematicWaves (like Berlin, Kelheim) gave +56% delays, and with 300 s stuckTime gridlock (D18, G5 K5).
+- At `qsim.stuckTime = 30 s` (D18). At 10 s and `removeStuckVehicles=false` QSim pushed vehicles onto full short links (82 vehicles on a capacity of 1.2). After the change: overloaded links 13 $\rightarrow$ 4–7.
 
-### 5.5 Przypięcie aktywności do sieci
+### 5.5 Activity attachment to the network
 
-- Aktywności są przypinane do **najbliższego linku** wg odległości do jego odcinka. Pomijane są typy: `motorway`, `motorway_link`, `trunk`, `trunk_link`, `boundary_turnaround` (`snap_exclude_types`). Bez tego MATSim przypinałby dom do jezdni A1 (R3/E5).
-- Wyjątek: wjazdy i wyjazdy na granicy zachowują swój link.
+- Activities are pinned to the **nearest link** based on distance to its segment. Types skipped: `motorway`, `motorway_link`, `trunk`, `trunk_link`, `boundary_turnaround` (`snap_exclude_types`). Without this, MATSim would pin the home to road A1 (R3/E5).
+- Exception: entries and exits at the border retain their link.
 
 ---
 
-## 6. Popyt: kto jedzie do pracy i skąd
+## 6. Demand: who is commuting and from where
 
-### 6.1 Bilans w skali 100% (bazowy wariant B, D17)
+### 6.1 Balance at 100% (baseline variant B, D17)
 
-| Składnik | Liczba | Skąd | Uwagi |
+| Component | Number | From | Notes |
 |---|---|---|---|
-| Mieszkańcy pracujący w Kutnie | **14 586** | P4507 2024 (17 255) minus wyjeżdżający NSP (2 669) | Baza (B). Rozkład na obwody jak w estymacji D5. |
-| Przyjeżdżający do pracy w Kutnie | **8 139** | macierz NSP (8 186) po odcięciu gmin > 100 km (D16) | Od gmin spoza powiatu odcięto 47 osób. |
-| **Miejsca pracy w Kutnie łącznie** | **22 725** | suma dwóch powyższych | **Wariant C** (wrażliwość): 17 486 (BDL P4508), przeskalowane jednym współczynnikiem. |
-| Wyjeżdżający z Kutna w modelu | **2 481** | macierz NSP minus 188 osób z gmin > 100 km | Wariant O1 (D17). |
+| Employed persons in Kutno | **14 586** | P4507 2024 (17 255) minus outbound commuter NSP (2 669) | Baseline (B). Distribution by districts as in estimation D5. |
+| Inbound commuter to work in Kutno | **8 139** | NSP matrix (8 186) after cutting municipalities > 100 km (D16) | 47 people from municipalities outside the county were cut off. |
+| Total employment places in Kutno | **22 725** | sum of the two above | Variant C (sensitivity): 17 486 (BDL P4508), scaled by one factor. |
+| Outbound commuter from Kutno in the model | **2 481** | NSP matrix minus 188 people from municipalities > 100 km | Variant O1 (D17) |
 
-Dla porównania, estymacja D5 (wskaźniki NSP × struktura wieku obwodów) dawała 20 215 pracujących mieszkańców, czyli o 17% więcej niż P4507. D5 została zastąpiona przez B w D17. **Zostaje jako rozkład na obwody** (`employed_base`).
+For comparison, the estimation D5 (NSP indicators × district age structure) yielded 20,215 employed residents, which is 17% more than P4507. D5 was replaced by B in D17. **Remains as distribution across districts** (`employed_base`).
 
-**Co wiemy, a czego nie:** tożsamość „miejsca pracy = mieszkańcy zostający + przyjeżdżający” nie domyka się. Rejestry dają 22 725, a P4508 17 486. Różnica 30% nie ma wyjaśnienia w danych (G2, `docs/research/G2_warianty.md`). Dlatego C jest wariantem wrażliwości, a nie błędem.
+What we know and what we don't: the identity "workplace = residents staying + inbound commuters" is not closed. Registers give 22,725, while P4508 gives 17,486. The 30% difference has no explanation in the data (G2, `docs/research/G2_warianty.md`). Therefore, C is a sensitivity variant, not an error.
 
-### 6.2 Mieszkańcy pracujący w Kutnie (`kind = resident`)
+### 6.2 Residents employed person in Kutno (`kind = resident`)
 
-1. Liczba pracujących: P4507 (17 255) × udział gminy. Odejmowani są wyjeżdżający (2 669).
-2. Rozkład na **232 obwody spisowe** proporcjonalnie do `employed_base` (estymacja wg wieku, D5).
-3. Przy skali 25% liczba agentów w obwodzie = wynik × udział auta × obecność (K1-1) × próbka, zaokrąglony metodą największych reszt, tak żeby suma była równa `round(sample × całość)`.
+1. Number of employed persons: P4507 (17 255) $\times$ municipality share. Outbound commuters (2 669) are subtracted.
+2. Distribution across **232 statistical districts** proportionally to `employed_base` (estimation by age, D5).
+3. At a scale of 25%, the number of agents in the district = result $\times$ vehicle share $\times$ presence (K1-1) $\times$ sample, rounded using the largest remainder method so that the sum equals `round(sample × całość)`.
 
-**ZAŁOŻENIE (D5):** wskaźniki zatrudnienia z tablic dla miast woj. łódzkiego (produkcyjny i poprodukcyjny, metoda GUS) stosujemy do grup wieku w obwodzie. Tabela ludności nie krzyżuje płci z wiekiem, więc nie wiemy, czy struktura płci zmienia wynik.
+ASSUMPTION (D5): we apply employment indicators from tables for the cities of the Łódź voivodeship (production and post-production, GUS method) to age groups in the district. The population table does not cross gender with age, so we do not know if the gender structure changes the result.
 
-### 6.3 Przyjeżdżający do pracy w Kutnie (`kind = commuter`)
+### 6.3 Inbound commuter to work in Kutno (`kind = commuter`)
 
-- Liczba i gminy źródłowe: macierz NSP 2021 (134 gminy, 8 186 osób).
-- **Gminy w powiecie kutnowskim (D9):** dom to losowy budynek mieszkalny OSM w gminie źródłowej (ważony powierzchnią obrysu). Start na wjeździe do Kutna o godzinie z profilu (rozdział 9).
-- **Gminy spoza powiatu (D16/A):** agent pojawia się na **wjeździe granicznym** najbliższym centroidowi gminy, o godzinie z profilu. Czasu dojazdu poza siecią nie doliczamy (**ZAŁOŻENIE**: jak D16/A; wcześniej doliczano 72 km/h × 1,3, co dawało starty po północy).
-- **Odcięcie > 100 km (D16/B, ZAŁOŻENIE):** gminy, których centroid leży dalej niż **100 km** od najbliższego wjazdu, są pomijane. Obejmuje to 12 gmin (47 osób w 100%), m.in. Szczecin, Gdańsk, Kraków, Wrocław, Poznań. Warszawa (ok. 89 km od wjazdu) zostaje: 27 przyjeżdżających, a w wyjeżdżających 457 osób w macierzy NSP. Próg `max_border_km` jest w `config/kutno.toml`.
-- Wjazdy: 31 linków typów `motorway`, `trunk`, `primary`, `secondary` w strefie 1 km od granicy, skierowanych do Kutna (ZAŁOŻENIE, `entry_road_types`, `entry_zone_m`).
+- Number and source municipalities: NSP 2021 matrix (134 municipalities, 8,186 persons).
+- Municipalities in the Kutno county (D9): home is a random residential building from OSM in the source municipality (weighted by area). Start at the entrance to Kutno at the time from the profile (chapter 9).
+- Municipalities outside the county (D16/A): agent appears at the nearest **border entrance** to the municipality's centroid, at the time from the profile. Commute time outside the network is not added (**ASSUMPTION**: as D16/A; previously 72 km/h × 1.3 was added, resulting in starts after midnight).
+- Cut > 100 km (D16/B, ASSUMPTION): municipalities whose centroid is further than **100 km** from the nearest entrance are omitted. This includes 12 municipalities (47 people in 100%), including Szczecin, Gdańsk, Kraków, Wrocław, Poznań. Warsaw (approx. 89 km from the entrance) remains: 27 inbound commuters and 457 outbound commuters in the NSP matrix. The threshold `max_border_km` is in `config/kutno.toml`.
+- Inflows: 31 links of types `motorway`, `trunk`, `primary`, `secondary` in the zone 1 km from the border, directed to Kutno (ASSUMPTION, `entry_road_types`, `entry_zone_m`).
 
-### 6.4 Wyjeżdżający z Kutna (`kind = outbound`, D17/O1)
+### 6.4 Outbound commuter from Kutno (`kind = outbound`, D17/O1)
 
-- Liczba i gminy docelowe: macierz NSP (83 gminy, 2 669 osób).
-- **Dom:** losowy budynek mieszkalny w obwodzie Kutna, losowany wagą pracujących (jak mieszkańcy).
-- **Praca:** w gminach powiatu, losowy budynek pracy w gminie docelowej. Gminy spoza powiatu: **wyjazd** (link wyjazdowy najbliższy centroidowi gminy, lustro wjazdów).
-- Godzina wyjazdu z profilu, praca 8 h. Po pracy wraca po tym samym czasie, bez czasu dojazdu poza siecią (ZAŁOŻENIE).
+- Number and target municipalities: NSP matrix (83 municipalities, 2,669 people).
+- House: random residential building in the Kutno district, weighted by employed persons (as residents).
+- Work: in the county's municipalities, random workplace in the target municipality. Municipalities outside the county: **outbound** (exit link closest to the municipality's centroid, mirror of entrances).
+- Departure time from profile, work 8 h. After work returns at the same time, without commute time outside the network (ASSUMPTION).
 
-**Dlaczego O1:** ruch istnieje i obciąża te same wloty co przyjeżdżający, w przeciwnym kierunku. Bez niego natężenia wylotowe były by zaniżone (G2).
+Why O1: traffic exists and loads the same inlets as inbound commuters, but in the opposite direction. Without it, the outlet flows would be underestimated (G2).
 
-### 6.5 Udział auta i obecność w pracy (K1-1, D19)
+### 6.5 Vehicle share and presence at work (K1-1, D19)
 
-- Wszystkie kategorie (mieszkańcy, przyjeżdżający, wyjeżdżający) mnożone są przez:
-  - **udział auta 0,64** (środek przedziału 61–67% z Bochni i Radomu; `car_share`);
-  - **1 − 0,073** (praca wyłącznie z domu, łódzkie wg GUS Mobilność 2024; `work_from_home`).
-  - Wynik: **× 0,593**.
-- **Skutek:** plany 25% spadają z 6 302 do 3 739 osób.
-- **Uwaga metodyczna:** redukcja działa na liczebności w każdej grupie (obwód, gmina), a nie przez losowe pominięcie konkretnych osób. Mieszkańcy w obwodzie z niskim udziałem auta nie są wyróżnieni.
-- **Status:** to zmiana zakresu MVP („wszyscy jadą autem”, D6) i wymaga potwierdzenia decyzji. Wartości pochodzą z innych miast (**ZAŁOŻENIE**).
+- All categories (residents, inbound commuter, outbound commuter) are multiplied by:
+  - vehicle share 0,64 (middle of the range 61–67% from Bochnia and Radom; `car_share`);
+  - **1 − 0,073** (working exclusively from home, Łódź according to GUS Mobility 2024; `work_from_home`).
+  - **× 0.593**
+- Result: plans drop by 25% from 6,302 to 3,739 persons.
+- Methodological note: the reduction acts on the count in each group (district, commune), not by randomly omitting specific individuals. Residents in districts with a low share of cars are not distinguished.
+- **Status:** scope change of the MVP ("everyone drives", D6) and requires decision confirmation. Values come from other cities (**ASSUMPTION**).
 
-### 6.6 Próbka i skala
+### 6.6 Sample and scale
 
-- **Skala:** 10%, 25%, 100%. Wyniki raportujemy z **25%, 3 seedy** (D15, decyzja użytkownika). 100% tylko na wyraźną prośbę.
-- **Seedy:** 4711 (domyślny w configu), 1, 2.
-- **Przepustowość skalowana do próbki:** `flowCapacityFactor = storageCapacityFactor = sampleSize` (MATSim 2026 wymaga ich równości, D8, D15/5).
-- Wyniki w skali 100% odtwarzamy przez `× 1/sampleSize` (dotyczy natężeń i GEH; `convergence.py` robi to sam).
+- Scope: 10%, 25%, 100%. Results are reported from **25%, 3 seeds** (D15, user decision). 100% only upon explicit request.
+- Seed: 4711 (default in the config), 1, 2.
+- Throughput scaled to sample: `flowCapacityFactor = storageCapacityFactor = sampleSize` (MATSim 2026 requires their equality, D8, D15/5).
+- Results at 100% reproduction are achieved by `× 1/sampleSize` (applies to intensities and GEH; `convergence.py` does it automatically).
 
 ---
 
-## 7. Lokalizacje: skąd są domy i miejsca pracy
+## 7. Locations: where are the homes and workplaces from
 
-Wszystkie lokalizacje są **budynkami z OSM** (ten sam PBF co sieć), wybieranymi losowo z wagą **powierzchni obrysu budynku** (D7, D11). Losowanie jest z powtórzeniami, a seed jest w configu (`seed = 4711`).
+All locations are **buildings from OSM** (the same PBF as the network), randomly selected with weight based on **building footprint area** (D7, D11). The random selection is done with replacement, and the seed is in the config (`seed = 4711`).
 
-### 7.1 Filtry budynków
+### 7.1 Building filters
 
-**Mieszkalne** (`residential_buildings`, ZAŁOŻENIE D11): `house`, `detached`, `apartments`, `residential`, `semidetached_house`, `terrace`, `bungalow`, `farm`, `dormitory`, a także `building=yes` wewnątrz landuse `residential`, bez tagów `amenity`/`shop`/`office`.
+Residential (`residential_buildings`, ASSUMPTION D11): `house`, `detached`, `apartments`, `residential`, `semidetached_house`, `terrace`, `bungalow`, `farm`, `dormitory`, as well as `building=yes` within landuse `residential`, without tags `amenity`/`shop`/`office`.
 
-**Pracy** (`work_buildings`, ZAŁOŻENIE D7): `retail`, `industrial`, `warehouse`, `office`, `commercial`, `school`, `hospital`, `public`, `civic`, `government`, `kindergarten`, `university`, `college`, `supermarket`, `service`, `fire_station`, `train_station`, `transportation`, `manufacture`, `factory`, `hotel`, a także każdy budynek z tagiem `amenity`/`shop`/`office` i `building=yes` w landuse `industrial`, `commercial`, `retail`. Tylko w granicach gminy Kutno (dla agentów z Kutna).
+**Employment** (`work_buildings`, ASSUMPTION D7): `retail`, `industrial`, `warehouse`, `office`, `commercial`, `school`, `hospital`, `public`, `civic`, `government`, `kindergarten`, `university`, `college`, `supermarket`, `service`, `fire_station`, `train_station`, `transportation`, `manufacture`, `factory`, `hotel`, as well as every building with tag `amenity`/`shop`/`office` and `building=yes` in landuse `industrial`, `commercial`, `retail`. Only within the boundaries of Kutno municipality (for agents from Kutno).
 
-**Wykluczenia z danych OSM:**
+Exclusions from OSM data:
 - `building=no` traktujemy jak brak budynku (plac komisu z `shop=car`, 3,6 ha, był największym „miejscem pracy”, R3/błąd 1).
-- Budynek mieszkalny nie może być budynkiem pracy (`loc[work, residential] = False`).
+- Residential building cannot be a work building `loc[work, residential] = False`.
 
-### 7.2 Domy
+### 7.2 Houses
 
-- **Mieszkańcy:** budynek mieszkalny w obwodzie spisowym, losowany wagą powierzchni. Obwód bez budynku mieszkalnego → **losowy punkt** w obwodzie (D11). W 100% jest jeden taki obwód, `6509902`, z 6 osobami (w 10%). Nie wiemy, czy to brak zabudowy, czy brak danych w OSM (do sprawdzenia w QGIS).
-- **Przyjeżdżający z powiatu:** losowy budynek mieszkalny w gminie źródłowej (geometria z rejonów BREC).
-- **Przyjeżdżający spoza powiatu i wyjeżdżający spoza powiatu:** nie mają domu w Kutnie. Start/koniec na linku granicznym.
-- Tylko 26 611 budynków mieszkalnych w obszarze sieci.
+- Residents: residential building in the statistical district, randomly weighted by area. District without a residential building → **random point** in the district (D11). There is 100% one such district, `6509902`, with 6 people (in 10%). We do not know if this is lack of development or lack of data in OSM (to be checked in QGIS).
+- Inbound commuter from the county: random residential building in the source municipality (geometry from BREC areas).
+- Inbound commuter from outside the district and outbound commuter from outside the district: do not have a home in Kutno. Start/end on the border link.
+- Only 26,611 residential buildings in the network area.
 
-**Alternatywa (nieprzyjęta):** budynki z BDOT10k z liczbą kondygnacji (wagi „obrys × kondygnacje”). Analiza G3 pokazała lepsze dopasowanie do siatki GUS 250 m (błąd 8,5 pp wobec 9,4–10,3 pp obecnie, zależnie od wariantu porównania; `docs/research/G3_domy.md`). Decyzja jest otwarta (rozdział 13).
+Alternative (unaccepted): buildings from BDOT10k with the number of floors (weight "outline × floors"). Analysis G3 showed a better fit to the GUS 250 m grid (error 8.5 pp compared to 9.4–10.3 pp currently, depending on the comparison variant; `docs/research/G3_domy.md`). The decision is open (chapter 13).
 
-### 7.3 Miejsca pracy
+### 7.3 Employment locations
 
-- Losowanie z **wagą powierzchni obrysu** z listy budynków pracy w gminie Kutno. Kandydatów: 1 103, wylosowano 473 budynki w 10% (F4).
-- Top 5 budynków dostaje 13% agentów (duże hale w strefie wschodniej). Są to realne obiekty (`industrial` i `warehouse`, 1,6–3,1 ha), sprawdzone w kontroli przed runem (D16).
-- **ZAŁOŻENIE:** rozkład zatrudnienia wewnątrz gminy odwzorowany przez powierzchnię budynków. Nie ma REGON ani adresów zakładów w modelu (D7, G2 otwarte).
+- Random selection with **area weight** from the list of workplaces in the Kutno municipality. Candidates: 1 103, 473 buildings were selected in 10% (F4).
+- Top 5 buildings receive 13% of agents (large halls in the eastern zone). These are real objects (`industrial` and `warehouse`, 1.6–3.1 ha), verified during the pre-run check (D16).
+- ASSUMPTION: employment distribution within the municipality is reflected by building area. There are no REGON or facility addresses in the model (D7, G2 open).
 
-### 7.4 Przypisanie linku sieci
+### 7.4 Link assignment
 
-Każdy dom i miejsce pracy dostaje **najbliższy link** sieci (z pominięciem typów z `snap_exclude_types`, rozdział 5.5). Przyjeżdżający i wyjeżdżający spoza powiatu mają link graniczny od razu.
+Each house and workplace gets the **nearest link** in the network (excluding types from `snap_exclude_types`, section 5.5). Inbound and outbound commuters from outside the county have a border link immediately.
 
 ---
 
-## 8. Cechy agentów: co wiemy o osobie
+## 8. Agent characteristics: what we know about the person
 
-Agenty tworzy się z **agregatów**, nie z mikrodanych. Nie odtwarzamy gospodarstw ani osób (zasady projektu).
+Agents are created from **aggregates**, not from microdata. We do not reproduce households or individuals (project rules).
 
-| Atrybut | Wartość | Skąd |
+| Attribute | Value | From |
 |---|---|---|
-| `subpopulation` | `person` (wymagane przez SimWrapper) | stała |
-| `kind` | `resident` / `commuter` / `outbound` | rodzaj popytu (6.2–6.4) |
-| `id` | `r<obwód>_<n>`, `c<gmina>_<n>`, `o<gmina>_<n>` | unikalne (test w `plans.py`) |
-| dom | budynek OSM i link | rozdział 7.2 |
-| praca | budynek OSM i link | rozdział 7.3 |
-| godzina wyjazdu | z profilu GBR (rozdział 9) | losowana z przedziału |
+| `subpopulation` | `person` (wymagane przez SimWrapper) | constant |
+| `kind` | `resident` / `commuter` / `outbound` | type of demand (6.2–6.4) |
+| `id` | `r<obwód>_<n>`, `c<gmina>_<n>`, `o<gmina>_<n>` | unique (test in `plans.py`) |
+| home | OSM building and link | Chapter 7.2 |
+| work | OSM building and link | Chapter 7.3 |
+| departure time | from the GBR profile (chapter 9) | randomized from the range |
 
-**Czego agenci NIE mają:** wieku, płci, wykształcenia, zawodu, dochodu, posiadania samochodu, liczby osób w gospodarstwie. Wskaźniki zatrudnienia wg wieku wpływają tylko na **rozkład po obwodach** (waga obwodu), a nie na atrybuty osób. Nie ma też kontroli spójności (np. osoba ze wskaźnikiem niskim zatrudnieniem w obwodzie pracuje tak samo jak inna).
-
----
-
-## 9. Plany dnia: łańcuch i godziny
-
-**Łańcuch (każda osoba):** `home (end_time = wyjazd) → car → work (max_dur = 8:00:00) → car → home`. Test: trzy aktywności i dwie nogi car, `end_time` XOR `max_dur` (zasady projektu).
-
-**Godzina wyjazdu (D14):**
-1. Losowanie przedziału godzinowego z rozkładu „dom–praca” GBR Gdańsk 2022, Rys. 46 (`config/departure_home_work_gbr2022.csv`, 18 przedziałów, po normalizacji do 100%). Przedział 20–24 h jest jednym przedziałem 4-godzinnym.
-2. Godzina jednostajnie losowana w przedziale (**ZAŁOŻENIE**).
-3. Wyjazd z domu = ta godzina. Przyjeżdżający z granicy: godzina wejścia na granicę.
-
-**Ograniczenia godzin:**
-- Rozkład jest z metropolii Gdańsk (**ZAŁOŻENIE**, że pasuje do Kutna).
-- Brak godzinowego rozkładu lokalnego (decyzja D10 otwarta, R1: `docs/research/R1_godziny.md`).
-- Start najpóźniej o 23:52.
-
-**Czas pracy 8 h** (`work_max_dur`): **ZAŁOŻENIE** zaokrąglone z GUS BCL 2013 (8 h 11 min średnio dla najemnych). Nie jest to rozkład per agent. `TimeAllocationMutator` **wyłączony** (godziny z danych nie mają dryfować).
-
-**Koniec symulacji:** `qsim.endTime = 48:00:00` (zapas; 36:00 przerywało agenta z Krakowa, `stuckAndAbort`, R3).
+What agents DO NOT have: age, gender, education, profession, income, car ownership, number of people in the household. Employment indicators by age only affect the **distribution across districts** (district weight), not the attributes of individuals. There is also no consistency check (e.g., a person with a low employment indicator in a district works the same as another).
 
 ---
 
-## 10. Symulacja MATSim (konfiguracja)
+## 9. Daily plans: chain and hours
 
-Pliki: `scenarios/kutno/config_{10,25,100}pct.xml`. Ścieżki są względne do configu. `controller.outputDirectory` jest względny do katalogu roboczego, więc uruchamiaj z katalogu projektu.
+(each person): `home (end_time = wyjazd) → car → work (max_dur = 8:00:00) → car → home`. Test: three activities and two car legs, `end_time` XOR `max_dur` (design rules).
 
-| Parametr | Wartość | Uzasadnienie |
+Departure time (D14):
+1. Sampling of the hourly interval from the "home–work" distribution GBR Gdańsk 2022, Fig. 46 (`config/departure_home_work_gbr2022.csv`, 18 intervals after normalization to 100%). The 20–24 h interval is one 4-hour interval.
+2. Time is uniformly randomized in the range (**ASSUMPTION**).
+3. Outbound from home = this hour. Inbound commuter from the border: time of entry at the border.
+
+Time limitations:
+- The distribution is from the Gdańsk metropolis (**ASSUMPTION**, that fits Kutno).
+- Lack of hourly local schedule (decision D10 open, R1: `docs/research/R1_godziny.md`).
+- Start no later than 23:52.
+
+8 h working time (`work_max_dur`): **ASSUMPTION** rounded from GUS BCL 2013 (average of 8 h 11 min for hired workers). This is not a distribution per agent. `TimeAllocationMutator` **disabled** (hours from data should not drift).
+
+Simulation end: `qsim.endTime = 48:00:00` (reserve; 36:00 interrupted the agent from Kraków, `stuckAndAbort`, R3).
+
+---
+
+## 10. MATSim simulation (configuration)
+
+Files: `scenarios/kutno/config_{10,25,100}pct.xml`. Paths are relative to the configuration. `controller.outputDirectory` is relative to the working directory, so run from the project directory.
+
+| Parameter | Value | Justification |
 |---|---|---|
 | MATSim | 2026.0, Java 25 | `matsim/` (matsim-example-project @ 74d23af) |
-| `lastIteration` | 100 | D15/3 (maks. 100 iteracji) |
-| `flowCapacityFactor` = `storageCapacityFactor` | = sampleSize (0,25 dla 25%) | D8, MATSim 2026 wymaga równości |
+| `lastIteration` | 100 | D15/3 (maximum 100 iterations) |
+| `flowCapacityFactor` = `storageCapacityFactor` | = sampleSize (0.25 for 25%) | D8, MATSim 2026 requires equality |
 | `stuckTime` | 30 s | D18 |
 | `trafficDynamics` | `queue` | D18, G5 K5 |
-| `endTime` | 48:00:00 | rozdział 9 |
-| `randomSeed` | 4711 (1, 2 dla wariancji) | config |
-| `coordinateSystem` | EPSG:2180 | zasady projektu (D-spec) |
-| `numberOfThreads` | 8 w configu; runy 4 lub 2 wątki | liczba wątków nie skraca runu, 4 i 8 dają identyczne wyniki |
-| Strategie | `ChangeExpBeta` 0,8, `ReRoute` 0,2 | `subpopulation = person` |
-| `fractionOfIterationsToDisableInnovation` | 0,8 | po 80 iteracjach tylko wybór planu (score spłaszcza się z definicji) |
-| Scoring | domyślny MATSim; `home` typical 16 h, `work` typical 8 h | **ZAŁOŻENIE**, score tylko diagnostyczny, kalibracja poza MVP |
-| SimWrapper, linkStats | włączone; linkStats co 10 it. (średnia z 5) | R3/E2, diagnostyka zbieżności |
+| `endTime` | 48:00:00 | Chapter 9 |
+| `randomSeed` | 4711 (1, 2 for variance) | config |
+| `coordinateSystem` | EPSG:2180 | project principles (D-spec) |
+| `numberOfThreads` | 8 in the configuration; runs with 4 or 2 threads | the number of threads does not shorten the run, 4 and 8 give identical results |
+| Strategies | `ChangeExpBeta` 0,8, `ReRoute` 0,2 | `subpopulation = person` |
+| `fractionOfIterationsToDisableInnovation` | 0,8 | after 80 iterations only the plan selection (the score flattens by definition) |
+| Scoring | default MATSim; `home` typical 16 h, `work` typical 8 h | ASSUMPTION, diagnostic score only, calibration outside of MVP |
+| MATSim, linkStats | enabled; linkStats every 10 it. (average of 5) | R3/E2, convergence diagnostics |
 
-**Co jest w wyjściu:** `output_events.xml.zst` (eventy, format `.zst`), `output_links.csv.zst`, `modestats`, `scorestats`, `traveldistancestats` (MATSim). Wykresy: `pipeline/plot_run.py`.
+What is in the output: `output_events.xml.zst` (events, format `.zst`), `output_links.csv.zst`, `modestats`, `scorestats`, `traveldistancestats` (MATSim). Charts: `pipeline/plot_run.py`.
 
-**Co MATSim robi z nogami:** przy trybie `car` MATSim sam dokleja teleportowane nogi `walk` (dojście i odejście). Nie są częścią modelu ruchu, tylko trzeba je odfiltrować przy liczeniu nóg.
+What MATSim does with legs: in `car` mode, MATSim automatically attaches teleported legs `walk` (arrival and departure). They are not part of the traffic model, but must be filtered out when counting legs.
 
 ---
 
-## 11. Walidacja i wyniki
+## 11. Validation and results
 
-### 11.1 Testy
+### 11.1 Tests
 
-| Test | Skrypt | Co sprawdza |
+| Test | Script | What it checks |
 |---|---|---|
-| Eventy | `pipeline/check_events.py` | `departure = arrival`, 0 `stuck` (także `stuckAndAbort`), liczba nóg car = liczba w planach |
-| Plany | `pipeline/validate_plans.py` | łańcuch, obszar, praca w gminie Kutno, liczba osób, powtarzalność sha256 |
-| Sieć | `pipeline/validate_network.py` | obszar, SCC, atrybuty, trasy testowe |
-| Popyt | `pipeline/demand.py` (asercje) | suma ludności 42 255, 8 186 przyjeżdżających, złączenie 232/232 |
-| Przepełnienie linków | `pipeline/queues.py` | `overfilled_links_gt2x` (D18) |
-| Zbieżność | `pipeline/convergence.py` | zmiana natężeń top-50 linków, GEH między seedami (skala 100%) |
-| Model vs GPR | `pipeline/g5_baseline.py` | model / GPR na 19 odcinkach (A1, DK, DW) |
+| Events | `pipeline/check_events.py` | `departure = arrival`, 0 `stuck` (also `stuckAndAbort`), number of car legs = number in plans |
+| Plans | `pipeline/validate_plans.py` | chain, area, employment in the Kutno municipality, number of people, sha256 repeatability |
+| Network | `pipeline/validate_network.py` | area, SCC, attributes, test routes |
+| Demand | `pipeline/demand.py` (asercje) | population sum 42 255, 8 186 inbound commuters, merging 232/232 |
+| Link overflow | `pipeline/queues.py` | `overfilled_links_gt2x` (D18) |
+| Convergence | `pipeline/convergence.py` | change of intensities for top-50 links, GEH between seeds (scale 100%) |
+| Model vs GPR | `pipeline/g5_baseline.py` | GPR on 19 segments (A1, DK, DW) |
 
-**Zasada projektu:** run bez błędu nie jest dowodem. Fazę zalicza test semantyczny.
+Project principle: A run without errors is not proof. The semantic test counts the stage.
 
-### 11.2 Wyniki D18 (25%, 3 seedy; historyczne, bez tła)
+### 11.2 D18 results (25%, 3 seeds; historical, without background traffic)
 
-Źródło: `reports/etap2/g6_kolejki/d18_25pct/`, `reports/etap2/g6_kolejki/g6_kolejki.md`.
+Source: `reports/etap2/g6_kolejki/d18_25pct/`, `reports/etap2/g6_kolejki/g6_kolejki.md`.
 
-| Wskaźnik | Wartość |
+| Indicator | Value |
 |---|---|
-| nogi car | 12 604 (zgodne z planami), 0 stuck |
-| opóźnienie łącznie, 3 seedy [poj.-h próbki] | 735–854 |
-| przepełnione linki 06–09 | 4–7 |
-| GEH < 5 w szczycie 7–8 (między seedami) | 98,8–100% |
-| mediana czasu podróży s4711: mieszkańcy / przyjeżdżający / wyjeżdżający | 15,0 / 23,5 / 24,1 min |
-| największe wąskie gardło | DK92 Sklęczkowska (zwężenie 2 → 1 pas). W diagnozie wariantu B (ten sam popyt) 44% opóźnień to kolejka spod tego zwężenia, a 51% to ulice tertiary z capacity 600 poj./h/pas |
+| feet car | 12 604 (consistent with plans), 0 stuck |
+| total delay, 3 seeds [sample-hours] | 735–854 |
+| overloaded links 06–09 | 4–7 |
+| GEH < 5 in the peak of 7–8 (between seeds) | 98,8–100% |
+| median travel time s4711: residents / inbound commuter / outbound commuter | 15.0 / 23.5 / 24.1 min |
+| largest bottleneck | DK92 Sklęczkowska (narrowing 2 → 1 lane). In the diagnosis of variant B (the same demand) 44% of delays are due to the queue behind this narrowing, and 51% to tertiary streets with a capacity of 600 veh./h/lane |
 
-**To jest punkt startowy do kalibracji, nie wynik kalibrowany.** Dla odniesienia: R1 (z K1-1, 25%, 3 seedy) daje 7 478 nóg car i opóźnienia 106–113 poj.-h. Oznacza to silną nieliniowość kongestii względem popytu.
+This is the starting point for calibration, not a calibrated result. For reference: R1 (with K1-1, 25%, 3 seeds) yields 7,478 car trips and delays of 106–113 veh-h. This indicates strong nonlinearity of congestion with respect to demand.
 
-### 11.3 Walidacja względem GPR 2025 (G5, R1; historyczne)
+### 11.3 Validation against GPR 2025 (G5, R1; historical)
 
-| Grupa odcinków | Model (D18) / GPR | Model (R1, K1-1) / GPR |
+| Link group | Model (D18) / GPR | Model (R1, K1-1) / GPR |
 |---|---|---|
-| A1 (3 odcinki) | 7% | 3% |
-| DK w Kutnie (Objazdowa, Bitwy pod Kutnem, Sklęczkowska) | 56% | 30% |
-| pozostałe DK | 16% | 8% |
-| DW | 7% | 4% |
+| A1 (3 segments) | 7% | 3% |
+| DK in Kutno (Objazdowa, Bitwy pod Kutnem, Sklęczkowska) | 56% | 30% |
+| other DKs | 16% | 8% |
+| Driving Way | 7% | 4% |
 
-**Luka jest oczekiwana:** model bez tła nie ma tranzytu, ruchu lokalnego innego niż dojazdy, ruchu dostawczego i ciężarowego. Dlatego po K1-1 natężenie w mieście spada, a nie rośnie. Tło wypełniło tę lukę w D19–D21 (rozdział 11.4).
+Gap is expected: the model without background traffic lacks transit, local traffic other than commuting, and freight/heavy goods traffic. Therefore, after K1-1, the intensity in the city decreases instead of increasing. The background filled this gap in D19–D21 (chapter 11.4).
 
-### 11.4 Baza R6 po audycie G5 (D19–D21), stan 2026-10-18
+### 11.4 Baseline R6 after audit G5 (D19–D21), state 2026-10-18
 
-Źródło: `reports/etap2/g5_kalibracja/g5_r6_ref.md`. 25%, 100 iteracji, 5 runów (3 seedy MATSim + 2 seedy planów). Dojazdy × 0,593 (K1-1), tło lekkie z dostawczymi (pce 1,0) i ciężkie (pce 2,5, 80 km/h, `linkDynamics=PassingQ`, D20), strefy graniczne per droga z wagą GPR, końce ciężkich w budynkach pracy (D21).
+Source: `reports/etap2/g5_kalibracja/g5_r6_ref.md`. 25%, 100 iterations, 5 runs (3 seedy MATSim + 2 seedy plans). Commuting × 0.593 (K1-1), light background traffic with delivery vehicles (pce 1.0) and heavy (pce 2.5, 80 km/h, `linkDynamics=PassingQ`, D20), boundary zones per road with GPR weight, ends of heavy traffic in work buildings (D21).
 
-| Wskaźnik (mediana z 5 runów, min–maks.) | lekkie | ciężkie |
+| Indicator (median of 5 runs, min–max.) | light | heavy |
 |---|---|---|
-| A1 (3 odcinki), model / GPR | 99% (98–99%) | 101% (99–101%) |
-| DK w Kutnie (3 odcinki) | 105% (104–113%) | 68% (67–71%) |
-| DK pozostałe | 82% (80–90%) | 83% (76–83%) |
-| DW | 60% (60–63%) | 75% (74–83%) |
-| odcinki w ±15% (z 15 w dopasowaniu) | 12/15 (11–13) | 12/15 (12–15) |
+| A1 (3 sections), model / GPR | 99% (98–99%) | 101% (99–101%) |
+| DK in Kutno (3 sections) | 105% (104–113%) | 68% (67–71%) |
+| other @@N@@ DK | 82% (80–90%) | 83% (76–83%) |
+| Driving Way | 60% (60–63%) | 75% (74–83%) |
+| segments in $\pm$15% (with 15 matching) | 12/15 (11–13) | 12/15 (12–15) |
 
-- Odcinki 91124 (Objazdowa) i 91866 (Bitwy pod Kutnem) są kontrolne (użyte w wyborze wariantów), nie są walidacją niezależną.
-- **Rozrzut:** losowanie planów i punktów estymacji O-D daje 20–100 razy większy rozrzut niż seedy MATSim (mediana 9–12% na odcinek wobec 0,1–0,4%). Różnice wariantów mniejsze niż ok. 20 pp na pojedynczym odcinku nie są wynikiem.
-- Opóźnienie dobowe: 239–243 poj.-h próbki (seedy MATSim), 243–298 (seedy planów). 0 przepełnionych linków.
-- Walidacja czasów względem TomTom (D22): model skalibrowany w popycie, nie zwalidowany co do czasów (`reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md`).
+- Segments 91124 (Objazdowa) and 91866 (Bitwy pod Kutnem) are control segments (used in variant selection), not independent validation.
+- Dispersion: randomizing the plans and O-D estimation points gives 20–100 times greater dispersion than MATSim seeds (median 9–12% per link versus 0.1–0.4%). Variant differences smaller than approx. 20 pp on a single link are not significant.
+- Daily delay: 239–243 sample-hours (MATSim seed), 243–298 (plan seeds). 0 saturated links.
+- Validation of times against TomTom (D22): the model is calibrated in demand, not validated regarding times (`reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md`).
 
 ---
 
-## 12. Założenia (zbiorcza tabela)
+## 12. Assumptions (summary table)
 
-Każde ZAŁOŻENIE ma wartość, miejsce w kodzie lub configu, uzasadnienie i status.
+Each ASSUMPTION has a value, location in the code or config, justification and status.
 
-| ID | Założenie | Wartość | Gdzie | Uzasadnienie / status |
+| ID | ASSUMPTION | Value | Where | Justification / status |
 |---|---|---|---|---|
-| A-1 | Zasięg sieci = powiat + bufor | 3 000 m | `config/kutno.toml` `network_buffer_m` | D9, do weryfikacji w F2 (otwarte: szerokość poza powiatem) |
-| A-2 | Zawrotki na granicy | 300 m, 30 km/h, cap 5 000, strefa 1 km | `config/network.properties` | F2 (A1), D9 |
-| A-3 | Prędkość = limit × 0,8 | factor 0,8 | `config/network.properties` | praktyka VSP, nie wyliczone dla Kutna |
-| A-4 | Wsie jak drogi zamiejskie | rural 90 | `config/network.properties` | brak granic obszaru zabudowanego w OSM |
-| A-5 | Trunk = 100 km/h | trunk 100 | `config/network.properties` | GP lub ekspresówka, do potwierdzenia |
-| A-6 | Capacity domyślne Supersonic | tertiary 600, primary 1 500 poj./h/pas | MATSim | **nieskalibrowane**, brak źródła lokalnego (G1, G5 K5) |
-| A-7 | Pracujący mieszkańcy | P4507 2024 = 17 255 | `config/kutno.toml` `employed_residents_reg` | D17/B, rejestr |
-| A-8 | Wariant liczby miejsc pracy | B (baza), C = 17 486 | `config/kutno.toml` `jobs_total` | D17, luka 30% nieobjaśniona |
-| A-9 | Wyjeżdżający w modelu | O1, rok kotwicy 2024 | `plans.py`, `demand.py` | D17, G2 |
-| A-10 | Wskaźniki zatrudnienia | produkcyjny 0,784 (bazowy), poprodukcyjny wg TABL. 5 | `demand.py` (rozkład obwodów) | D5, tylko województwo |
-| A-11 | Przedział 0–17 dla grupy przedprodukcyjnej | wskaźnik województwa | `demand.py` | D5 |
-| A-12 | Odcięcie gmin > 100 km od wjazdu | 100 km | `config/kutno.toml` `max_border_km` | D16/B, decyzja użytkownika |
-| A-13 | Start przyjeżdżającego z granicy | godzina z profilu, bez dojazdu | `plans.py` | D16/A |
-| A-14 | Wjazd: typ linku | motorway, trunk, primary, secondary; strefa 1 km | `config/kutno.toml` `entry_road_types`, `entry_zone_m` | D9 |
-| A-15 | Dom przyjeżdżającego z powiatu | losowy budynek w gminie źródłowej | `plans.py` | D9 |
-| A-16 | Budynki mieszkalne i pracy (listy typów) | rozdział 7.1 | `config/kutno.toml` | D7, D11 |
-| A-17 | Wagi budynków = powierzchnia obrysu | m² | `plans.py` | D7, D11; alternatywa BDOT × kondygnacje nieprzyjęta (G3) |
-| A-18 | Obwód bez budynków → losowy punkt | — | `plans.py` | D11, dotyczy obwodu 6509902 |
-| A-19 | Udział auta dom–praca | 0,64 (61–67%) | `config/kutno.toml` `car_share` | D19/K1-1, Bochnia 2016, Radom 2022 |
-| A-20 | Praca z domu | 7,3% | `config/kutno.toml` `work_from_home` | GUS Mobilność 2024, tabl. 1 |
-| A-21 | Profil godzin wyjazdu | GBR Gdańsk 2022 | `config/departure_home_work_gbr2022.csv` | D14, metropolia, nie Kutno |
-| A-22 | Godzina jednostajnie w przedziale | — | `plans.py` | ZAŁOŻENIE D14 |
-| A-23 | Czas pracy 8 h | 08:00:00 | `config/kutno.toml` `work_max_dur` | GUS BCL 2013, zaokrąglone |
-| A-24 | Brak TimeAllocationMutator | — | config | godziny z danych |
-| A-25 | Scoring: typical duration home 16 h, work 8 h | — | `config_*.xml` | domyślne MATSim, score diagnostyczny |
-| A-26 | Próbka i zaokrąglanie | 25% (wyniki), metoda największych reszt | `plans.py` | D15/3, D8 |
-| A-27 | Seedy | 4711, 1, 2 | config, `output/r3_runs.sh` | D15 |
+| A-1 | Network scope = district + buffer | 3 000 m | `config/kutno.toml` `network_buffer_m` | D9, for verification in F2 (open: width outside the county) |
+| A-2 | Turns at the border | 300 m, 30 km/h, capacity 5 000, zone 1 km | `config/network.properties` | F2 (A1), D9 |
+| A-3 | Speed = limit × 0,8 | factor 0,8 | `config/network.properties` | VSP practice, not calculated for Kutno |
+| A-4 | Villages as local roads | rural @@N@@ 90 | `config/network.properties` | lack of built-up area boundaries in OSM |
+| A-5 | Trunk = 100 km/h | trunk 100 | `config/network.properties` | GP or expressway, for confirmation |
+| A-6 | Default capacity Supersonic | tertiary 600, primary 1 500 veh./h/pax | MATSim | uncalibrated, lack of local source (G1, G5 K5) |
+| A-7 | Employed person residents | P4507 2024 = 17 255 | `config/kutno.toml` `employed_residents_reg` | D17/B, register |
+| A-8 | Variant of the number of jobs | B (baseline), C = 17 486 | `config/kutno.toml` `jobs_total` | D17, 30% unexplained gap |
+| A-9 | Outbound commuter in the model | O1, anchor year 2024 | `plans.py`, `demand.py` | stage D17, stage G2 |
+| A-10 | Employment indicators | production 0,784 (baseline), post-production according to TABL. 5 | `demand.py` (rozkład obwodów) | D5, only the voivodeship |
+| A-11 | Range 0–17 for the pre-production group | voivodeship indicator | `demand.py` | D5 |
+| A-12 | Cutting municipalities @@N@@ > 100 km from the entrance | 100 km | `config/kutno.toml` `max_border_km` | D16/B, user decision |
+| A-13 | Inbound commuter from the border | hour from the profile, without commute | `plans.py` | D16/A |
+| A-14 | Entry: link type | motorway, trunk, primary, secondary; 1 km zone | `config/kutno.toml` `entry_road_types`, `entry_zone_m` | D9 |
+| A-15 | Inbound commuter from the district | random building in the source municipality | `plans.py` | D9 |
+| A-16 | Residential and employment buildings (type lists) | Chapter 7.1 | `config/kutno.toml` | D7, D11 |
+| A-17 | Building weights = footprint area | m² | `plans.py` | D7, D11; alternative BDOT × floors not accepted (G3) |
+| A-18 | District without buildings $\rightarrow$ random point | — | `plans.py` | D11, concerns district 6509902 |
+| A-19 | Car share home–work | 0,64 (61–67%) | `config/kutno.toml` `car_share` | D19/K1-1, Bochnia 2016, Radom 2022 |
+| A-20 | Working from home | 7,3% | `config/kutno.toml` `work_from_home` | GUS Mobility 2024, table 1 |
+| A-21 | Departure profile | GBR Gdańsk 2022 | `config/departure_home_work_gbr2022.csv` | D14, metropolis, not Kutno |
+| A-22 | Hour uniformly in the interval | — | `plans.py` | ASSUMPTION D14 |
+| A-23 | Working time 8 h | 08:00:00 | `config/kutno.toml` `work_max_dur` | GUS BCL 2013, rounded |
+| A-24 | Missing TimeAllocationMutator | — | config | hours from data |
+| A-25 | Scoring: typical duration home 16 h, work 8 h | — | `config_*.xml` | default MATSim, diagnostic score |
+| A-26 | Sampling and rounding | 25% (results), method of largest residuals | `plans.py` | D15/3, D8 |
+| A-27 | seed | 4711, 1, 2 | config, `output/r3_runs.sh` | D15 |
 | A-28 | `stuckTime` | 30 s | config | D18, Berlin/Kelheim |
-| A-29 | Dynamika `queue` | — | config | D18, G5 K5 |
-| A-30 | Ruch tła z estymacji O-D (lekkie + dostawcze, ciężkie) | 20 punktów na gminę, τ = 30 min, waga wjazdu = capacity | `pipeline/background_od.py` | D19–D21; estymacja kalibrowana do GPR, rozrzut zależy od seedu punktów |
-| A-31 | Brak pieszych, rowerzystów i PT; ciężkie tylko jako tło (pce 2,5, 80 km/h) | — | — | D6, D20, G4 |
-| A-32 | Opóźnienia na linku, nie na skrzyżowaniu | — | — | G1 odłożony |
-| A-33 | Dzień roboczy | — | — | typowy dzień roboczy (GUS, GBR) |
+| A-29 | Dynamics `queue` | — | config | D18, G5 K5 |
+| A-30 | Background traffic from O-D estimation (light + freight, heavy) | 20 points for the municipality, $\tau$ = 30 min, entry weight = capacity | `pipeline/background_od.py` | D19–D21; calibration estimated to GPR, spread depends on the point seed |
+| A-31 | No pedestrians, cyclists and PT; heavy only as background traffic (pce 2.5, 80 km/h) | — | — | D6, D20, G4 |
+| A-32 | Delays on the link, not at the intersection | — | — | G1 postponed |
+| A-33 | Working day | — | — | typical working day (GUS, GBR) |
 
 ---
 
-## 13. Ograniczenia, znane problemy i luki
+## 13. Limitations, known problems and gaps
 
-### 13.1 Zgodność konfiguracji (wymaga decyzji lub poprawki przed następnym runem)
+### 13.1 Configuration consistency (requires decision or correction before the next run)
 
-- **R-1: `car_share` i `work_from_home` są domyślnie włączone** w `config/kutno.toml` (D19/K1-1, decyzja: zostaje). Wyniki referencyjne D16, D17/B i D18 (`reports/etap2/g6_kolejki/d18_25pct/`) używają planów **bez K1-1**: `scenarios/kutno/plans_25pct.xml.gz` (6 302 osoby), który `config_25pct.xml` czyta jako wejście. Domyślne `plans.py ... 0.25` daje dziś 3 739 osób (K1-1), więc bez parametrów nie odtworzy referencji. Plany bez K1-1 mają osobną nazwę `scenarios/kutno/plans_25pct_bez_k1.xml.gz`. Wygenerowano je poleceniem z parametrami poniżej, sha256 identyczny z `plans_25pct.xml.gz` (`1be78c27…027`), 6 302 osoby (3 647 / 2 041 / 614). Plany K1-1 dla R1 są w `plans_g5r1_25pct.xml.gz`.
-- **R-2: domyślne pliki `scenarios/kutno/plans.xml.gz`, `config_10pct.xml` i `config_100pct.xml`** pochodzą z etapu F5/F6 (`inputPlansFile = plans.xml.gz`). Nie wiadomo z pewnością, z jakiego stanu `kutno.toml` powstały. Nie są opisane w `docs/projekt/PROGRESS.md`. **Propozycja:** usunąć z konfiguracji wzorcowej albo opisać w `reports/README.md`.
-- **R-3: `output/r3_runs.sh`** (skrypt uruchamiający seedy równolegle) jest w `output/`, czyli w `.gitignore`. Nie jest wersjonowany. Build `CreateKutnoNetwork` także nie ma skryptu w repo (rozdział 2 podaje polecenie z Javadoc).
-- **R-4:** komentarz w `config_25pct.xml` mówi o 8 wątkach, a runy referencyjne używały 4 (bez wpływu na wyniki, ale do poprawy).
+- R-1: `car_share` and `work_from_home` are enabled by default in `config/kutno.toml` (D19/K1-1, decision: remains). Reference results D16, D17/B and D18 (`reports/etap2/g6_kolejki/d18_25pct/`) use plans **without K1-1**: `scenarios/kutno/plans_25pct.xml.gz` (6 302 persons), which `config_25pct.xml` reads as input. The default `plans.py ... 0.25` yields 3 739 persons today (K1-1), so without parameters it does not reproduce the reference. Plans without K1-1 have a separate name `scenarios/kutno/plans_25pct_bez_k1.xml.gz`. They were generated using the command with the parameters below, sha256 identical to `plans_25pct.xml.gz` (`1be78c27…027`), 6 302 persons (3 647 / 2 041 / 614). Plans K1-1 for R1 are in `plans_g5r1_25pct.xml.gz`.
+- R-2: default files `scenarios/kutno/plans.xml.gz`, `config_10pct.xml` and `config_100pct.xml` originate from stage F5/F6 (`inputPlansFile = plans.xml.gz`). It is not certain which state `kutno.toml` they were created from. They are not described in `docs/projekt/PROGRESS.md`. **Proposal:** remove from the default configuration or describe in `reports/README.md`.
+- R-3: `output/r3_runs.sh` (script launching seeds in parallel) is in `output/`, that is in `.gitignore`. It is not versioned. The Build `CreateKutnoNetwork` also does not have the script in the repo (chapter 2 provides the command from Javadoc).
+- R-4: the comment in `config_25pct.xml` mentions 8 threads, while the reference runs used 4 (without affecting results, but for improvement).
 
-### 13.2 Ograniczenia danych i metody
+### 13.2 Data limitations and methods
 
-- Macierz NSP: tylko pracownicy najemni, bez przepływów < 3 osób i bez ruchu wewnątrz gminy. Dolna granica odpływu i napływu (zaniża ruch).
-- Miejsce pracy w macierzy = adres pracodawcy (siedziba). Dalekie relacje (Warszawa 457) mogą być efektem siedziby firmy, nie realnego dojazdu.
-- Wskaźniki zatrudnienia tylko na poziomie województwa. Estymacja D5 jest o 17% wyższa od rejestru.
-- Pracujący per obwód (232) to estymacja, nie obserwacja (D5).
-- Dane OSM: 72% budynków gminy ma `building=yes` bez typu, a `building:levels` jest w nich tylko w 2%. Wagi (powierzchnia obrysu) są więc przybliżone.
-- 1 450 budynków OSM w Kutnie nie ma odpowiednika w BDOT10k (G3).
-- Liczba mieszkańców pracujących jest nieprzyporządkowana do wieku ani płci.
+- NSP matrix: only employed persons, without flows < 3 people and without intra-municipal traffic. Lower bound of outflow and inflow (underestimates traffic).
+- Workplace in the matrix = employer address (headquarters). Distant relationships (Warsaw 457) may be a result of the company's headquarters, not actual commute.
+- Employment indicators only at the voivodeship level. Estimation D5 is 17% higher than the register.
+- Employed person per district (232) is an estimation, not an observation (D5).
+- OSM data: 72% of the municipality's buildings have `building=yes` without type, and only 2% in them is `building:levels`. Weights (outline area) are therefore approximate.
+- 1 450 buildings in OSM in Kutno have no counterpart in BDOT10k (G3).
+- The number of employed persons is not assigned to age or gender.
 
-### 13.3 Ograniczenia modelu
+### 13.3 Limitations of the model
 
-- Brak sygnalizacji, skrzyżowań, zakazów skrętu. Kolejki są wynikiem capacity linku i `stuckTime`, nie konfliktów na skrzyżowaniu.
-- Brak czasu w czasie dojazdu poza siecią: przyjeżdżający i wyjeżdżający „teleportują się” na granicę (ZAŁOŻENIE, D16/A).
-- Jeden typowy dzień roboczy, bez weekendu i świąt.
-- Brak losowej zmienności czasu pracy per agent (stałe 8 h).
-- Scoring domyślny: wybór trasy jest prawdziwy, ale score nie jest kalibrowany i nie służy do wniosków.
-- Wyniki wrażliwe nieliniowo na popyt (C vs B: opóźnienia −71% przy −22% popytu). Liczba miejsc pracy jest najczulszym parametrem.
+- No signals, intersections, or turning restrictions. Queues are the result of link capacity and `stuckTime`, not intersection conflicts.
+- No time during commute outside the network: inbound and outbound commuters "teleport" at the border (ASSUMPTION, D16/A).
+- One typical working day, without weekends and holidays.
+- No random variability in working time per agent (fixed 8 h).
+- Default scoring: route selection is true, but the score is not calibrated and is not used for inferences.
+- Non-linearly sensitive results to demand (C vs B: delays -71% at -22% demand). The number of jobs is the most sensitive parameter.
 
 ---
 
-## 14. Luki: czego jeszcze nie ma
+## 14. Gaps: what is still missing
 
-Stan na 2026-10-20. Pełna lista otwartych spraw jest w `docs/projekt/ROADMAP.md` (rozdział 3 i 4).
+Status as of 2026-10-20. The full list of open issues is in `docs/projekt/ROADMAP.md` (chapter 3 and 4).
 
-| # | Luka | Stan | Gdzie opisane |
+| # | gap | Status | Where described |
 |---|---|---|---|
-| L-1 | **Ruch tła i tranzyt**: wdrożony w D19–D21 (estymacja O-D z GPR, lekkie, dostawcze i ciężkie, baza R6). Otwarte: bilans stref DK91/DK92 wsch., liczniki lokalne. | częściowo zamknięte | `reports/etap2/g5_kalibracja/g5_r6.md`, `docs/projekt/ROADMAP.md` §3 |
-| L-2 | **Udział auta K1-1** (zawężenie MVP „wszyscy car”): przyjęty w D19, źródło z innych miast, brak danych lokalnych. | decyzja podjęta, dane słabe | `docs/research/G5_plan_kalibracji.md` |
-| L-3 | **Podział modalny** (G4): PT, pieszo, rower nieobecne. Brak źródła dla dojazdów do pracy w Kutnie. | otwarte | `docs/research/G4_tryby.md` |
-| L-4 | **Rozkład wewnątrz gminy miejsc pracy**: wagi według powierzchni budynków. REGON, PKD i adresy zakładów nieużyte (G2). | otwarte | `docs/research/G2_miejsca_pracy.md` |
-| L-5 | **Wagi domów** (BDOT × kondygnacje vs obrys): rekomendacja G3 bez decyzji. | decyzja użytkownika | `docs/research/G3_domy.md` |
-| L-6 | **Godziny wyjazdu z lokalnego źródła** (D10): dziś GBR Gdańsk, w tle profil Lisica. | research | `docs/research/R1_godziny.md` |
-| L-7 | **Czas pracy 8 h**: stałe ZAŁOŻENIE, bez rozkładu per agent. | research | `docs/research/R1_godziny.md` |
-| L-8 | **Capacity ulic miejskich i skrzyżowań** (A-6, G1): brak danych. Pomiary miejskie (UM, ZDP, GDDKiA Rejon Kutno) do pozyskania. | czeka na dane | `docs/projekt/TASKS.md` G1 |
-| L-9 | **Ciężarowe i PCE**: pce 2,5 i 80 km/h (D20), źródło WR-D-13-01. Zamknięte w D20. | zamknięte | `reports/etap2/g5_kalibracja/g5_czasy_pce.md` |
-| L-10 | **Rekonstrukcja konfiguracji** (R-1, R-2, R-3): jeden skrypt odtwarzający wszystkie runy i pliki. | do zrobienia | — |
-| L-11 | **Prędkości sieci (D23)** i ponowna walidacja czasów TomTom (D22, wariant A). | w toku | `reports/etap2/g5_predkosci_d23/`, `docs/projekt/ROADMAP.md` §4 |
-| L-12 | **Wizualizacja Blender** (G6): filmy lokalnie, poza gitem. Nie wpływa na model. | opis w `docs/research/G6_blender.md` | `blender/` |
+| stage 1 | Background traffic and transit: implemented in D19–D21 (O-D estimation from GPR, light, delivery and heavy, baseline R6). Open: balance of DK91/DK92 east districts, local counters. | partially closed | `reports/etap2/g5_kalibracja/g5_r6.md`, `docs/projekt/ROADMAP.md` §3 |
+| L-2 | K1-1 vehicle participation (MVP narrowing "all cars"): accepted in D19, source from other cities, no local data. | decision made, data weak | `docs/research/G5_plan_kalibracji.md` |
+| L-3 | Modal split (G4): PT, pedestrian, bicycle absent. No source for commuting to work in Kutno. | open | `docs/research/G4_tryby.md` |
+| L-4 | Distribution within the municipality of workplaces: weights according to building area. REGON, NACE and facility addresses not used (G2). | open | `docs/research/G2_miejsca_pracy.md` |
+| L-5 | Building weights (BDOT × floors vs outline): G3 recommendation without decision. | user decision | `docs/research/G3_domy.md` |
+| L-6 | Departure times from local source (D10): today GBR Gdańsk, background profile Lisica. | research | `docs/research/R1_godziny.md` |
+| L-7 | 8 h working time: constant ASSUMPTION, without schedule per agent. | research | `docs/research/R1_godziny.md` |
+| L-8 | Urban street and intersection capacity (A-6, G1): no data. Municipal measurements (UM, ZDP, GDDKiA Kutno Region) to be obtained. | waiting for data | G1 `docs/projekt/TASKS.md` |
+| L-9 | Trucks and PCE: pce 2.5 and 80 km/h (D20), source WR-D-13-01. Closed in D20. | closed | `reports/etap2/g5_kalibracja/g5_czasy_pce.md` |
+| L-10 | Configuration reconstruction (R-1, R-2, R-3): one script replaying all runs and files. | to be done | — |
+| L-11 | Network speeds (D23) and re-validation of TomTom times (D22, variant A). | in progress | `reports/etap2/g5_predkosci_d23/`, `docs/projekt/ROADMAP.md` §4 |
+| L-12 | Blender visualization (G6): videos locally, outside of git. Does not affect the model. | description in `docs/research/G6_blender.md` | `blender/` |
 
-Pytania otwarte z `docs/projekt/DECISIONS.md`, bez decyzji: szerokość bufora poza powiatem, parametry scoringu, car share (D6), REGON (D7).
+Open questions from `docs/projekt/DECISIONS.md`, without decisions: buffer width outside the county, scoring parameters, car share (D6), REGON (D7).
 
 ---
 
-## 15. Struktura projektu
+## 15. Project structure
 
-| Ścieżka | Zawartość | W gicie |
+| Path | Contents | in the git |
 |---|---|---|
-| `docs/projekt/DECISIONS.md` | decyzje D1–D23 (zmiana = nowy wpis) | tak |
-| `docs/projekt/FACT_CHECK.md` | zweryfikowane fakty z raportów AI | tak |
-| `docs/projekt/TASKS.md` | fazy F0–F6 i etap 2 (G1–G7) | tak |
-| `docs/projekt/PROGRESS.md` | co zaliczono, z dowodem | tak |
-| `docs/projekt/ERRORS.md` | błędy i reguły | tak |
-| `config/` | `kutno.toml`, `network.properties`, profile godzin | tak |
-| `data/manifest.csv` | URL, data, bajty i SHA-256 każdego pobrania | tak |
-| `data/raw/` | pobrane źródła (tylko do odczytu) | nie |
-| `pipeline/` | skrypty Python (dane, plany, analiza, walidacja) | tak |
-| `matsim/` | projekt Java (`CreateKutnoNetwork`, `mvnw`) | tak |
-| `scenarios/smoke/` | test regresyjny, 10 agentów | tak |
-| `scenarios/kutno/` | sieć, plany, configi, popyt CSV (`plans_*.xml.gz` wyłączone z gita) | częściowo |
-| `reports/` | raporty i dowody per faza (`reports/README.md`) | tak |
-| `docs/research/` | analizy G2–G6 i tło metodyczne | tak |
-| `docs/ZRODLA.md` | katalog źródeł | tak |
-| `output/` | runy MATSim | nie |
-| `blender/` | wizualizacja G6 | tak |
+| `docs/projekt/DECISIONS.md` | decisions D1–D23 (change = new entry) | yes |
+| `docs/projekt/FACT_CHECK.md` | verified facts from AI reports | yes |
+| `docs/projekt/TASKS.md` | stages F0–F6 and stage 2 (G1–G7) | yes |
+| `docs/projekt/PROGRESS.md` | what was included, with proof | yes |
+| `docs/projekt/ERRORS.md` | errors and rules | yes |
+| `config/` | `kutno.toml`, `network.properties`, time profile | yes |
+| `data/manifest.csv` | URL, data, bytes and SHA-256 of each download | yes |
+| `data/raw/` | downloaded sources (read-only) | no |
+| `pipeline/` | Python scripts (data, plans, analysis, validation) | yes |
+| `matsim/` | Java project (`CreateKutnoNetwork`, `mvnw`) | yes |
+| `scenarios/smoke/` | regression test, 10 agents | yes |
+| `scenarios/kutno/` | network, plans, configs, demand CSV (`plans_*.xml.gz` excluded from git) | partially |
+| `reports/` | reports and evidence per stage (`reports/README.md`) | yes |
+| `docs/research/` | analysis of G2–G6 and methodological background | yes |
+| `docs/ZRODLA.md` | source catalog | yes |
+| `output/` | MATSim runs | no |
+| `blender/` | G6 visualization | yes |
 
-**Wyniki referencyjne (aktualne):** baza R6, `reports/etap2/g5_kalibracja/g5_r6_ref.md` (25%, 3 seedy MATSim + 2 seedy planów). Wyniki D18 (`reports/etap2/g6_kolejki/d18_25pct/`) są historyczne.
+Reference results (current): baseline R6, `reports/etap2/g5_kalibracja/g5_r6_ref.md` (25%, 3 seedy MATSim + 2 seedy plans). Results D18 (`reports/etap2/g6_kolejki/d18_25pct/`) are historical.
 
 ---
 
-## 16. Słownik
+## 16. Glossary
 
-| Skrót | Znaczenie |
+| Abbreviation | Significance |
 |---|---|
-| BDL | Bank Danych Lokalnych GUS. P4507 = pracujący mieszkańcy, P4508 = pracujący wg siedziby płatnika |
-| BDOT10k | Baza Danych Obiektów Topograficznych (budynki, kondygnacje) |
-| BREC | Baza Rejestrów Ewidencyjnych Charakterystyk (rejony i obwody spisowe NSP 2021) |
-| CRS EPSG:2180 | układ PUWG 1992, osie E, N |
-| D1–D23 | decyzje projektowe (`docs/projekt/DECISIONS.md`) |
-| GEH | miara zgodności natężeń (< 5 = dobra zgodność) |
-| GPR | Generalny Pomiar Ruchu GDDKiA (SDRR, SDRDR, SDRL) |
-| GBR | Gdański Biuro Rozwoju, Raport 3a (badanie mobilności, profil godzin) |
-| GTFS | rozkład jazdy transportu publicznego (format) |
-| K1–K5, G1–G7 | kroki kalibracji (`G5_plan_kalibracji.md`) i etapy projektu (`docs/projekt/TASKS.md`) |
-| MVP | zakres: samochód, dom–praca–dom |
-| NSP 2021 | Narodowy Spis Powszechny 2021 |
-| O-D | macierz podróży (origin–destination) |
-| PCE | współczynnik ekwiwalentu samochodu osobowego (ciężarówki) |
-| QSim | silnik symulacji kolejkowej MATSim |
-| SCPR | Stacje Ciągłych Pomiarów Ruchu (GDDKiA) |
-| SDRDR | średni dobowy ruch w dni robocze (GPR) |
-| TERC | identyfikator jednostki terytorialnej (1002011 = gm. miejska Kutno) |
-| TABL. 5 | tablica GUS „Ludność na rynku pracy” (wskaźniki zatrudnienia) |
+| BDL | GUS Local Database. P4507 = employed person residents, P4508 = employed persons by payer seat |
+| BDOT10k | Topographical Object Database (buildings, floors) |
+| BREC | Baseline of Registry of Characteristics (areas and statistical districts of NSP 2021) |
+| CRS EPSG:2180 | PUWG 1992 layout, E, N axes |
+| D1–D23 | design decisions (`docs/projekt/DECISIONS.md`) |
+| GEH | Concentration agreement measure (< 5 = good agreement) |
+| GPR | General Traffic Measurement of the General Directorate for National Roads and Motorways (SDRR, SDRDR, SDRL) |
+| GBR | Gdańsk Development Office, Report 3a (mobility study, hourly profile) |
+| GTFS | public transport timetable (format) |
+| K1-K5, G1-G7 | calibration steps (`G5_plan_kalibracji.md`) and project stages (`docs/projekt/TASKS.md`) |
+| Minimum Viable Product | scope: car, home–work–home |
+| NSP 2021 | National Census @@N@@ 2021 |
+| Origin-Destination | trip matrix (origin-destination) |
+| Peak Congestion Effect | passenger car equivalent factor (truck) |
+| QSim | MATSim queueing simulation engine |
+| SCPR | Continuous Traffic Measurement Stations (GDDKiA) |
+| SDRDR | average daily traffic on weekdays (GPR) |
+| TERC | territorial unit identifier (1002011 = municipality of Kutno) |
+| TABLE 5 | GUS table "Population in the labor market" (employment indicators) |
 
-## 17. Licencja
+## 17. License
 
-- **Kod** (`pipeline/`, `matsim/src/`, `blender/`, skrypty w `reports/` i `docs/`): GPL-3.0-or-later, plik [LICENSE](LICENSE).
-- **Dane i wyniki z GUS**: CC BY 4.0 (wymagane podanie źródła: Główny Urząd Statystyczny).
-- **Dane z OpenStreetMap**: ODbL 1.0 (© OpenStreetMap contributors). Wyprowadzone bazy z danymi OSM publikujemy na ODbL.
-- **Przykładowy projekt MATSim** w `matsim/`: GPL-2.0-or-later, plik `matsim/LICENSE`.
-- Pełny podział i zastrzeżenia: [LICENSE-DATA.md](LICENSE-DATA.md).
+- Code (`pipeline/`, `matsim/src/`, `blender/`, scripts in `reports/` and `docs/`): GPL-3.0-or-later, file [LICENSE](LICENSE).
+- Data and results from GUS: CC BY 4.0 (source required: Główny Urząd Statystyczny).
+- Data from OpenStreetMap: ODbL 1.0 (© OpenStreetMap contributors). Extracted bases from OSM data are published under ODbL.
+- Example MATSim project in `matsim/`: GPL-2.0-or-later, file `matsim/LICENSE`.
+- Full division and reservations: [LICENSE-DATA.md](LICENSE-DATA.md).
