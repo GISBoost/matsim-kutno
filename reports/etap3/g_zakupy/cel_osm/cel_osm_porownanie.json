@@ -1,0 +1,276 @@
+{
+ "spojnosc": {
+  "r93o": {
+   "s4711": {
+    "nogi_car": 25701,
+    "oczekiwane": 25701,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "s1": {
+    "nogi_car": 25701,
+    "oczekiwane": 25701,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "s2": {
+    "nogi_car": 25701,
+    "oczekiwane": 25701,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "p1": {
+    "nogi_car": 25646,
+    "oczekiwane": 25646,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "p2": {
+    "nogi_car": 25705,
+    "oczekiwane": 25705,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   }
+  },
+  "r93": {
+   "s4711": {
+    "nogi_car": 25703,
+    "oczekiwane": 25703,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "s1": {
+    "nogi_car": 25703,
+    "oczekiwane": 25703,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "s2": {
+    "nogi_car": 25703,
+    "oczekiwane": 25703,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "p1": {
+    "nogi_car": 25648,
+    "oczekiwane": 25648,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   },
+   "p2": {
+    "nogi_car": 25707,
+    "oczekiwane": 25707,
+    "stuck": 0,
+    "przepelnione_gt2x": 0
+   }
+  }
+ },
+ "zawrotki": {
+  "r93o": {
+   "razem_mediana": {
+    "start_pct": 8.9,
+    "end_pct": 4.6,
+    "any_pct": 13.5,
+    "mid_pct": 0.37,
+    "extra_pct": 0.53,
+    "extra_veh_h": 42.6,
+    "mean_extra_s_on_uturn_trips": 44.4
+   },
+   "wg_rodzaju_mediana": {
+    "c": {
+     "start_pct": 25.56,
+     "end_pct": 12.9,
+     "extra_pct_of_time": 1.7
+    },
+    "e": {
+     "start_pct": 17.58,
+     "end_pct": 13.85,
+     "extra_pct_of_time": 3.72
+    },
+    "h": {
+     "start_pct": 0.31,
+     "end_pct": 0.21,
+     "extra_pct_of_time": 0.01
+    },
+    "o": {
+     "start_pct": 30.05,
+     "end_pct": 7.79,
+     "extra_pct_of_time": 1.13
+    },
+    "r": {
+     "start_pct": 27.05,
+     "end_pct": 13.72,
+     "extra_pct_of_time": 3.55
+    },
+    "t": {
+     "start_pct": 0.17,
+     "end_pct": 0.12,
+     "extra_pct_of_time": 0.01
+    }
+   },
+   "pracujacy_tam_vs_z_powrotem": {
+    "tam": {
+     "start_pct": 0.9,
+     "end_pct": 25.0,
+     "dur_s": 783.9
+    },
+    "z_powrotem": {
+     "start_pct": 52.8,
+     "end_pct": 0.8,
+     "dur_s": 787.4
+    }
+   }
+  },
+  "r93": {
+   "razem_mediana": {
+    "start_pct": 9.1,
+    "end_pct": 4.5,
+    "any_pct": 13.5,
+    "mid_pct": 0.33,
+    "extra_pct": 0.54,
+    "extra_veh_h": 43.5,
+    "mean_extra_s_on_uturn_trips": 45.3
+   },
+   "wg_rodzaju_mediana": {
+    "c": {
+     "start_pct": 25.64,
+     "end_pct": 12.9,
+     "extra_pct_of_time": 1.71
+    },
+    "e": {
+     "start_pct": 20.96,
+     "end_pct": 11.74,
+     "extra_pct_of_time": 4.11
+    },
+    "h": {
+     "start_pct": 0.31,
+     "end_pct": 0.19,
+     "extra_pct_of_time": 0.02
+    },
+    "o": {
+     "start_pct": 30.33,
+     "end_pct": 7.79,
+     "extra_pct_of_time": 1.15
+    },
+    "r": {
+     "start_pct": 27.17,
+     "end_pct": 13.49,
+     "extra_pct_of_time": 3.53
+    },
+    "t": {
+     "start_pct": 0.1,
+     "end_pct": 0.18,
+     "extra_pct_of_time": 0.01
+    }
+   },
+   "pracujacy_tam_vs_z_powrotem": {
+    "tam": {
+     "start_pct": 0.9,
+     "end_pct": 24.8,
+     "dur_s": 783.3
+    },
+    "z_powrotem": {
+     "start_pct": 52.8,
+     "end_pct": 0.7,
+     "dur_s": 798.8
+    }
+   }
+  }
+ },
+ "gpr_lcv": {
+  "w_15proc_r93o": 15,
+  "w_15proc_r93": 15,
+  "n_fit": 15,
+  "poza_15proc_r93o_proc": {},
+  "mediana_abs_zmiany_proc": 0.35,
+  "maks_abs_zmiany_proc": 1.56,
+  "odcinki_ponad_rozrzut": 0,
+  "sekcje_ponad_rozrzut_proc": {},
+  "mediana_rozrzutu_planow_proc": 5.8,
+  "kontrolne_lokalne_r93o_proc_GPR": {
+   "91124": 130.0,
+   "91866": 64.0,
+   "10045": 34.0,
+   "91892": 60.0,
+   "91119": 56.0
+  }
+ },
+ "gpr_heavy": {
+  "w_15proc_r93o": 13,
+  "w_15proc_r93": 13,
+  "n_fit": 15,
+  "poza_15proc_r93o_proc": {
+   "10043": 16.5,
+   "91878": -15.1
+  },
+  "mediana_abs_zmiany_proc": 0.24,
+  "maks_abs_zmiany_proc": 6.67,
+  "odcinki_ponad_rozrzut": 2,
+  "sekcje_ponad_rozrzut_proc": {
+   "91121": 0.5,
+   "91122": 0.7
+  },
+  "mediana_rozrzutu_planow_proc": 6.6,
+  "kontrolne_lokalne_r93o_proc_GPR": {
+   "91124": 77.0,
+   "91866": 58.0,
+   "10045": 28.0,
+   "91892": 55.0,
+   "91119": 14.0
+  }
+ },
+ "opoznienia_veh_h_proby": {
+  "r93o": [
+   232.4,
+   236.5,
+   238.8,
+   239.6,
+   221.8
+  ],
+  "r93": [
+   246.1,
+   237.4,
+   226.6,
+   242.3,
+   222.5
+  ],
+  "mediana_r93o": 236.5,
+  "mediana_r93": 237.4,
+  "rozrzut_planow_r93": 23.6,
+  "przyczyny_r93o": {
+   "capacity": 0.169,
+   "node": 0.442,
+   "spillback": 0.381
+  },
+  "przyczyny_r93": {
+   "capacity": 0.196,
+   "node": 0.446,
+   "spillback": 0.329
+  }
+ },
+ "podroze_pracujacych_car": {
+  "r93o": {
+   "n": 7478.0,
+   "czas_min": 17.13,
+   "dystans_km": 11.11
+  },
+  "r93": {
+   "n": 7478.0,
+   "czas_min": 17.13,
+   "dystans_km": 11.1
+  },
+  "rozrzut_planow_r93_czas_min": 0.3
+ },
+ "podroze_zakupy_i_uslugi_car": {
+  "r93o": {
+   "n": 1422.0,
+   "czas_min": 6.2,
+   "dystans_km": 2.49
+  },
+  "r93": {
+   "n": 1422.0,
+   "czas_min": 7.05,
+   "dystans_km": 2.96
+  }
+ }
+}
