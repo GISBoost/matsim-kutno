@@ -26,12 +26,12 @@ car_share = 0.64
 work_from_home = 0.073
 # D19/K2-2: ruch tła (pojazdy lekkie), macierz O-D z pipeline/background_od.py (W2: τ = 30 min, waga wjazdu = capacity;
 # R3: incydencja ułamkowa, bez liczników lokalnych 10045/91892/91119). "" = bez tła (stan do R1). R2: background_od_r1_w2_cap.csv.
-background_od = "scenarios/kutno/demand/background_od_r93_lcv_gpr.csv"  # D32: baza R9.3 (R9.1: background_od_r91_lcv_gpr.csv) (R9: background_od_r9_lcv_gpr.csv; R7b: background_od_r7b_lcv_gpr.csv; R6: background_od_r6b_lcv_gpr.csv; R6a, krok 4 bez D1/D2: background_od_r6_lcv_gpr.csv; R4: background_od_r4_lcv_cap.csv; R3: background_od_r1_w2_frac_droplocal_cap.csv)
+background_od = "scenarios/kutno/demand/background_od_r93o_lcv_gpr.csv"  # D34: baza R9.4 (R9.3: background_od_r93_lcv_gpr.csv; R9.1: background_od_r91_lcv_gpr.csv) (R9: background_od_r9_lcv_gpr.csv; R7b: background_od_r7b_lcv_gpr.csv; R6: background_od_r6b_lcv_gpr.csv; R6a, krok 4 bez D1/D2: background_od_r6_lcv_gpr.csv; R4: background_od_r4_lcv_cap.csv; R3: background_od_r1_w2_frac_droplocal_cap.csv)
 # D19/K3-2: godzina startu tła = profil dnia roboczego, pojazdy lekkie, SCPR 14005 Lisica 2025 (pipeline/digitize_lisica.py)
 background_profile = "config/hourly_profile_lisica2025.csv"
 # D20 (P1): tło lekkie z dostawczymi (cls=lcv) i ciężkie (cls=heavy) z pipeline/background_od.py; "" = bez ciężkich (stan R3).
 # R4: background_od = "scenarios/kutno/demand/background_od_r4_lcv_cap.csv", heavy_od = "scenarios/kutno/demand/background_od_r4_heavy_cap.csv".
-heavy_od = "scenarios/kutno/demand/background_od_r93_heavy_gpr.csv"  # D32: baza R9.3 (R9.1: background_od_r91_heavy_gpr.csv) (R9: background_od_r9_heavy_gpr.csv; R7b: background_od_r7b_heavy_gpr.csv; R6: background_od_r6b_heavy_gpr.csv; R6a: background_od_r6_heavy_gpr.csv; R4: background_od_r4_heavy_cap.csv); "" = bez ciężkich
+heavy_od = "scenarios/kutno/demand/background_od_r93o_heavy_gpr.csv"  # D34: baza R9.4 (R9.3: background_od_r93_heavy_gpr.csv; R9.1: background_od_r91_heavy_gpr.csv) (R9: background_od_r9_heavy_gpr.csv; R7b: background_od_r7b_heavy_gpr.csv; R6: background_od_r6b_heavy_gpr.csv; R6a: background_od_r6_heavy_gpr.csv; R4: background_od_r4_heavy_cap.csv); "" = bez ciężkich
 # D20: pce typu pojazdu ciężkiego, WR-D-13-01 tab. 4.3.1 (zamiejski z przyczepą = miejski bez przyczepy). Wrażliwość: 3.0.
 heavy_pce = 2.5
 # Audyt G5/D9, ZAŁOŻENIE (D21, krok 4): końce ciężkich w gminach powiatu = budynki pracy (work_any w plans.py: typy work_buildings,
@@ -85,10 +85,10 @@ errand_gus_service = 25702
 errand_dur = "00:57:00"   # ZAŁOŻENIE: GUS Budżet czasu 2023, zakupy i korzystanie z usług 0.57 (h.mm) na wykonującego (suma z dnia), bez dojazdu; dla jednej wizyty kierunek błędu niepewny
 errand_participation = "config/errand_participation_bcl2023.csv"   # GUS Budżet czasu 2023, tabl. 2: odsetek osób robiących zakupy i usługi wg wieku (waga wyboru)
 errand_departure = "config/departure_home_inne_gbr2022.csv"        # GBR Gdańsk 2022 rys. 46 „dom - inne” (ZAŁOŻENIE: Gdańsk != Kutno), pipeline/digitize_gbr_inne.py
-# D34 (wariant, inspekcja reports/etap3/g_zakupy/inspekcja_qgis/): cel zakupów "bdot" = funkcje BDOT, waga obrys (baza R9.3);
+# D34 (baza R9.4 od 2026-10-31, inspekcja reports/etap3/g_zakupy/inspekcja_qgis/): cel zakupów "bdot" = funkcje BDOT, waga obrys (R9.3, odtwarza plany R9.3 z macierzami r93);
 # "osm" = sklepy OSM (pipeline/osm_poi.py): c = supermarket|mall|department_store, s = pozostałe shop=*, także w budynkach mieszkalnych;
 # ZAŁOŻENIE: waga = liczba sklepów w budynku (nie obrys), sklep przypisany do budynku BDOT do errand_poi_m. Usługi u bez zmian.
-errand_dest = "bdot"
+errand_dest = "osm"
 errand_shops = "scenarios/kutno/osm/shops.csv"
 errand_poi_m = 15.0
 attr_seed = 30
