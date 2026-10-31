@@ -1,0 +1,123 @@
+{
+ "runs": [
+  "output\\g3r9_25pct_s1",
+  "output\\g3r9_25pct_s2",
+  "output\\g3r9_25pct_s4711"
+ ],
+ "punkty": [
+  {
+   "pkt": "K1",
+   "ulica": "Toruńska",
+   "doba_2013": 10663,
+   "ciezkie_proc": 19.4,
+   "korytarz": "91123",
+   "f_s1": 0.9,
+   "f_suma": 1.2,
+   "model_lekkie": 2265.3,
+   "model_ciezkie": 89.3,
+   "model_razem": 2354.7,
+   "model_razem_min": 2348.0,
+   "model_razem_max": 2364.0,
+   "cel_2025": 12909.7,
+   "cel_2025_korytarz": 9643.6,
+   "model_proc_celu": 18.2,
+   "model_proc_celu_korytarz": 24.4,
+   "model_ciezkie_proc": 3.8
+  },
+  {
+   "pkt": "K2",
+   "ulica": "Łąkoszyńska",
+   "doba_2013": 6911,
+   "ciezkie_proc": 11.7,
+   "korytarz": "suma",
+   "f_s1": 1.2,
+   "f_suma": 1.2,
+   "model_lekkie": 3200.0,
+   "model_ciezkie": 86.7,
+   "model_razem": 3286.7,
+   "model_razem_min": 3276.0,
+   "model_razem_max": 3304.0,
+   "cel_2025": 8367.1,
+   "cel_2025_korytarz": 8367.1,
+   "model_proc_celu": 39.3,
+   "model_proc_celu_korytarz": 39.3,
+   "model_ciezkie_proc": 2.6
+  },
+  {
+   "pkt": "K3",
+   "ulica": "Grunwaldzka",
+   "doba_2013": 3143,
+   "ciezkie_proc": 7.1,
+   "korytarz": "91125+91869",
+   "f_s1": 1.5,
+   "f_suma": 1.2,
+   "model_lekkie": 2677.3,
+   "model_ciezkie": 80.0,
+   "model_razem": 2757.3,
+   "model_razem_min": 2676.0,
+   "model_razem_max": 2832.0,
+   "cel_2025": 3805.2,
+   "cel_2025_korytarz": 4743.7,
+   "model_proc_celu": 72.5,
+   "model_proc_celu_korytarz": 58.1,
+   "model_ciezkie_proc": 2.9
+  },
+  {
+   "pkt": "K4",
+   "ulica": "Tadeusza Kościuszki",
+   "doba_2013": 3476,
+   "ciezkie_proc": 9.1,
+   "korytarz": "11104",
+   "f_s1": 1.5,
+   "f_suma": 1.2,
+   "model_lekkie": 1577.3,
+   "model_ciezkie": 246.7,
+   "model_razem": 1824.0,
+   "model_razem_min": 1812.0,
+   "model_razem_max": 1840.0,
+   "cel_2025": 4208.4,
+   "cel_2025_korytarz": 5127.4,
+   "model_proc_celu": 43.3,
+   "model_proc_celu_korytarz": 35.6,
+   "model_ciezkie_proc": 13.5
+  },
+  {
+   "pkt": "K5",
+   "ulica": "Łęczycka",
+   "doba_2013": 8136,
+   "ciezkie_proc": 43.8,
+   "korytarz": "91115",
+   "f_s1": 1.4,
+   "f_suma": 1.2,
+   "model_lekkie": 3801.3,
+   "model_ciezkie": 308.0,
+   "model_razem": 4109.3,
+   "model_razem_min": 4088.0,
+   "model_razem_max": 4144.0,
+   "cel_2025": 9850.3,
+   "cel_2025_korytarz": 11071.5,
+   "model_proc_celu": 41.7,
+   "model_proc_celu_korytarz": 37.1,
+   "model_ciezkie_proc": 7.5
+  }
+ ],
+ "suma": {
+  "cel_2025": 39141,
+  "model": 14332,
+  "model_proc_celu": 36.6
+ },
+ "kolejnosc_pomiar": [
+  "K1",
+  "K5",
+  "K2",
+  "K4",
+  "K3"
+ ],
+ "kolejnosc_model": [
+  "K5",
+  "K2",
+  "K3",
+  "K1",
+  "K4"
+ ]
+}
