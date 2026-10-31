@@ -442,9 +442,10 @@ if P.get("chains", "off") == "on":
     esc = crng.choice(res, size=round(P["chain_escort_share"] * len(res)), replace=False)
     near = sch.iloc[[int(sch.distance(Point(x, y)).idxmin()) for x, y in zip(meta.home_x[esc], meta.home_y[esc])]]  # ZAŁOŻENIE: najbliższa szkoła
     meta.loc[esc, "esc_x"], meta.loc[esc, "esc_y"] = near.x.to_numpy(), near.y.to_numpy()
-    k = min(len(er), round(P["chain_after_work_share"] * len(res)))
+    sv = np.flatnonzero(er.etype.isin(["shop", "service"]))  # D36: postój po pracy tylko z zakupów i usług
+    k = min(len(sv), round(P["chain_after_work_share"] * len(res)))
     stop = crng.choice(res, size=k, replace=False)
-    moved = er.iloc[np.sort(crng.choice(len(er), size=k, replace=False))]
+    moved = er.iloc[np.sort(sv[crng.choice(len(sv), size=k, replace=False)])]
     meta.loc[stop, "stop_x"], meta.loc[stop, "stop_y"] = moved.dst_x.to_numpy(), moved.dst_y.to_numpy()
     meta.loc[stop, "stop_type"] = moved.etype.to_numpy()
     er = er.drop(moved.index).reset_index(drop=True)
@@ -509,7 +510,8 @@ for r in er.itertuples():  # D32: kierowca jedzie autem z domu do sklepu lub pun
     home = dict(type="home", x=f"{r.home_x:.1f}", y=f"{r.home_y:.1f}")
     etree.SubElement(plan, "activity", **home, link=r.home_link, end_time=f"{r.start_s // 3600:02d}:{r.start_s // 60 % 60:02d}:{r.start_s % 60:02d}")
     etree.SubElement(plan, "leg", mode="car")
-    etree.SubElement(plan, "activity", type=r.etype, link=r.dst_link, x=f"{r.dst_x:.1f}", y=f"{r.dst_y:.1f}", max_dur=P["errand_dur"])
+    etree.SubElement(plan, "activity", type=r.etype, link=r.dst_link, x=f"{r.dst_x:.1f}", y=f"{r.dst_y:.1f}",
+                     max_dur=r.dur if isinstance(getattr(r, "dur", None), str) else P["errand_dur"])  # D36: czas wg typu
     etree.SubElement(plan, "leg", mode="car")
     etree.SubElement(plan, "activity", **home, link=r.home_link_end)
 if len(hv):  # D20: pojazdy z pliku (qsim.vehiclesSource=fromVehiclesData): osobowy pce 1, ciężarowy heavy_pce i 80 km/h

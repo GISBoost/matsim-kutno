@@ -56,8 +56,9 @@ with gzip.open(path, "rb") as f:
         at = {a.get("name"): a.text for a in el.iter("attribute")}
         sub = at.get("subpopulation")
         veh_attr += at.get("vehicles") == '{"car":"%s"}' % el.get("id")
-        if at.get("kind") == "errand":  # D32: home -> shop|service -> home, start z end_time, pobyt z max_dur
-            ok = (seq in (["home", "car", "shop", "car", "home"], ["home", "car", "service", "car", "home"]) and acts[0].get("end_time")
+        if at.get("kind") == "errand":  # D32/D36: home -> shop|service|visit|leisure|health|escort -> home, start z end_time, pobyt z max_dur
+            ok = (len(seq) == 5 and seq[:2] == ["home", "car"] and seq[3:] == ["car", "home"] and acts[0].get("end_time")
+                  and seq[2] in ("shop", "service", "visit", "leisure", "health", "escort")  # D36: pozostałe cele dom–X
                   and acts[1].get("max_dur") and not acts[1].get("end_time") and sub == "person")
             ERR[0 if ok else 1].append(el.get("id"))
             el.clear()

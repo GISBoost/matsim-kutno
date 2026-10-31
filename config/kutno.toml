@@ -91,6 +91,17 @@ errand_departure = "config/departure_home_inne_gbr2022.csv"        # GBR Gdańsk
 errand_dest = "osm"
 errand_shops = "scenarios/kutno/osm/shops.csv"
 errand_poi_m = 15.0
+# D36 (krok 4E, opcja A z reports/etap3/g_pomiary_miejskie/popyt_brak.md): pozostałe cele GUS dom–X mieszkańców jako osobne wyjścia jak D32
+# (errands.py OTHER). "off" = R9.4 bajt w bajt. Stawki: GUS Mobilność 2024, tabl. 10, łódzkie (/ errand_gus_pop6), × errand_car_share.
+# ZAŁOŻENIA: uczestnicy i godziny jak D32 (waga zakupów wg wieku, profil GBR dom–inne); cele: odwiedziny = budynki mieszkalne (obrys),
+# rekreacja = kultura/sport/gastronomia BDOT, zdrowie = placówka ochrony zdrowia/szpital/apteka, podwożenie = najbliższa szkoła podstawowa/przedszkole/żłobek.
+errand_other = "off"
+errand_gus_visit = 70062
+errand_gus_leisure = 90163
+errand_gus_health = 78397
+errand_gus_escort = 146725
+errand_visit_dur = "01:28:00"     # GUS Budżet czasu 2023, tabl. 1: życie towarzyskie 1.28 (h.mm) na wykonującego; zdrowie: brak kategorii, ZAŁOŻENIE errand_dur
+errand_leisure_dur = "01:36:00"   # GUS Budżet czasu 2023, tabl. 1: uczestnictwo w sporcie i rekreacji 1.36 (h.mm) na wykonującego
 # D35 (wariant c, propozycja): łańcuchy dnia pracujących mieszkańców, nadal tylko auto. "off" = R9.4 bajt w bajt. Osobny generator.
 # Źródło udziałów: GUS Mobilność 2024, tabl. 10, łódzkie (wszystkie tryby; ZAŁOŻENIE: te same udziały dla kierowców w Kutnie).
 chains = "off"

@@ -21,6 +21,15 @@ TYPES = {  # kod, typ aktywności, klucz stawki GUS, funkcje przeważające BDOT
                                             "starostwo powiatowe", "placówka operatora pocztowego"]),
 }
 OSM_C = ["supermarket", "mall", "department_store"]  # D34: typ c wg OSM
+# D36 (errand_other = "on"): pozostałe cele GUS dom–X mieszkańców, te same zasady co D32 (stawka × 6+ × errand_car_share × próbka).
+# kod: (typ aktywności, klucz stawki, funkcje BDOT celu, klucz czasu trwania); "p" = najbliższa placówka od domu (jak D35)
+OTHER = {
+    "v": ("visit", "errand_gus_visit", ["budynek jednorodzinny", "budynek wielorodzinny"], "errand_visit_dur"),
+    "l": ("leisure", "errand_gus_leisure", ["dom kultury", "klub sportowy", "hala sportowa", "sala gimnastyczna", "basen kąpielowy", "teatr",
+                                            "muzeum", "biblioteka", "restauracja", "dom weselny"], "errand_leisure_dur"),
+    "h": ("health", "errand_gus_health", ["placówka ochrony zdrowia", "szpital", "apteka"], "errand_dur"),
+    "p": ("escort", "errand_gus_escort", ["szkoła podstawowa", "przedszkole", "żłobek"], "chain_escort_dur"),
+}
 
 
 def osm_pool(code, bd, P):
@@ -57,7 +66,10 @@ def draw(P, homes_in, gmina):
     prof = pd.read_csv(P["errand_departure"])
     prof = prof[prof.to_h - prof.from_h == 1]  # tylko przedziały godzinne (bez 0-5 i 20-24)
     rows = []
-    for code, (atype, rate_key, funcs) in TYPES.items():
+    types = {k: (*v, None) for k, v in TYPES.items()}
+    if P.get("errand_other", "off") == "on":
+        types.update(OTHER)
+    for code, (atype, rate_key, funcs, dur_key) in types.items():
         if P.get("errand_dest", "bdot") == "osm" and code in "cs":
             pool = osm_pool(code, bd, P)
         else:
@@ -66,13 +78,15 @@ def draw(P, homes_in, gmina):
         target = round(P[rate_key] / P["errand_gus_pop6"] * n6 * P["errand_car_share"] * P["sample"])
         pick = rng.choice(len(el), size=target, replace=False, p=(el.w / el.w.sum()).to_numpy())
         who = el.iloc[pick]
-        dst = pool.iloc[rng.choice(len(pool), size=target, p=(pool.area_m2 / pool.area_m2.sum()).to_numpy())]
+        dst = pool.iloc[rng.choice(len(pool), size=target, p=(pool.area_m2 / pool.area_m2.sum()).to_numpy())] if code != "p" else pool.iloc[np.zeros(target, int)]  # p: cel wybierany niżej
         k = rng.choice(len(prof), size=target, p=(prof.share_pct / prof.share_pct.sum()).to_numpy())
         start = (prof.from_h.to_numpy()[k] * 3600 + rng.uniform(0, 3600, target)).astype(int)
         for j, (r, d) in enumerate(zip(who.itertuples(), dst.itertuples())):
             c = homes_in(int(r.obwod))
             h = c.iloc[rng.choice(len(c), p=(c.area_m2 / c.area_m2.sum()).to_numpy())]
+            if code == "p":  # ZAŁOŻENIE: podwożenie do najbliższej placówki (bez danych o rejonach)
+                d = pool.iloc[int(pool.pt.distance(h.pt).to_numpy().argmin())]
             rows.append(dict(person=f"e{code}{j}", etype=atype, src=d.PRZEWAZAJACAFUNKCJABUDYNKU,
                              obwod=r.obwod, age=r.age, sex=r.sex, license="yes", carAvail=r.carAvail, home_x=h.pt.x, home_y=h.pt.y, hid=h.hid,
-                             dst_x=d.pt.x, dst_y=d.pt.y, start_s=int(start[j])))
+                             dst_x=d.pt.x, dst_y=d.pt.y, start_s=int(start[j]), **({"dur": P[dur_key]} if dur_key else {})))
     return pd.DataFrame(rows)
