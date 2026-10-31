@@ -76,6 +76,12 @@
 			<param name="typicalDuration" value="00:57:00" />
 			<param name="scoringThisActivityAtAll" value="false" />
 		</parameterset>
+		<!-- D35 (chains = on): podwiezienie przed pracą. Bez użyteczności aktywności, jak shop/service. -->
+		<parameterset type="activityParams">
+			<param name="activityType" value="escort" />
+			<param name="typicalDuration" value="00:05:00" />
+			<param name="scoringThisActivityAtAll" value="false" />
+		</parameterset>
 		<!-- D19/K2-2: aktywności tła (początek i koniec jednej podróży). Bez użyteczności aktywności: tło wybiera tylko trasę.
 		     typicalDuration jest wymagane przez config, przy scoringThisActivityAtAll=false nie wpływa na score. -->
 		<parameterset type="activityParams">

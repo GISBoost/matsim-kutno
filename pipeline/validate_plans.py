@@ -43,6 +43,8 @@ gmina = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
 powiat = gpd.read_file("scenarios/kutno/area/powiat.geojson").geometry.iloc[0]
 
 persons, bad_chain = [], []
+CHAINS = [["home", "car"] + e + ["work", "car"] + s + ["home"]  # D35 (chains = on)
+          for e in ([], ["escort", "car"]) for s in ([], ["shop", "car"], ["service", "car"]) if e or s]
 ERR = ([], [])  # D32: zakupy i usługi (kind=errand): (poprawne, złe łańcuchy)
 BG = {"tlo": ([], []), "ciezkie": ([], [])}  # D19/K2-2, D20: subpopulacja -> (poprawne, złe łańcuchy)
 veh_attr = 0
@@ -67,12 +69,14 @@ with gzip.open(path, "rb") as f:
             el.clear()
             continue
         split = seq == ["home", "car", "work", "walk", "work", "car", "home"]  # D31: praca = przyjazd + odjazd (osobne linki, noga walk 0 m)
-        timing_ok = (len(acts) in (3, 4) and acts[0].get("end_time") and not acts[0].get("max_dur")
+        chain = at.get("kind") == "resident" and seq in CHAINS  # D35: podwiezienie przed pracą, zakupy/usługi po pracy
+        timing_ok = (len(acts) in (3, 4, 5) and acts[0].get("end_time") and not acts[0].get("max_dur")
                      and all(a.get("max_dur") and not a.get("end_time") for a in acts[1:-1]))
-        if (seq != ["home", "car", "work", "car", "home"] and not split) or not timing_ok:
+        if (seq != ["home", "car", "work", "car", "home"] and not split and not chain) or not timing_ok:
             bad_chain.append(el.get("id"))
         else:
-            h, w = (Point(float(a.get("x")), float(a.get("y"))) for a in acts[:2])
+            w_ = next(a for a in acts if a.get("type") == "work")
+            h, w = (Point(float(a.get("x")), float(a.get("y"))) for a in (acts[0], w_))
             persons.append(dict(id=el.get("id"), h=h, w=w, same_home=acts[0].get("x") == acts[-1].get("x")
                                 and acts[0].get("y") == acts[-1].get("y")))
         el.clear()

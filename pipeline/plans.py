@@ -426,6 +426,36 @@ if P["errands"] == "on":
             hl_.append(min(H, key=lambda a: cost(a, d))); hle_.append(min(H, key=lambda e: cost(d, e))); dl_.append(d)
         er["home_link"], er["home_link_end"], er["dst_link"] = hl_, hle_, dl_
 
+# --- D35 (wariant c): łańcuchy dnia pracujących mieszkańców, tylko auto (osobny generator chain_seed; "off" = R9.4 bajt w bajt) -------
+# GUS Mobilność 2024, tabl. 10, łódzkie: podwożenie–praca / dom–praca = udział dojazdów do pracy z podwiezieniem (escort przed pracą);
+# (dom–praca − praca–dom) / dom–praca × udział zakupów i usług wśród celów „dom–inne” = postój po pracy (zakupy/usługi przed powrotem).
+# Postój po pracy przejmuje cel i typ wylosowanego osobnego wyjścia D32, które znika: łączna liczba zakupów zostaje zgodna z GUS.
+if P.get("chains", "off") == "on":
+    meta["esc_x"] = meta["esc_y"] = meta["stop_x"] = meta["stop_y"] = np.nan
+    meta["esc_link"] = meta["stop_link"] = meta["stop_type"] = None
+    crng = np.random.default_rng(P["chain_seed"])
+    res = meta.index[meta.kind == "resident"]
+    sch = pyogrio.read_dataframe(P["home_bdot"], encoding="utf-8", columns=["KATEGORIAISTNIENIA", "PRZEWAZAJACAFUNKCJABUDYNKU"])
+    sch = sch[(sch.KATEGORIAISTNIENIA == "eksploatowany") & (sch.PRZEWAZAJACAFUNKCJABUDYNKU == P["chain_escort_function"])]
+    sch = sch.geometry.representative_point()
+    sch = sch[sch.within(gmina_kutno)].reset_index(drop=True)
+    esc = crng.choice(res, size=round(P["chain_escort_share"] * len(res)), replace=False)
+    near = sch.iloc[[int(sch.distance(Point(x, y)).idxmin()) for x, y in zip(meta.home_x[esc], meta.home_y[esc])]]  # ZAŁOŻENIE: najbliższa szkoła
+    meta.loc[esc, "esc_x"], meta.loc[esc, "esc_y"] = near.x.to_numpy(), near.y.to_numpy()
+    k = min(len(er), round(P["chain_after_work_share"] * len(res)))
+    stop = crng.choice(res, size=k, replace=False)
+    moved = er.iloc[np.sort(crng.choice(len(er), size=k, replace=False))]
+    meta.loc[stop, "stop_x"], meta.loc[stop, "stop_y"] = moved.dst_x.to_numpy(), moved.dst_y.to_numpy()
+    meta.loc[stop, "stop_type"] = moved.etype.to_numpy()
+    er = er.drop(moved.index).reset_index(drop=True)
+    for col, (a_col, b_col) in (("esc", ("home_link", "work_link")), ("stop", ("work_link_end", "home_link_end"))):
+        idx = meta.index[meta[f"{col}_x"].notna()]
+        if P["snap_mode"] == "nearest":
+            meta.loc[idx, f"{col}_link"] = snap_links(meta[f"{col}_x"][idx], meta[f"{col}_y"][idx])
+        else:  # link postoju = najkrótsza trasa swobodna z poprzedniej aktywności i do następnej (jak D29)
+            meta.loc[idx, f"{col}_link"] = [min(D, key=lambda d: cost(a, d) + cost(d, b_)) for D, a, b_ in
+                                            zip(cand_lists(meta[f"{col}_x"][idx], meta[f"{col}_y"][idx]), meta[a_col][idx], meta[b_col][idx])]
+
 # --- plans.xml.gz (bez tras; mtime=0, żeby sha256 był powtarzalny) ------------------------------------
 if P["attributes"] == "on":  # D30: wiek, płeć, prawo jazdy, carAvail; osobny generator (attr_seed), reszta planów bez zmian
     from attributes import Attrs
@@ -444,11 +474,17 @@ for r in meta.itertuples():
     home = dict(type="home", link=r.home_link, x=f"{r.home_x:.1f}", y=f"{r.home_y:.1f}")
     etree.SubElement(plan, "activity", **home, end_time=f"{r.start_s // 3600:02d}:{r.start_s // 60 % 60:02d}:{r.start_s % 60:02d}")
     etree.SubElement(plan, "leg", mode="car")
+    if isinstance(getattr(r, "esc_link", None), str):  # D35: podwiezienie przed pracą
+        etree.SubElement(plan, "activity", type="escort", link=r.esc_link, x=f"{r.esc_x:.1f}", y=f"{r.esc_y:.1f}", max_dur=P["chain_escort_dur"])
+        etree.SubElement(plan, "leg", mode="car")
     etree.SubElement(plan, "activity", type="work", link=r.work_link, x=f"{r.work_x:.1f}", y=f"{r.work_y:.1f}", max_dur=P["work_max_dur"])
     if r.work_link_end != r.work_link:  # D31: osobny link odjazdu z pracy (aktywność 1 s, noga walk 0 m)
         etree.SubElement(plan, "leg", mode="walk")
         etree.SubElement(plan, "activity", type="work", link=r.work_link_end, x=f"{r.work_x:.1f}", y=f"{r.work_y:.1f}", max_dur="00:00:01")
     etree.SubElement(plan, "leg", mode="car")
+    if isinstance(getattr(r, "stop_link", None), str):  # D35: zakupy lub usługi po pracy
+        etree.SubElement(plan, "activity", type=r.stop_type, link=r.stop_link, x=f"{r.stop_x:.1f}", y=f"{r.stop_y:.1f}", max_dur=P["errand_dur"])
+        etree.SubElement(plan, "leg", mode="car")
     etree.SubElement(plan, "activity", **{**home, "link": r.home_link_end})
 for sub, df in (("tlo", bg), ("ciezkie", hv)):  # D19/K2-2, D20: jedna podróż tlo_start -> tlo_end
     for r in df.itertuples():

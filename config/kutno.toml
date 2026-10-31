@@ -91,6 +91,15 @@ errand_departure = "config/departure_home_inne_gbr2022.csv"        # GBR Gdańsk
 errand_dest = "osm"
 errand_shops = "scenarios/kutno/osm/shops.csv"
 errand_poi_m = 15.0
+# D35 (wariant c, propozycja): łańcuchy dnia pracujących mieszkańców, nadal tylko auto. "off" = R9.4 bajt w bajt. Osobny generator.
+# Źródło udziałów: GUS Mobilność 2024, tabl. 10, łódzkie (wszystkie tryby; ZAŁOŻENIE: te same udziały dla kierowców w Kutnie).
+chains = "off"
+chain_seed = 35
+chain_escort_share = 0.04634          # podwożenie–praca 33 866 / dom–praca 730 740: dom -> escort -> praca
+chain_after_work_share = 0.04566      # (dom–praca 730 740 − praca–dom 661 460) / dom–praca × 0,4816 (zakupy cc + inne zakupy + usługi
+                                      # 357 974 / suma celów dom–inne 743 321: + odwiedziny, rekreacja, podwożenie, medyczne); praca -> zakupy/usługi -> dom
+chain_escort_function = "szkoła podstawowa"   # ZAŁOŻENIE: podwiezienie = dziecko do najbliższej szkoły podstawowej (BDOT10k), bez danych o rejonach
+chain_escort_dur = "00:05:00"         # ZAŁOŻENIE: postój przy szkole 5 min, bez źródła
 attr_seed = 30
 licence_denominator = "nsp2021"
 # licence_m65: mężczyźni 65+ w CEPiK mają iloraz > 1 (rejestr z martwymi duszami): "m5564" = udział jak mężczyźni 55-64 (baza D30, ZAŁOŻENIE), "cap098" = górne ograniczenie 0,98.
