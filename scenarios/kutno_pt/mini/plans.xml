@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">
+<!-- Test PT: 2 agenci, tryb pt (EPSG:2180). p1: autobus MZK w obrębie Kutna; p2: kolej Kutno -> wschód -->
+<population>
+	<person id="p1">
+		<plan selected="yes">
+			<activity type="home" x="524268" y="485076" end_time="07:30:00"/>
+			<leg mode="pt"/>
+			<activity type="work" x="523926" y="484600" end_time="15:00:00"/>
+			<leg mode="pt"/>
+			<activity type="home" x="524268" y="485076"/>
+		</plan>
+	</person>
+	<person id="p2">
+		<plan selected="yes">
+			<activity type="home" x="523810" y="484609" end_time="06:00:00"/>
+			<leg mode="pt"/>
+			<activity type="work" x="533600" y="484500" end_time="15:00:00"/>
+			<leg mode="pt"/>
+			<activity type="home" x="523810" y="484609"/>
+		</plan>
+	</person>
+</population>

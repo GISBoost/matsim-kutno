@@ -1,0 +1,18 @@
+[OK ] linie MZK = GTFS: schedule=13 GTFS=13
+[OK ] kursy MZK = GTFS: schedule=334 GTFS=334
+[OK ] linie kolej = GTFS (po filtrze bbox): schedule=9 GTFS=9
+[OK ] kursy kolej = GTFS (po filtrze bbox): schedule=112 GTFS=112
+[OK ] przystanki w zasięgu sieci (bbox network_area, x=E y=N): 398 przystanków, poza: []
+[OK ] wszystkie współrzędne mają x 5xx xxx i y 4xx xxx: 
+[OK ] każdy przystanek ma link w sieci: bez linku: []
+[OK ] trasy: ciąg linków połączony w sieci (to==from): 182 tras, błędne: []
+[OK ] przystanki trasy leżą na jej linkach w kolejności: błędne: []
+[OK ] czasy offsetów w profilu rosną (niemalejąco): błędne: []
+INFO: tras z odjazdami nieposortowanymi w pliku (kolejność trip_id): 48
+[OK ] odjazdy w trasie: unikalne czasy, w oknie 0-30 h: 446 odjazdów, błędne: []
+[OK ] pojazdy z odjazdów istnieją w transitVehicles: 446 pojazdów
+[OK ] liczba pojazdów = liczba odjazdów (1 pojazd na kurs): 446 vs 446
+INFO: tras z ujemnym arrivalOffset na 1. przystanku: 62
+[OK ] CRS: węzły PT w EPSG:2180 (x 5xx xxx): 398 linków pt
+
+PODSUMOWANIE: linie=22 (mzk 13, kolej 9), trasy=182, kursy=446, przystanki=398, linki pt=398, linki sieci razem=10781
