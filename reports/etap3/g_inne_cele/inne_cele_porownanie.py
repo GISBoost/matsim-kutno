@@ -127,8 +127,7 @@ for a_, cls in zip(ax[1:], ("lcv", "heavy")):
     a_.set_title(f"zmiana natężenia na odcinku GPR, {cls} [%]"); a_.legend(fontsize=8)
 fig.suptitle("D36: pozostałe cele mieszkańców (r94e) vs R9.4 (r93o)")
 fig.text(.01, .01, "Jak czytać. Lewy: pomiary miejskie WIOŚ K1–K5, poj./dobę oba kierunki; szary prostokąt = pasmo celu 2025 (doba 2013 bez wzrostu do max(f_suma, f_korytarz)), "
-         "biała kreska = cel 2025 (f_suma 1,21), słupki = model R9.4 (szary) i D36 (niebieski), mediana 5 runów.
-"
+         "biała kreska = cel 2025 (f_suma 1,21), słupki = model R9.4 (szary) i D36 (niebieski), mediana 5 runów. "
          "Środek i prawy: zmiana natężenia D36 względem R9.4 na odcinkach GPR (oś X: numer odcinka), lekkie i ciężkie, mediana 5 runów; szare pasmo = rozrzut seedów planów R9.4 "
          "((max − min) / średnia, runy s4711, p1, p2). Źródło: artefakty GHA matsim-r93 variant=r94e control=r93o. Skrypt inne_cele_porownanie.py, opis w inne_cele.md.",
          fontsize=8, va="bottom", wrap=True)
