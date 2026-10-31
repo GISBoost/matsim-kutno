@@ -1,6 +1,6 @@
 # D36: pozostałe cele GUS dom–X mieszkańców, tylko auto (2026-10-31)
 
-Wariant wybrał użytkownik („Zrób a”, opcja A z [popyt_brak.md](../g_pomiary_miejskie/popyt_brak.md)). Liczby pochodzą z [inne_cele_porownanie.log](inne_cele_porownanie.log), skrypt to `inne_cele_porownanie.py`.
+Wariant wybrał użytkownik („Zrób a”, opcja A z [popyt_brak.md](../g_pomiary_miejskie/popyt_brak.md)). Liczby pochodzą z [inne_cele_porownanie.json](inne_cele_porownanie.json), skrypt to `inne_cele_porownanie.py`.
 
 **Zmiana:** `plans.py` z `errand_other = on` (`config/kutno.toml`, `pipeline/errands.py` OTHER; `off` = R9.4 bajt w bajt). Osobne wyjścia jak zakupy D32 (home → cel → home, tylko kierowcy, losowanie z `errand_seed`):
 
@@ -68,7 +68,7 @@ Pomiary miejskie, model w pojazdach na dobę (oba kierunki, mediana 5 runów):
 - **Czas i dystans podróży pracujących bez zmian** (17,15 vs 17,13 min), bo grupa jest ta sama.
 - **Zawrotki +0,8 pp** (13,5 → 14,3%); zmiana jest mała w liczbach bezwzględnych, a przyczyn w danych nie sprawdzałem.
 - **K1–K5: +2,7 pp (40,9 → 43,6% celu).** Na K1 (+11,3%) zmiana jest ponad rozrzut planów (7,8%), na K2–K5 w rozrzucie. Luka na ulicach miejskich zostaje (K1 22%, reszta 46–86%), zgodnie z D37 to znane ograniczenie.
-- **Porównanie z przewidywaniem bez MATSim** ([popyt_brak.md](../g_pomiary_miejskie/popyt_brak.md)): 40,9 → 44,7% (+3,8 pp). Pomiar z MATSim daje 43,6% (+2,7 pp), czyli ok. 70% przewidywanego przyrostu. Powód nie jest zbadany (przewidywanie liczyło wszystkie 7 177 wyjść przy udziale kierowcy 1 i trasy Dijkstrą po czasie swobodnym, test ma udział 0,424 i trasy z kongestią, jedną realizację losowania).
+- **Porównanie z przewidywaniem bez MATSim** ([popyt_brak.md](../g_pomiary_miejskie/popyt_brak.md)): przy udziale kierowcy 0,424 (jak w teście) przewidywanie daje 40,9 → 44,2% (+3,3 pp; w popyt_brak.md 44,7% dotyczy udziału 0,479). Test GHA daje 43,6% (+2,7 pp), czyli ok. 80% przewidywanego przyrostu. Różnica może wynikać z tras liczonych po czasie swobodnym w przewidywaniu (na K3 i K4 rozjeżdżają się z symulacją) i z jednej realizacji losowania; nie badałem tego dalej (D37).
 
 ## Wykres `inne_cele_porownanie.png`
 
