@@ -12,7 +12,7 @@ INFO: tras z odjazdami nieposortowanymi w pliku (kolejność trip_id): 48
 [OK ] odjazdy w trasie: unikalne czasy, w oknie 0-30 h: 446 odjazdów, błędne: []
 [OK ] pojazdy z odjazdów istnieją w transitVehicles: 446 pojazdów
 [OK ] liczba pojazdów = liczba odjazdów (1 pojazd na kurs): 446 vs 446
-INFO: tras z ujemnym arrivalOffset na 1. przystanku: 62
+[OK ] brak ujemnego arrivalOffset na 1. przystanku (filtr przycięcia kolei): tras z ujemnym: 0
 [OK ] CRS: węzły PT w EPSG:2180 (x 5xx xxx): 398 linków pt
 
 PODSUMOWANIE: linie=22 (mzk 13, kolej 9), trasy=182, kursy=446, przystanki=398, linki pt=398, linki sieci razem=10781

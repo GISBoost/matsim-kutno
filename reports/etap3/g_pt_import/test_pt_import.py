@@ -119,7 +119,7 @@ res.append(f"INFO: tras z odjazdami nieposortowanymi w pliku (kolejność trip_i
 check("odjazdy w trasie: unikalne czasy, w oknie 0-30 h", not bad_time, f"{n_dep} odjazdów, błędne: {bad_time[:5]}")
 check("pojazdy z odjazdów istnieją w transitVehicles", not bad_veh, f"{len(vehids)} pojazdów")
 check("liczba pojazdów = liczba odjazdów (1 pojazd na kurs)", len(vehids) == n_dep, f"{len(vehids)} vs {n_dep}")
-res.append(f"INFO: tras z ujemnym arrivalOffset na 1. przystanku: {neg_first}")
+check("brak ujemnego arrivalOffset na 1. przystanku (filtr przycięcia kolei)", neg_first == 0, f"tras z ujemnym: {neg_first}")
 check("CRS: węzły PT w EPSG:2180 (x 5xx xxx)", all(4.9e5 < nodes[links[k][0]][0] < 5.6e5 for k in ptl), f"{len(ptl)} linków pt")
 
 # --- mapa ---

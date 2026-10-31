@@ -42,6 +42,11 @@ n = g.count()
 keep = n[n >= 2].index
 st = st[st.trip_id.isin(keep)]
 st = st[(st.seq >= st.trip_id.map(lo)) & (st.seq <= st.trip_id.map(hi))]
+# Po przycięciu nowy pierwszy przystanek zachowuje postój z rozkładu (przyjazd < odjazd), co konwerter
+# zapisuje jako ujemny arrivalOffset; nowy pierwszy = tylko odjazd, nowy ostatni = tylko przyjazd.
+first, last = st.seq == st.trip_id.map(lo), st.seq == st.trip_id.map(hi)
+st.loc[first, "arrival_time"] = st.loc[first, "departure_time"]
+st.loc[last, "departure_time"] = st.loc[last, "arrival_time"]
 trips = trips[trips.trip_id.isin(keep)]
 routes = rd("routes.txt")
 routes = routes[routes.route_id.isin(set(trips.route_id))]
