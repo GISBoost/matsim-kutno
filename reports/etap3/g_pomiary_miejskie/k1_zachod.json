@@ -1,0 +1,231 @@
+{
+ "s4711": {
+  "kontrola_K": {
+   "K1": {
+    "trasy": 2596,
+    "eventy": 2600
+   },
+   "K2": {
+    "trasy": 4048,
+    "eventy": 3696
+   },
+   "K3": {
+    "trasy": 4084,
+    "eventy": 3028
+   },
+   "K4": {
+    "trasy": 2072,
+    "eventy": 2408
+   },
+   "K5": {
+    "trasy": 4508,
+    "eventy": 4384
+   }
+  },
+  "K1_klasy_poj_doba": {
+   "mieszkańcy (praca)": 884,
+   "tło lekkie": 680,
+   "przyjeżdżający": 380,
+   "mieszkańcy (zakupy)": 304,
+   "wyjeżdżający": 188,
+   "ciężkie": 56
+  },
+  "K1_strefy_poj_doba": {
+   "A1 płd-wsch": 196,
+   "A1 płn": 180,
+   "60 płd-zach": 168,
+   "702 płd-wsch": 48,
+   "91 płn-zach": 36,
+   "92 wsch": 28,
+   "92 zach": 28,
+   "60 płn": 24
+  },
+  "zachod_miasto_nogi_poj_doba": 7620,
+  "zachod_miasto_przez_K1_proc": 3.0,
+  "zachod_tranzyt_nogi_poj_doba": 3892,
+  "potencjal_K1_poj_doba": {
+   "<= 0 s": 2492,
+   "<= 15 s": 2548,
+   "<= 30 s": 2584,
+   "<= 60 s": 2820,
+   "<= 120 s": 4440,
+   "<= 180 s": 7120,
+   "<= 300 s": 17908,
+   "<= 600 s": 42040
+  },
+  "potencjal_K1_zachod_miasto": {
+   "<= 0 s": 232,
+   "<= 15 s": 252,
+   "<= 30 s": 276,
+   "<= 60 s": 328,
+   "<= 120 s": 760,
+   "<= 180 s": 1224,
+   "<= 300 s": 2432,
+   "<= 600 s": 4876
+  },
+  "dodatek_mediana_s": {
+   "wszystkie": 723.0,
+   "zachod_miasto": 479.0,
+   "zachod_tranzyt": 476.0
+  }
+ },
+ "p1": {
+  "kontrola_K": {
+   "K1": {
+    "trasy": 2528,
+    "eventy": 2508
+   },
+   "K2": {
+    "trasy": 3800,
+    "eventy": 3368
+   },
+   "K3": {
+    "trasy": 4108,
+    "eventy": 3108
+   },
+   "K4": {
+    "trasy": 2088,
+    "eventy": 2440
+   },
+   "K5": {
+    "trasy": 4204,
+    "eventy": 4104
+   }
+  },
+  "K1_klasy_poj_doba": {
+   "mieszkańcy (praca)": 788,
+   "tło lekkie": 640,
+   "przyjeżdżający": 400,
+   "mieszkańcy (zakupy)": 388,
+   "wyjeżdżający": 152,
+   "ciężkie": 60
+  },
+  "K1_strefy_poj_doba": {
+   "60 płd-zach": 216,
+   "A1 płn": 132,
+   "A1 płd-wsch": 108,
+   "702 płd-wsch": 68,
+   "92 wsch": 44,
+   "92 zach": 28,
+   "60 płn": 20,
+   "573 płn-wsch": 12,
+   "91 płn-zach": 4
+  },
+  "zachod_miasto_nogi_poj_doba": 7436,
+  "zachod_miasto_przez_K1_proc": 3.3,
+  "zachod_tranzyt_nogi_poj_doba": 4152,
+  "potencjal_K1_poj_doba": {
+   "<= 0 s": 2428,
+   "<= 15 s": 2448,
+   "<= 30 s": 2520,
+   "<= 60 s": 2720,
+   "<= 120 s": 4156,
+   "<= 180 s": 6924,
+   "<= 300 s": 18248,
+   "<= 600 s": 41860
+  },
+  "potencjal_K1_zachod_miasto": {
+   "<= 0 s": 248,
+   "<= 15 s": 260,
+   "<= 30 s": 304,
+   "<= 60 s": 372,
+   "<= 120 s": 708,
+   "<= 180 s": 1180,
+   "<= 300 s": 2388,
+   "<= 600 s": 4796
+  },
+  "dodatek_mediana_s": {
+   "wszystkie": 721.0,
+   "zachod_miasto": 479.0,
+   "zachod_tranzyt": 476.0
+  }
+ },
+ "p2": {
+  "kontrola_K": {
+   "K1": {
+    "trasy": 2720,
+    "eventy": 2712
+   },
+   "K2": {
+    "trasy": 3736,
+    "eventy": 3540
+   },
+   "K3": {
+    "trasy": 4360,
+    "eventy": 3336
+   },
+   "K4": {
+    "trasy": 2208,
+    "eventy": 2552
+   },
+   "K5": {
+    "trasy": 4164,
+    "eventy": 4048
+   }
+  },
+  "K1_klasy_poj_doba": {
+   "mieszkańcy (praca)": 904,
+   "tło lekkie": 580,
+   "przyjeżdżający": 448,
+   "mieszkańcy (zakupy)": 404,
+   "wyjeżdżający": 172,
+   "ciężkie": 80
+  },
+  "K1_strefy_poj_doba": {
+   "A1 płd-wsch": 148,
+   "A1 płn": 124,
+   "60 płd-zach": 120,
+   "92 wsch": 60,
+   "702 płd-wsch": 48,
+   "92 zach": 28,
+   "60 płn": 20,
+   "91 płn-zach": 16
+  },
+  "zachod_miasto_nogi_poj_doba": 7344,
+  "zachod_miasto_przez_K1_proc": 2.2,
+  "zachod_tranzyt_nogi_poj_doba": 4164,
+  "potencjal_K1_poj_doba": {
+   "<= 0 s": 2588,
+   "<= 15 s": 2648,
+   "<= 30 s": 2716,
+   "<= 60 s": 2988,
+   "<= 120 s": 4588,
+   "<= 180 s": 7224,
+   "<= 300 s": 19184,
+   "<= 600 s": 42592
+  },
+  "potencjal_K1_zachod_miasto": {
+   "<= 0 s": 164,
+   "<= 15 s": 172,
+   "<= 30 s": 208,
+   "<= 60 s": 316,
+   "<= 120 s": 656,
+   "<= 180 s": 1092,
+   "<= 300 s": 2408,
+   "<= 600 s": 4776
+  },
+  "dodatek_mediana_s": {
+   "wszystkie": 717.0,
+   "zachod_miasto": 479.0,
+   "zachod_tranzyt": 476.0
+  }
+ },
+ "K1_link": {
+  "2514921470016f": {
+   "len": 561.5024161997234,
+   "type": "tertiary",
+   "grp": "E",
+   "fs_kmh": 42.5
+  },
+  "2514921470016r": {
+   "len": 561.5024161997234,
+   "type": "tertiary",
+   "grp": "E",
+   "fs_kmh": 42.5
+  }
+ },
+ "cel_2025": {
+  "f_suma": 12910,
+  "korytarz": 9644
+ }
+}

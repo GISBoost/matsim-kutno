@@ -78,7 +78,7 @@ Metoda: [wios2013.py](../g_pomiary_miejskie/wios2013.py), `pipeline/pomiary_miej
 1. **Czy wariant c staje się bazą R9.5?** W ruchu jest neutralny. Daje strukturę dnia potrzebną w kroku 5 (tryby: podwożenie jako `ride`, postoje po pracy).
 2. **Co dalej z brakiem ruchu w mieście:**
    - (a) dodać pozostałe cele GUS „dom–inne” (odwiedziny, rekreacja, zdrowie, podwożenie) jako wyjścia jak w D32;
-   - (b) najpierw sprawdzić trasę zachodnich wjazdów na K1 (obwodnica czy Toruńska);
+   - (b) najpierw sprawdzić trasę zachodnich wjazdów na K1 (obwodnica czy Toruńska) — **sprawdzone 2026-10-31, odrzucone** ([k1_zachod.md](../g_pomiary_miejskie/k1_zachod.md));
    - (c) zostawić do kroku 5–6 i kalibracji.
 
 ## Wykres `lancuchy_porownanie.png`
