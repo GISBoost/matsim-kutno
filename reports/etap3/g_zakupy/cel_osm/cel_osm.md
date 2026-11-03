@@ -45,7 +45,7 @@ Oba warianty mają te same osoby, domy i godziny wyjść. Zmienia się tylko cel
 
 ## Test GHA (run 41093715027, 25% × 50 it., 5 runów na wariant: seedy 4711/1/2 na planach p0 oraz p1, p2)
 
-Kontrola to R9.3 (r93) na tej samej platformie. Macierze O-D r93o pochodzą z runu `matsim-od` 41091336824: 0 flag `od_warnings`, sumy −0,02% (lekkie) i 0% (ciężkie) względem r93. Job r93 s4711 za pierwszym razem padł na pobraniu DTD z matsim.org (błąd sieci, ERRORS 35) i przeszedł po ponowieniu. Liczby: [cel_osm_porownanie.json](cel_osm_porownanie.json), wykres [cel_osm_porownanie.png](cel_osm_porownanie.png), skrypt `cel_osm_porownanie.py`.
+Kontrola to R9.3 (r93) na tej samej platformie. Macierze O-D r93o pochodzą z runu `matsim-od` 41091336824: 0 flag `od_warnings`, sumy −0,02% (lekkie) i 0% (ciężkie) względem r93. Job r93 s4711 za pierwszym razem padł na pobraniu DTD z matsim.org (błąd sieci, ERRORS 36) i przeszedł po ponowieniu. Liczby: [cel_osm_porownanie.json](cel_osm_porownanie.json), wykres [cel_osm_porownanie.png](cel_osm_porownanie.png), skrypt `cel_osm_porownanie.py`.
 
 | miara | D34 (r93o) | R9.3 (r93) | rozrzut planów r93 |
 |---|---:|---:|---:|

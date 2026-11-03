@@ -65,4 +65,4 @@ Każdy wpis: co się stało → koszt → reguła na przyszłość. Najważniejs
 
 ## 2026-10-30 (test D34 na GHA)
 
-35. **Job GHA padł na pobraniu DTD z matsim.org** (run 41093715027, job r93 s4711: `Unrecognized DTD directive '<!DOCTYPE >'` przy wczytaniu XML, MATSim nie zapisał outputu, analiza padła na brakujących plikach). Błąd sieci, nie danych: ten sam plik działał w runie 40871126965. → Po porażce jobu w pierwszej minucie sprawdź log kroku MATSim, nie analizy; ponów tylko ten job (`gh run rerun <id> --failed`). Jeśli się powtórzy: lokalne kopie DTD w configach.
+36. **Job GHA padł na pobraniu DTD z matsim.org** (run 41093715027, job r93 s4711: `Unrecognized DTD directive '<!DOCTYPE >'` przy wczytaniu XML, MATSim nie zapisał outputu, analiza padła na brakujących plikach). Błąd sieci, nie danych: ten sam plik działał w runie 40871126965. → Po porażce jobu w pierwszej minucie sprawdź log kroku MATSim, nie analizy; ponów tylko ten job (`gh run rerun <id> --failed`). Jeśli się powtórzy: lokalne kopie DTD w configach.

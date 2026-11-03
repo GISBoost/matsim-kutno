@@ -61,9 +61,9 @@ MVP (F0–F6) jest zamknięty. Każda faza G zmienia zakres lub dane, więc prze
 - źródła w `docs/ZRODLA.md`, pobrania w `data/manifest.csv`;
 - wyniki w `reports/gN_*/`.
 
-**Etap 2a (bieżący): zbieranie danych.** Każde źródło trafia do `docs/ZRODLA.md` ze statusem, ograniczeniami i liczbami, które z niego wiemy. Model nie zmienia się, dopóki dane do fazy nie są zebrane i ocenione.
+**Etap 2a (historyczny): zbieranie danych.** Każde źródło trafia do `docs/ZRODLA.md` ze statusem, ograniczeniami i liczbami, które z niego wiemy. Model nie zmienia się, dopóki dane do fazy nie są zebrane i ocenione.
 
-## G1 — Skrzyżowania (odłożone przez użytkownika 2026-10-17, „implementacja później”)
+## G1 — Skrzyżowania (zrobione w etapie 3: D26, baza R8, 2026-10-23)
 - **Stan:** węzeł QSim bez sygnalizacji, pierwszeństwa, konfliktów i zakazów skrętu. Przepustowość daje tylko link (domyślne wartości Supersonic na pas). 36 węzłów `traffic_signals` w OSM w gm. Kutno.
 - **Działania (kolejno):** test wrażliwości przepustowości (DK92, wloty do sygnalizacji); redukcja przepustowości wlotów do węzłów z sygnalizacją (ZAŁOŻENIE z wariantami); zakazy skrętu z relacji OSM jako `DisallowedNextLinks`; ewentualnie contrib `signals` i `lanes` dla kluczowych skrzyżowań.
 - **Test:** różnica opóźnień i natężeń względem bazy, większa niż rozrzut seedów.
@@ -97,3 +97,11 @@ MVP (F0–F6) jest zamknięty. Każda faza G zmienia zakres lub dane, więc prze
 
 ## Łódź (bez numeru fazy, stan na 2026-10-21)
 - Nie zaczynamy, dopóki Kutno (etapy 2 i 3) nie jest skończone. Wymaga potem decyzji o skali (Łódź ponad 600 tys. mieszkańców) i zasobach (16 GB RAM).
+
+# Etap 3: pełne Kutno (od 2026-10-23)
+
+Etap 2 zamknięty 2026-10-23. Kolejność, stan i raporty kroków są w `docs/projekt/ROADMAP.md` §2, decyzje w `docs/projekt/DECISIONS.md` (D26–D37). Kontrakt każdego kroku:
+- decyzja użytkownika z wpisem w DECISIONS;
+- runy tylko na GitHub Actions, 25%, maks. 50 iteracji, 3 seedy MATSim + 2 seedy planów, kontrola na tej samej platformie;
+- zmiana popytu = nowe plany bez tła i nowa estymacja O-D (`matsim-od`), potem `od_warnings.py`;
+- wynik oceniany względem rozrzutu seedów planów; wykresy z sekcją „Jak czytać wykres”.

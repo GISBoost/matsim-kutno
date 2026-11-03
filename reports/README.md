@@ -1,6 +1,6 @@
 # reports/: spis
 
-Raporty są w dwóch folderach: `etap1_mvp/` (F0–F6, R3, D16) i `etap2/` (fazy G). Każdy podfolder to jedna faza. Raport główny to plik `.md` w folderze. Obok leżą dowody: `.json` (testy i liczby), `.png` (wykresy) i `.log` (logi poleceń).
+Raporty są w trzech folderach: `etap1_mvp/` (F0–F6, R3, D16), `etap2/` (fazy G2–G6, audyt G5) i `etap3/` (G1, G3, kroki 0–7). Każdy podfolder to jedna faza. Raport główny to plik `.md` w folderze. Obok leżą dowody: `.json` (testy i liczby), `.png` (wykresy) i `.log` (logi poleceń).
 
 | folder | co zawiera | raport |
 |---|---|---|
@@ -19,7 +19,7 @@ Raporty są w dwóch folderach: `etap1_mvp/` (F0–F6, R3, D16) i `etap2/` (fazy
 | `etap2/g5_kalibracja/` | runy R1–R5 vs GPR, czasy GUS, PCE, decyzja R4/R5 | `g5_r3.md` … `g5_r5.md`, `g5_r4_vs_r5_decyzja.md` |
 | `etap2/audyt_g5/` | audyt G5 i poprawki D21 (`k1/`, `k2/`) | `audyt_g5.md`, **`plan_poprawek.md`** |
 | `etap2/g5_czasy_tomtom/` | walidacja czasów i prędkości R6 vs TomTom (D22, tylko agregaty) | `g5_czasy_tomtom.md`, **`wnioski_i_dalej.md`**, `metrics_tomtom.csv` |
-| `etap2/g6_kolejki/` | **wyniki referencyjne (25%, 3 seedy) w `d18_25pct/`**: diagnoza kolejek z G6, test stuckTime/kinematicWaves, poprawka D18 | `g6_kolejki.md` |
+| `etap2/g6_kolejki/` | wyniki historyczne (25%, 3 seedy, bez tła) w `d18_25pct/`: diagnoza kolejek z G6, test stuckTime/kinematicWaves, poprawka D18 | `g6_kolejki.md` |
 
 Przegląd faz i dalszych planów: [`../ROADMAP.md`](../docs/projekt/ROADMAP.md).
 
@@ -42,5 +42,11 @@ Pliki z folderów f5 i f6 pochodzą sprzed napraw R3. Nie porównuj ich liczb wp
 | `etap3/g_praca_split/` | krok 4A etapu 3: praca = przyjazd + odjazd (D31, wariant, domyślnie wyłączony) | `praca_split.md`, `praca_split_porownanie.png` |
 | `etap3/g_zakupy/` | krok 4C etapu 3: zakupy i usługi (D32) | `zakupy.md`, `zakupy_porownanie.png` |
 | `etap3/g_atrybuty/` | krok 3 etapu 3: atrybuty osób (D30) | `atrybuty.md`, `atrybuty.png` |
+| `etap3/g_zakupy/cel_osm/` | D34: cel zakupów wg sklepów OSM, baza R9.4 | `cel_osm.md` |
+| `etap3/g_zakupy/odleglosc/` | pomiar odległości w wyborze celu, bez wdrożenia | `pomiar_beta.md` |
+| `etap3/g_lancuchy/` | D35: łańcuchy dnia pracujących (wariant, `chains = off`) | `lancuchy.md` |
+| `etap3/g_pomiary_miejskie/` | WIOŚ 2013 K1–K5 na linkach, K1 Toruńska, brakujący popyt (D37) | `popyt_brak.md`, `k1_zachod.md` |
+| `etap3/g_inne_cele/` | **D36: pozostałe cele GUS, baza R9.5 (wyniki referencyjne)** | `inne_cele.md` |
+| `etap3/g_pt_import/` | krok 5, część techniczna: import GTFS | `pt_import.md` |
 | `etap3/g3_domy/` | G3 (D28): domy z BDOT10k, baza R9; raport `g3.md`, zgodność z siatką GUS `g3_zgodnosc.*`, porównanie runów `g3_porownanie.*`, logi i walidacje w `r9/` |
 | `etap3/g1_skrzyzowania/` | G1 (D26): zakazy skrętu z OSM, audyt geometrii, runy R8 vs R7b; G1b (D27): przepustowość wlotów k=0,8/0,6/0,4; raporty `g1.md`, `g1b.md`, mapa `g1_mapa.png` |

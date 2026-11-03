@@ -1,5 +1,7 @@
 # Run scenariusza Kutna na GitHub Actions (25%, 100 i 400 iteracji)
 
+> **Aktualizacja 2026-11-03:** ten dokument opisuje pierwszy workflow `matsim-run` (baza R7b). Obecnie wszystkie runy MATSim i estymacja O-D idą przez GitHub Actions (ERRORS 34): `matsim-od` (estymacja) i `matsim-r93` (porównanie wariantów, wejścia `scenarios/kutno_r91/`). Lista i użycie: README, rozdział 2.
+
 Data: 2026-10-21. Status: **technicznie możliwe**, workflow (`.github/workflows/matsim-run.yml`) **uruchomiony na GitHubie 2026-10-21 i działa** (run 39668217361, wyniki: `reports/etap2/g5_predkosci_d23/gha_100_vs_400.md`). Lokalnie sprawdzono scenariusz samodzielny i polecenia analizy.
 
 ## Czy się da

@@ -1,13 +1,13 @@
 # Mapa projektu MATSim Kutno
 
-Stan: 2026-10-30 (baza R9.3, D32). Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i miejsce każdej rzeczy w repo.
+Stan: 2026-11-03 (baza R9.5, D36; D37: bez dalszych kalibracji pod pomiary miejskie). Zacznij od tego pliku: fazy, bieżąca praca, dalsze plany i miejsce każdej rzeczy w repo.
 
 ## 1. Gdzie czego szukać
 
 | pytanie | plik |
 |---|---|
 | Na jakim etapie jesteśmy, co dalej? | **ten plik** |
-| Co zdecydowaliśmy i dlaczego? | [DECISIONS.md](DECISIONS.md) (D1–D32) |
+| Co zdecydowaliśmy i dlaczego? | [DECISIONS.md](DECISIONS.md) (D1–D37) |
 | Co zrobione, z jakim dowodem? | [PROGRESS.md](PROGRESS.md) (dziennik chronologiczny) |
 | Kontrakty faz (wejścia, test, zaliczenie) | [TASKS.md](TASKS.md) |
 | Jak działa model i jak go odtworzyć | [README.md](../../README.md) |
@@ -44,7 +44,7 @@ Dojazdy do pracy autem, `dom → praca → dom`.
 
 **Etap 2 zamknięty 2026-10-23** (decyzja użytkownika): (1) D23 zakończone ✅, (2) G3 przeniesione do etapu 3 jako zadanie po G1, (3) G5 zamknięte ✅ (D25), rozbieżności z §3 zostają znanymi ograniczeniami. G2 zostaje z otwartym rozkładem w gminie (REGON) jako znane ograniczenie.
 
-### Etap 3: pełne Kutno (plan do przemodelowania)
+### Etap 3: pełne Kutno (w toku)
 
 Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 
@@ -53,10 +53,10 @@ Kolejność zadań. Każde wymaga decyzji w DECISIONS.
 | 1 | **G1: skrzyżowania** (tylko geometria i zakazy skrętu) | ✅ zakazy skrętu wdrożone (D26, baza R8), efekt poniżej rozrzutu seedów, `f` bez zmian ([g1.md](../../reports/etap3/g1_skrzyzowania/g1.md)); sygnalizacja świetlna później; rozdziela opóźnienia węzłów od prędkości (D23, `f` w mieście) |
 | 2 | **G3: domy** (z etapu 2) | ✅ D28, baza R9: BDOT10k jedno- i wielorodzinne, waga obrys × kondygnacje; zgodność z GUS 250 m TV 10,3 → 8,1 pp, ruch bez zmian ponad rozrzut planów ([g3.md](../../reports/etap3/g3_domy/g3.md)) |
 | 3 | ✅ **atrybuty osób** (D30, baza R9.2: wiek, płeć, prawo jazdy, carAvail; pełna populacja Kutna w CSV; [atrybuty.md](../../reports/etap3/g_atrybuty/atrybuty.md)) | wiek z NSP 2021; dostęp do auta i odsetek prawa jazdy z ogólnych statystyk GUS (łódzkie); najpierw research |
-| 4 | 🔶 **dodatkowe aktywności** (szkoła, zakupy, sprawy) | 4A praca przyjazd + odjazd (D31, `off`), 4C zakupy i usługi (D32, baza R9.3) ✅; 4B szkoła otwarta (plan, czeka na decyzje) |
-| 5 | **GTFS i transport publiczny** | GTFS Kutno: licencja potwierdzona przez użytkownika 2026-10-21; kolej z feedu Kuranowskiego; research: [G4_tryby.md](../../docs/research/G4_tryby.md) |
+| 4 | 🔶 **dodatkowe aktywności** (szkoła, zakupy, sprawy) | 4A praca przyjazd + odjazd (D31, `off`) ✅, 4C zakupy i usługi (D32, R9.3) ✅, cele wg sklepów OSM (D34, R9.4) ✅, pozostałe cele GUS (D36, R9.5) ✅; łańcuchy dnia (D35) gotowe jako wariant, czekają na decyzję; 4B szkoła otwarta (plan, czeka na decyzje) |
+| 5 | 🔶 **GTFS i transport publiczny** | import techniczny ✅ (`scenarios/kutno_pt/`, [pt_import.md](../../reports/etap3/g_pt_import/pt_import.md)), bez agentów PT; GTFS Kutno: licencja potwierdzona przez użytkownika 2026-10-21; kolej z feedu Kuranowskiego; research: [G4_tryby.md](../../docs/research/G4_tryby.md) |
 | 6 | **wybór trybu i kalibracja ASC**: car, ride (pasażer), pt, bike, walk | wzorzec: Kelheim i Berlin (`ride` jako tryb sieciowy, rower i pieszo wg wzorca); cel kalibracji z GUS Mobilność |
-| 7 | **pomiary miejskie do walidacji** | tylko dane publicznie dostępne; jeśli ich nie ma, zapisujemy to jako ograniczenie |
+| 7 | ✅ **pomiary miejskie do walidacji** | zrobione przed trybami: WIOŚ 2013 K1–K5 ([popyt_brak.md](../../reports/etap3/g_pomiary_miejskie/popyt_brak.md)); R9.5 ma 43,6% celu na K1–K5, luka zostaje znanym ograniczeniem (D37) |
 | 8 | **odtworzenie od zera i wnioski** | dokończenie README, pipeline na czystym klonie, spis tego, co się przenosi na Łódź |
 | 2b | **zawrotki na początku i końcu trasy** | ✅ D29, baza **R9.1** (kierunek linku wg trasy, 2026-10-25): zawrotki 35% → 12% podróży; zostaje jedna przy pracy (jedna aktywność pracy), do rozdzielenia razem z krokiem 4 ([zawrotki.md](../../reports/etap3/g_zawrotki/zawrotki.md)) |
 | ewent. | sygnalizacja świetlna | po skrzyżowaniach |
@@ -95,7 +95,7 @@ Nie planujemy. **Dopóki Kutno nie jest skończone (etapy 2 i 3), do Łodzi nie 
 | 3 | Potwierdzenie, że G5 jest zamknięte | ✅ D25 (znane ograniczenia w §3) |
 | 4 | Zamknięcie etapu 2 i przejście do etapu 3 | ✅ 2026-10-23 (decyzja użytkownika: G3 do etapu 3). Równolegle: run 25% × 100 i 400 it. na GitHub Actions ([GH_ACTIONS_run.md](../../docs/research/GH_ACTIONS_run.md)) |
 
-## 3. Bieżąca praca: G5
+## 3. Historia G5 (zamknięte, D25)
 
 Historia G5, każdy krok z decyzją:
 
@@ -110,7 +110,7 @@ Historia G5, każdy krok z decyzją:
 | **R6** | **baza po audycie, referencja 3 seedy MATSim + 2 seedy planów** | **[g5_r6.md](../../reports/etap2/g5_kalibracja/g5_r6.md), [g5_r6_ref.md](../../reports/etap2/g5_kalibracja/g5_r6_ref.md)** |
 | czasy TomTom | walidacja czasów i prędkości R6 (D22, wariant A: tylko agregaty): skalibrowany tylko w popycie, niezwalidowany wg TAG (czasy 48–77% tras w kryterium) | [g5_czasy_tomtom.md](../../reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md), **[wnioski i plan](../../reports/etap2/g5_czasy_tomtom/wnioski_i_dalej.md)** |
 
-Baza: **R7b** (D25; A1 98% / 101%, 14/15 odcinków w ±15% dla lekkich i ciężkich; R6: 12/15). Odcinki 91124 i 91866 są kontrolne (użyte w wyborze wariantów), nie walidacja niezależna. Znane ograniczenia po zamknięciu G5: bilans stref DK91/DK92 wsch. (odcinki GPR poza siecią), liczniki lokalne 10045 / 91892 / 91119 (36 / 60 / 55%), podział Objazdowa/Bitwy (K5), brak pomiarów miejskich, TAG 58% (wymagane > 85%), `f` w mieście zawiera opóźnienia węzłów do G1, `f_D` do przeglądu (`podsumowanie.md`, [obserwacje_f.md](../../reports/etap2/g5_predkosci_d23/obserwacje_f.md)).
+Baza po zamknięciu G5: **R7b** (D25; A1 98% / 101%, 14/15 odcinków w ±15% dla lekkich i ciężkich; R6: 12/15). Odcinki 91124 i 91866 są kontrolne (użyte w wyborze wariantów), nie walidacja niezależna. Znane ograniczenia po zamknięciu G5: bilans stref DK91/DK92 wsch. (odcinki GPR poza siecią), liczniki lokalne 10045 / 91892 / 91119 (36 / 60 / 55%), podział Objazdowa/Bitwy (K5), brak pomiarów miejskich, TAG 58% (wymagane > 85%), `f` w mieście zawiera opóźnienia węzłów do G1, `f_D` do przeglądu (`podsumowanie.md`, [obserwacje_f.md](../../reports/etap2/g5_predkosci_d23/obserwacje_f.md)).
 
 ## 4. Dalsze plany (po zamknięciu G5)
 
@@ -119,9 +119,9 @@ Baza: **R7b** (D25; A1 98% / 101%, 14/15 odcinków w ±15% dla lekkich i ciężk
 | **Prędkości sieci (cruise speeds) + ponowna walidacja TomTom** | ✅ **D23 wdrożone** (D25): sieć R7, baza R7b; MAPE czasu tras 20,5 → 18,2% (walidacja), 18,3 → 14,7% (analiza), segmenty swobodne 0,86 → 0,99 | [d23_podsumowanie.md](../../reports/etap2/g5_predkosci_d23/d23_podsumowanie.md), [plan](../../reports/etap2/g5_predkosci_d23/plan.md). `f` do dopracowania po G1 i kolejnych sprawdzeniach |
 | Walidacja czasów TomTom (D22) | ✅ zrobiona dla R6; HERE przygotowane (brak klucza) | [g5_czasy_tomtom.md](../../reports/etap2/g5_czasy_tomtom/g5_czasy_tomtom.md) |
 | Geometria linków z OSM | 💡 propozycja | potrzebna do zgodności tras i walidacji dróg tertiary/unclassified; przyda się w G6 |
-| Lokalny wizualizer runu | ▶ **D24, kroki 1–3 kod ✅, oś harmonogramu ✅, łamane OSM w oknie ✅, spike ✅** (WebView2 + Leaflet). Dalej: plan poprawek okna zaakceptowany, kod jeszcze nie. Podkład, drugi run i bake odłożone. Łódź poza tym krokiem | faza po zamkniętym MVP; nie zastępuje G5 ani D23. Kod: `pipeline/viz_index.py`, `pipeline/viz_engine.py`, `viz_player/`. Plan: `docs/research/wizualizer_plan.md` |
+| Wizualizer runu (D24) | ✅ wydzielony 2026-11-03 | kod i dokumentacja w osobnym repo [easy-matplayer](https://github.com/GISBoost/easy-matplayer) (lokalnie `../easy-matanimation`); historia tutaj w PROGRESS i D24 |
 | Skrzyżowania, aktywności, GTFS i PT, wybór trybu | etap 3 | kolejność w §2 |
-| Dokumentacja EN/PL i strona projektu | 💡 propozycja, nic nie kodujemy | README po angielsku jako domyślny (GitHub), na górze przełącznik na wersję polską (`README.pl.md`). Tłumaczenie lokalnym LLM w pipeline'ie jak w easy-OTP (`tools/i18n`), ale po blokach markdownu: kod, linki, tabele i liczby zostają bez zmian, a pamięć tłumaczeń jest kluczowana hashem bloku. Raporty i `docs/projekt/` zostają po polsku. Ewentualnie osobna strona na GitHub Pages (`GISBoost.github.io`, do ustalenia: repo `GISBoost.github.io` czy projektowe `…/matsim-kutno`). Kroki: test na ok. 20 blokach z dwóch modeli, pełne tłumaczenie, przegląd człowieka, przełącznik w obu plikach README |
+| Dokumentacja EN/PL | ✅ README po angielsku jako domyślny, `README.pl.md` jest źródłem, tłumaczenie `pipeline/i18n_readme.py` (LM Studio, tylko zmienione linie). Strona projektu: pomysł | stan README 2026-11-03: baza R9.5 |
 | Łódź | bez fazy | dopiero po zamknięciu całego Kutna |
 
 ## 5. Układ folderów
@@ -133,8 +133,11 @@ Baza: **R7b** (D25; A1 98% / 101%, 14/15 odcinków w ±15% dla lekkich i ciężk
 | `matsim/` | Java: konwersja sieci i runner MATSim | tak (bez jar) |
 | `scenarios/kutno/` | wejścia MATSim: sieć, plany, configi XML, `demand/` (macierze) | częściowo |
 | `scenarios/kutno/validation/` | dane pomiarowe przygotowane dla kodu: liczniki GPR na linkach, czasy GUS, sumy F3 | tak |
+| `scenarios/kutno_r91/`, `scenarios/kutno_od/` | wejścia runów GHA i estymacji O-D | tak |
+| `scenarios/kutno_pt/` | import GTFS (bez agentów PT) | tak |
+| `.github/workflows/` | runy MATSim i estymacja O-D, tylko ręcznie | tak |
 | `scenarios/smoke/` | test regresyjny (10 agentów) | tak |
-| `reports/` | raporty: `etap1_mvp/` (F0–F6, R3, D16) i `etap2/` (G1–G7, audyt); spis w [reports/README.md](../../reports/README.md) | tak |
+| `reports/` | raporty: `etap1_mvp/` (F0–F6, R3, D16), `etap2/` (G2–G6, audyt) i `etap3/`; spis w [reports/README.md](../../reports/README.md) | tak |
 | `docs/` | źródła ([ZRODLA.md](../../docs/ZRODLA.md)) i research faz (`research/`) | tak |
 | `blender/` | skrypty wizualizacji G6 | tak |
 | `data/raw/` | pobrane źródła, tylko do odczytu | nie (manifest tak) |

@@ -19,7 +19,7 @@ Na planie 25% p0 jest 766 nowych wyjść (292 escort, 179 leisure, 156 health, 1
 
 ## Test GHA
 
-- **Estymacja O-D:** run `matsim-od` 41198861640 (job `run (1)` ponowiony raz po przejściowym błędzie zapisu eventów, ERRORS 35). **0 flag** w 6 macierzach. Sumy względem R9.4 (`r93o`): lekkie 47 845,4 vs 47 845,2 (p0), 47 464,9 vs 47 465,4 (p1), 47 887,6 vs 47 888,3 (p2), czyli ≤ 0,002%; ciężkie identyczne.
+- **Estymacja O-D:** run `matsim-od` 41198861640 (job `run (1)` ponowiony raz po przejściowym błędzie zapisu eventów, ERRORS 36). **0 flag** w 6 macierzach. Sumy względem R9.4 (`r93o`): lekkie 47 845,4 vs 47 845,2 (p0), 47 464,9 vs 47 465,4 (p1), 47 887,6 vs 47 888,3 (p2), czyli ≤ 0,002%; ciężkie identyczne.
 - **Plany:** p0–p2 (seed 4711/1/2, `errand_seed` 32/33/34, `errand_other=on`), walidacja `ok: true`.
 - **Test:** run `matsim-r93` 41200518829, variant = r94e, control = r93o, 25% × 50 iteracji, po 5 runów (seedy 4711/1/2 na p0 oraz plany p1 i p2). 10/10 jobów przeszło za pierwszym razem.
 

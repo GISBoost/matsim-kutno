@@ -113,6 +113,8 @@ def problems(src: str, out: str, table: bool) -> list[str]:
         return ["pusty wynik"]
     if sorted(PLACEHOLDER_RE.findall(src)) != sorted(PLACEHOLDER_RE.findall(out)):
         p.append("tokeny @@n@@")
+    if src.count("**") != out.count("**"):  # model gubił pogrubienia bez śladu
+        p.append("pogrubienie")
     if sorted(NUM_RE.findall(src)) != sorted(NUM_RE.findall(out)):
         p.append("liczby")
     if len(PL_CHARS_RE.findall(out)) > len(PL_CHARS_RE.findall(src)):
@@ -172,7 +174,8 @@ def text_unit(text: str, prefix: str) -> dict:
         return {"kind": "raw", "text": prefix + text}
     masked, saved = mask(core)
     if not LETTER_RE.search(masked):
-        return {"kind": "raw", "text": prefix + text}
+        # Komórka bez liter (same liczby): tylko przecinek dziesiętny na kropkę.
+        return {"kind": "raw", "text": prefix + re.sub(r"(?<=\d),(?=\d)", ".", text)}
     return {"kind": "tr", "prefix": prefix + lead, "body": core, "masked": masked,
             "saved": saved, "table": False, "en": None, "suffix": trail,
             "key": hashlib.sha256(core.encode("utf-8")).hexdigest()}
