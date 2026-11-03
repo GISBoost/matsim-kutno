@@ -601,7 +601,6 @@ Open questions from `docs/projekt/DECISIONS.md`, without a decision: buffer widt
 | `docs/research/` | analyses and methodological background | yes |
 | `docs/ZRODLA.md` | source catalogue | yes |
 | `output/` | MATSim runs | no |
-| `blender/` | G6 visualization | yes |
 
 The run player (visualizer) is in a separate repository, [easy-matplayer](https://github.com/GISBoost/easy-matplayer).
 
@@ -638,7 +637,7 @@ The run player (visualizer) is in a separate repository, [easy-matplayer](https:
 
 ## 17. License
 
-- **Code** (`pipeline/`, `matsim/src/`, `blender/`, scripts in `reports/` and `docs/`): GPL-3.0-or-later, file [LICENSE](LICENSE).
+- **Code** (`pipeline/`, `matsim/src/`, scripts in `reports/` and `docs/`): GPL-3.0-or-later, file [LICENSE](LICENSE).
 - **Data and results from GUS**: CC BY 4.0 (source required: Główny Urząd Statystyczny).
 - **Data from OpenStreetMap**: ODbL 1.0 (© OpenStreetMap contributors). Extracted bases from OSM data are published under ODbL.
 - **Example MATSim project** in `matsim/`: GPL-2.0-or-later, file `matsim/LICENSE`.

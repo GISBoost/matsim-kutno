@@ -601,7 +601,6 @@ Pytania otwarte z `docs/projekt/DECISIONS.md`, bez decyzji: szerokość bufora p
 | `docs/research/` | analizy i tło metodyczne | tak |
 | `docs/ZRODLA.md` | katalog źródeł | tak |
 | `output/` | runy MATSim | nie |
-| `blender/` | wizualizacja G6 | tak |
 
 Odtwarzacz runów (wizualizer) jest w osobnym repozytorium, [easy-matplayer](https://github.com/GISBoost/easy-matplayer).
 
@@ -638,7 +637,7 @@ Odtwarzacz runów (wizualizer) jest w osobnym repozytorium, [easy-matplayer](htt
 
 ## 17. Licencja
 
-- **Kod** (`pipeline/`, `matsim/src/`, `blender/`, skrypty w `reports/` i `docs/`): GPL-3.0-or-later, plik [LICENSE](LICENSE).
+- **Kod** (`pipeline/`, `matsim/src/`, skrypty w `reports/` i `docs/`): GPL-3.0-or-later, plik [LICENSE](LICENSE).
 - **Dane i wyniki z GUS**: CC BY 4.0 (wymagane podanie źródła: Główny Urząd Statystyczny).
 - **Dane z OpenStreetMap**: ODbL 1.0 (© OpenStreetMap contributors). Wyprowadzone bazy z danymi OSM publikujemy na ODbL.
 - **Przykładowy projekt MATSim** w `matsim/`: GPL-2.0-or-later, plik `matsim/LICENSE`.

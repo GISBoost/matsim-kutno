@@ -44,7 +44,7 @@ Skróty źródeł twierdzeń: **G** = `raport google.txt` / `prompt_google.txt`,
 
 | # | Twierdzenie | Źr. | Status | Dowód |
 |---|---|---|---|---|
-| 21 | Kutno ma aktywny GTFS na zbiorkom.live | S | **POTW** | HTTP 200, 160 558 B, ważny 2026-10-01 → 2026-12-31, 8 plików (z `shapes.txt`). Wydawca: **zbiorkom.live (agregator, nie MZK)**, licencja nieustalona. |
+| 21 | Kutno ma aktywny GTFS na zbiorkom.live | S | **POTW** | HTTP 200, 160 558 B, ważny 2026-10-01 → 2026-12-31, 8 plików (z `shapes.txt`). Wydawca: **zbiorkom.live (agregator, nie MZK)**. Licencja: 2026-10-16 nieustalona, 2026-10-21 potwierdzona przez użytkownika (`docs/ZRODLA.md`, treść licencji do dopisania). |
 | 22 | ~13 linii | S | **CZĘŚĆ** | `routes.txt` = **12** linii. |
 | 23 | Aktywny GTFS-RT | S | **CZĘŚĆ** | HTTP 200, ale `last-modified` = 2026-10-01, czyli feed RT nieaktualizowany od 15 dni. |
 

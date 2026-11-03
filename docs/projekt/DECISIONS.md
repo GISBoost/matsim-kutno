@@ -50,5 +50,5 @@ Format: data · decyzja · uzasadnienie · konsekwencje. Zmiana decyzji = nowy w
 - Parametry scoringu (domyślne MATSim do czasu decyzji; kalibracja poza MVP).
 - Car share (D6), REGON (D7): poza MVP. Wyjeżdżający: w modelu od D17.
 - Wizualizer (D24): zamknięte tutaj. Użytkownik 2026-11-03: kod i dokumentacja są w osobnym repo `easy-matplayer` (lokalnie `../easy-matanimation`), z tego repo usunięte (`viz_player/`, `pipeline/viz_*`, `docs/research/wizualizer_*`, `pywebview`, gałąź `claude/viz-fundamenty-e093b2`, ostatni commit `0437efa`). Numery D26 i D27 w tej gałęzi dotyczyły planu aplikacji, nie decyzji D26 i D27 z tego pliku.
-- **Ruch na ulicach miejskich (D37): znane ograniczenie.** Model ma ok. 45% natężeń z pomiarów WIOŚ 2013 (przeskalowanych do 2025) na K1–K5, drogi z GPR w ±15%. Bez dalszej kalibracji do czasu kroku 6 lub nowych danych.
+- **Ruch na ulicach miejskich (D37): znane ograniczenie.** Model R9.5 ma 43,6% natężeń z pomiarów WIOŚ 2013 (przeskalowanych do 2025) na K1–K5, drogi z GPR w ±15%. Bez dalszej kalibracji do czasu kroku 6 lub nowych danych.
 - Wybór celu zakupów i usług (D32): dziś bez zależności od odległości (waga = obrys), inaczej niż tło (grawitacja τ = 30 min). Przegląd 2026-10-29: mediana odległości 1,6 km, 24% wypraw autem < 1 km, 5 budynków bierze 30% wypraw. Wariant z odległością czeka na research i decyzję.

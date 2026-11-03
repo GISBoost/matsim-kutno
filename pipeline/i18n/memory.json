@@ -5642,5 +5642,9 @@
   "454881b17c0c253517e6c870bdc21bb7d57f3fe9a9176f0a06a54123fd168c08": {
     "pl": "G5: ciężarowe (PCE)",
     "en": "G5: ciężarowe (PCE)"
+  },
+  "448f0fca0c27e176eba0dfd20a83eb415d24ecde5d83144ee51ef804cdd9c9fc": {
+    "pl": "**Kod** (`pipeline/`, `matsim/src/`, skrypty w `reports/` i `docs/`): GPL-3.0-or-later, plik [LICENSE](LICENSE).",
+    "en": "**Code** (`pipeline/`, `matsim/src/`, scripts in `reports/` and `docs/`): GPL-3.0-or-later, file [LICENSE](LICENSE)."
   }
 }

@@ -30,10 +30,15 @@ reports/etap2/g5_czasy_tomtom/model_times.csv
 reports/etap2/g5_czasy_tomtom/model_legs_check.csv
 reports/etap2/g5_czasy_tomtom/przebieg_tomtom.json
 reports/etap2/g5_czasy_tomtom/*.png
-reports/etap2/g5_predkosci_d23/fit_tomtom.json
+reports/etap2/g5_predkosci_d23/fit_tomtom*.json
 reports/etap2/g5_predkosci_d23/fit_f_g_tomtom.png
-# G6: filmy, klatki i audio z Blendera
-blender/g6_blender/
+# wizualizacje autora w Blenderze: skrypty, filmy, klatki, audio (tylko lokalnie)
+blender/
+# produkty uboczne generatorów, odtwarzalne: plans.py, CreateKutnoNetwork; stan edytora
+scenarios/kutno_od/plans_k1_*.csv
+scenarios/kutno/g1b/
+scenarios/kutno/network_r8_zakazy.csv
+.ferrite/
 docs/PRZENIESIONE_NA_G.md
 # materiały robocze z pracy z AI (prompty, instrukcje agenta, archiwum raportów innych modeli); zostają lokalnie
 CLAUDE.md

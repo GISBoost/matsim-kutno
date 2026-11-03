@@ -1,5 +1,7 @@
 # G6: wizualizacja MATSim w Blenderze (prototyp)
 
+> **Aktualizacja 2026-11-03:** skrypty `blender/` są od tej daty tylko lokalnie u autora (poza gitem, decyzja użytkownika). W repo zostaje `pipeline/g6_bake.py`, a skrypty są w historii gita do commita `32f4b59`.
+
 Metoda wg Bell, MUM 2026 (`data/raw/mum2026/107-20-bell.pdf`): węzły sieci → współrzędne sceny; eventy → pozycja pojazdu na klatkę → `.npz`; w Blenderze jedna siatka punktów aktualizowana handlerem `frame_change_pre`, kształt przez Geometry Nodes. Kodu Bella nie ma publicznie, całość napisana od zera. Stan: prototyp na runie `output/d16_25pct_s4711` (odczyt).
 
 ## Uruchomienie

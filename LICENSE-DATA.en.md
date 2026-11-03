@@ -6,7 +6,7 @@ The MATSim Kutno repository has two licenses. The code is under GPL-3.0-or-later
 
 ## Code (GPL-3.0-or-later)
 
-Relates to the code in `pipeline/`, `matsim/src/`, `blender/`, `docs/research/G4_beeline/` and scripts in `reports/`. Full text: [LICENSE](LICENSE).
+Relates to the code in `pipeline/`, `matsim/src/`, `docs/research/G4_beeline/` and scripts in `reports/`. Full text: [LICENSE](LICENSE).
 
 The example MATSim project in `matsim/` has its own GPL-2.0-or-later license (`matsim/LICENSE`). GPL-3.0-or-later is compatible with it.
 

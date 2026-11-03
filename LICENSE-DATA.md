@@ -4,7 +4,7 @@ Repozytorium MATSim Kutno ma dwie licencje. Kod jest na GPL-3.0-or-later (plik `
 
 ## Kod (GPL-3.0-or-later)
 
-Dotyczy kodu w `pipeline/`, `matsim/src/`, `blender/`, `docs/research/G4_beeline/` oraz skryptów w `reports/`. Pełny tekst: [LICENSE](LICENSE).
+Dotyczy kodu w `pipeline/`, `matsim/src/`, `docs/research/G4_beeline/` oraz skryptów w `reports/`. Pełny tekst: [LICENSE](LICENSE).
 
 Przykładowy projekt MATSim w `matsim/` ma własną licencję GPL-2.0-or-later (`matsim/LICENSE`). GPL-3.0-or-later jest z nią zgodna.
 
