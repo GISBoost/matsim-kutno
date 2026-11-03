@@ -1,5 +1,6 @@
 # SOURCES: catalog of sources and what we know about them
-n> Machine translation of [ZRODLA.md](ZRODLA.md) (Polish). The Polish text is the reference.
+
+> Machine translation of [ZRODLA.md](ZRODLA.md) (Polish). The Polish text is the reference.
 
 Update: 2026-10-22. Files are located in `data/raw/` (outside git). The origin of each file (URL, date, sha256) is in `data/manifest.csv`. Facts verified at the start of the project are in `docs/projekt/FACT_CHECK.md`.
 
