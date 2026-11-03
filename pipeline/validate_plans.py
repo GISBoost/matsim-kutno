@@ -1,10 +1,10 @@
 """F4: walidacja plans.xml.gz + mapa kontrolna.
 
-Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> [sample [out_dir [klucz=wartość ...]]]
-  (out_dir: gdzie zapisać raport, domyślnie folder fazy; klucz=wartość jak w plans.py, np. jobs_total=17486)
+Użycie: uv run python -W ignore pipeline/validate_plans.py <plans.xml.gz> <sample> <out_dir> [klucz=wartość ...]
+  (sample i out_dir wymagane, out_dir musi istnieć: brak domyślnych katalogów, by nie nadpisać raportu fazy; klucz=wartość jak w plans.py, np. jobs_total=17486)
 Test (TASKS F4): każda osoba ma dokładnie home-car-work-car-home (D31: albo home-car-work-walk-work-car-home); współrzędne w obszarze sieci; praca w gminie Kutno;
 liczba osób = round(sample x (pracujący w Kutnie + przyjeżdżający)); ten sam sha256 po ponownym uruchomieniu plans.py.
-Wyjście: reports/etap1_mvp/f4_plans/f4_plans.* (sample 0,1), reports/etap1_mvp/f6_run_100pct/f6_plans.* (1,0), inaczej reports/etap1_mvp/r3_ocena/wyniki_<N>pct/r3_<N>pct_plans.*. Kod 1, gdy test nie przechodzi.
+Wyjście: <out_dir>/plans_<N>pct_plans.{json,png}. Kod 1, gdy test nie przechodzi; kod 2, gdy brak argumentów lub out_dir nie istnieje.
 """
 import gzip
 import hashlib
@@ -25,24 +25,26 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 plt.style.use("dark_background")  # mapy w ciemnym motywie (prośba użytkownika)
 
+if len(sys.argv) < 4 or not Path(sys.argv[3]).is_dir():
+    print("Użycie: validate_plans.py <plans.xml.gz> <sample> <out_dir> [klucz=wartość ...]  (out_dir musi istnieć)", file=sys.stderr)
+    sys.exit(2)
 path = Path(sys.argv[1])
 P = tomllib.loads(Path("config/kutno.toml").read_text(encoding="utf-8"))["plans"]
-if len(sys.argv) > 2:  # sample jak w plans.py
-    P["sample"] = float(sys.argv[2])
+P["sample"] = float(sys.argv[2])  # sample jak w plans.py
 OVR = sys.argv[4:]
 for kv in OVR:
     k, v = kv.split("=")
     P[k] = type(P[k])(v)
-PHASE = {0.1: "f4", 1.0: "f6"}.get(P["sample"], f"r3_{round(P['sample'] * 100)}pct")
-if len(sys.argv) > 3:
-    PHASE = f"plans_{round(P['sample'] * 100)}pct"
-OUT = sys.argv[3] if len(sys.argv) > 3 else {"f4": "reports/etap1_mvp/f4_plans", "f6": "reports/etap1_mvp/f6_run_100pct"}.get(PHASE, f"reports/etap1_mvp/r3_ocena/wyniki_{PHASE[3:]}")
+PHASE = f"plans_{round(P['sample'] * 100)}pct"
+OUT = sys.argv[3]
 f3 = json.load(open("scenarios/kutno/validation/f3_demand.json", encoding="utf-8"))
 area = gpd.read_file("scenarios/kutno/area/network_area.geojson").geometry.iloc[0]
 gmina = gpd.read_file("scenarios/kutno/area/gmina.geojson").geometry.iloc[0]
 powiat = gpd.read_file("scenarios/kutno/area/powiat.geojson").geometry.iloc[0]
 
 persons, bad_chain = [], []
+CHAINS = [["home", "car"] + e + ["work", "car"] + s + ["home"]  # D35 (chains = on)
+          for e in ([], ["escort", "car"]) for s in ([], ["shop", "car"], ["service", "car"]) if e or s]
 ERR = ([], [])  # D32: zakupy i usługi (kind=errand): (poprawne, złe łańcuchy)
 BG = {"tlo": ([], []), "ciezkie": ([], [])}  # D19/K2-2, D20: subpopulacja -> (poprawne, złe łańcuchy)
 veh_attr = 0
@@ -54,8 +56,9 @@ with gzip.open(path, "rb") as f:
         at = {a.get("name"): a.text for a in el.iter("attribute")}
         sub = at.get("subpopulation")
         veh_attr += at.get("vehicles") == '{"car":"%s"}' % el.get("id")
-        if at.get("kind") == "errand":  # D32: home -> shop|service -> home, start z end_time, pobyt z max_dur
-            ok = (seq in (["home", "car", "shop", "car", "home"], ["home", "car", "service", "car", "home"]) and acts[0].get("end_time")
+        if at.get("kind") == "errand":  # D32/D36: home -> shop|service|visit|leisure|health|escort -> home, start z end_time, pobyt z max_dur
+            ok = (len(seq) == 5 and seq[:2] == ["home", "car"] and seq[3:] == ["car", "home"] and acts[0].get("end_time")
+                  and seq[2] in ("shop", "service", "visit", "leisure", "health", "escort")  # D36: pozostałe cele dom–X
                   and acts[1].get("max_dur") and not acts[1].get("end_time") and sub == "person")
             ERR[0 if ok else 1].append(el.get("id"))
             el.clear()
@@ -67,12 +70,14 @@ with gzip.open(path, "rb") as f:
             el.clear()
             continue
         split = seq == ["home", "car", "work", "walk", "work", "car", "home"]  # D31: praca = przyjazd + odjazd (osobne linki, noga walk 0 m)
-        timing_ok = (len(acts) in (3, 4) and acts[0].get("end_time") and not acts[0].get("max_dur")
+        chain = at.get("kind") == "resident" and seq in CHAINS  # D35: podwiezienie przed pracą, zakupy/usługi po pracy
+        timing_ok = (len(acts) in (3, 4, 5) and acts[0].get("end_time") and not acts[0].get("max_dur")
                      and all(a.get("max_dur") and not a.get("end_time") for a in acts[1:-1]))
-        if (seq != ["home", "car", "work", "car", "home"] and not split) or not timing_ok:
+        if (seq != ["home", "car", "work", "car", "home"] and not split and not chain) or not timing_ok:
             bad_chain.append(el.get("id"))
         else:
-            h, w = (Point(float(a.get("x")), float(a.get("y"))) for a in acts[:2])
+            w_ = next(a for a in acts if a.get("type") == "work")
+            h, w = (Point(float(a.get("x")), float(a.get("y"))) for a in (acts[0], w_))
             persons.append(dict(id=el.get("id"), h=h, w=w, same_home=acts[0].get("x") == acts[-1].get("x")
                                 and acts[0].get("y") == acts[-1].get("y")))
         el.clear()

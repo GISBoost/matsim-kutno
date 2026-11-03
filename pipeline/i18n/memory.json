@@ -77,7 +77,7 @@
   },
   "979c2a7090caeded06c534b047509640fc212ace545b7bfa7f6be460323d8f7c": {
     "pl": "**Test regresyjny** (po każdej zmianie w `matsim/`): `scenarios/smoke/config.xml` (10 agentów, sieć syntetyczna), potem `check_events.py --expect-car-legs 20`. Przed testem usuń stary output.",
-    "en": "Regression test (after every change in `matsim/`): `scenarios/smoke/config.xml` (10 agents, synthetic network), then `check_events.py --expect-car-legs 20`. Before the test, delete the old output."
+    "en": "**Regression test** (after every change in `matsim/`): `scenarios/smoke/config.xml` (10 agents, synthetic network), then `check_events.py --expect-car-legs 20`. Remove the old output before the test."
   },
   "fbe0fd69258b78796d58eb36f1f2759f3e9525d2ddf79c3c710f133832c7f35a": {
     "pl": "**Uwaga:** przed ponownym generowaniem planów przeczytaj rozdział 13, punkt R-1 (`car_share` w `config/kutno.toml`). Bez tego plany 25% nie będą zgodne z wynikami referencyjnymi.",
@@ -89,7 +89,7 @@
   },
   "e8da315031f8286021dcbcfbdd1280ad5c5c9aecccfc1fbf4aad1612998cdfb3": {
     "pl": "**Podział odpowiedzialności:** Python liczy dane i plany, Java konwertuje sieć i uruchamia symulację. Każdy plik powstaje w jednym miejscu.",
-    "en": "Responsibility division: Python counts the data and plans, Java converts the network and runs the simulation. Each file is created in one place."
+    "en": "**Division of responsibility:** Python computes data and plans, Java converts the network and runs the simulation. Each file is created in one place."
   },
   "c1b402fe31df8e083219de8ecec7fb4b3a750b934e20c55b94bc9a790a6322cc": {
     "pl": "Źródła danych",
@@ -157,7 +157,7 @@
   },
   "c06ed2c056aec5ece25a5f78412b9c26db9e6e5556336f890da7a476b193aa88": {
     "pl": "**Zasada:** liczby i parametry bierzemy tylko ze źródeł z `docs/ZRODLA.md` i z `data/manifest.csv`. Twierdzenia z raportów pomocniczych są sprawdzone w `docs/projekt/FACT_CHECK.md`.",
-    "en": "Principle: numbers and parameters are taken only from sources `docs/ZRODLA.md` and `data/manifest.csv`. Assertions from auxiliary reports are checked in `docs/projekt/FACT_CHECK.md`."
+    "en": "**Rule:** numbers and parameters come only from sources in `docs/ZRODLA.md` and `data/manifest.csv`. Claims from auxiliary reports are checked in `docs/projekt/FACT_CHECK.md`."
   },
   "ebcb7c689c57e9d7034009138b03703ad59d25fde2c40e0c5b0ac5fcf72907a6": {
     "pl": "Sieć drogowa",
@@ -165,19 +165,19 @@
   },
   "30c841bae70f47362094542df5f7e7c2d6275734ba436450a91549d0c7ec990d": {
     "pl": "**Gmina Kutno** (gm. miejska 1002011): suma 41 rejonów BREC, 33,55 km².",
-    "en": "Kutno Municipality (gm. miejska 1002011): total of 41 BREC districts, 33.55 km²."
+    "en": "**Kutno Municipality** (gm. miejska 1002011): total of 41 BREC districts, 33.55 km²."
   },
   "249b2c1a5179a3763920bfa93cb109edf5fdfffde05682e875d02b3fd0df0100": {
     "pl": "**Powiat kutnowski** (1002): 117 rejonów, 885,6 km².",
-    "en": "Kutno county @@N@@ (1002): 117 districts, 885.6 km²."
+    "en": "**Kutno county commuters** (1002): 117 districts, 885.6 km²."
   },
   "da20955bfcb4cbd9c2ddc8f44d31f2507b552c0b3bb1c32b55421e52fca9e04a": {
     "pl": "**Obszar sieci** = powiat + **bufor 3 km** (`network_buffer_m = 3000` w `config/kutno.toml`).",
-    "en": "Network area = county + **3 km buffer** (`network_buffer_m = 3000` in `config/kutno.toml`)."
+    "en": "**Network area** = county + **3 km buffer** (`network_buffer_m = 3000` in `config/kutno.toml`)."
   },
   "5a0f6db8859a99cf5c0a23cb1b49ba05c8e3a75f7a52de174fb332c363ebbaf8": {
     "pl": "**ZAŁOŻENIE:** bufor zatrzymuje drogi wjazdowe za granicą powiatu, żeby przyjeżdżający z dalszych gmin miały gdzie wjechać. Szerokość bufora poza powiatem jest otwarta (D-otwarte).",
-    "en": "ASSUMPTION: the buffer retains the entry roads outside the county so that inbound commuters from further municipalities have somewhere to enter. The width of the buffer outside the county is open (D-open)."
+    "en": "**ASSUMPTION:** the buffer retains the entry roads outside the county so that inbound commuters from further municipalities have somewhere to enter. The width of the buffer outside the county is open (D-open)."
   },
   "f14f715dba2854b32579846c9d7ac7ca9fb28ad1416c278da19ba4d1a69c6caf": {
     "pl": "Współrzędne: EPSG:2180, kolejność osi **E, N** (x ≈ 525 000, y ≈ 485 000). Transformacja z WGS84 odbywa się raz, w konwerterze Java.",
@@ -193,7 +193,7 @@
   },
   "dfebfd26278336a4a463f044ee9ad92cd2db7cc4a64d35e2becf4f9d1fb33744": {
     "pl": "**Zawrotki na granicy** (poprawka F2, A1): przy przycięciu autostrada A1 zostaje z jednokierunkowymi jezdniami, które kończą się ślepo na granicy, i `NetworkCleaner` usunąłby je aż do najbliższego węzła. Dlatego każdy węzeł-ujście (tylko wjazdy) łączymy z najbliższym węzłem-źródłem (tylko wyjazdy) w promieniu **300 m**. Linki dostają typ `boundary_turnaround`, prędkość 30 km/h i capacity 5 000 poj./h (wartości ZAŁOŻENIE). Działają tylko w pasie **1 km** od granicy (`boundary_zone_m`).",
-    "en": "Border loops (correction F2, A1): when the A1 motorway is truncated, it remains with unidirectional lanes that end blindly at the border, and `NetworkCleaner` would remove them until the nearest node. Therefore, every node-exit (only entrances) we connect with the nearest node-source (only exits) within a radius of **300 m**. Links receive type `boundary_turnaround`, speed 30 km/h and capacity 5 000 veh/h (ASSUMPTION values). They operate only in the band of **1 km** from the border (`boundary_zone_m`)."
+    "en": "**Border U-turns** (fix F2, A1): when the A1 motorway is truncated, it remains with unidirectional lanes that end blindly at the border, and `NetworkCleaner` would remove them until the nearest node. Therefore, every node-exit (only entrances) we connect with the nearest node-source (only exits) within a radius of **300 m**. Links receive type `boundary_turnaround`, speed 30 km/h and capacity 5 000 veh/h (ASSUMPTION values). They operate only in the band of **1 km** from the border (`boundary_zone_m`)."
   },
   "2aee308294003829ebda7c02c8d060a1a8d8571e4dd33385ef6c70a296302eb7": {
     "pl": "**Wynik sieci (F2):** 4 453 węzły, 10 296 linków, 4 426 km. Największa silnie spójna składowa obejmuje **100%** węzłów. 90/90 par tras testowych jest osiągalnych. Żaden link nie ma capacity, freespeed, length ani lanes ≤ 0.",
@@ -201,15 +201,15 @@
   },
   "460c50666721546c6a7c54f0e8ce2cd5544f7637ef5bde921f0e062f403bea91": {
     "pl": "Domyślne prędkości Supersonic (wartości VSP dla miast niemieckich) dawały **15 km/h** na ok. 3 000 km dróg lokalnych, głównie wiejskich. Dlatego prędkości są ustawiane jawnie w `config/network.properties`, w kolejności:",
-    "en": "Default Supersonic speeds (VSP values for German cities) yielded **15 km/h** on approx. 3,000 km of local roads, mainly rural. Therefore, the speeds are explicitly set in `config/network.properties`, in the following order:"
+    "en": "Supersonic default speeds (VSP values for German cities) gave **15 km/h** on about 3,000 km of local, mostly rural roads. That is why speeds are set explicitly in `config/network.properties`, in this order:"
   },
   "e431f8d054fa9d69a4599340021f41a6e03ef491bc96ac597a58dba3ae6e1a29": {
     "pl": "tag OSM `maxspeed` (także `PL:urban`, `PL:rural` itd.) przeliczony na km/h;",
-    "en": "OSM `maxspeed` (also `PL:urban`, `PL:rural` etc.) converted to km/h;"
+    "en": "the OSM `maxspeed` tag (also `PL:urban`, `PL:rural`, etc.) converted to km/h;"
   },
   "dc4662bb6cbeb8858439c98d34edb6ec91cfc2c4dcdf9a479b53f01858e5bc4e": {
     "pl": "brak tagu → limit ustawowy wg typu drogi (Prawo o ruchu drogowym, art. 20): miasto 50, poza miastem 90, residential 50, living_street 20, motorway 140, trunk 100 (**ZAŁOŻENIE**: trunk 100, bo w PL to zwykle GP lub droga ekspresowa);",
-    "en": "no tag → statutory limit according to road type (Road Traffic Law, art. 20): city 50, outside city 90, residential 50, living_street 20, motorway 140, trunk 100 (**ASSUMPTION**: trunk 100, because in PL it is usually GP or express road);"
+    "en": "no tag → statutory limit by road type (Road Traffic Act, art. 20): city 50, outside city 90, residential 50, living_street 20, motorway 140, trunk 100 (**ASSUMPTION**: trunk 100, because in Poland it is usually a GP road or an expressway);"
   },
   "7e3ebff0290efcb09b4fa04adcdbafcf5c56a6ded49acb4c88e72ddcc4656e72": {
     "pl": "**freespeed = prędkość dozwolona × 0,8** (**ZAŁOŻENIE**: 0,8 to wartość praktyki VSP, nie wyliczona dla Kutna).",
@@ -217,7 +217,7 @@
   },
   "58f5bf420986dcdc314baae6505356c94b8be5248f341d767c143ee8e71f1708": {
     "pl": "„Miasto” = gmina miejska i miasta w gminach miejsko-wiejskich z BREC (`towns.wkt`). **ZAŁOŻENIE:** wsie z zabudową traktujemy jak drogi zamiejskie (OSM nie ma granic obszaru zabudowanego).",
-    "en": "\"City\" = urban municipality and cities in urban-rural municipalities with BREC `towns.wkt`. **ASSUMPTION**: villages with development are treated as urban roads (OSM does not have built-up area boundaries)."
+    "en": "„City” = the urban municipality and towns in urban-rural municipalities from BREC (`towns.wkt`). **ASSUMPTION:** built-up villages are treated like rural roads (OSM has no built-up area boundaries)."
   },
   "39469556fc4830ebd612dc4fdcc217d3c1275d927576fc8d9ad515bcb223a24c": {
     "pl": "**Kontrola:** czas swobodny w sieci to mediana **0,76 × czas GUS** (29 gmin, `scenarios/kutno/validation/gus_vs_siec.csv`). Sieć jest szybsza niż ORS/GUS, więc nie ma sygnału, że prędkości są zaniżone. Sam ORS to też model.",
@@ -229,7 +229,7 @@
   },
   "65578a93bb20793f03e3e3cc8aaa247e72f454847c47ca55105d0a718a065a77": {
     "pl": "**Capacity** i liczba pasów: domyślne wartości Supersonic (np. tertiary 600 poj./h/pas, primary 1 500 poj./h/pas). **Nie są skalibrowane** i nie mają lokalnego źródła. Połowa opóźnień siedzi na ulicach tertiary (`reports/etap2/g6_kolejki/g6_kolejki.md`).",
-    "en": "Capacity and number of lanes: default Supersonic values (e.g., tertiary 600 veh./h/lane, primary 1 500 veh./h/lane). They are not calibrated and do not have a local source. Half of the delays are on tertiary streets `reports/etap2/g6_kolejki/g6_kolejki.md`."
+    "en": "**Capacity** and number of lanes: default Supersonic values (e.g., tertiary 600 veh./h/lane, primary 1 500 veh./h/lane). **They are not calibrated** and do not have a local source. Half of the delays are on tertiary streets `reports/etap2/g6_kolejki/g6_kolejki.md`."
   },
   "87d0c40d77acd3f5c694ac9a04942c9f57db30425fbeb403a49e3a4407a48bf1": {
     "pl": "**Skrzyżowania:** brak sygnalizacji i pierwszeństwa. Przepustowość to tylko właściwość linku (G1, odłożony).",
@@ -237,11 +237,11 @@
   },
   "f393652a3adb98092f3df04e886cce5fd1f54fad76012d4a7dcd5b04c46ffe9d": {
     "pl": "**Dynamika kolejek:** `trafficDynamics = queue`. kinematicWaves (jak Berlin, Kelheim) dał +56% opóźnień, a przy 300 s stuck time gridlock (D18, G5 K5).",
-    "en": "Queue dynamics: `trafficDynamics = queue`. kinematicWaves (like Berlin, Kelheim) gave +56% delays, and with 300 s stuckTime gridlock (D18, G5 K5)."
+    "en": "**Queue dynamics:** `trafficDynamics = queue`. kinematicWaves (like Berlin, Kelheim) gave +56% delays, and with 300 s stuckTime gridlock (D18, G5 K5)."
   },
   "981007d7363404850a7c1413c502158125bf54ebb0da6e34a8e78486c97389ce": {
     "pl": "**`qsim.stuckTime = 30 s`** (D18). Przy 10 s i `removeStuckVehicles=false` QSim wpychał pojazdy na pełne krótkie linki (82 pojazdy na linku o pojemności 1,2). Po zmianie: przepełnione linki 13 → 4–7.",
-    "en": "At `qsim.stuckTime = 30 s` (D18). At 10 s and `removeStuckVehicles=false` QSim pushed vehicles onto full short links (82 vehicles on a capacity of 1.2). After the change: overloaded links 13 $\\rightarrow$ 4–7."
+    "en": "**At `qsim.stuckTime = 30 s`** (D18). At 10 s and `removeStuckVehicles=false` QSim pushed vehicles onto full short links (82 vehicles on a capacity of 1.2). After the change: overloaded links 13 → 4–7."
   },
   "40994cafac413b97dfcd15bb4d666543d5cdc83ee949d1db6b6c756acae8cc82": {
     "pl": "Aktywności są przypinane do **najbliższego linku** wg odległości do jego odcinka. Pomijane są typy: `motorway`, `motorway_link`, `trunk`, `trunk_link`, `boundary_turnaround` (`snap_exclude_types`). Bez tego MATSim przypinałby dom do jezdni A1 (R3/E5).",
@@ -249,7 +249,7 @@
   },
   "abec0e961c45e469d2c36819dd9b4b7bd632f3bde26fc67d542e7d77d5e42d22": {
     "pl": "Wyjątek: wjazdy i wyjazdy na granicy zachowują swój link.",
-    "en": "Exception: entries and exits at the border retain their link."
+    "en": "Exception: border entries and exits keep their link."
   },
   "2db1460cc8095266a84c1c38518bd7a29fa96f1196b24e12ec4693da8e86e6ce": {
     "pl": "Popyt: kto jedzie do pracy i skąd",
@@ -269,11 +269,11 @@
   },
   "bb3b1fd250fb2f62e656c66b4ac84881159b13cc58694e980d7e7fe4874d3d7f": {
     "pl": "**Co wiemy, a czego nie:** tożsamość „miejsca pracy = mieszkańcy zostający + przyjeżdżający” nie domyka się. Rejestry dają 22 725, a P4508 17 486. Różnica 30% nie ma wyjaśnienia w danych (G2, `docs/research/G2_warianty.md`). Dlatego C jest wariantem wrażliwości, a nie błędem.",
-    "en": "What we know and what we don't: the identity \"workplace = residents staying + inbound commuters\" is not closed. Registers give 22,725, while P4508 gives 17,486. The 30% difference has no explanation in the data (G2, `docs/research/G2_warianty.md`). Therefore, C is a sensitivity variant, not an error."
+    "en": "**What we know and what we don't:** the identity \"workplace = residents staying + inbound commuters\" is not closed. Registers give 22,725, while P4508 gives 17,486. The 30% difference has no explanation in the data (G2, `docs/research/G2_warianty.md`). Therefore, C is a sensitivity variant, not an error."
   },
   "16d9f250aa1be3545031f0b11757d9167f71ae655a45ae475a31e55067669de6": {
     "pl": "Liczba pracujących: P4507 (17 255) × udział gminy. Odejmowani są wyjeżdżający (2 669).",
-    "en": "Number of employed persons: P4507 (17 255) $\\times$ municipality share. Outbound commuters (2 669) are subtracted."
+    "en": "Number of employed persons: P4507 (17 255) × municipality share. Outbound commuters (2 669) are subtracted."
   },
   "3c6125b319540045f3764f24aaf0c00ea89f62a3ffc62a15f7542db2b47a5df0": {
     "pl": "Rozkład na **232 obwody spisowe** proporcjonalnie do `employed_base` (estymacja wg wieku, D5).",
@@ -289,7 +289,7 @@
   },
   "d026b943770cea307db443423faaff50ca6540dfd2d81451dd4bb60d81e67dec": {
     "pl": "**Gminy spoza powiatu (D16/A):** agent pojawia się na **wjeździe granicznym** najbliższym centroidowi gminy, o godzinie z profilu. Czasu dojazdu poza siecią nie doliczamy (**ZAŁOŻENIE**: jak D16/A; wcześniej doliczano 72 km/h × 1,3, co dawało starty po północy).",
-    "en": "Municipalities outside the county (D16/A): agent appears at the nearest **border entrance** to the municipality's centroid, at the time from the profile. Commute time outside the network is not added (**ASSUMPTION**: as D16/A; previously 72 km/h × 1.3 was added, resulting in starts after midnight)."
+    "en": "**Municipalities outside the county (D16/A):** agent appears at the nearest **border entrance** to the municipality's centroid, at the time from the profile. Commute time outside the network is not added (**ASSUMPTION**: as D16/A; previously 72 km/h × 1.3 was added, resulting in starts after midnight)."
   },
   "2e9006cdc918a434cf000a2ea375a68322fa9d38633aea0d21289d782c588cf0": {
     "pl": "Wjazdy: 31 linków typów `motorway`, `trunk`, `primary`, `secondary` w strefie 1 km od granicy, skierowanych do Kutna (ZAŁOŻENIE, `entry_road_types`, `entry_zone_m`).",
@@ -301,11 +301,11 @@
   },
   "7253be195e8f828c7de230287c39879d36f336d7255591b873eedb59455159fb": {
     "pl": "**Dom:** losowy budynek mieszkalny w obwodzie Kutna, losowany wagą pracujących (jak mieszkańcy).",
-    "en": "House: random residential building in the Kutno district, weighted by employed persons (as residents)."
+    "en": "**House:** random residential building in the Kutno district, weighted by employed persons (as residents)."
   },
   "303908f8c44bcdb84fee4c4e43418ad6088a028d590ec52a8960c663ca7aac31": {
     "pl": "**Praca:** w gminach powiatu, losowy budynek pracy w gminie docelowej. Gminy spoza powiatu: **wyjazd** (link wyjazdowy najbliższy centroidowi gminy, lustro wjazdów).",
-    "en": "Work: in the county's municipalities, random workplace in the target municipality. Municipalities outside the county: **outbound** (exit link closest to the municipality's centroid, mirror of entrances)."
+    "en": "**Work:** in the county's municipalities, random workplace in the target municipality. Municipalities outside the county: **outbound** (exit link closest to the municipality's centroid, mirror of entrances)."
   },
   "e5d6c35a1343895b2841f6bceed86a07761da7afb0e42f4432813abb8bbacf1c": {
     "pl": "Godzina wyjazdu z profilu, praca 8 h. Po pracy wraca po tym samym czasie, bez czasu dojazdu poza siecią (ZAŁOŻENIE).",
@@ -313,7 +313,7 @@
   },
   "c484768de6ab0fa17cd3d42f05f4e01f865c3a5f8241e48992f7cc7d937dd680": {
     "pl": "**Dlaczego O1:** ruch istnieje i obciąża te same wloty co przyjeżdżający, w przeciwnym kierunku. Bez niego natężenia wylotowe były by zaniżone (G2).",
-    "en": "Why O1: traffic exists and loads the same inlets as inbound commuters, but in the opposite direction. Without it, the outlet flows would be underestimated (G2)."
+    "en": "**Why O1:** traffic exists and loads the same inlets as inbound commuters, but in the opposite direction. Without it, the outlet flows would be underestimated (G2)."
   },
   "2a1882dd228468db6ba3ef3c8f4584fe49a6905523497ee6f4dc98fa3bb735b5": {
     "pl": "Wszystkie kategorie (mieszkańcy, przyjeżdżający, wyjeżdżający) mnożone są przez:",
@@ -321,19 +321,19 @@
   },
   "6d690b835785200e01ad839500b0cafb38330cce7e59ff3d462dfa1e815b1357": {
     "pl": "**udział auta 0,64** (środek przedziału 61–67% z Bochni i Radomu; `car_share`);",
-    "en": "vehicle share 0,64 (middle of the range 61–67% from Bochnia and Radom; `car_share`);"
+    "en": "**vehicle share 0,64** (middle of the range 61–67% from Bochnia and Radom; `car_share`);"
   },
   "f58910ca2cfba84596e6454283894fe17ea87c15e5e729a071572501c972d796": {
     "pl": "Wynik: **× 0,593**.",
-    "en": "**× 0.593**"
+    "en": "- **× 0.593**"
   },
   "985ad7ab5d77ace41399772837d44fe0b46049f1d534407c3bfa936b8accb4d8": {
     "pl": "**Skutek:** plany 25% spadają z 6 302 do 3 739 osób.",
-    "en": "Result: plans drop by 25% from 6,302 to 3,739 persons."
+    "en": "**Result:** plans drop by 25% from 6,302 to 3,739 persons."
   },
   "094f17eb789fb9e000fbaeadfd92a7ce53e89b1bca47553e69c56c4f2d683b22": {
     "pl": "**Uwaga metodyczna:** redukcja działa na liczebności w każdej grupie (obwód, gmina), a nie przez losowe pominięcie konkretnych osób. Mieszkańcy w obwodzie z niskim udziałem auta nie są wyróżnieni.",
-    "en": "Methodological note: the reduction acts on the count in each group (district, commune), not by randomly omitting specific individuals. Residents in districts with a low share of cars are not distinguished."
+    "en": "**Methodological note:** the reduction acts on the count in each group (district, commune), not by randomly omitting specific individuals. Residents in districts with a low share of cars are not distinguished."
   },
   "1479a4472b88cb8748c838d5a761814d1352dd0dc77e63b9bc12b7426f577d82": {
     "pl": "**Status:** to zmiana zakresu MVP („wszyscy jadą autem”, D6) i wymaga potwierdzenia decyzji. Wartości pochodzą z innych miast (**ZAŁOŻENIE**).",
@@ -345,11 +345,11 @@
   },
   "1f5af21bd8c630a452585c5dee1f9ca0ac11b7f0c3294b9f92db2e1be5bff38a": {
     "pl": "**Seedy:** 4711 (domyślny w configu), 1, 2.",
-    "en": "Seed: 4711 (default in the config), 1, 2."
+    "en": "**Seed:** 4711 (default in the config), 1, 2."
   },
   "892a1dad87f4c896efd9254b2c456b8ae1087369814f7517bb18a67017e230f3": {
     "pl": "**Przepustowość skalowana do próbki:** `flowCapacityFactor = storageCapacityFactor = sampleSize` (MATSim 2026 wymaga ich równości, D8, D15/5).",
-    "en": "Throughput scaled to sample: `flowCapacityFactor = storageCapacityFactor = sampleSize` (MATSim 2026 requires their equality, D8, D15/5)."
+    "en": "**Throughput scaled to sample:** `flowCapacityFactor = storageCapacityFactor = sampleSize` (MATSim 2026 requires their equality, D8, D15/5)."
   },
   "46d3e5de700e258152b72d8cd157ed1c876e27e39fb53a6dbc1b20b8350c7eca": {
     "pl": "Wyniki w skali 100% odtwarzamy przez `× 1/sampleSize` (dotyczy natężeń i GEH; `convergence.py` robi to sam).",
@@ -373,7 +373,7 @@
   },
   "a436bf50c66c3fb06bfdd70528a644c909f3c0bdb3239944e7f2f5ba852010cc": {
     "pl": "**Wykluczenia z danych OSM:**",
-    "en": "Exclusions from OSM data:"
+    "en": "**Exclusions from OSM data:**"
   },
   "eaf35639a3806f4d271271371e113926ffc237252fd7c3b7a3436b26c17a4251": {
     "pl": "Budynek mieszkalny nie może być budynkiem pracy (`loc[work, residential] = False`).",
@@ -389,7 +389,7 @@
   },
   "edd5eb0cbe9df7685b17eab67fe5a55ee1ee9de867d6d4df46bb44dc59503e8e": {
     "pl": "**Przyjeżdżający spoza powiatu i wyjeżdżający spoza powiatu:** nie mają domu w Kutnie. Start/koniec na linku granicznym.",
-    "en": "Inbound commuter from outside the district and outbound commuter from outside the district: do not have a home in Kutno. Start/end on the border link."
+    "en": "**Inbound and outbound commuters from outside the county:** they have no home in Kutno. Start/end on a border link."
   },
   "574146d2a7eefce6b4eb6e913cec9085449dee164aca4829d22b1dcc00580f8f": {
     "pl": "Tylko 26 611 budynków mieszkalnych w obszarze sieci.",
@@ -413,7 +413,7 @@
   },
   "811ebea1195f8e18c619ac0f6f63079db6b39456bdfd7f5e9ec38ea1f61b9797": {
     "pl": "**ZAŁOŻENIE:** rozkład zatrudnienia wewnątrz gminy odwzorowany przez powierzchnię budynków. Nie ma REGON ani adresów zakładów w modelu (D7, G2 otwarte).",
-    "en": "ASSUMPTION: employment distribution within the municipality is reflected by building area. There are no REGON or facility addresses in the model (D7, G2 open)."
+    "en": "**ASSUMPTION:** employment distribution within the municipality is reflected by building area. There are no REGON or facility addresses in the model (D7, G2 open)."
   },
   "bf03c2dd95f03b017ecc9a5fea0211e7c3ae2bda3a2430f7874fca10c05d765d": {
     "pl": "Każdy dom i miejsce pracy dostaje **najbliższy link** sieci (z pominięciem typów z `snap_exclude_types`, rozdział 5.5). Przyjeżdżający i wyjeżdżający spoza powiatu mają link graniczny od razu.",
@@ -421,7 +421,7 @@
   },
   "283dd57d7739d4d3a9ad404712b745d09c26a2550cd17c6fb734be5b609a88f4": {
     "pl": "Cechy agentów: co wiemy o osobie",
-    "en": "Agent characteristics: what we know about the person"
+    "en": "Agent characteristics: what we know about a person"
   },
   "9dfd577fd7347ac2f4e02e57bbd20ac3600362c57e970568aaf85b39bbdeffd3": {
     "pl": "Agenty tworzy się z **agregatów**, nie z mikrodanych. Nie odtwarzamy gospodarstw ani osób (zasady projektu).",
@@ -445,7 +445,7 @@
   },
   "ed1013b0360828d174b35fdc73a6c3c1c717c4d80ced14b1718fd65cee33f250": {
     "pl": "Plany dnia: łańcuch i godziny",
-    "en": "Daily plans: chain and hours"
+    "en": "Daily plans: chains and hours"
   },
   "96bcdaeea3bf2872c458af96a6c4917541446dbb280b047424da650f581abcd6": {
     "pl": "**Łańcuch (każda osoba):** `home (end_time = wyjazd) → car → work (max_dur = 8:00:00) → car → home`. Test: trzy aktywności i dwie nogi car, `end_time` XOR `max_dur` (zasady projektu).",
@@ -465,7 +465,7 @@
   },
   "0c5fdc97eb5e3b67c736d486e2a8eac3e1c92a27d9f4b07727a039dd89cae845": {
     "pl": "**Ograniczenia godzin:**",
-    "en": "Time limitations:"
+    "en": "**Time limitations:**"
   },
   "e4c28dc6175a67a5b04add91c050ca054e1e6d4f5ae908e7c8207dab826b73f1": {
     "pl": "Brak godzinowego rozkładu lokalnego (decyzja D10 otwarta, R1: `docs/research/R1_godziny.md`).",
@@ -477,7 +477,7 @@
   },
   "fe88cdd80443bbdb87a614b24484b5a3d07095cdd050b35141f078ff9b95670c": {
     "pl": "**Czas pracy 8 h** (`work_max_dur`): **ZAŁOŻENIE** zaokrąglone z GUS BCL 2013 (8 h 11 min średnio dla najemnych). Nie jest to rozkład per agent. `TimeAllocationMutator` **wyłączony** (godziny z danych nie mają dryfować).",
-    "en": "8 h working time (`work_max_dur`): **ASSUMPTION** rounded from GUS BCL 2013 (average of 8 h 11 min for hired workers). This is not a distribution per agent. `TimeAllocationMutator` **disabled** (hours from data should not drift)."
+    "en": "**8 h working time** (`work_max_dur`): **ASSUMPTION** rounded from GUS BCL 2013 (average of 8 h 11 min for hired workers). This is not a distribution per agent. `TimeAllocationMutator` **disabled** (hours from data should not drift)."
   },
   "52a8a8dc0cbe432d0011040c67d8ed2f785b6bf15a6af5c1439f3bbf46ccc44d": {
     "pl": "Symulacja MATSim (konfiguracja)",
@@ -545,11 +545,11 @@
   },
   "b6759fa35eacf11528213511c34164bfdfbbb8f822b0859725d47ea6935c4e98": {
     "pl": "**Co jest w wyjściu:** `output_events.xml.zst` (eventy, format `.zst`), `output_links.csv.zst`, `modestats`, `scorestats`, `traveldistancestats` (MATSim). Wykresy: `pipeline/plot_run.py`.",
-    "en": "What is in the output: `output_events.xml.zst` (events, format `.zst`), `output_links.csv.zst`, `modestats`, `scorestats`, `traveldistancestats` (MATSim). Charts: `pipeline/plot_run.py`."
+    "en": "**What is in the output:** `output_events.xml.zst` (events, format `.zst`), `output_links.csv.zst`, `modestats`, `scorestats`, `traveldistancestats` (MATSim). Charts: `pipeline/plot_run.py`."
   },
   "c50ba400eaf5da8c5a3544ab65895630458318218a2ed0fc92d30372695b561e": {
     "pl": "**Co MATSim robi z nogami:** przy trybie `car` MATSim sam dokleja teleportowane nogi `walk` (dojście i odejście). Nie są częścią modelu ruchu, tylko trzeba je odfiltrować przy liczeniu nóg.",
-    "en": "What MATSim does with legs: in `car` mode, MATSim automatically attaches teleported legs `walk` (arrival and departure). They are not part of the traffic model, but must be filtered out when counting legs."
+    "en": "**What MATSim does with legs:** in `car` mode, MATSim automatically attaches teleported legs `walk` (arrival and departure). They are not part of the traffic model, but must be filtered out when counting legs."
   },
   "88dc1716c77753ac65c2735b39c21153813e74c2afe316eb64685392b1c55888": {
     "pl": "Walidacja i wyniki",
@@ -577,7 +577,7 @@
   },
   "0fb056575148fc7382ce50410212388832e054b2add30d7e8e4f4aae9e2d9113": {
     "pl": "**Zasada projektu:** run bez błędu nie jest dowodem. Fazę zalicza test semantyczny.",
-    "en": "Project principle: A run without errors is not proof. The semantic test counts the stage."
+    "en": "**Project principle:** A run without errors is not proof. The semantic test counts the stage."
   },
   "5282b214c968714121bceeac3f5e5fb922e19f4cc532e915c2fe3e1712c2914b": {
     "pl": "11.2 Wyniki D18 (25%, 3 seedy; historyczne, bez tła)",
@@ -1037,15 +1037,15 @@
   },
   "38a7785f8fdabee31bca2584bbb47ecd7c280060ccfc381f06e51db35be2461a": {
     "pl": "**Kod** (`pipeline/`, `matsim/src/`, `blender/`, skrypty w `reports/` i `docs/`): GPL-3.0-or-later, plik [LICENSE](LICENSE).",
-    "en": "Code (`pipeline/`, `matsim/src/`, `blender/`, scripts in `reports/` and `docs/`): GPL-3.0-or-later, file [LICENSE](LICENSE)."
+    "en": "**Code** (`pipeline/`, `matsim/src/`, `blender/`, scripts in `reports/` and `docs/`): GPL-3.0-or-later, file [LICENSE](LICENSE)."
   },
   "99e1450b9bde01664e1ba92b064a84415839c1551bf940524f83ff6560cd16e0": {
     "pl": "**Dane z OpenStreetMap**: ODbL 1.0 (© OpenStreetMap contributors). Wyprowadzone bazy z danymi OSM publikujemy na ODbL.",
-    "en": "Data from OpenStreetMap: ODbL 1.0 (© OpenStreetMap contributors). Extracted bases from OSM data are published under ODbL."
+    "en": "**Data from OpenStreetMap**: ODbL 1.0 (© OpenStreetMap contributors). Extracted bases from OSM data are published under ODbL."
   },
   "797434f25e2b51e40b9dfc751ec00848ca392a8763ec1fee3b0d3eb993bdc366": {
     "pl": "**Przykładowy projekt MATSim** w `matsim/`: GPL-2.0-or-later, plik `matsim/LICENSE`.",
-    "en": "Example MATSim project in `matsim/`: GPL-2.0-or-later, file `matsim/LICENSE`."
+    "en": "**Example MATSim project** in `matsim/`: GPL-2.0-or-later, file `matsim/LICENSE`."
   },
   "7892534adce5a0ef346eb5d06f3052828861795134c172e751fd5ec52025e0c9": {
     "pl": "Pełny podział i zastrzeżenia: [LICENSE-DATA.md](LICENSE-DATA.md).",
@@ -1069,7 +1069,7 @@
   },
   "6f1c73c783da1872b21b3565b1c24dddedd3d4b4f0dc49d5826ee7d9640dc156": {
     "pl": "**GUS NSP 2021, ludność w rejonach i obwodach spisowych** (`gus/ludnosc_rejony_obwody_nsp2021.xlsx`)",
-    "en": "GUS NSP 2021, population in regions and statistical districts `gus/ludnosc_rejony_obwody_nsp2021.xlsx`"
+    "en": "**GUS NSP 2021, population in regions and statistical districts** (`gus/ludnosc_rejony_obwody_nsp2021.xlsx`)"
   },
   "d511cac163a267c5073ca82f75a5796a1d5864245b3d8f23935bc82aae7550db": {
     "pl": "232 obwody Kutna: ludność ogółem, grupy wieku (przed/produkcyjny/poprodukcyjny). Suma 42 255.",
@@ -1093,7 +1093,7 @@
   },
   "30f78f5d4a8a1dc96f1153504a4f53f212eb11e3b9eebe8c83c356667c935b0f": {
     "pl": "**GUS NSP 2021, macierz przepływów do pracy** (`gus/macierz_przeplywow_nsp2021.xlsx`)",
-    "en": "GUS NSP 2021, employment flow matrix `gus/macierz_przeplywow_nsp2021.xlsx`"
+    "en": "**GUS NSP 2021, employment flow matrix** (`gus/macierz_przeplywow_nsp2021.xlsx`)"
   },
   "e83f266443e3dbc0d957e6e3cdeff20dae6819995c2df21da6bdd3f306177c1e": {
     "pl": "Przyjeżdżający do Kutna: 8 186 osób w 134 gminach. Wyjeżdżający: 2 669 w 83 gminach.",
@@ -1101,19 +1101,19 @@
   },
   "62307a7716fcc35c5c04e38a2df1fcaee609077741c8bcd318ccfcafbb618890": {
     "pl": "Przyjeżdżający i wyjeżdżający (D3, D9, D17)",
-    "en": "Inbound and outbound @@N@@ (D3, D9, D17)"
+    "en": "Inbound and outbound commuters (D3, D9, D17)"
   },
   "4b0c4f38e88c26536ecb10b59dae8b5617c979f507da719b5d061a06cca19c8a": {
     "pl": "Tylko pracownicy najemni. Pomija przepływy < 3 osób i ruch wewnątrz gminy. Miejsce pracy to adres pracodawcy (np. siedziba firmy w Warszawie).",
-    "en": "Only employed persons. Ignores flows < 3 people and background traffic within the municipality. The workplace is the employer's address (e.g., company headquarters in Warsaw)."
+    "en": "Employees only. Ignores flows < 3 people and traffic within the municipality. The workplace is the employer's address (e.g., company headquarters in Warsaw)."
   },
   "775ca4314dd24596b82202e3845a4fd15cbf204e6a30626b104e8299278f99b4": {
     "pl": "**BDL P4507 i P4508, 2024** (`g2/bdl_kutno.json`, API BDL)",
-    "en": "BDL P4507 and P4508, 2024 `g2/bdl_kutno.json`, BDL API"
+    "en": "**BDL P4507 and P4508, 2024** (`g2/bdl_kutno.json`, BDL API)"
   },
   "0b3ae544061f009017bc18a10d4d9f99e1362bcad82bcd1a914ffc51058c0e8c": {
     "pl": "P4507: pracujący mieszkańcy gminy (17 255). P4508: miejsca pracy wg siedziby płatnika (17 486).",
-    "en": "P4507: employed person residents of the municipality (17 255). P4508: workplaces by payer headquarters (17 486)."
+    "en": "P4507: employed residents of the municipality (17 255). P4508: workplaces by payer headquarters (17 486)."
   },
   "c54e33772b0db0dc19fe8cea67e969bf061975e8b97428523b18bb7c983f770b": {
     "pl": "Kotwica liczby mieszkańców pracujących w Kutnie (D17/B) i wariant C",
@@ -1125,7 +1125,7 @@
   },
   "32d899b881f1aeaaa4cc598b6e0ccdabaf98f62e7ce3889beb6fd4d0a58dc724": {
     "pl": "**GUS BREC 2021, geometria** (`brec/AreaStatisticalUnit_10_2021.zip`, `brec/SU_BREC_2021_REJ.zip`)",
-    "en": "GUS BREC 2021, geometry (`brec/AreaStatisticalUnit_10_2021.zip`, `brec/SU_BREC_2021_REJ.zip`)"
+    "en": "**GUS BREC 2021, geometry** (`brec/AreaStatisticalUnit_10_2021.zip`, `brec/SU_BREC_2021_REJ.zip`)"
   },
   "33ae40c6e776b0a2759aceddd839302d4e0870950ddad430fbd641f834038b09": {
     "pl": "Granice gminy, powiatu, rejonów i obwodów w EPSG:2180",
@@ -1141,7 +1141,7 @@
   },
   "7254d0963c924932a16bf16da98fe2b64e5b75b3e5c979422f3e6f1a06f4f415": {
     "pl": "**OSM Geofabrik, `lodzkie-261015.osm.pbf`** (dane do 2026-10-15)",
-    "en": "OSM Geofabrik, `lodzkie-261015.osm.pbf` (data up to 2026-10-15)"
+    "en": "**OSM Geofabrik, `lodzkie-261015.osm.pbf`** (data up to 2026-10-15)"
   },
   "6657a6d6a1db4c86920a373fa217b990c03df36f997029d6d374ef8060fda880": {
     "pl": "Sieć drogowa, budynki (tag `building`), landuse (`residential`, `industrial`, `commercial`, `retail`), tagi `amenity`/`shop`/`office`",
@@ -1165,7 +1165,7 @@
   },
   "f8d974d1e0cc44ad57bbd0ab9ad4cf191f4ef79be1867f44988f1874412944ce": {
     "pl": "**GDDKiA GPR 2025** (`g5/gpr2025/`)",
-    "en": "GDDKiA GPR 2025 `g5/gpr2025/`"
+    "en": "**GDDKiA GPR 2025** (`g5/gpr2025/`)"
   },
   "9dd7ab11e0cf6c625d992fec39ce4877a179fb3282d6a0018669d922d0b4b36c": {
     "pl": "Średni dobowy ruch na 19 odcinkach w sieci (A1, DK, DW), SDRR/SDRDR, udział lekkich i ciężkich",
@@ -1181,7 +1181,7 @@
   },
   "9d53e746a37c1dc7f5820622074b0b1166327b3aaedf66179d1f24532a481717": {
     "pl": "**GDDKiA SCPR 2025, stacja 14005 Lisica** (`g5/scpr2025/st_14005.pdf`)",
-    "en": "GDDKiA SCPR 2025, station 14005 Lisica `g5/scpr2025/st_14005.pdf`"
+    "en": "**GDDKiA SCPR 2025, station 14005 Lisica** (`g5/scpr2025/st_14005.pdf`)"
   },
   "1ff67cfc0d48e263d2e82f009342e9ef6fedb5feae44af958cce126f913b8e9f": {
     "pl": "Krzywe godzinowe dnia roboczego (zdigitalizowane)",
@@ -1197,7 +1197,7 @@
   },
   "8403be2954eac0dd07d9b4c0e4156725b6477113b0e6eb4bed3c1ae32972062f": {
     "pl": "**GUS Mobilność 2024** (`gus_transport/mobilnosc_*`)",
-    "en": "GUS Mobility 2024 `gus_transport/mobilnosc_*`"
+    "en": "**GUS Mobilność 2024** (`gus_transport/mobilnosc_*`)"
   },
   "fe07d9fa53f138eb670d9146cb409c38e20d9b34d83551368713ee72e41294c8": {
     "pl": "Obecność w pracy (K1-1)",
@@ -1209,7 +1209,7 @@
   },
   "9bd8dbb9aea6d71893472f41d94a54a1da887649efcfab63ea9c266b7995e710": {
     "pl": "**Bochnia 2016, Radom 2022** (`g4/`)",
-    "en": "Bochnia 2016, Radom 2022 `g4/`"
+    "en": "**Bochnia 2016, Radom 2022** (`g4/`)"
   },
   "b87192c0aa1e44b569f8c702d3c29687f67dc69e1a35adccb4479be11696673a": {
     "pl": "Udział auta w dojazdach dom–praca: 61–67%",
@@ -1225,7 +1225,7 @@
   },
   "65447b11b7a6e941094ff66e17d2c59481d399648674b872ccd7ddae3047fac2": {
     "pl": "**BDOT10k powiat 1002, 2025-12-09** (`g3/bdot10k/1002_GPKG.zip`)",
-    "en": "BDOT10k district 1002, 2025-12-09 `g3/bdot10k/1002_GPKG.zip`"
+    "en": "**BDOT10k county 1002, 2025-12-09** (`g3/bdot10k/1002_GPKG.zip`)"
   },
   "ed198347ed13ad273627f2ede0fe592c75575032db8521ca11c128f5dad2656e": {
     "pl": "Budynki mieszkalne z liczbą kondygnacji (99,9% wypełnione)",
@@ -1241,7 +1241,7 @@
   },
   "b49730bd1b7f07af2aeba036f7d41ac33983691b05c80f13ac47340b75f7ab22": {
     "pl": "**GUS statystyczne punkty adresowe, NSP** (`g2/adr_kutno_2026_0.csv`)",
-    "en": "GUS statistical address points, NSP `g2/adr_kutno_2026_0.csv`"
+    "en": "**GUS statistical address points, NSP** (`g2/adr_kutno_2026_0.csv`)"
   },
   "b0474e90c36bb9d8b7bc0090b6ceaa60722cbace9670244ab03d2d2fa780ea65": {
     "pl": "4 807 punktów adresowych budynków mieszkalnych w Kutnie",
@@ -1257,7 +1257,7 @@
   },
   "dfdb1289141505c7dd4cab01d192dc9ae67d4585090bcc8f362fe4dff0f7703e": {
     "pl": "**GUS macierz dostępności** (`gus_transport/macierz_dostepnosci_20210331.xlsx`)",
-    "en": "GUS accessibility matrix `gus_transport/macierz_dostepnosci_20210331.xlsx`"
+    "en": "**GUS accessibility matrix** (`gus_transport/macierz_dostepnosci_20210331.xlsx`)"
   },
   "ad2246287d5653521937f272f161f77c49864b924849aee7ed011658ec669b3c": {
     "pl": "Czas przejazdu autem między gminami",
@@ -1273,7 +1273,7 @@
   },
   "fb8d6ae067e4593c882ada3554ba7fcf18cb7501214b4c89da77afc64ce613f1": {
     "pl": "**GTFS zbiorkom.live Kutno, GTFS kolej (Kuranowski)**",
-    "en": "GTFS collection.live Kutno, GTFS rail (Kuranowski)"
+    "en": "**GTFS zbiorkom.live Kutno, GTFS rail (Kuranowski)**"
   },
   "cea08cc9c97b989d26aec887b28d25fc8accb06a29bf92eb0ddd409538c19cb4": {
     "pl": "Rozkłady autobusów i kolei",
@@ -1289,7 +1289,7 @@
   },
   "3bdb0fa057518c72ac606a71cc6261713a8b842d303698c3ef061d54a62eeb8b": {
     "pl": "**Literatura VSP i MATSim MUM 2026** (`g5/lit/`, `mum2026/`)",
-    "en": "VSP and MATSim MUM 2026 Literature (`g5/lit/`, `mum2026/`)"
+    "en": "**VSP and MATSim MUM 2026 Literature** (`g5/lit/`, `mum2026/`)"
   },
   "73472f3eb872dd83d5363702c7963f281a89ef92a0d9b892e05cd27c8385d34e": {
     "pl": "Konfiguracje referencyjne (matsim-berlin v6.3, matsim-kelheim v3.1), praktyka kalibracji",
@@ -1321,7 +1321,7 @@
   },
   "3770cc6b8d92c8511182f8f1073e5df891e96b2a117133dd6b5b327bc0aae6c8": {
     "pl": "Przypięcie aktywności do sieci",
-    "en": "Activity attachment to the network"
+    "en": "Attaching activities to the network"
   },
   "08b2a3a79f8ab0ee06002f945e9c54a655f5ab57b02bc498194473d4961178f4": {
     "pl": "Bilans w skali 100% (bazowy wariant B, D17)",
@@ -1337,7 +1337,7 @@
   },
   "951a434dd80a52e0e847a6c6d026cc930772c98c97f5433ba43be8bb30f38d34": {
     "pl": "Skąd",
-    "en": "From"
+    "en": "Source"
   },
   "c55e79040f90c42a633f44a9ddba36c9966efa3b4af972d37e528f1127049af2": {
     "pl": "Uwagi",
@@ -1357,7 +1357,7 @@
   },
   "6485525aa041bf9633a7f9c903fb5c4d271749ecfca5df3b659ea899ac68bf7d": {
     "pl": "Przyjeżdżający do pracy w Kutnie",
-    "en": "Inbound commuter to work in Kutno"
+    "en": "Inbound commuters to Kutno"
   },
   "0468a44b79ed2fb1050b91342978012cecbbaa2e84cb65d6b9ab96f86407df9e": {
     "pl": "macierz NSP (8 186) po odcięciu gmin > 100 km (D16)",
@@ -1369,7 +1369,7 @@
   },
   "a02c2f3623926bfeb6ea5c6be02f909ec92f48c306a6c7645c51021dce825e7a": {
     "pl": "**Miejsca pracy w Kutnie łącznie**",
-    "en": "Total employment places in Kutno"
+    "en": "**Total employment places in Kutno**"
   },
   "0ae6687af9804161d8f4d71cc5a1da9d2afb5ba8113f0f9cd56d96380c6fde74": {
     "pl": "suma dwóch powyższych",
@@ -1377,11 +1377,11 @@
   },
   "919887ff0371a2f039df422905f88f55429647bd6984981e0cd0837ad5375841": {
     "pl": "**Wariant C** (wrażliwość): 17 486 (BDL P4508), przeskalowane jednym współczynnikiem.",
-    "en": "Variant C (sensitivity): 17 486 (BDL P4508), scaled by one factor."
+    "en": "**Variant C** (sensitivity): 17 486 (BDL P4508), scaled by one factor."
   },
   "00e3b73e8fcede684d95c49f17ae25520095407cfe0ef37fc1a0c91658b53cf6": {
     "pl": "Wyjeżdżający z Kutna w modelu",
-    "en": "Outbound commuter from Kutno in the model"
+    "en": "Outbound commuters from Kutno in the model"
   },
   "394c984e608a2fabd4977d6de056a0d58db8d208a85f1c5d6283178df877602a": {
     "pl": "macierz NSP minus 188 osób z gmin > 100 km",
@@ -1393,15 +1393,15 @@
   },
   "7ca2b627c99a1009fe818e14e849d2041d95b6205590dc2f180af50b75ba269f": {
     "pl": "Mieszkańcy pracujący w Kutnie (`kind = resident`)",
-    "en": "Residents employed person in Kutno (`kind = resident`)"
+    "en": "Residents employed in Kutno (`kind = resident`)"
   },
   "e53f1cb788bcc2bb5e52b24e1e3a6af88009d93908a8ec395b6f8ed1ef1302ea": {
     "pl": "Przyjeżdżający do pracy w Kutnie (`kind = commuter`)",
-    "en": "Inbound commuter to work in Kutno (`kind = commuter`)"
+    "en": "Inbound commuters to Kutno (`kind = commuter`)"
   },
   "e3bb8259be114ee1c0805528f2dfc15595af462b4bacf69e5b2edfecec40fe2c": {
     "pl": "Wyjeżdżający z Kutna (`kind = outbound`, D17/O1)",
-    "en": "Outbound commuter from Kutno (`kind = outbound`, D17/O1)"
+    "en": "Outbound commuters from Kutno (`kind = outbound`, D17/O1)"
   },
   "2cbae21e74050b62b8f47bdfa75dc3ca568317622e80ef7166b04b4a12d06c39": {
     "pl": "Udział auta i obecność w pracy (K1-1, D19)",
@@ -1417,7 +1417,7 @@
   },
   "3965d569520885d8c038458c7163055bdda2bc7729db4b0d368d424a404734aa": {
     "pl": "Domy",
-    "en": "Houses"
+    "en": "Homes"
   },
   "a8a9215034afa5ef3a06169e4c6c3129d0fa9858fad118ac5725cbb5c2504b16": {
     "pl": "Miejsca pracy",
@@ -1441,7 +1441,7 @@
   },
   "f8a8291a80704e3e022a232400a9b342a79ca8bc131940eabb12fe2c407705fa": {
     "pl": "rodzaj popytu (6.2–6.4)",
-    "en": "type of demand (6.2–6.4)"
+    "en": "demand type (6.2–6.4)"
   },
   "7be9cdf2fcc646553a3df63465d8c1eeae578b7f676e8c3d7e5462ada4d9ec6c": {
     "pl": "unikalne (test w `plans.py`)",
@@ -1457,7 +1457,7 @@
   },
   "6b7b91a9e65e00c27568f3edf20a509f9b5cc533cd9313d4453944e6bb3c0efd": {
     "pl": "rozdział 7.2",
-    "en": "Chapter 7.2"
+    "en": "chapter 7.2"
   },
   "da9f8ef75bf3db27dc09c49b2744b4565b76d7d925317b9335ee1d16f1396748": {
     "pl": "praca",
@@ -1477,7 +1477,7 @@
   },
   "2de275b011035bcd1227b11b00a41e343235b8119f09f756ae13a8cfb3846bcc": {
     "pl": "losowana z przedziału",
-    "en": "randomized from the range"
+    "en": "sampled from an interval"
   },
   "e5a2bf13e1144f1305b1c1b5030326dfca6f1dfd71df19743e6252f99b9a05a7": {
     "pl": "Parametr",
@@ -1625,7 +1625,7 @@
   },
   "db6402299067ce74525b52af30c9dd18812eebc03d1ecd1668655c92b6bcbd34": {
     "pl": "suma ludności 42 255, 8 186 przyjeżdżających, złączenie 232/232",
-    "en": "population sum 42 255, 8 186 inbound commuters, merging 232/232"
+    "en": "population total 42,255, 8,186 inbound commuters, join 232/232"
   },
   "33cdc5cdbf67f9b347238c7d15e14f1d6a0bc11ee5c8de3010768e0969d50696": {
     "pl": "Przepełnienie linków",
@@ -1821,7 +1821,7 @@
   },
   "4589f087098e01b99ab39e83466fbc3b3c44968d066c524d2d4e4b53ac50fa98": {
     "pl": "rural 90",
-    "en": "rural @@N@@ 90"
+    "en": "rural commuters 90"
   },
   "cc91350041f0aae2cd9ae182c174b61c51c186a0bbba63b06c793ec0c6bbd103": {
     "pl": "brak granic obszaru zabudowanego w OSM",
@@ -1853,11 +1853,11 @@
   },
   "8c1d1804f0287acc0424b26923e44af378c03bc2d547006f6275bb56226e3bec": {
     "pl": "tertiary 600, primary 1 500 poj./h/pas",
-    "en": "tertiary 600, primary 1 500 veh./h/pax"
+    "en": "tertiary 600, primary 1 500 veh./h/lane"
   },
   "fbe727680194f9cafdbb58b44961b0cc462402eb763239ef8a324d1310e67647": {
     "pl": "**nieskalibrowane**, brak źródła lokalnego (G1, G5 K5)",
-    "en": "uncalibrated, lack of local source (G1, G5 K5)"
+    "en": "**uncalibrated**, lack of local source (G1, G5 K5)"
   },
   "3cccbcd7a3c8b57712028d47933f81f26729851fcbc2db775f952e033eb79c3e": {
     "pl": "A-7",
@@ -1945,7 +1945,7 @@
   },
   "8c2307b27a391398c4b8177e07b6aba86343914855dee2a6aeee1e4b71c0d754": {
     "pl": "Odcięcie gmin > 100 km od wjazdu",
-    "en": "Cutting municipalities @@N@@ > 100 km from the entrance"
+    "en": "Cutting municipalities commuters > 100 km from the entrance"
   },
   "f5fe20c999278a863cdeb59e1a05ef7cb6666efbc6d6951d9b321bff276956f3": {
     "pl": "100 km",
@@ -2009,7 +2009,7 @@
   },
   "c0aef846e391b3c8ca05dc86e74980862ae264ea6e342f567cf1760b0f5159b7": {
     "pl": "rozdział 7.1",
-    "en": "Chapter 7.1"
+    "en": "chapter 7.1"
   },
   "f9f9ca6e149630858b5ccf90c5741db0b3149fa86198be7e484d3646d5f4034a": {
     "pl": "D7, D11",
@@ -2061,7 +2061,7 @@
   },
   "e643a9a9640266a9ac0c7de5e9b1b0c8df38904f96788ace5591763aea31a68d": {
     "pl": "GUS Mobilność 2024, tabl. 1",
-    "en": "GUS Mobility 2024, table 1"
+    "en": "GUS Mobilność 2024, table 1"
   },
   "c084959f9c7a750ef2d21ebfe6f87bd954198b4e757bd0bfe4a6327a764d3020": {
     "pl": "A-21",
@@ -2121,7 +2121,7 @@
   },
   "7e7525190f7ec9f4bec2d18e4b416ef1962bee8da2d6c30ed53a2dba93541efc": {
     "pl": "domyślne MATSim, score diagnostyczny",
-    "en": "default MATSim, diagnostic score"
+    "en": "MATSim default, diagnostic score"
   },
   "63ca2a47859af36a61be7721e13704d2084d9b07495707e821e4777bf3f123e4": {
     "pl": "A-26",
@@ -2181,7 +2181,7 @@
   },
   "84feef1a9c35fce5567b7d2b639ae6b7373a949dd0c18622a618a14a3ef7f5eb": {
     "pl": "20 punktów na gminę, τ = 30 min, waga wjazdu = capacity",
-    "en": "20 points for the municipality, $\\tau$ = 30 min, entry weight = capacity"
+    "en": "20 points for the municipality, τ = 30 min, entry weight = capacity"
   },
   "faa6902d76d9bb39fa09d6fb468cd1ff12e17b919c32160efc961fe0613609d4": {
     "pl": "D19–D21; estymacja kalibrowana do GPR, rozrzut zależy od seedu punktów",
@@ -2193,7 +2193,7 @@
   },
   "b702b95f4e79526f596d32ed93046e699662d2bcd75c66547aeb6c2905cd659f": {
     "pl": "Brak pieszych, rowerzystów i PT; ciężkie tylko jako tło (pce 2,5, 80 km/h)",
-    "en": "No pedestrians, cyclists and PT; heavy only as background traffic (pce 2.5, 80 km/h)"
+    "en": "No pedestrians, cyclists or PT; heavy vehicles only as background (pce 2.5, 80 km/h)"
   },
   "1731229fe2636bf26acf96d4d47c222b586081fa54e116fc8f42016a7be1a9be": {
     "pl": "D6, D20, G4",
@@ -2237,7 +2237,7 @@
   },
   "36bc10edc55bb06d9e5776b4d6d1289991790538cdc192009b2c3eeee022437a": {
     "pl": "Luka",
-    "en": "gap"
+    "en": "Gap"
   },
   "317ecd32308a1385e1d3cef0744eafbeb55366d15e2ae711085532132795675e": {
     "pl": "Stan",
@@ -2245,11 +2245,11 @@
   },
   "63539f18bddade9e44b1b2c6d15b3e8a755ac65963582bd0febf51c44d3331c7": {
     "pl": "Gdzie opisane",
-    "en": "Where described"
+    "en": "Described in"
   },
   "3f4d74109fa7ca3d535c12146f95c033e1b7ae83f96721c2b61ee717193940fa": {
     "pl": "L-1",
-    "en": "stage 1"
+    "en": "L-1"
   },
   "5ddf7dd881d23fda5b27d29e6b3bc859bab1ca8928ebf651e6fa62bb8d3b7e65": {
     "pl": "**Ruch tła i tranzyt**: wdrożony w D19–D21 (estymacja O-D z GPR, lekkie, dostawcze i ciężkie, baza R6). Otwarte: bilans stref DK91/DK92 wsch., liczniki lokalne.",
@@ -2269,7 +2269,7 @@
   },
   "862ca17bb1ce3ddb494cf6d2e4d24555c6c3053963f387b1b6166a634b3c0e56": {
     "pl": "decyzja podjęta, dane słabe",
-    "en": "decision made, data weak"
+    "en": "decision made, weak data"
   },
   "ec3bdbd7079afa2006d574a9ae04700908b189878806216214cff80546629deb": {
     "pl": "L-3",
@@ -2317,7 +2317,7 @@
   },
   "31fc3c15e3e5f4e9bf0a26f42122e65e56add78ee4410de6b6d83cf7fd63c472": {
     "pl": "**Czas pracy 8 h**: stałe ZAŁOŻENIE, bez rozkładu per agent.",
-    "en": "8 h working time: constant ASSUMPTION, without schedule per agent."
+    "en": "**Working time 8 h**: a fixed ASSUMPTION, no per-agent distribution."
   },
   "b3898ca100f48cd80de62001c0dc377cc5d446f157092f6772e57c300a7f1fa0": {
     "pl": "L-8",
@@ -2393,7 +2393,7 @@
   },
   "0bb3de2706e997238ef5ebddf5715c68a95c0004238240edd4385e7a6fab5e8c": {
     "pl": "W gicie",
-    "en": "in the git"
+    "en": "In git"
   },
   "9b3a28dca376f8b648714fd02da59ed88290c7e0b723939422752dcd77f686f6": {
     "pl": "decyzje D1–D23 (zmiana = nowy wpis)",
@@ -2413,7 +2413,7 @@
   },
   "6b7512bea9caf511daec69d22fd4a1dbea5daffe0232053a0ab1c28d2ffec28b": {
     "pl": "co zaliczono, z dowodem",
-    "en": "what was included, with proof"
+    "en": "what passed, with evidence"
   },
   "715a51144c80d5f472e4f0e71e03eb5cc67f2ed8c2e350d0a39fd12c0b10dbd2": {
     "pl": "błędy i reguły",
@@ -2425,7 +2425,7 @@
   },
   "0e679d009bc01444091ad55b198b15e534399f882ef3aef651bf3d8283633fd1": {
     "pl": "URL, data, bajty i SHA-256 każdego pobrania",
-    "en": "URL, data, bytes and SHA-256 of each download"
+    "en": "URL, date, bytes and SHA-256 of each download"
   },
   "3aef815972c0b8f448e61df7bbf378bf452db88401485f23594089d0d3e3fbda": {
     "pl": "pobrane źródła (tylko do odczytu)",
@@ -2453,11 +2453,11 @@
   },
   "3ef679e566d115561a38db33d2dca70e22fb9cb13a242445b80b16c81dd223fd": {
     "pl": "częściowo",
-    "en": "partially"
+    "en": "partly"
   },
   "b26bbbac876b461712fe4aeb4a95d11c81762de4b948a1bdfea56ac4e89e8668": {
     "pl": "raporty i dowody per faza (`reports/README.md`)",
-    "en": "reports and evidence per stage (`reports/README.md`)"
+    "en": "reports and evidence per phase (`reports/README.md`)"
   },
   "9c1fdfc08ef2d260ff176609783d7bcb214a4b7dc4164bd8b4f728a9f8bf061b": {
     "pl": "analizy G2–G6 i tło metodyczne",
@@ -2465,7 +2465,7 @@
   },
   "04f601014f3ce59eb6c169e0f5dfc56ef02481b2ef1b9f2dddd3c91f880daecc": {
     "pl": "katalog źródeł",
-    "en": "source catalog"
+    "en": "source catalogue"
   },
   "9b1e130c84a6b983ecb94884f6e495a737814b19bcb97292f19599e4ec78c717": {
     "pl": "runy MATSim",
@@ -2489,7 +2489,7 @@
   },
   "94c6ce944f015645533b9e949661730c6622db606f6f211b1527238b71b98b2a": {
     "pl": "Bank Danych Lokalnych GUS. P4507 = pracujący mieszkańcy, P4508 = pracujący wg siedziby płatnika",
-    "en": "GUS Local Database. P4507 = employed person residents, P4508 = employed persons by payer seat"
+    "en": "GUS Local Database. P4507 = employed residents, P4508 = employed persons by payer seat"
   },
   "c4c5b388ed760ae4610191ace5b6c2c7f88a53bfb7de2a7f57f884936eafb627": {
     "pl": "BDOT10k",
@@ -2521,7 +2521,7 @@
   },
   "bdf691045478d8452b59adb5f471dd5c3c207cd4009fa9a8ef8d35a703240300": {
     "pl": "decyzje projektowe (`docs/projekt/DECISIONS.md`)",
-    "en": "design decisions (`docs/projekt/DECISIONS.md`)"
+    "en": "project decisions (`docs/projekt/DECISIONS.md`)"
   },
   "ca59934d562cc8f13da4f83c226cf2ad1ffd3d57263c5541d2bde47f7b13ba5a": {
     "pl": "GEH",
@@ -2553,7 +2553,7 @@
   },
   "1909f40b90de29aaa57a173a27f664757e425dd0908a21ddf11292a37852d9be": {
     "pl": "K1–K5, G1–G7",
-    "en": "K1-K5, G1-G7"
+    "en": "K1–K5, G1–G7"
   },
   "5ac1042dfeab795ee890f04be9e05d453df77d819676d121d52f9900499935a8": {
     "pl": "kroki kalibracji (`G5_plan_kalibracji.md`) i etapy projektu (`docs/projekt/TASKS.md`)",
@@ -2561,7 +2561,7 @@
   },
   "3953f7eea41d0899c63898d11f2ec9e4900d77fadbb725b465310e0595961ea5": {
     "pl": "MVP",
-    "en": "Minimum Viable Product"
+    "en": "MVP"
   },
   "ff8297660f65e776d6211edf8783cc1c166f37bb7d1ca995a67b4c7439f3bd7f": {
     "pl": "zakres: samochód, dom–praca–dom",
@@ -2573,7 +2573,7 @@
   },
   "e15ef9f85b15407b110769b118915c46e1d6344f05748174740080410f1fcffa": {
     "pl": "Narodowy Spis Powszechny 2021",
-    "en": "National Census @@N@@ 2021"
+    "en": "National Census commuters 2021"
   },
   "e5b2579ef3434b61f6e0903519c24969e9f1c4ebb93f9cbd40cc524f760b0bb5": {
     "pl": "O-D",
@@ -2633,7 +2633,7 @@
   },
   "1e2208375d627c82bdd1f3cbd7f8d0dde6b14363badc660a5cd004070eaa2f80": {
     "pl": "**GUS NSP 2021, rynek pracy, TABL. 5** (`gus/rynek_pracy_nsp2021_tablice.xlsx`)",
-    "en": "GUS NSP 2021, labor market, TABLE 5 `gus/rynek_pracy_nsp2021_tablice.xlsx`"
+    "en": "**GUS NSP 2021, labor market, TABLE 5** (`gus/rynek_pracy_nsp2021_tablice.xlsx`)"
   },
   "c5d2b52b6847deb1f39acf804df4f38be05f4e5fbb381ab5f39eeebe00b0880b": {
     "pl": "`overfilled_links_gt2x` (D18)",
@@ -2849,7 +2849,7 @@
   },
   "a99e71c7a35a8527e41d2363d61a5de88e133c6774a69c63f70de89ac8bff9c3": {
     "pl": "Punkty adresowe **budynków mieszkalnych** z obwodem spisowym (Kutno: 4 807 punktów).",
-    "en": "Address points of residential buildings with statistical district (Kutno: 4 807 points)."
+    "en": "Address points of **residential buildings** with statistical district (Kutno: 4 807 points)."
   },
   "f1d80d1386d5dd33fb0af215b7b4c086d002b52f5ad78f4d40c07f9a9e2ca8b0": {
     "pl": "G3: kontrola",
@@ -2905,7 +2905,7 @@
   },
   "7700dc83b3428ddf655a1f79e207056f65404ac48e82905fb3f6332844183c70": {
     "pl": "POBRANE",
-    "en": "Downloaded"
+    "en": "DOWNLOADED"
   },
   "6561b80f2eacf79e608b738e83852b068beda2630d664f746ab34a6d31c736ae": {
     "pl": "Model drogowy GUS (OSM), bez kongestii. Centroid gminy, nie dom.",
@@ -2917,7 +2917,7 @@
   },
   "9692d356983c3af5cd663665602cad9f08bfa8f6f4eda63208191d639686e191": {
     "pl": "**Kutno: 17 460 (2023), 17 486 (2024), 17 251 (2025).** Rejestry ZUS/KRUS, więc także małe podmioty. Mieszkańcy pracujący gdziekolwiek (P4507): 17 255 (2024).",
-    "en": "Kutno: 17 460 (2023), 17 486 (2024), 17 251 (2025). ZUS/KRUS registers, so also small entities. Residents employed anywhere (P4507): 17 255 (2024)."
+    "en": "**Kutno: 17 460 (2023), 17 486 (2024), 17 251 (2025).** ZUS/KRUS registers, so also small entities. Residents employed anywhere (P4507): 17 255 (2024)."
   },
   "112e206b1dcc365025343a8bfdac068652ea20387943295637a3a18cd33412b4": {
     "pl": "Liczy według **siedziby płatnika**, nie faktycznego miejsca pracy (ta sama konwencja co macierz NSP). Brak PKD na poziomie gminy. **Model ma 25 732 miejsca pracy, o ok. 47% więcej.**",
@@ -2969,7 +2969,7 @@
   },
   "d1333c7bc0758f6bc91af49a0d444991384e6b0e6708b09a73c2ab8dbc2e3c4c": {
     "pl": "**Według gminy zamieszkania**, nie miejsca pracy. Do lokalizacji pracy się nie nadaje.",
-    "en": "According to the municipality of residence, not place of work. Not suitable for workplace location."
+    "en": "**According to the municipality of residence**, not place of work. Not suitable for workplace location."
   },
   "0024b3c48ded9acbb7f4d08f0a65ddea0f8fe58e4dc960f0d0e576bae558dc60": {
     "pl": "REGON (API BIR1.1, darmowy klucz przez e-mail regon_bir@stat.gov.pl)",
@@ -3125,7 +3125,7 @@
   },
   "3fb30d115ea0e7ebf92e366eb0d2cca4c1d676817fc3fe9377123b5efe5fc595": {
     "pl": "**Medina Godoy (Walencja, mobilność UPV, scenariusze awarii PT):**",
-    "en": "Medina Godoy (Valencia, UPV mobility, PT failure scenarios):"
+    "en": "**Medina Godoy (Valencia, UPV mobility, PT failure scenarios):**"
   },
   "e58965915b6cbf1af7590d4c850245d7bf2b08c9c80a60ad50907932dd98c0a7": {
     "pl": "sieć z OSM, PT z GTFS przez gtfs2matsim;",
@@ -3145,7 +3145,7 @@
   },
   "97160ea87ae6aa40fdf531790e4f66d6f640b5afcc23aee7977247157358eb6e": {
     "pl": "**Lannes (Paryż, ekspozycja na zanieczyszczenia):**",
-    "en": "Lannes (Paris, pollution exposure):"
+    "en": "**Lannes (Paris, pollution exposure):**"
   },
   "31297b23e2ea3345e5dd91d9f6761d3e5c22f150aa4ce3bad69e7d5277a2e43e": {
     "pl": "na skali regionu wielkość próbki prawie nie ma znaczenia;",
@@ -3161,7 +3161,7 @@
   },
   "e05c6bf6ac9ccae18c2db1028cf95f6c00dd5c44c25a165425af3e8e4ab8b9b9": {
     "pl": "**Bell (Newcastle, MATSim → Blender):**",
-    "en": "Bell (Newcastle, MATSim $\\rightarrow$ Blender):"
+    "en": "**Bell (Newcastle, MATSim → Blender):**"
   },
   "99446a22d3d4b223ab7acd62ff72e95494fa0f541830aa86aaca6d1b341d00da": {
     "pl": "pipeline: węzły sieci do współrzędnych sceny (BlenderGIS);",
@@ -3169,7 +3169,7 @@
   },
   "6a9a6e6d9204cfb7a71138c0d8660b64b345e05ac1753c4b8f0b626c301743ce": {
     "pl": "eventy (`vehicle enters/leaves traffic`, `entered/left link`) → pozycja każdego pojazdu na każdą klatkę → `vehicleMotions.npz`;",
-    "en": "events (`vehicle enters/leaves traffic`, `entered/left link`) $\\rightarrow$ position of each vehicle for every frame $\\rightarrow$ `vehicleMotions.npz`;"
+    "en": "events (`vehicle enters/leaves traffic`, `entered/left link`) → position of each vehicle for every frame → `vehicleMotions.npz`;"
   },
   "9f0c96bb90355303d71277874720695cdc4146feec6c74e23168630a16f7d1de": {
     "pl": "w Blenderze jedna siatka punktów aktualizowana handlerem klatki, kształt pojazdu przez Geometry Nodes, render.",
@@ -3189,7 +3189,7 @@
   },
   "80a68fc29462d575c6b94539e67b6952f58c0238222b973b2217f1d73d31d2c7": {
     "pl": "**GPR 2025 (GDDKiA)**: DK i DW, `g5/gpr2025/`",
-    "en": "GPR 2025 (GDDKiA): main roads and regional roads, `g5/gpr2025/`"
+    "en": "**GPR 2025 (GDDKiA)**: main roads and regional roads, `g5/gpr2025/`"
   },
   "9c33f6e963a932dac35f97f99c31b4694e5cf1da0cd9b8ec883c5dd19efdf4b7": {
     "pl": "POBRANE (G5)",
@@ -3205,7 +3205,7 @@
   },
   "051ac9fae4d58cd7d91ddc594c69ba12de7de09c53f03d73fb0aa815795a35bf": {
     "pl": "**SCPR 2025 (stacje ciągłe GDDKiA)**: `g5/scpr2025/`",
-    "en": "SCPR 2025 (continuous stations of GDDKiA): `g5/scpr2025/`"
+    "en": "**SCPR 2025 (continuous stations of GDDKiA)**: `g5/scpr2025/`"
   },
   "e1f7f776ea4de525918bd2c536fb97d573e64c7b32bd04af07cbfa791fc45191": {
     "pl": "Stacja 14005 Lisica (DK60c, 13 km od Kutna): krzywe godzinowe (tylko jako wykres). Współczynniki tygodniowe i udział godzin szczytowych w roku.",
@@ -3221,7 +3221,7 @@
   },
   "19a5c026451c78abaeb11c48fa8294648750f5c38ae8adbe5d01bfcaa47c299a": {
     "pl": "**GDDKiA, Wytyczne GPR 2020, cz. 3: Instrukcja o sposobie przeprowadzenia GPR** (2019-03-26, `g5/gpr2025/instrukcja_gpr2020_cz3.pdf`)",
-    "en": "GDDKiA, GPR 2020 Guidelines, part 3: Guide on how to conduct GPR (2019-03-26, `g5/gpr2025/instrukcja_gpr2020_cz3.pdf`)"
+    "en": "**GDDKiA, GPR 2020 Guidelines, part 3: Guide on how to conduct GPR** (2019-03-26, `g5/gpr2025/instrukcja_gpr2020_cz3.pdf`)"
   },
   "f5f6358cdde2cd81c16c8afb5adab1e8cdf1ce3bb79106eff8fd84861bd72b76": {
     "pl": "UŻYTE (G5, audyt D1/D2)",
@@ -3269,7 +3269,7 @@
   },
   "c1781506b9847da91054e226ce5b42afed173946545236b3fed2117778ec66d9": {
     "pl": "29 gmin: czas swobodny w sieci to mediana 0,76 × czas GUS (ORS), przy długości tras 0,99 × GUS. Sieć jest szybsza niż GUS, więc brak sygnału, że D13 zaniża prędkości.",
-    "en": "29 municipalities: free time in the network is median 0.76 $\\times$ GUS (ORS) time, for route lengths 0.99 $\\times$ GUS. The network is faster than GUS, so there is no signal that D13 underestimates speeds."
+    "en": "29 municipalities: free time in the network is median 0.76 × GUS (ORS) time, for route lengths 0.99 × GUS. The network is faster than GUS, so there is no signal that D13 underestimates speeds."
   },
   "fe0b6ac5b2b420c717ec78688040846c22695b3c672dcf413b2593d403892710": {
     "pl": "ORS to też model, nie pomiar.",
@@ -3297,7 +3297,7 @@
   },
   "d9ea29e2f572468def998b3b44ab2078f8695f913de0e3828efb6579a5339bb2": {
     "pl": "GUS Mobilność 2024, tabl. 14 i 32",
-    "en": "GUS Mobility 2024, table 14 and 32"
+    "en": "GUS Mobilność 2024, table 14 and 32"
   },
   "978425f807853d5b45aa67dc5e37fcdb95ee73e1d250930cf7aaf6480254b803": {
     "pl": "G4",
@@ -3401,7 +3401,7 @@
   },
   "33296f9979af07293aeaeb91407206856e7b227d5ac600abc3e511e2306e945d": {
     "pl": "Współczynniki przeliczeniowe na pojazdy umowne. Kolejność: miejski bez sygnalizacji / miejski z sygnalizacją / zamiejski. Osobowe 1,0 / 1,0 / 1,0. Dostawcze ≤ 3,5 t 1,5 / 1,5 / 1,0. Ciężarowe > 3,5 t bez przyczep 2,5 / 2,5 / 2,0. Z przyczepami i ciągniki siodłowe z naczepami 3,0 / 3,0 / 2,5. Autobusy 2,5 / 2,5 / 2,0. Ciągniki rolnicze 3,0 / 3,0 / 3,0. Kategorie zgodne ze strukturą rodzajową GPR.",
-    "en": "Conversion factors for contract vehicles. Order: urban without traffic lights / urban with traffic lights / suburban. Passenger 1.0 / 1.0 / 1.0. Delivery $\\le$ 3.5 t 1.5 / 1.5 / 1.0. Heavyweight > 3.5 t without trailer 2.5 / 2.5 / 2.0. With trailers and semi-trailers 3.0 / 3.0 / 2.5. Buses 2.5 / 2.5 / 2.0. Agricultural tractors 3.0 / 3.0 / 3.0. Categories consistent with the GPR structure."
+    "en": "Conversion factors for contract vehicles. Order: urban without traffic lights / urban with traffic lights / suburban. Passenger 1.0 / 1.0 / 1.0. Delivery ≤ 3.5 t 1.5 / 1.5 / 1.0. Heavyweight > 3.5 t without trailer 2.5 / 2.5 / 2.0. With trailers and semi-trailers 3.0 / 3.0 / 2.5. Buses 2.5 / 2.5 / 2.0. Agricultural tractors 3.0 / 3.0 / 3.0. Categories consistent with the GPR structure."
   },
   "88b668760192eda5efac6c2c00ee1cfe0ec919552744e7260c91b0b98a62bb4c": {
     "pl": "Wartości zalecane do analiz, nie pomiar dla Kutna. W MATSim jedna wartość `pce` na typ pojazdu, bez podziału miasto / poza miastem.",
@@ -3593,7 +3593,7 @@
   },
   "02641b3e9f225cc80e70b5605cc2a0e1d1418524cb0d50596a36077af129b268": {
     "pl": "**Licencja CC BY-NC 4.0**: tylko użycie niekomercyjne, z podaniem źródła; nie dodawać danych do naszego repo. Klon leży w `references/matsim-model-vienna/` (gitignore), nie w `data/raw/`, nie ma wpisu w `data/manifest.csv`. Brak wyników symulacji (runy zrobione u nas, 1%, capacity factor 0,01). `facilities.xml.gz` w EPSG:31256, reszta w 3416. Narzędzie ARUP PAM nie jest dostępne.",
-    "en": "CC BY-NC 4.0 License: non-commercial use only, with source attribution; do not add data to our repo. Clone is in `references/matsim-model-vienna/` (gitignore), not in `data/raw/`, no entry in `data/manifest.csv`. No simulation results (runs done by us, 1%, capacity factor 0.01). `facilities.xml.gz` in EPSG:31256, the rest in 3416. ARUP PAM tool is unavailable."
+    "en": "**CC BY-NC 4.0 License**: non-commercial use only, with source attribution; do not add data to our repo. Clone is in `references/matsim-model-vienna/` (gitignore), not in `data/raw/`, no entry in `data/manifest.csv`. No simulation results (runs done by us, 1%, capacity factor 0.01). `facilities.xml.gz` in EPSG:31256, the rest in 3416. ARUP PAM tool is unavailable."
   },
   "07966a6bc4d1e908840300637330bf89d1fd512dff4660a6f6e674c7fcbeb23d": {
     "pl": "test wizualizera: scenariusze i skrypty w `references/matsim-model-vienna-test/`, wyniki `output/vienna_1pct_test`, `output/vienna_bike_test` (gitignore)",
@@ -3765,7 +3765,7 @@
   },
   "e8d721d6bbd2cab446c4a323e2ed506aa0a3bef698f8610042779fe6460d63b8": {
     "pl": "Brak podziału wg klasy miejscowości oraz brak krzyżowania dom–praca × środek. Błędy względne dla łódzkiego: samochód 3,9%, pieszo 6,8%, rower 16,3%, autobus miejski 10,3%.",
-    "en": "No division by town class and no crossing of home–work $\\times$ center. Relative errors for Łódź: car 3.9%, pedestrian 6.8%, bicycle 16.3%, city bus 10.3%."
+    "en": "No division by town class and no crossing of home–work × center. Relative errors for Łódź: car 3.9%, pedestrian 6.8%, bicycle 16.3%, city bus 10.3%."
   },
   "14b2515192514b4141cb5c22e2493539c04e2edbd0f1a0ac0bf2cf70197001e8": {
     "pl": "PKP IC, ŁKA, KM, PolRegio, KW. Kutno: 180 kursów we wtorek.",
@@ -3778,5 +3778,1869 @@
   "43b6604ca11c318f4c3705f01cb6b688e877ef467564c2b744ba4469c05fa31b": {
     "pl": "2 411 relacji w łódzkim, 55 przeniesionych do sieci Kutna (62 pary linków)",
     "en": "2 411 relations in Łódź, 55 transferred to the Kutno network (62 link pairs)"
+  },
+  "ae87408a55b8275561a332051c468b4db395559f0eaff11d02541e095ed74ed0": {
+    "pl": "Stan: 2026-11-03, baza **R9.5** (D36). Opis zakłada decyzje D1–D37 z `docs/projekt/DECISIONS.md` i wyniki z `docs/projekt/PROGRESS.md`.",
+    "en": "Status: 2026-11-03, baseline **R9.5** (D36). The description assumes decisions D1–D37 from `docs/projekt/DECISIONS.md` and results from `docs/projekt/PROGRESS.md`."
+  },
+  "540e36c1d094951ad3f7a69fa7fef0b7a4d5a6ba4fbfe8191a2c9ea591e8803e": {
+    "pl": "**Ważne:** to model ruchu samochodowego w gminie Kutno, nie prognoza ruchu. Na drogach z GPR jest skalibrowany do pomiarów. Na ulicach miejskich poza GPR natężenia są zaniżone mniej więcej o połowę (D37), więc wyników dla tych ulic nie należy czytać wprost.",
+    "en": "**Important:** this is a car traffic model of the Kutno municipality, not a traffic forecast. On roads covered by GPR counts it is calibrated to measurements. On city streets outside GPR, volumes are underestimated by roughly half (D37), so results for those streets should not be read directly."
+  },
+  "5ab3e0977e5e1ed67ef00105cc539656df85980dc5b10466584ea6d26a293a93": {
+    "pl": "**Cel:** agentowa symulacja MATSim dla gminy miejskiej Kutno (TERC 1002011, 42 255 mieszkańców wg NSP 2021). Kutno jest poligonem metodologii, którą później przeniesiemy na Łódź, ale dopiero po zakończeniu prac nad samym Kutnem.",
+    "en": "**Purpose:** agent-based MATSim simulation of the urban municipality of Kutno (TERC 1002011, 42,255 inhabitants according to NSP 2021). Kutno is a testing ground for a methodology that we will later transfer to Łódź, but only after the work on Kutno itself is finished."
+  },
+  "a6f4f3e8c44183f99bce5a682f10331b44250f8be05995109ff5c8b44c4f3699": {
+    "pl": "**Co jest w bazie R9.5 (wszyscy agenci jadą samochodem):**",
+    "en": "**What baseline R9.5 contains (all agents travel by car):**"
+  },
+  "52c81aa2048201b9842cfc2c8c9c5b90e89baf8e02fb03d7410986a2976ff19d": {
+    "pl": "dojazdy do pracy `dom → praca → dom`: mieszkańcy Kutna pracujący w Kutnie, przyjeżdżający i wyjeżdżający (D17), z udziałem auta i obecności w pracy (K1-1, D19);",
+    "en": "commuting `dom → praca → dom`: residents of Kutno employed in Kutno, inbound and outbound commuters (D17), with car participation and presence at work (K1-1, D19);"
+  },
+  "76508cd683f1fd555c01234a3dea1a5177c8e9735deae423ab60ae0d25cc36c7": {
+    "pl": "osobne wyjścia mieszkańców `dom → cel → dom`: zakupy i usługi (D32, D34), odwiedziny, rekreacja, zdrowie, podwożenie (D36);",
+    "en": "separate resident trips `dom → cel → dom`: shopping and services (D32, D34), visits, recreation, health, commuting (D36);"
+  },
+  "73036e3122a0083fb0b0283f7ec7aa73c433edbe4a8775e5f6c575fc3d6777b2": {
+    "pl": "ruch tła jako subpopulacje `tlo` (lekkie i dostawcze) i `ciezkie`, z macierzy O-D estymowanych z liczników GPR (D19–D21). To estymacja kalibrowana do pomiarów, nie obserwacja;",
+    "en": "background traffic as the subpopulations `tlo` (light and delivery vehicles) and `ciezkie` (heavy), from O-D matrices estimated from GPR counts (D19–D21). This is an estimate calibrated to measurements, not an observation;"
+  },
+  "565f5dec8cd1093560d5f3f5ed4d9d85c80d6150b46fe48366a960422938253c": {
+    "pl": "sieć z prędkościami per grupa dróg (D23) i zakazami skrętu z OSM (D26), domy z BDOT10k (D28), kierunek linku przypięcia wg trasy (D29), atrybuty osób (D30).",
+    "en": "a network with speeds per road group (D23) and OSM turn restrictions (D26), homes from BDOT10k (D28), activity link direction chosen by route (D29), person attributes (D30)."
+  },
+  "ceb81e3d73910838f1d332372951a1ba3fcea13a64cfc964ec2fb6c5b2d3865c": {
+    "pl": "**Czego model NIE robi:**",
+    "en": "**What the model does NOT do:**"
+  },
+  "a10ec4eed59e042d42714346f53014148c82a28dcbe230bd551d664aa43d9daf": {
+    "pl": "nie modeluje transportu publicznego, pieszych ani rowerzystów. Rozkład GTFS jest zaimportowany tylko technicznie (`scenarios/kutno_pt/`), bez agentów PT;",
+    "en": "it does not model public transport, pedestrians or cyclists. The GTFS timetable is imported only technically (`scenarios/kutno_pt/`), without PT agents;"
+  },
+  "399a7084fb48d9d0d577cf1ff81bbe30a754845b9f77a95d0e6fef9af9fb6005": {
+    "pl": "nie ma wyboru trybu ani kalibracji ASC (krok 6 w ROADMAP). Parametry scoringu są domyślne, a score służy tylko do diagnostyki;",
+    "en": "it has no mode choice and no ASC calibration (step 6 in ROADMAP). Scoring parameters are default and the score is diagnostic only;"
+  },
+  "93c28b5bf05eb81eb3c98c81e585853bf97c298a287bb328a25ebbb83b2d8719": {
+    "pl": "nie modeluje szkoły jako celu podróży (krok 4B, plan bez wdrożenia), łańcuchów dnia (D35, wariant `chains`, domyślnie `off`), podróży nie z domu, przyjazdów spoza miasta w innych celach niż praca ani ruchu służbowego w mieście;",
+    "en": "it does not model school as a trip purpose (step 4B, plan without implementation), daily chains (D35, variant `chains`, `off` by default), trips not based at home, non-work trips from outside the city or business traffic in the city;"
+  },
+  "59a0e469cc440d07b177e121686573136adace3e69c6c7ee79eeb391c2a364ad": {
+    "pl": "nie modeluje sygnalizacji ani pierwszeństwa. Zakazy skrętu działają w routerze, QSim ich nie wymusza;",
+    "en": "it does not model traffic signals or right of way. Turn restrictions work in the router, QSim does not enforce them;"
+  },
+  "5c56fdcb4bbdd7fb9cd39e8befe9a7af419782c14a5c59024fa6645b2b933a9d": {
+    "pl": "nie łączy agentów w gospodarstwa: agent wyprawy jest osobną osobą, niepowiązaną z pracującym (D32).",
+    "en": "it does not group agents into households: a trip agent is a separate person, not linked to a worker (D32)."
+  },
+  "3439f4900c04cb6347cd4672e68150485ef2803a2fd7a06b67f907c9208b6c99": {
+    "pl": "Dane surowe (`data/raw/`) nie są w gicie, ale każdy plik ma URL i sumę SHA-256 w `data/manifest.csv`. Plany i sieć w `scenarios/kutno/*.xml.gz` też są poza gitem, bo powstają z tych danych. Odtworzenie całości od zera na czystym klonie nie zostało jeszcze sprawdzone (krok 8 w ROADMAP).",
+    "en": "Raw data (`data/raw/`) is not in git, but each file has a URL and SHA-256 in `data/manifest.csv`. Plans and the network in `scenarios/kutno/*.xml.gz` are also outside git, because they are built from this data. Rebuilding everything from scratch on a clean clone has not been verified yet (step 8 in ROADMAP)."
+  },
+  "b05d0952b658c9010f60352edce5b022262fbd1f45aa61806d2a133c69276656": {
+    "pl": "**Runy MATSim i estymację O-D uruchamiamy na GitHub Actions**, nie lokalnie (ERRORS 34). Wejścia runów leżą w gicie, w `scenarios/kutno_r91/` i `scenarios/kutno_od/`, więc te kroki nie wymagają `data/raw/`.",
+    "en": "**MATSim runs and O-D estimation run on GitHub Actions**, not locally (ERRORS 34). Run inputs are in git, in `scenarios/kutno_r91/` and `scenarios/kutno_od/`, so these steps do not need `data/raw/`."
+  },
+  "114ebca1adf2866d2629f5049bee7bd4d305cd74b4863d132733d5399247b128": {
+    "pl": "Plan 25% ma sha256 `f3ca89f…`, taki sam jak `scenarios/kutno_r91/plans_r94e_p0.xml.gz` testowany na GitHub Actions. Warto to sprawdzić, bo ten sam config musi dawać ten sam plik.",
+    "en": "The 25% plan has sha256 `f3ca89f…`, the same as `scenarios/kutno_r91/plans_r94e_p0.xml.gz` tested on GitHub Actions. It is worth checking, because the same config must produce the same file."
+  },
+  "db84d56696a88a6097ad82b56b0871a1c3355834b62090675d78a3d9bfd0e343": {
+    "pl": "**Workflowy** (wszystkie tylko ręcznie, `workflow_dispatch`):",
+    "en": "**Workflows** (all manual only, `workflow_dispatch`):"
+  },
+  "2e2d5c5649b718b542fae80e72768b9cfcfea9bcfa51ecc25bf6f3ce532eb5b3": {
+    "pl": "Workflow",
+    "en": "Workflow"
+  },
+  "f8533608f00ad1cb666f30a3d2bf326d738019d863d6fb7b11999b42491ae1a2": {
+    "pl": "Do czego",
+    "en": "Purpose"
+  },
+  "028cf3732286bacbe4a1b904cf68e11b3b69990f90fce0f11d495105a7965392": {
+    "pl": "Wejścia",
+    "en": "Inputs"
+  },
+  "b1839a5455a650dba2245efdc46d7cbdd04ae20ef5cc5aa8a440db84934e9d90": {
+    "pl": "runy bez tła, estymacja O-D (`background_od.py`), kontrola `od_warnings.py`; wynik to macierze w artefakcie",
+    "en": "runs without background, O-D estimation (`background_od.py`), `od_warnings.py` check; the result is matrices in an artifact"
+  },
+  "cb14569e25f96dfea13dad0c8263233eb08e18e047885ac077cc40becf6f8e08": {
+    "pl": "porównanie dwóch wariantów planów, po 5 runów (3 seedy MATSim, 2 seedy planów), 25%, 50 iteracji, analiza z pomiarami miejskimi",
+    "en": "comparison of two plan variants, 5 runs each (3 MATSim seeds, 2 plan seeds), 25%, 50 iterations, analysis with city counts"
+  },
+  "c39f601b31dd44bf607e7211212d92d7f75768b085e4dd913d888b4f5caaf7f3": {
+    "pl": "testy D29, D31, D30 i D27 (historyczne)",
+    "en": "tests of D29, D31, D30 and D27 (historical)"
+  },
+  "f0a0f89c251d75fbc1903312b2e9148d340e2393dc6d0f14cff9dcb113795bfe": {
+    "pl": "jak wyżej, `scenarios/kutno_g1b/`",
+    "en": "as above, `scenarios/kutno_g1b/`"
+  },
+  "705a844847938b710e04aa0feb15d5ca61e95149187d96564787b53508d43066": {
+    "pl": "runy bazy R7b (historyczne)",
+    "en": "runs of baseline R7b (historical)"
+  },
+  "1cff71d4a8ec5cb897cc2249feab73272725e9cc4e12154e7cfd60ae203d980d": {
+    "pl": "Test bazy R9.5 wobec R9.4:",
+    "en": "Test of baseline R9.5 against R9.4:"
+  },
+  "c8d1c595b02872ed3abdbb6922c3af9a24242656a66da9fbdc4743092cdd513f": {
+    "pl": "**Zmiana popytu oznacza nową estymację tła**, w tej kolejności: plany bez tła do `scenarios/kutno_od/` (`plans.py … background_od= heavy_od=`), workflow `matsim-od` z nowym tagiem, potem `od_warnings.py` (w workflow) i plany z nowymi macierzami. Przepis na R9.5 krok po kroku: `reports/etap3/g_inne_cele/inne_cele.md`, sekcja „Odtworzenie”. Macierze z GitHub Actions różnią się od lokalnych szumem losowania punktów, sumy do 0,12% (`reports/etap3/krok0_od_gha/krok0.md`). Różnice wariantów porównuj z rozrzutem seedów planów, nie seedów MATSim.",
+    "en": "**A change in demand means a new background estimation**, in this order: plans without background into `scenarios/kutno_od/` (`plans.py … background_od= heavy_od=`), workflow `matsim-od` with a new tag, then `od_warnings.py` (in the workflow) and plans with the new matrices. The R9.5 recipe step by step: `reports/etap3/g_inne_cele/inne_cele.md`, section „Odtworzenie”. Matrices from GitHub Actions differ from local ones by point-sampling noise, totals up to 0.12% (`reports/etap3/krok0_od_gha/krok0.md`). Compare variant differences with the spread of plan seeds, not MATSim seeds."
+  },
+  "3bdbf47c87a21a4715c7737f07428c2b59203749a726d7224b643b8a08e361de": {
+    "pl": "**Run lokalny** tylko do testu technicznego (z katalogu projektu, nie z katalogu configu; `output/` jest względny do katalogu roboczego):",
+    "en": "**A local run** is for a technical test only (from the project directory, not the config directory; `output/` is relative to the working directory):"
+  },
+  "60e455b6ca15b5ea647f62a9f4eacf294d0aa9fc4df5e7b7af51854988ed06ea": {
+    "pl": "27 233 nogi car to plan 25% bazy R9.5: 2 × 3 739 pracujących, 2 × 1 477 wyjść mieszkańców i po jednej nodze dla 16 801 agentów tła.",
+    "en": "27,233 car legs is the 25% plan of baseline R9.5: 2 × 3,739 workers, 2 × 1,477 resident trips and one leg for each of the 16,801 background agents."
+  },
+  "133b310d1dd8676c83fd5509305a1195d0b01e6df118f5647003d9c101fd84d7": {
+    "pl": "Wskaźniki zatrudnienia dla miast woj. łódzkiego: produkcyjny 0,739 (wariant niski: pracujący / ogółem) lub 0,784 (bazowy: bez nieustalonego statusu, metoda GUS); poprodukcyjny ok. 0,12",
+    "en": "Employment indicators for cities in the Łódź voivodeship: production 0.739 (low variant: employed person / total) or 0.784 (baseline: without undetermined status, GUS method); post-production approx. 0.12"
+  },
+  "40b3f835e706e09dc916d1e0f42c8be3c444a143ceceb4c54f669145a28299c0": {
+    "pl": "**GBR Gdańsk 2022, Raport 3a, Rys. 46** (`gbr/GBR2022_raport3a.pdf`)",
+    "en": "**GBR Gdańsk 2022, Report 3a, Fig. 46** (`gbr/GBR2022_raport3a.pdf`)"
+  },
+  "62ba11dd0ff27f7fd8396d5c8da94a663aa3a4a5ee867375fc8f5e46eb4e312b": {
+    "pl": "Godzinowe rozkłady wyjazdów „dom–praca” i „dom–inne” (`config/departure_home_work_gbr2022.csv`, `config/departure_home_inne_gbr2022.csv`)",
+    "en": "Hourly schedules for \"home-work\" and \"home-other\" commutes (`config/departure_home_work_gbr2022.csv`, `config/departure_home_inne_gbr2022.csv`)"
+  },
+  "925dbe08e1a40175742dab010f2971d52296b9c595791544744b8c46911d92b4": {
+    "pl": "Godziny wyjazdu (D14, D32)",
+    "en": "Departure hours (D14, D32)"
+  },
+  "079fa069585a05e7f7fb0af51e784a208c20b29d199c4708b9d8c6b6cfd9f1de": {
+    "pl": "Metropolia Gdańsk, nie Kutno. Dane odczytane z wykresu wektorowego PDF.",
+    "en": "Gdańsk Metropolis, not Kutno. Data read from the vector PDF chart."
+  },
+  "0066ddcef73a1ed3b8bdd1d2f379e3ae6caa7f3b02d0b8c68e42f12c913f2f70": {
+    "pl": "Praca z domu łódzkie 7,3%; tabl. 10: stawki podróży dom–X; prawo jazdy i auta",
+    "en": "Work from home Łódź 7.3%; Table 10: travel rates home–X; driver's license and cars"
+  },
+  "5fb9a8d1991c1890725f4c1f9f00694805aae8b746bcd723cdc35f8cdc20b728": {
+    "pl": "Obecność w pracy (K1-1), liczba wyjść mieszkańców (D32, D36), atrybuty (D30)",
+    "en": "Presence at work (K1-1), number of resident trips (D32, D36), attributes (D30)"
+  },
+  "968dbfd7d006343afab4ccb2382c1eaa5638fa376fbdfcdc24d2b4fd7dc34ff5": {
+    "pl": "Tylko województwo. Stawki dotyczą wszystkich środków transportu.",
+    "en": "Only the voivodeship. Rates apply to all modes of transport."
+  },
+  "79be952d759f8de3b28ec49a3a6c2740b672954f777ba8ac8dc070a137bf4020": {
+    "pl": "Udział auta w dojazdach dom–praca: 61–67%; Radom: podróże fakultatywne 53,2%",
+    "en": "Share of car in commuting home-work: 61–67%; Radom: discretionary trips 53.2%"
+  },
+  "253fe556c13697510a14f92d5c192321be0af83d5174acaaf67f807a79e2c4a6": {
+    "pl": "Udział auta (K1-1), udział kierowcy wypraw 0,424 (D32)",
+    "en": "Vehicle share (K1-1), driver trip share 0,424 (D32)"
+  },
+  "59b4d219a675faadc11d6daf007db9c0fc5d83b977bf8e547f754a704d37f961": {
+    "pl": "**CEPiK 2019**",
+    "en": "**CEPiK 2019**"
+  },
+  "0656cb4f292e6e216a59307632c49566338a28f2d13246def749c4b85f43818a": {
+    "pl": "Prawa jazdy wg płci i wieku",
+    "en": "Driver's licenses by gender and age"
+  },
+  "7188f16f273e97bb6d4825528ef301f013c6c358dccf5b4f916e6c1960bf8822": {
+    "pl": "Atrybut `license` (D30)",
+    "en": "Attribute `license` (D30)"
+  },
+  "382d98791b6d3140b56f31f72edad4855418f9961285c9c41f74cba9334c171d": {
+    "pl": "Rejestr zawyża najstarsze grupy.",
+    "en": "The registry overestimates the oldest groups."
+  },
+  "dcc6a1a1198d5c5a789c64a67c9208de28a6e50a29a81828d10089f061a40d0a": {
+    "pl": "**GUS Budżet czasu 2023**",
+    "en": "**GUS Time Use Survey 2023**"
+  },
+  "59ae118cf81d1ce543e6c953cb26403abf3696f0b345d4123246edbdc3dacdeb": {
+    "pl": "Czasy zakupów, życia towarzyskiego, rekreacji; udział osób robiących zakupy wg wieku",
+    "en": "Shopping, social life, and recreation times; share of people shopping by age"
+  },
+  "13f3d8612830e9651a6dd8981f3268b25dd9282ebcc2cf952e4b288944b89ddb": {
+    "pl": "Czasy postoju i uczestnicy wyjść (D32, D36)",
+    "en": "Stopping times and participants of trips (D32, D36)"
+  },
+  "59f709bd9493f4dad9d68142b179c9f5989d8765c3b46195fe8aa8e09ae6cb14": {
+    "pl": "Suma z dnia, nie jedna wizyta.",
+    "en": "Sum for the day, not one visit."
+  },
+  "f5d4daf411195b8358fed26cedd9fcb7d02a172820d7eb3be0ddb6f79b464218": {
+    "pl": "**WIOŚ 2013, punkty K1–K5**",
+    "en": "**WIOŚ 2013, points K1–K5**"
+  },
+  "1031270d101195c7d0b99040a4440dfc29656d5888be9cfef62dc7c890c1962b": {
+    "pl": "Natężenia na pięciu ulicach Kutna",
+    "en": "Flows on five streets of Kutno"
+  },
+  "0c3e3ea710e979003cac7f43ec074c139b25f155c85f08224adddd74748f01f0": {
+    "pl": "Kontrola ulic miejskich (`pipeline/pomiary_miejskie.py`), cel przeskalowany do 2025 przez GPR",
+    "en": "Urban street control (`pipeline/pomiary_miejskie.py`), goal scaled to 2025 by GPR"
+  },
+  "221604d2a7a7ffa35590deae5707b94387d34a850f80d51b1e2f62e08ddc1479": {
+    "pl": "Stare, pomiar jednodobowy. Kontrola rzędu wielkości, nie kalibracja.",
+    "en": "Old, one-day measurement. Order of magnitude check, not calibration."
+  },
+  "307f42f713f443e32732aeed8a87c8dae44e0dd63a85ea3e22ee792da3e8c509": {
+    "pl": "**TomTom (D22, wariant A)**",
+    "en": "**TomTom (D22, variant A)**"
+  },
+  "fc5ac0a4fc312e4039c3b0c5c43e93be7d5e3f138214d40c2e246cd87659deda": {
+    "pl": "Czasy przejazdu tras",
+    "en": "Travel times of routes"
+  },
+  "b176875f5ed900da936e2a1579c065eb4dfba1000e6a16f8622f65894c9330ed": {
+    "pl": "Dopasowanie prędkości (D23)",
+    "en": "Speed matching (D23)"
+  },
+  "b8cee3a855ee172063dc509af19ac2e4ddcc637371589d815d9f25f940cd3ccf": {
+    "pl": "W repo tylko agregaty. Nowe zapytania wymagają zgody.",
+    "en": "Only aggregates in the repository. New queries require approval."
+  },
+  "d272b803028995ad884996d255ec7da0e6294f200a393e74090cbfa703161c46": {
+    "pl": "Budynki z funkcją i liczbą kondygnacji (99,9% wypełnione)",
+    "en": "Buildings with function and number of storeys (99.9% filled)"
+  },
+  "65225311670d892adb739c35da391b64bfb02f10b706305bca62f6330483c564": {
+    "pl": "Domy (D28), cele usług i pozostałych wyjść (D32, D36)",
+    "en": "Homes (D28), destinations of services and other trips (D32, D36)"
+  },
+  "1939a32df66c5fe65e62570afc9b8b4bd317471bcd2805297c5123471ca76cd2": {
+    "pl": "39% geometrii z ortofotomapy. 1 450 budynków OSM w Kutnie nie ma odpowiednika w BDOT10k.",
+    "en": "39% of the geometry comes from orthophotos. 1,450 OSM buildings in Kutno have no counterpart in BDOT10k."
+  },
+  "71c5bd402ee5f10dab33e512fd2bcaf790f6c8baad435c9224eda0b24c81b502": {
+    "pl": "Tylko import techniczny `scenarios/kutno_pt/` (krok 5), bez agentów PT",
+    "en": "Only technical import `scenarios/kutno_pt/` (step 5), without PT agents"
+  },
+  "55828037d4eb3155913b4ef88c54a6062148b2586fe29cc16e2657fe55450b5c": {
+    "pl": "Licencję GTFS Kutno potwierdził użytkownik 2026-10-21. Feed kolei ważny 30 dni.",
+    "en": "The GTFS license for Kutno was confirmed by the user on 2026-10-21. The railway feed is valid for 30 days."
+  },
+  "3fb9b1574af789467bfef2109bd5ada4b6e6d7887c5b20429bf07153ee840878": {
+    "pl": "**Zakazy skrętu (D26):** Supersonic nie czyta relacji OSM `restriction`, więc robi to parser w `CreateKutnoNetwork`: 55 relacji, 62 zakazane pary linków jako `DisallowedNextLinks`. Routery je respektują, QSim nie. Efekt jest poniżej rozrzutu seedów (`reports/etap3/g1_skrzyzowania/g1.md`).",
+    "en": "**Turn restrictions (D26):** Supersonic does not read OSM `restriction` relations, so a parser in `CreateKutnoNetwork` does it: 55 relations, 62 forbidden link pairs as `DisallowedNextLinks`. Routers respect them, QSim does not. The effect is below the seed spread (`reports/etap3/g1_skrzyzowania/g1.md`)."
+  },
+  "8b4eed553a93c61f7406307d553621ee1c28cbc8d69a09c0c13566c43c08c4f7": {
+    "pl": "**Wynik sieci (baza R8, bez zmian do R9.5):** 4 534 węzły, 10 383 linki. Stan po F2 (przed D23 i D26): 4 453 węzły, 10 296 linków, 4 426 km. Największa silnie spójna składowa obejmuje **100%** węzłów. 90/90 par tras testowych jest osiągalnych. Żaden link nie ma capacity, freespeed, length ani lanes ≤ 0.",
+    "en": "**Network result (baseline R8, unchanged up to R9.5):** 4,534 nodes, 10,383 links. State after F2 (before D23 and D26): 4,453 nodes, 10,296 links, 4,426 km. The largest strongly connected component covers **100%** of nodes. 90/90 test route pairs are reachable. No link has capacity, freespeed, length or lanes ≤ 0."
+  },
+  "db70d2369e5bcab165c0b7f7573338ae684c2bb199932f8bf12444a0f10745cb": {
+    "pl": "Prędkości (D13, D23, D25)",
+    "en": "Speeds (D13, D23, D25)"
+  },
+  "a03efac7e49999759e88114731ce5531ac5030b35a972972ca5551de7c1de8e4": {
+    "pl": "**freespeed = prędkość dozwolona × współczynnik grupy dróg** (D23, baza od D25):",
+    "en": "**freespeed = allowed speed × road-group factor** (D23, baseline since D25):"
+  },
+  "5e2b6736b9db0ab603ec52882f71394e6b668bfac76c4c088580672aa1d96e66": {
+    "pl": "Grupa",
+    "en": "Group"
+  },
+  "ceca42baa8d6e0977295e8fbc08284497fa2f9b70c81f887de3cbbbc1cb91351": {
+    "pl": "Drogi",
+    "en": "Roads"
+  },
+  "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd": {
+    "pl": "A",
+    "en": "A"
+  },
+  "d8cb724639bf285040d2f0d09cfe1ca21d0d258ac08f4c5d4b0019fbea671ce2": {
+    "pl": "autostrada",
+    "en": "motorway"
+  },
+  "df7e70e5021544f4834bbee64a9e3789febc4be81470df629cad6ddb03320a5c": {
+    "pl": "B",
+    "en": "B"
+  },
+  "fc14ae6cff264d9ad33272c5516ba48f9c3c6b27bb1e615d644f0351d698d8fd": {
+    "pl": "DK i DW poza miastem",
+    "en": "national and voivodeship roads outside the city"
+  },
+  "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d": {
+    "pl": "C",
+    "en": "C"
+  },
+  "727c05dbcb6d282f5c01b00de8d470044b053f7155130d3b58678ea2e3fc1e26": {
+    "pl": "tertiary i unclassified poza miastem",
+    "en": "tertiary and unclassified outside the city"
+  },
+  "3f39d5c348e5b79d06e842c114e6cc571583bbf44e4b0ebfda1a01ec05745d43": {
+    "pl": "D",
+    "en": "D"
+  },
+  "53803f3a13b249b6e8595f4e97035bd2de57963d636440a67c2d8468bf9e3b3d": {
+    "pl": "osiedlowe poza miastem",
+    "en": "residential outside the city"
+  },
+  "a9f51566bd6705f7ea6ad54bb9deb449f795582d6529a0e22207b8981233ec58": {
+    "pl": "E",
+    "en": "E"
+  },
+  "3c327c8ee6a0fc56b3e904794016e9e8a1288f878ec95d5176cbd8d4ce3dbd02": {
+    "pl": "główne w mieście",
+    "en": "main roads in the city"
+  },
+  "f67ab10ad4e4c53121b6a5fe4da9c10ddee905b978d3788d2723d7bfacbe28a9": {
+    "pl": "F",
+    "en": "F"
+  },
+  "a0308278aa82b25e790d05b3d0967e345b2af3afb4eaf292b70b21aab39a31c6": {
+    "pl": "lokalne w mieście",
+    "en": "local roads in the city"
+  },
+  "67e624c23917132c726a3dbfe9f8f239bba8cb20374a05253de814e7b879ef2e": {
+    "pl": "Wartości są dopasowane do agregatów czasów TomTom (D22, wariant A) i zaokrąglone. To stan „na dziś”, obserwacje do dalszych prac: `reports/etap2/g5_predkosci_d23/obserwacje_f.md`. `f_E` i `f_F` nadal zawierają opóźnienia węzłów, bo zakazy skrętu (G1) ich nie rozdzieliły. Wynik D23: MAPE czasu trasy 20,5 → 18,2% (walidacja), prędkość swobodna segmentów model/TomTom 0,86 → 0,99 (`reports/etap2/g5_predkosci_d23/d23_podsumowanie.md`).",
+    "en": "Values are fitted to TomTom travel-time aggregates (D22, variant A) and rounded. This is the „as of today” state, observations for further work: `reports/etap2/g5_predkosci_d23/obserwacje_f.md`. `f_E` and `f_F` still contain intersection delays, because turn restrictions (G1) did not separate them. D23 result: route-time MAPE 20.5 → 18.2% (validation), free-flow segment speed model/TomTom 0.86 → 0.99 (`reports/etap2/g5_predkosci_d23/d23_podsumowanie.md`)."
+  },
+  "fc4bf861bb9de4c0cd6a2a1aedc449664002f3d3559b12a964ad0f680cb1e6be": {
+    "pl": "**Skrzyżowania:** brak sygnalizacji i pierwszeństwa. Przepustowość to tylko właściwość linku. Eksperyment G1b (D27) z mnożnikiem przepustowości wlotów k = 0,8 / 0,6 / 0,4 nie zmienił natężeń na GPR, a przy k ≤ 0,6 podniósł opóźnienia ponad rozrzut bez niezależnej walidacji. Bazą nie został (`reports/etap3/g1_skrzyzowania/g1b.md`).",
+    "en": "**Intersections:** no signals or right of way. Capacity is only a link property. The G1b experiment (D27) with an inflow capacity multiplier k = 0.8 / 0.6 / 0.4 did not change GPR volumes, and at k ≤ 0.6 raised delays above the spread without independent validation. It did not become the baseline (`reports/etap3/g1_skrzyzowania/g1b.md`)."
+  },
+  "6cddadf0fa7fdeabcd221b35cfb3c461f26cce30e0367acc5f15e50497db012b": {
+    "pl": "Kandydatami są **najbliższy link** wg odległości do jego odcinka i jego link odwrotny. Wybór minimalizuje czas swobodny trasy (`snap_mode = route`, D29; `nearest` odtwarza R9). Zawrotki na początku i końcu trasy spadły z 35% do 12% podróży. Po dodaniu wypraw w R9.5 jest ich 14,3%.",
+    "en": "Candidates are the **nearest link** by distance to its segment and its reverse link. The choice minimises the free-flow route time (`snap_mode = route`, D29; `nearest` reproduces R9). U-turns at the start and end of a route fell from 35% to 12% of trips. With resident trips added in R9.5 the value is 14.3%."
+  },
+  "60576b3fc1b7b7e795e0eae273699bfcdd1615bd1c5304f5bc84137cd70bad2e": {
+    "pl": "Dom na starcie i na końcu dnia to osobne linki (`home_link`, `home_link_end`). Praca ma jeden link, więc jedna zawrotka na podróż tam i z powrotem zostaje. Wariant `work_split = on` (D31) ją usuwa, ale nie jest w bazie.",
+    "en": "Home at the start and at the end of the day are separate links (`home_link`, `home_link_end`). Work has one link, so one U-turn per round trip remains. The variant `work_split = on` (D31) removes it, but is not in the baseline."
+  },
+  "bec5c52cee37a6556c1b974c2b1973fa4e3b476c22077df0ed3f91eadc2ef4c2": {
+    "pl": "Pomijane są typy: `motorway`, `motorway_link`, `trunk`, `trunk_link`, `boundary_turnaround` (`snap_exclude_types`). Bez tego MATSim przypinałby dom do jezdni A1 (R3/E5).",
+    "en": "Excluded types: `motorway`, `motorway_link`, `trunk`, `trunk_link`, `boundary_turnaround` (`snap_exclude_types`). Without this MATSim would attach a home to the A1 carriageway (R3/E5)."
+  },
+  "31879b05cf6d6e8d61c40bd8df25a337380eeeafb0d29dd54e5d8a366c4007e2": {
+    "pl": "Popyt: kto jedzie, skąd i dokąd",
+    "en": "Demand: who travels, from where and to where"
+  },
+  "cd7ab6f0fea783983f9fef4dca90b8bebf42f72f9087324185027df5b4ba3368": {
+    "pl": "Przy skali 25% liczba agentów w obwodzie = wynik × udział auta × obecność (K1-1) × próbka, zaokrąglony metodą największych reszt, tak żeby suma była równa `round(sample × całość)`.",
+    "en": "At a 25% scale, the number of agents in the district = result × vehicle share × presence (K1-1) × sample, rounded by the largest remainder method so that the sum equals `round(sample × całość)`."
+  },
+  "ca60f1e7402371ae1a119dd5430490651fdfd22d101dd1a48c6e585751a8273f": {
+    "pl": "**ZAŁOŻENIE (D5):** wskaźniki zatrudnienia z tablic dla miast woj. łódzkiego (produkcyjny i poprodukcyjny, metoda GUS) stosujemy do grup wieku w obwodzie. Tabela ludności nie krzyżuje płci z wiekiem, więc nie wiemy, czy struktura płci zmienia wynik.",
+    "en": "**ASSUMPTION (D5):** we apply the employment indicators from tables for cities in the Łódź voivodeship (production and post-production, GUS method) to age groups within the district. The population table does not cross gender with age, so we do not know if the gender structure changes the result."
+  },
+  "14127b0b60d39d89be116324a44bcd4eb7f2c95c1aafa910d8b8dcf7a80b6b68": {
+    "pl": "**Gminy w powiecie kutnowskim (D9):** dom to losowy budynek mieszkalny BDOT10k w gminie źródłowej (D28, ta sama pula i waga co mieszkańcy). Start na wjeździe do Kutna o godzinie z profilu (rozdział 9).",
+    "en": "**Municipalities in the Kutno county (D9):** home is a random residential building from BDOT10k in the source municipality (D28, same pool and weight as residents). Start at the entrance to Kutno at the time from the profile (chapter 9)."
+  },
+  "7a8d2898880a88235e47b76d24a56086600c4ca605250d3dfdc661b6fcbaa739": {
+    "pl": "**Odcięcie > 100 km (D16/B, ZAŁOŻENIE):** gminy, których centroid leży dalej niż **100 km** od najbliższego wjazdu, są pomijane. Obejmuje to 12 gmin (47 osób w 100%), m.in. Szczecin, Gdańsk, Kraków, Wrocław, Poznań. Warszawa (ok. 89 km od wjazdu) zostaje: 27 przyjeżdżających, a w wyjeżdżających 457 osób w macierzy NSP. Próg `max_border_km` jest w `config/kutno.toml`.",
+    "en": "**Cut-off > 100 km (D16/B, ASSUMPTION):** municipalities whose centroid is further than **100 km** from the nearest entrance are omitted. This includes 12 municipalities (47 people in 100%), including Szczecin, Gdańsk, Kraków, Wrocław, Poznań. Warsaw (approx. 89 km from the entrance) remains: 27 inbound commuters, and 457 outbound commuters in the NSP matrix. The threshold `max_border_km` is in `config/kutno.toml`."
+  },
+  "cc938d18c855a8e6f1bb5af8133a556fa4b6a1fc6ff97a7fb6d7effd55db8f6d": {
+    "pl": "**1 − 0,073** (praca wyłącznie z domu, łódzkie wg GUS Mobilność 2024; `work_from_home`).",
+    "en": "**1 − 0,073** (working exclusively from home, Łódź according to GUS Mobilność 2024; `work_from_home`)."
+  },
+  "bd2f7077f4dd586fe2fa0df5a628f6e1a48c08d45f5e1c845621912bafa8c024": {
+    "pl": "**Status:** przyjęte w D19. Wartości pochodzą z innych miast (**ZAŁOŻENIE**).",
+    "en": "**Status:** adopted in D19. Values come from other cities (**ASSUMPTION**)."
+  },
+  "5e50859aae346c2fa9c113a99c61998ab79336a8c08f1545854895bfa758a2c3": {
+    "pl": "**Skala:** 10%, 25%, 100%. Wyniki raportujemy z **25%, 5 runów** (3 seedy MATSim i 2 seedy planów), 50 iteracji (decyzja użytkownika 2026-10-23). 100% tylko na wyraźną prośbę.",
+    "en": "**Scale:** 10%, 25%, 100%. Results are reported from **25%, 5 runs** (3 MATSim seeds and 2 plan seeds), 50 iterations (user decision 2026-10-23). 100% only on explicit request."
+  },
+  "fcaebd899a89916d5e006fdc01cebd9b684dae8a6b6855a0c0bae518ef5fd89b": {
+    "pl": "Wyjścia mieszkańców (`errands.py`, D32, D34, D36)",
+    "en": "Resident trips (`errands.py`, D32, D34, D36)"
+  },
+  "99a4b421d4c8729be3f4834294160a8923dd28edca95d92d5c73a3946149a536": {
+    "pl": "Osobne wyjścia `dom → cel → dom`, tylko kierowca auta. Agent wyprawy jest osobną osobą, niepowiązaną z pracującym (**ZAŁOŻENIE**).",
+    "en": "Separate exits `dom → cel → dom`, only the car driver. The trip agent is a separate person, not linked to the employed person (**ASSUMPTION**)."
+  },
+  "84eeb881b43c8ea93d6d9534b564cb22fc50e599b1280925ff04c3a681c9bdb2": {
+    "pl": "**Liczba wyjść** = stawka GUS Mobilność 2024 (tabl. 10, łódzkie, na 2 146 153 osób 6+) × populacja Kutna 6+ × `errand_car_share` × próbka.",
+    "en": "**Number of trips** = GUS Mobilność 2024 rate (table 10, Łódzkie, per 2,146,153 persons aged 6+) × Kutno population aged 6+ × `errand_car_share` × sample."
+  },
+  "3f05d0fe51ecd1bdf59ae6ec1a0944afb3b6879128a5f27af16aae73e0199f4c": {
+    "pl": "**`errand_car_share` = 0,424** (**ZAŁOŻENIE**): Radom GOFR 2022, podróże fakultatywne 53,2%, × 0,797 (kierowcy wśród jazd autem, GUS łódzkie). Warianty 0,304 i 0,479.",
+    "en": "**`errand_car_share` = 0.424** (**ASSUMPTION**): Radom GOFR 2022, discretionary trips 53.2%, × 0.797 (drivers among car trips, GUS Łódzkie). Variants 0.304 and 0.479."
+  },
+  "00321682db728e6f1438453d71304eca65fc9947c5f73e4b5d2ae3cf54fd68f2": {
+    "pl": "**Uczestnicy:** wiek ≥ 18, `license = yes`, `carAvail ≠ never`, waga wg wieku z GUS Budżet czasu 2023.",
+    "en": "**Participants:** age ≥ 18, `license = yes`, `carAvail ≠ never`, weighted by age from the GUS Time Use Survey 2023."
+  },
+  "bd1579863c0175b998aa7a113f0881fcaa9054834ba04032742564faf423889f": {
+    "pl": "**Godzina:** GBR Gdańsk 2022 „dom–inne”, przedziały 5–20 h.",
+    "en": "**Time:** GBR Gdańsk 2022 „home–other”, intervals 5–20 h."
+  },
+  "1b024183cb3368f42f0112936f75e46d8c6bf46382e0e1d1628cba727fde9dd1": {
+    "pl": "Typ",
+    "en": "Type"
+  },
+  "64e32a7ae9ea9a54cc134145a4e69c1abd43810410600cf2b98e22f2eb555a89": {
+    "pl": "Cel",
+    "en": "Destination"
+  },
+  "3dcc3a3a39c7e0098a6572354587317cb80bf803a70178a22409bf15b7e23053": {
+    "pl": "Postój",
+    "en": "Stop"
+  },
+  "7d5ff0054ebc528aa134181edff426a4693b267fb3fb7cde5ed20a869764666e": {
+    "pl": "Stawka GUS (podróże dom–X)",
+    "en": "GUS rate (home–X trips)"
+  },
+  "afc23443e0f110197357a17e7ac6a0d94f9276627dcebd9360fcf8fbdb45cb28": {
+    "pl": "Wyjścia w planie 25%",
+    "en": "Trips in the 25% plan"
+  },
+  "79a70b5e72994a2f6bc3fae66872fd91cb836c99be6d641b147ff1bf6ea6163e": {
+    "pl": "sklepy OSM (D34): `supermarket`, `mall`, `department_store` i pozostałe `shop=*`, waga = liczba sklepów; usługi z BDOT10k, waga = obrys",
+    "en": "OSM shops (D34): `supermarket`, `mall`, `department_store` and other `shop=*`, weight = number of shops; services from BDOT10k, weight = footprint"
+  },
+  "25dee52c1d6de8b73680c2973c370664bc981e501e9cf0a02dd7e53cd7f9dbf3": {
+    "pl": "57 min",
+    "en": "57 min"
+  },
+  "4c11c193804865d49578f5428d03e04c68b6df23f41d1bfb7818f95a49de7752": {
+    "pl": "budynki mieszkalne",
+    "en": "residential buildings"
+  },
+  "495de83344285d1a538bdb3b9637808b296f252a1d3325b8892fe787d2ad5845": {
+    "pl": "1 h 28 min",
+    "en": "1 h 28 min"
+  },
+  "474cac66ccb86d00c3126a09456a88ed3662a92224538ebdfa43b537f0f6c0aa": {
+    "pl": "kultura, sport, gastronomia (BDOT10k)",
+    "en": "culture, sport, gastronomy (BDOT10k)"
+  },
+  "d2051876610ede8654e7cd2de322ead71f45e4bb4ac6ff4fa93040e2ff6b2e81": {
+    "pl": "1 h 36 min",
+    "en": "1 h 36 min"
+  },
+  "966a5e4399b81518b03a65df7538bb37b38e0e4ecbb02dbfac69ab35a922cf83": {
+    "pl": "ochrona zdrowia, szpital, apteka (BDOT10k)",
+    "en": "healthcare, hospital, pharmacy (BDOT10k)"
+  },
+  "7b7e91e53862382284603ed78b0a4a1d03d8b468e77e1a825eb7da7cedd761ca": {
+    "pl": "najbliższa szkoła podstawowa, przedszkole, żłobek",
+    "en": "nearest primary school, kindergarten, nursery"
+  },
+  "53bc57cdb69279bbfe2fc05f6964a89862ff636724f5c3c2016e8894c2be609c": {
+    "pl": "5 min",
+    "en": "5 min"
+  },
+  "7cd89c555643167cbf8c3b17ffc415490a6c6f6ca59c6e4c034523bc0df7889c": {
+    "pl": "Razem 1 477 wyjść w planie 25%. Wybór celu nie zależy od odległości (poza `escort`). Pomiar wariantów z odległością pokazał w Kutnie prawie brak efektu (`reports/etap3/g_zakupy/odleglosc/pomiar_beta.md`). Czas dla `health` jest **ZAŁOŻENIEM** (jak zakupy, brak kategorii w GUS).",
+    "en": "In total 1,477 trips in the 25% plan. Destination choice does not depend on distance (except `escort`). A measurement of distance variants showed almost no effect in Kutno (`reports/etap3/g_zakupy/odleglosc/pomiar_beta.md`). The duration for `health` is an **ASSUMPTION** (as shopping, no category in GUS)."
+  },
+  "677726925c2ef23a9b1aebeed98748bbcbb6cfb8f5f50937c592859055ce5560": {
+    "pl": "Ruch tła (`background_od.py`, D19–D21)",
+    "en": "Background traffic (`background_od.py`, D19–D21)"
+  },
+  "df0f6758eb9edd779e379daef171547b8f34b307e092d8dc6e6fa5f464a2ab79": {
+    "pl": "Subpopulacje `tlo` (lekkie i dostawcze, pce 1,0) i `ciezkie` (pce 2,5, 80 km/h). Macierze `scenarios/kutno/demand/background_od_r94e_{lcv,heavy}_gpr.csv` są estymowane z GPR 2025 względem runów pracujących i wyjść bez tła. W planie 25%: 11 961 agentów `tlo` i 4 840 `ciezkie`, profil godzin ze stacji Lisica. Strefy graniczne per droga z wagą GPR, końce ciężkich w budynkach pracy (`pipeline/border_zones.py`). Znane ograniczenia: strefy DK91 płn.-zach. i płd.-zach. oraz DK92 wsch. bez ograniczenia przez GPR (D25).",
+    "en": "Subpopulations `tlo` (light and delivery, pce 1.0) and `ciezkie` (pce 2.5, 80 km/h). Matrices `scenarios/kutno/demand/background_od_r94e_{lcv,heavy}_gpr.csv` are estimated from GPR 2025 against runs of workers and resident trips without background. In the 25% plan: 11,961 `tlo` agents and 4,840 `ciezkie`, hourly profile from the Lisica station. Border zones per road with GPR weight, heavy trip ends in work buildings (`pipeline/border_zones.py`). Known limitations: zones of DK91 north-west and south-west and DK92 east are not constrained by GPR (D25)."
+  },
+  "7cbfadfcebd01fcb99a8fd23b4688ec9c99b0daba2dcdb9d351e446f241721e5": {
+    "pl": "Domy mieszkańców są **budynkami BDOT10k** z wagą **obrys × kondygnacje** (D28). Miejsca pracy są **budynkami OSM** z wagą **powierzchni obrysu** (D7). Końce ruchu tła to budynki OSM. Losowanie jest z powtórzeniami, a seed jest w configu (`seed = 4711`). Cele wyjść mieszkańców: rozdział 6.7.",
+    "en": "Residents' homes are **BDOT10k buildings** weighted by **footprint × storeys** (D28). Workplaces are **OSM buildings** weighted by **footprint area** (D7). Background trip ends are OSM buildings. Sampling is with replacement and the seed is in the config (`seed = 4711`). Destinations of resident trips: chapter 6.7."
+  },
+  "3ce29562c0e411e3769f6c3a882997662f6c80426e3b06d432776bd0bc4d93de": {
+    "pl": "**Mieszkalne, BDOT10k** (`home_source = \"bdot\"`, ZAŁOŻENIE D28): `OT_BUBD_A` powiatu 1002, `KATEGORIAISTNIENIA = eksploatowany`, funkcja przeważająca „budynek jednorodzinny” albo „budynek wielorodzinny” (19 520 z 19 644 budynków mieszkalnych w powiecie). Odrzucone m.in. domy letniskowe, parafialne, opieki społecznej, internaty, klasztory. Wariant `home_source = \"osm\"` odtwarza stan R7b/R8.",
+    "en": "**Residential, BDOT10k** (`home_source = \"bdot\"`, ASSUMPTION D28): `OT_BUBD_A` of county 1002, `KATEGORIAISTNIENIA = eksploatowany`, main function „budynek jednorodzinny” or „budynek wielorodzinny” (19,520 of 19,644 residential buildings in the county). Rejected include holiday homes, parish houses, care homes, dormitories, monasteries. The variant `home_source = \"osm\"` reproduces R7b/R8."
+  },
+  "eb5a526390463e78c38c7c8e62a34f1704c467f25d6fa2888356a1d141f7d258": {
+    "pl": "**Pracy, OSM** (`work_buildings`, ZAŁOŻENIE D7): `retail`, `industrial`, `warehouse`, `office`, `commercial`, `school`, `hospital`, `public`, `civic`, `government`, `kindergarten`, `university`, `college`, `supermarket`, `service`, `fire_station`, `train_station`, `transportation`, `manufacture`, `factory`, `hotel`, a także każdy budynek z tagiem `amenity`/`shop`/`office` i `building=yes` w landuse `industrial`, `commercial`, `retail`. Tylko w granicach gminy Kutno (dla agentów z Kutna).",
+    "en": "**Work, OSM** (`work_buildings`, ASSUMPTION D7): `retail`, `industrial`, `warehouse`, `office`, `commercial`, `school`, `hospital`, `public`, `civic`, `government`, `kindergarten`, `university`, `college`, `supermarket`, `service`, `fire_station`, `train_station`, `transportation`, `manufacture`, `factory`, `hotel`, and also any building tagged `amenity`/`shop`/`office` and `building=yes` in landuse `industrial`, `commercial`, `retail`. Only within the Kutno municipality (for agents from Kutno)."
+  },
+  "086691196f126824c915717b274395fc2b23f4cbae2f3fec750a1f5334ce3bd0": {
+    "pl": "Budynek mieszkalny OSM nie może być budynkiem pracy (`loc[work, residential] = False`).",
+    "en": "A residential OSM building cannot be a work building (`loc[work, residential] = False`)."
+  },
+  "cb9084d7c105324753fd24bf7953d0a89b80ff085c2456eede3b513e517b1614": {
+    "pl": "**Mieszkańcy:** budynek BDOT10k w obwodzie spisowym, waga obrys × `LICZBAKONDYGNACJI` (brak = 1). Obwód bez kandydata bierze najbliższy dom do 100 m (`home_nearest_max_m`, ZAŁOŻENIE), inaczej losowy punkt w obwodzie (obwód 6509214).",
+    "en": "**Residents:** a BDOT10k building in the census district, weight footprint × `LICZBAKONDYGNACJI` (missing = 1). A district without a candidate takes the nearest home within 100 m (`home_nearest_max_m`, ASSUMPTION), otherwise a random point in the district (district 6509214)."
+  },
+  "63005648ca72b98f9a3c5e9b83de341a26ac6cc6f5ef1870234146317dac5bf5": {
+    "pl": "**Przyjeżdżający z powiatu:** ta sama pula domów, losowy budynek w gminie źródłowej.",
+    "en": "**Inbound commuters from the county:** the same pool of homes, a random building in the source municipality."
+  },
+  "e86f6ab48bd958a32290fe7887ea04d802fcb1e2416c840bdca6f057d2b9183c": {
+    "pl": "**Zgodność z siatką GUS 250 m:** odchylenie masy 10,3 pp (OSM) → 8,1 pp (BDOT10k). Ruch bez zmian ponad rozrzut planów (`reports/etap3/g3_domy/g3.md`).",
+    "en": "**Agreement with the GUS 250 m grid:** mass deviation 10.3 pp (OSM) → 8.1 pp (BDOT10k). Traffic unchanged beyond the plan spread (`reports/etap3/g3_domy/g3.md`)."
+  },
+  "7ccdf13b10ade9b251d629a53d02e4e4f5dcb52cb6f161262482a4084874ed43": {
+    "pl": "Każdy dom i miejsce pracy dostaje link sieci według zasad z rozdziału 5.5 (`snap_mode = route`, D29). Przyjeżdżający i wyjeżdżający spoza powiatu mają link graniczny od razu.",
+    "en": "Each home and workplace receives a network link according to the rules from section 5.5 (`snap_mode = route`, D29). Inbound and outbound commuters from outside the county immediately have a border link."
+  },
+  "66b6c29d74c9c38ff55ee762417e21b9012805987b790da3cbc9b50b834825e5": {
+    "pl": "Agenty tworzy się z **agregatów**, nie z mikrodanych. Nie odtwarzamy gospodarstw (zasady projektu). Atrybuty z D30 nie wpływają na QSim: strategie to tylko `ChangeExpBeta` i `ReRoute`. Test na GitHub Actions dał identyczne trasy, nogi, natężenia i score (run 40189940976).",
+    "en": "Agents are created from **aggregates**, not microdata. We do not reconstruct households (project rules). Attributes from D30 do not affect QSim: the strategies are only `ChangeExpBeta` and `ReRoute`. A test on GitHub Actions gave identical routes, legs, volumes and score (run 40189940976)."
+  },
+  "0f9c22751c7d97dbf233d626ecc02d4101ad82a0b2d2435a6afcce258bf302d5": {
+    "pl": "stała (wymagana przez SimWrapper i strategie)",
+    "en": "constant (required by SimWrapper and strategies)"
+  },
+  "5f31114af2eb2a9a8db0fba69167bb5fd0a35f73dd9f871df72c60bfc0e109bc": {
+    "pl": "`r<obwód>_<n>`, `c<gmina>_<n>`, `o<gmina>_<n>`, `h…` dla ciężkich",
+    "en": "`r<obwód>_<n>`, `c<gmina>_<n>`, `o<gmina>_<n>`, `h…` for heavy"
+  },
+  "8f40d47f29fca5e07894d9c272e0dd07637d75144d6ddbe585f8cd7f379ff37c": {
+    "pl": "budynek BDOT10k i link",
+    "en": "BDOT10k building and link"
+  },
+  "6ab7415d0086eb82f77b54d1542b5bc689e25dfcfdc09b044824fc25609e2277": {
+    "pl": "praca lub cel wyjścia",
+    "en": "work or trip destination"
+  },
+  "266d7b73b51b1ac76dc2dd0035bab8c1d569918809a8815733e1a03f0f62da22": {
+    "pl": "budynek i link",
+    "en": "building and link"
+  },
+  "5ebc13293cba6e218fbb340430ff0a0ad268613b0e91761ea16d70c022e1f965": {
+    "pl": "rozdziały 6.7, 7.3",
+    "en": "chapters 6.7, 7.3"
+  },
+  "4df26beb62c0ccf565cad7449ed478ce717a351cceda8414f2f716d556a0912f": {
+    "pl": "populacja × zatrudnienie (miasta Polski) × P(licencja)",
+    "en": "population × employment (Polish cities) × P(licence)"
+  },
+  "7dc62599389546a1afa5e369077e073dc7053e32df2f6a9fc32c84bcbead0ae8": {
+    "pl": "BDL P4181, NSP 2021 (D30)",
+    "en": "BDL P4181, NSP 2021 (D30)"
+  },
+  "cece92fb48aadcd9d8367f2d59f45dfd8c94d5cb8a9243213f8c6052720c2b00": {
+    "pl": "yes/no",
+    "en": "yes/no"
+  },
+  "d07804b01806aebf0ac86b9730964b68b154aa2edc1fd1e212e8fe69cdcfac37": {
+    "pl": "CEPiK 2019 / NSP 2021, przesunięcie do 60,6% w Łódzkiem (GUS Mobilność 2024); mężczyźni 65+ jak 55–64 (**ZAŁOŻENIE**)",
+    "en": "CEPiK 2019 / NSP 2021, shifted to 60.6% in Łódzkie (GUS Mobilność 2024); men 65+ as 55–64 (**ASSUMPTION**)"
+  },
+  "290c6eb5441394aa89134ace918d484981c64dae174bf3e2f1cddd16bfbd05ec": {
+    "pl": "always / sometimes / never",
+    "en": "always / sometimes / never"
+  },
+  "b63402b6e96f034872e44e1d2ffd33724e4e7fcee881fb61414e6defb7e545a1": {
+    "pl": "auta / posiadacze prawa jazdy w Łódzkiem = 0,73 (**ZAŁOŻENIE**: jedno auto = jeden posiadacz)",
+    "en": "cars / licence holders in Łódzkie = 0.73 (**ASSUMPTION**: one car = one holder)"
+  },
+  "bbc29418484754d220570f327f18270d94b7e7ffa993e5bdb3e104a364b7297f": {
+    "pl": "Pełna populacja Kutna (42 255 osób z atrybutami) jest w `scenarios/kutno/demand/population_kutno.csv`. Raport: `reports/etap3/g_atrybuty/atrybuty.md`.",
+    "en": "The full Kutno population (42,255 persons with attributes) is in `scenarios/kutno/demand/population_kutno.csv`. Report: `reports/etap3/g_atrybuty/atrybuty.md`."
+  },
+  "03a3372e6dd213b5f91d6e49361a08bdea9c8f7c38983ca639aea09f98cbc1d3": {
+    "pl": "**Czego agenci NIE mają:** wykształcenia, zawodu, dochodu, gospodarstwa domowego. Wiek przyjeżdżających pochodzi z rozkładu Kutna, nie z ich gmin.",
+    "en": "**What agents do NOT have:** education, occupation, income, household. The age of inbound commuters comes from the Kutno distribution, not from their municipalities."
+  },
+  "e83b63906c9f848040f872299f22b8a11d580ad33f14ce68f1c3c25be28d99cf": {
+    "pl": "**Łańcuch pracującego:** `home (end_time = wyjazd) → car → work (max_dur = 8:00:00) → car → home`. **Wyjście mieszkańca:** `home → car → cel (max_dur wg typu, rozdział 6.7) → car → home`. Test: trzy aktywności i dwie nogi car, `end_time` XOR `max_dur` (zasady projektu). Łańcuchy dnia pracujących (podwiezienie przed pracą, zakupy po pracy) są wariantem `chains = on` (D35), nie bazą.",
+    "en": "**Worker chain:** `home (end_time = departure) → car → work (max_dur = 8:00:00) → car → home`. **Resident trip:** `home → car → destination (max_dur by type, chapter 6.7) → car → home`. Test: three activities and two car legs, `end_time` XOR `max_dur` (project rules). Daily chains of workers (escorting before work, shopping after work) are the variant `chains = on` (D35), not the baseline."
+  },
+  "6f568c65324ca9ae317d96ce37e1fe285d588e4a0318b7b44468cd72dfe34093": {
+    "pl": "**Godzina wyjazdu pracujących (D14):**",
+    "en": "**Departure time of workers (D14):**"
+  },
+  "f4b414591a671a676cde3d9a4f7bacb7c082aa1c4ffcc04da9e9c124ddd06721": {
+    "pl": "Losowanie przedziału godzinowego z rozkładu „dom–praca” GBR Gdańsk 2022, Rys. 46 (`config/departure_home_work_gbr2022.csv`, 18 przedziałów, po normalizacji do 100%). Przedział 20–24 h jest jednym przedziałem 4-godzinnym.",
+    "en": "Sampling of the hourly interval from the \"home–work\" distribution GBR Gdańsk 2022, Fig. 46 (`config/departure_home_work_gbr2022.csv`, 18 intervals after normalization to 100%). The 20–24 h interval is one 4-hour interval."
+  },
+  "67f633babc471b4adc16f769219db738b5825d8f33a4d726a3858ef76adbd244": {
+    "pl": "Rozkład jest z metropolii Gdańsk (**ZAŁOŻENIE**, że pasuje do Kutna).",
+    "en": "The distribution is from the Gdańsk metropolis (**ASSUMPTION** that it fits Kutno)."
+  },
+  "fe0c0796b0aff2b935119303fdf7d9da7504f54a70415e5f656beb28efe52ade": {
+    "pl": "Brak godzinowego rozkładu lokalnego (decyzja D10 otwarta, R1: `docs/research/R1_godziny.md`). Przegląd polskich badań ruchu pod ten i inne parametry: `docs/research/badania_ruchu_PL.md`.",
+    "en": "No local hourly distribution (decision D10 open, R1: `docs/research/R1_godziny.md`). Review of Polish travel surveys for this and other parameters: `docs/research/badania_ruchu_PL.md`."
+  },
+  "109af8b53ad2b8b1b312e11181eccc145ef8e16c3542f4208fc1bb760f00c4b4": {
+    "pl": "**Koniec symulacji:** `qsim.endTime = 48:00:00` (zapas; 36:00 przerywało agenta z Krakowa, `stuckAndAbort`, R3).",
+    "en": "**Simulation end:** `qsim.endTime = 48:00:00` (reserve; 36:00 interrupted the agent from Kraków, `stuckAndAbort`, R3)."
+  },
+  "0034c395cd9f1ff9f4e63839d8d02b9e83c7b801af71339608b9b15f2e296f64": {
+    "pl": "decyzja użytkownika 2026-10-23: nowe runy maks. 50 iteracji",
+    "en": "user decision 2026-10-23: new runs at most 50 iterations"
+  },
+  "72ce20973ae497293248d82adbca30f5eb511ec174e2412ffefa409e963c20da": {
+    "pl": "osobno dla `person`, `tlo`, `ciezkie`",
+    "en": "separately for `person`, `tlo`, `ciezkie`"
+  },
+  "e6214c4e3b06f48f4d66d1196165766d79081ce1796619386ee5eefce861447c": {
+    "pl": "domyślny MATSim; typical: `home` 16 h, `work` 8 h, `shop` i `service` 57 min, `visit` 1 h 28 min, `leisure` 1 h 36 min, `health` 57 min, `escort` 5 min",
+    "en": "MATSim default; typical: `home` 16 h, `work` 8 h, `shop` and `service` 57 min, `visit` 1 h 28 min, `leisure` 1 h 36 min, `health` 57 min, `escort` 5 min"
+  },
+  "468a1e614ec9f2e52901211ebd3e018f2ecc416a533cbad51606c2e6d6ae30f0": {
+    "pl": "**ZAŁOŻENIE**, score tylko diagnostyczny",
+    "en": "**ASSUMPTION**, score is diagnostic only"
+  },
+  "36cb81ed8e0a2caa7e174f6af3f923002a35a75c3e892621388c8d1be8fa33b4": {
+    "pl": "baza R9.5 (D36)",
+    "en": "baseline R9.5 (D36)"
+  },
+  "18eb3845ad73f951c9873bd24045d66e49d88c1230d08d0747fee4ed7faa17d0": {
+    "pl": "Model vs ulice miejskie",
+    "en": "Model vs city streets"
+  },
+  "8cf51a695d187dd9db83de492be90df45f7c9a6800dd0d9854b5edf36b11df32": {
+    "pl": "model / WIOŚ 2013 K1–K5 przeskalowane do 2025 (kontrola, nie kalibracja)",
+    "en": "model / WIOŚ 2013 K1–K5 scaled to 2025 (a check, not calibration)"
+  },
+  "e77b797ea29c982ee51c82dccee29d6c705169d29348dea1054af8ec724f8fec": {
+    "pl": "Macierze O-D",
+    "en": "O-D matrices"
+  },
+  "d2e8eb0351ed6640c4389edcbb4b19a5d261d5b5be9c32cac26dcd7f1e14af9a": {
+    "pl": "ostrzeżenia po każdej estymacji",
+    "en": "warnings after each estimation"
+  },
+  "fe53f7fb14d7539f2b4834385c994caec96a9dc3e5430d36998c9752af5c6032": {
+    "pl": "Baza R9.5 (test GitHub Actions, 2026-10-31)",
+    "en": "Baseline R9.5 (GitHub Actions test, 2026-10-31)"
+  },
+  "9427a092813dddf750a566931f1312df73f0b7df8c94206e205c61e434caca2d": {
+    "pl": "Źródło: `reports/etap3/g_inne_cele/inne_cele.md`, `inne_cele_porownanie.json`, run 41200518829. 25%, 50 iteracji, mediana z 5 runów (3 seedy MATSim i 2 seedy planów), kontrola R9.4 na tej samej platformie.",
+    "en": "Source: `reports/etap3/g_inne_cele/inne_cele.md`, `inne_cele_porownanie.json`, run 41200518829. 25%, 50 iterations, median of 5 runs (3 MATSim seeds and 2 plan seeds), control R9.4 on the same platform."
+  },
+  "0c3ca967da3b73c52f947ddaecc6b59e5554e9a369b2a0bdfcae422ad7d7e835": {
+    "pl": "Miara",
+    "en": "Measure"
+  },
+  "924418ce006391872fbe86f8ebd6dbbe1284c9d07c8a839458189237ed5423e4": {
+    "pl": "R9.5",
+    "en": "R9.5"
+  },
+  "c2a59687f57230f3bcd0ee3ede5d990ff64d0f8e817a780e8e5c4dfd1be73651": {
+    "pl": "R9.4",
+    "en": "R9.4"
+  },
+  "62485744c82780a2b29499e3fa57995d9a5a37aac19572431b9194171c29505b": {
+    "pl": "Rozrzut planów R9.4",
+    "en": "Plan-seed spread of R9.4"
+  },
+  "9c05ce79d0bfe037953b11f168069e5af4ea2605b8534a188f64dee6c0b643fe": {
+    "pl": "stuck",
+    "en": "stuck"
+  },
+  "fe04630e05fe8c7fe12b4034671402fd95b2106f0a7316cfafc8da5561e6c649": {
+    "pl": "nogi car = plany",
+    "en": "car legs = plans"
+  },
+  "f7271f6be1554cde027a4c71d82b681e922ed6733417038523e835c9d4b0dfb8": {
+    "pl": "tak (27 233)",
+    "en": "yes (27,233)"
+  },
+  "3c97f34d4cf2fe07c895497ebbd9bf7523d8fd1a7bb682b68bbc3abffe600db4": {
+    "pl": "tak (25 701)",
+    "en": "yes (25,701)"
+  },
+  "b13c6ec6859a05d2009e530db16cf4d2b018c359f8caeeed7dd138ee6bcc22c9": {
+    "pl": "opóźnienie, poj.-h próbki",
+    "en": "delay, sample vehicle-hours"
+  },
+  "7cb683a768b1580f046630fd29c3c65687803db47a3e6659058189b773ea752c": {
+    "pl": "GPR lekkie w ±15%",
+    "en": "GPR light within ±15%"
+  },
+  "4ee8dcccfe07959fd42d3bf84d799981c83b29ce41b9c03525397e913229a2f0": {
+    "pl": "GPR ciężkie w ±15%",
+    "en": "GPR heavy within ±15%"
+  },
+  "2734a93e2c747933f3edba4e8709d540af6643fca8efee5945d83811ad9e9101": {
+    "pl": "14/15 (poza: 91878, −15,1%)",
+    "en": "14/15 (outside: 91878, −15.1%)"
+  },
+  "59e9ec5f17f92c0b0109588c0196ed700dddaab4e5b0c03c7b12ae2899b233ea": {
+    "pl": "podróże pracujących: czas / dystans",
+    "en": "workers' trips: time / distance"
+  },
+  "b8c5e3b63465a7d26abca7d93831b9b9ce2742915c250180e78ec2ada7f47e6c": {
+    "pl": "17,15 min / 11,11 km",
+    "en": "17.15 min / 11.11 km"
+  },
+  "5a01e39589ce20b53a33f8ca1698fef37ea6641c64dbea9105736b6016a21952": {
+    "pl": "17,13 min / 11,11 km",
+    "en": "17.13 min / 11.11 km"
+  },
+  "2e37558b33d08d64361043a96779ac9f17f51d611a72c17607df0273ea0cbdeb": {
+    "pl": "0,26 min",
+    "en": "0.26 min"
+  },
+  "6d6bac3b98105b6d5479b1370dbb3fa809b4b2f1aeaa6e81e11c9d4ca33f5ecd": {
+    "pl": "zawrotki na starcie lub końcu trasy, % podróży",
+    "en": "U-turns at route start or end, % of trips"
+  },
+  "7bf04d2faebd07ea7495c8e55703acf7733fc8b53d750376d366fa822024f75c": {
+    "pl": "ulice miejskie K1–K5, suma, % celu 2025",
+    "en": "city streets K1–K5, total, % of 2025 target"
+  },
+  "555c92254cfce40a728d1dfc3b48925dabe84b2706e77a0fe992eb8819a2b8a6": {
+    "pl": "**Ulice miejskie (D37), znane ograniczenie:**",
+    "en": "**City streets (D37), a known limitation:**"
+  },
+  "7897dbaca1c583d043991018fc29caa2c46a1e68d2e2169fde42e12bee7d0f13": {
+    "pl": "Punkt",
+    "en": "Point"
+  },
+  "2a0b207b3ba94721a3838ea227e9688970be789a5e2f3f74da522507aaa6cf34": {
+    "pl": "Cel 2025 [poj./dobę]",
+    "en": "2025 target [veh/day]"
+  },
+  "b9db22473f3b3b07c1b4483b13f9243ff63075fb159dd4524e42557168669298": {
+    "pl": "% celu",
+    "en": "% of target"
+  },
+  "0d9434a287a91f9342461b04654259ff01c2ceb8b288d4cfe368093ba2de5192": {
+    "pl": "K1 Toruńska",
+    "en": "K1 Toruńska"
+  },
+  "b6e7510928fb3d7c8afc105b4387ce6f028c7f41562743947e83b10292196ed3": {
+    "pl": "K2 Łąkoszyńska",
+    "en": "K2 Łąkoszyńska"
+  },
+  "5ed92b093735076f3a23d9afcd98a75acf9c9cd01c93c1a9a9cc823f5a3725cc": {
+    "pl": "K3 Grunwaldzka",
+    "en": "K3 Grunwaldzka"
+  },
+  "26f781e5d9cebbb32298d2359285474c5d7bd69437e0cc0aae7c2bb528db16d7": {
+    "pl": "K4 Kościuszki",
+    "en": "K4 Kościuszki"
+  },
+  "0850a05d5576c12571c2ba7d1516fca307517e8a1f4ac896803305baf807822e": {
+    "pl": "K5 Łęczycka",
+    "en": "K5 Łęczycka"
+  },
+  "8ced3f962aa32e90289440eaf50e282def134183216be8b2d3a63d648ff75714": {
+    "pl": "Cel to pomiar jednodobowy z 2013 przeskalowany przez GPR, więc to kontrola rzędu wielkości. Po D36 nie dokładamy popytu ani nie stroimy parametrów pod K1–K5. Brakuje m.in. przyjazdów spoza miasta w celach innych niż praca, podróży nie z domu, ruchu służbowego i dostawczego w mieście oraz szkoły (`reports/etap3/g_pomiary_miejskie/popyt_brak.md`, `k1_zachod.md`).",
+    "en": "The target is a one-day count from 2013 scaled by GPR, so this is an order-of-magnitude check. After D36 we do not add demand or tune parameters to K1–K5. Missing are, among others, non-work trips from outside the city, trips not based at home, business and delivery traffic in the city, and school (`reports/etap3/g_pomiary_miejskie/popyt_brak.md`, `k1_zachod.md`)."
+  },
+  "87d49fcc695e9b8ff6c7d35527955bcbd94487cdfce427f48aea130af0ab4ead": {
+    "pl": "**Rozrzut:** losowanie planów i punktów estymacji O-D daje 20–100 razy większy rozrzut niż seedy MATSim (mediana 9–12% na odcinek wobec 0,1–0,4%, baza R6). Różnice wariantów oceniaj względem rozrzutu seedów planów.",
+    "en": "**Spread:** sampling of plans and O-D estimation points gives a spread 20–100 times larger than MATSim seeds (median 9–12% per section vs 0.1–0.4%, baseline R6). Judge variant differences against the plan-seed spread."
+  },
+  "58daa36877f0e93f31bf2247c9ce572295657e2852872777c427ddd695dfe7d8": {
+    "pl": "**Czasy:** walidacja względem TomTom (D22, D25) dotyczy R7b: 58% tras w 15% lub 1 min wobec wymaganych > 85% wg TAG. Model jest skalibrowany w popycie, nie zwalidowany co do czasów. Późniejszych baz nie sprawdzaliśmy nowymi zapytaniami.",
+    "en": "**Travel times:** validation against TomTom (D22, D25) applies to R7b: 58% of routes within 15% or 1 min, against the required > 85% by TAG. The model is calibrated in demand, not validated on times. Later baselines were not checked with new queries."
+  },
+  "60a136f83345b9933d0c4e60582d13c9f39fa26155fe524fd350c5ed330b8e7f": {
+    "pl": "Jak zmieniała się baza",
+    "en": "How the baseline changed"
+  },
+  "1ae5be8e8ac850447ce22a5ef7e228f5a230422da5c69bcd65e016054433b219": {
+    "pl": "Każdy krok zmienia jedną rzecz, a zmiany ruchu oceniamy względem rozrzutu seedów planów.",
+    "en": "Each step changes one thing, and traffic changes are judged against the plan-seed spread."
+  },
+  "5e34408f7b18f09f5d0e1f0c042521cbee0c84736b96419d0ad96d8fbd712e92": {
+    "pl": "Baza",
+    "en": "Baseline"
+  },
+  "db9afaa29fef5952dba942994251480bf6b695459091b7e4c97533a8011f7bd2": {
+    "pl": "Decyzja",
+    "en": "Decision"
+  },
+  "cdd59c00b75998a69a425c3a9c2c75e7ea0ce0add4217a09f37251cd89b4facf": {
+    "pl": "Co doszło",
+    "en": "What was added"
+  },
+  "13f0a8a0f7e730164ba20ddac8fe9bd004091654eef516c1008e63e1a9091199": {
+    "pl": "Efekt",
+    "en": "Effect"
+  },
+  "cdcbb58e2087df2e98da923b0eb7f14827b59fa602cddbcfd9eacc9e1025e9a8": {
+    "pl": "Raport",
+    "en": "Report"
+  },
+  "550a92e330a86fa0a314c5bdde5a76c4168d753b45144d2780cbf2c26aa033dc": {
+    "pl": "R6",
+    "en": "R6"
+  },
+  "843b5833815c38b2efe2e01fca6668fd072b8783f3e058fe55487c8aad54721b": {
+    "pl": "D19–D21",
+    "en": "D19–D21"
+  },
+  "893229aa51c06c9b8bfef71773b6551ceadc7940f85c9e171654a851cfcca040": {
+    "pl": "tło, dostawcze i ciężkie, poprawki po audycie G5",
+    "en": "background, delivery and heavy vehicles, fixes after the G5 audit"
+  },
+  "042a8d21aae3fe143eb18e60d9058b75020e703548f63f0c1cc04a02b565b327": {
+    "pl": "GPR lekkie 12/15, ciężkie 12/15",
+    "en": "GPR light 12/15, heavy 12/15"
+  },
+  "44d99c2e0e655f81f76920ca8476e13600ed009bf753f585414d3146d1c713f9": {
+    "pl": "R7b",
+    "en": "R7b"
+  },
+  "b707b692ee82e38030b4971bb5cfab4d6c4cbd54ce5c264623feb67ff8b74fba": {
+    "pl": "D23, D25",
+    "en": "D23, D25"
+  },
+  "5766280e317af8a2e040dfb30c8214a6757773e52d5b1a3537711c5713b6b02a": {
+    "pl": "prędkości per grupa dróg",
+    "en": "speeds per road group"
+  },
+  "3625359e18ac317cc7d5abbc323f10d779ec191533f6a43ceb35051a3e06106d": {
+    "pl": "GPR lekkie 14/15, MAPE czasu 20,5 → 18,2%",
+    "en": "GPR light 14/15, time MAPE 20.5 → 18.2%"
+  },
+  "ec185795d711d3cd6b5663d3a54651c720a8f3111b87a74957c02986c8b8cc3a": {
+    "pl": "R8",
+    "en": "R8"
+  },
+  "708cd051cd714b48c4e0b70d26760dc055b03e2922895e86efa08ea3cff3c645": {
+    "pl": "D26",
+    "en": "D26"
+  },
+  "088f72f2f58f1ca6092fb7a3147ef803113c09ad33cefbcb41818b2914111ee1": {
+    "pl": "zakazy skrętu",
+    "en": "turn restrictions"
+  },
+  "6d2d90bbb9d385bc3f703811ee4ce3fef31d7b4fb50bd66cc84b026f7987c663": {
+    "pl": "poniżej rozrzutu seedów",
+    "en": "below the seed spread"
+  },
+  "fed5e5f18daedb3b01e265930e7b78096e8975cd6e280f0b4892eaaae57f6c52": {
+    "pl": "R9",
+    "en": "R9"
+  },
+  "7e406bbc6d5b1e57f9208c77cf12e04a31c7ece0dde08f907e59a1a848c242a8": {
+    "pl": "D28",
+    "en": "D28"
+  },
+  "36501b806187e12a25e3a74136b5afa1c26ed9bc82b283f49cc139760d63d04e": {
+    "pl": "domy z BDOT10k",
+    "en": "homes from BDOT10k"
+  },
+  "bba9473169c26489bc76df05f0e75200942be76a7c46de92023d97b917afae34": {
+    "pl": "GUS 250 m: 10,3 → 8,1 pp; ruch w rozrzucie",
+    "en": "GUS 250 m: 10.3 → 8.1 pp; traffic within spread"
+  },
+  "1a70621124838f143828e87d092c2fff9e935fdab165410beda226daf2da5859": {
+    "pl": "R9.1",
+    "en": "R9.1"
+  },
+  "c7ec791745cea93918175d7ceea47940dd7cf3dd99fd72893aec0cc8c8c84697": {
+    "pl": "D29",
+    "en": "D29"
+  },
+  "11e9c480b943fe9306bc794ce6a0d3e6b27b092dc4bbaa70ffd7c333c8f0c6da": {
+    "pl": "kierunek linku wg trasy",
+    "en": "link direction by route"
+  },
+  "75ada9bf672216f0ee632397658faffcb7462853122eaaa97bc98aa8921c8f4f": {
+    "pl": "zawrotki 35,1 → 12,4% podróży",
+    "en": "U-turns 35.1 → 12.4% of trips"
+  },
+  "09d5fc36758808bf207c1bb0d87c0d65da653048750a66383d383b0aac7b3a1a": {
+    "pl": "R9.2",
+    "en": "R9.2"
+  },
+  "11c3fe679912570c17c2cf1d343f8b800c027803d821248e8c84b990358b8724": {
+    "pl": "D30",
+    "en": "D30"
+  },
+  "adcd5b394d793903fba07b7a783ef4a0b84ee32bec8bdf4732e89f5d44c008b3": {
+    "pl": "atrybuty osób",
+    "en": "person attributes"
+  },
+  "ffd984b078bc64d5e9ad7f24b3b7c5fd15c689b165b77fa4a2538302b672644f": {
+    "pl": "symulacja bez zmian",
+    "en": "simulation unchanged"
+  },
+  "ee98e9239d71a875fea5f6730da31c3f97c8e7b327f2a6e2e3dda8a6d1285ba0": {
+    "pl": "R9.3",
+    "en": "R9.3"
+  },
+  "93aa1cb3dc5796b51a1a6021088f791b43cfd388eb6e7131b15fa3ba4dc072ea": {
+    "pl": "D32",
+    "en": "D32"
+  },
+  "bf3d3edd520b58edfc6da976f81709287a4f7c73e3ab8f19341216f011f6d8a5": {
+    "pl": "zakupy i usługi",
+    "en": "shopping and services"
+  },
+  "40baf022e8906cc8d4996e563dd2c7922168fd4d4a182c6908fb03ba9ba4c5e9": {
+    "pl": "opóźnienie +5,8% (rozrzut 13,9%), GPR lekkie 15/15",
+    "en": "delay +5.8% (spread 13.9%), GPR light 15/15"
+  },
+  "7fdcea7d9e08ce5b64aa4c5d6c78bb1b9ce9ccdcd606a74d16f0abea507e578e": {
+    "pl": "D34",
+    "en": "D34"
+  },
+  "2f87b9c92c6d771afddb4bceec47ac93e3bc86c6eae9d60396b7fb764f0e8da9": {
+    "pl": "cele zakupów wg sklepów OSM",
+    "en": "shopping destinations from OSM shops"
+  },
+  "6d087cddfd787a879cc2dbffd76633a9ddf77fb0bc7cfa4075c2325dde790224": {
+    "pl": "wyprawy krótsze o 16% km, reszta w rozrzucie",
+    "en": "trips 16% shorter in km, the rest within spread"
+  },
+  "c1ded8b60ca5b4e1fa94b70d9669bcb5cb14f6da83fea7688e06fb9f53544f97": {
+    "pl": "D36",
+    "en": "D36"
+  },
+  "2e45c9e9748c3334157a7c78a60030d0891e7dbb5070cf123a74861970f3fbe9": {
+    "pl": "odwiedziny, rekreacja, zdrowie, podwożenie",
+    "en": "visits, leisure, health, escorting"
+  },
+  "28f50a5e0ddc81481a76ca3bcc21a18e5ef0b6efb0d2111b575416c8ca31fcc5": {
+    "pl": "K1–K5 40,9 → 43,6% celu, GPR w rozrzucie",
+    "en": "K1–K5 40.9 → 43.6% of target, GPR within spread"
+  },
+  "37d394998ee4fcd0ea08f0cb21741eff2668a0918fde5006bbb33ea7ca2cdd64": {
+    "pl": "Warianty sprawdzone, ale poza bazą: G1b (D27, przepustowość wlotów), `work_split` (D31, zawrotki 12,4 → 1,1%), `chains` (D35, łańcuchy dnia, ruch w rozrzucie). Wyniki sprzed tła (D18, R1) są historyczne: `reports/etap2/g6_kolejki/g6_kolejki.md`, `reports/etap2/g5_kalibracja/`.",
+    "en": "Variants tested but outside the baseline: G1b (D27, inflow capacity), `work_split` (D31, U-turns 12.4 → 1.1%), `chains` (D35, daily chains, traffic within spread). Results before background traffic (D18, R1) are historical: `reports/etap2/g6_kolejki/g6_kolejki.md`, `reports/etap2/g5_kalibracja/`."
+  },
+  "531cc173d06f04acf4edccc04527bb65dd685ed96157277a6321f21c3993bb8a": {
+    "pl": "Prędkość = limit × `f` grupy dróg",
+    "en": "Speed = limit × road-group `f`"
+  },
+  "fffa7ff6ae0774124226ff099c5b881f2d8f6c7fe399963fbb58b6d6acfb65e8": {
+    "pl": "A 0,95, B 1,00, C 0,60, D 0,70, E 0,85, F 0,55",
+    "en": "A 0.95, B 1.00, C 0.60, D 0.70, E 0.85, F 0.55"
+  },
+  "59543ac18f371ad481039d6d086034224e6f225010028bd7112520a50e57ae80": {
+    "pl": "D23, D25; dopasowane do agregatów TomTom, „na dziś”",
+    "en": "D23, D25; fitted to TomTom aggregates, „as of today”"
+  },
+  "1812ea4cd0281fa0569c8cc29c9a3c3e8e36d9defbbb35b6f97f336c5aeff4ac": {
+    "pl": "Budynki mieszkalne (BDOT10k) i pracy (OSM)",
+    "en": "Residential (BDOT10k) and work (OSM) buildings"
+  },
+  "ca25becf05538abc123660961f0a3fc49826b9fe5969650810309e713e4c9d8a": {
+    "pl": "D28, D7",
+    "en": "D28, D7"
+  },
+  "2d8ab8417d7ee17045ee1bc9f60c3490549cc1f881ef4e1e78839445b831b822": {
+    "pl": "Wagi: domy obrys × kondygnacje, praca obrys",
+    "en": "Weights: homes footprint × storeys, work footprint"
+  },
+  "8128272a09fd41f8435f7d74eb531318b39b8a8f049b11f6a6477a39fd8d4891": {
+    "pl": "Obwód bez budynku → najbliższy dom do 100 m, inaczej losowy punkt",
+    "en": "District without a building → nearest home within 100 m, otherwise a random point"
+  },
+  "6c0310bcab30d77e5dc1085afe7969da1d7fe204c39599d0f35f54db99a85c39": {
+    "pl": "100 m",
+    "en": "100 m"
+  },
+  "8e6cf4ee2580fea59cb25fee3151b9f4fa5424129cd6241bed6f9dda8ea5f3e9": {
+    "pl": "D28, dotyczy obwodów 6509902 i 6509214",
+    "en": "D28, applies to districts 6509902 and 6509214"
+  },
+  "970bf2cd41b395db248ceab845fd78a75a3e72a16352dba602522fdf875075e0": {
+    "pl": "GBR Gdańsk 2022",
+    "en": "GBR Gdańsk 2022"
+  },
+  "4131140cd9cf72c9058d03c89dcb3684f35238c9c8ad9d96c5fc7388e7641fcf": {
+    "pl": "Scoring: typical duration wg typu aktywności",
+    "en": "Scoring: typical duration by activity type"
+  },
+  "d5b9ac5c7fd0a192fb8f06ca402b847a21d742b3d0a4bacd5bdaed6cf93e299f": {
+    "pl": "rozdział 10",
+    "en": "chapter 10"
+  },
+  "625ccc3725b143f91231c89c08fb32f13105bab113af4bc37ece1e616e9833ac": {
+    "pl": "D6, D20; kroki 5–6 w ROADMAP",
+    "en": "D6, D20; steps 5–6 in ROADMAP"
+  },
+  "e03f758b155186c8cb41f02f94aea4ab9bfa009990f8d9ddbfecd454b8bc9557": {
+    "pl": "Opóźnienia na linku, nie na skrzyżowaniu; zakazy skrętu tylko w routerze",
+    "en": "Delays on the link, not at the intersection; turn restrictions only in the router"
+  },
+  "162d51796576eda87eebbdca77b44050f5666b68b2820f09643051e4dc3399b4": {
+    "pl": "D26; sygnalizacja później",
+    "en": "D26; signals later"
+  },
+  "c05c3019f3f8f3255f7b1de954d259b09a0dda6bf555a279c44a1102aeb9a2b1": {
+    "pl": "A-34",
+    "en": "A-34"
+  },
+  "09966a97d788b1c225754e120ffcd68442665e1be56b81543e3e3c43f40e9c5e": {
+    "pl": "Kierunek linku wg trasy swobodnej, bez zakazów skrętu",
+    "en": "Link direction by free-flow route, ignoring turn restrictions"
+  },
+  "d9367d0450a219905c506fc6225be3afcd47d964583c104dcd7700bc169dae57": {
+    "pl": "A-35",
+    "en": "A-35"
+  },
+  "943b290e0aa2c2335bcfa94ff3964a19f369ccf8799012d12bf8e39b792c1e69": {
+    "pl": "Atrybuty: mężczyźni 65+ jak 55–64; jedno auto = jeden posiadacz prawa jazdy",
+    "en": "Attributes: men 65+ as 55–64; one car = one licence holder"
+  },
+  "372313d9d24102efd16d56d517fb29e5b0332400c60efaf0e4c8305e9da4c55c": {
+    "pl": "A-36",
+    "en": "A-36"
+  },
+  "1d744b483aa973beb5984289f3e4c436448360b447b843786e2ec54481305cc3": {
+    "pl": "Udział kierowcy w wyjściach mieszkańców",
+    "en": "Driver share of resident trips"
+  },
+  "75a8cdf1084b0a222241ce52493bda898366d8a40a0d2897a71c7929b5446860": {
+    "pl": "0,424 (warianty 0,304, 0,479)",
+    "en": "0.424 (variants 0.304, 0.479)"
+  },
+  "5a81445c312ad040fa53ac51c914b31ecc2c2ef4cf2da6fee7ad1c8600dc5961": {
+    "pl": "A-37",
+    "en": "A-37"
+  },
+  "5c0003f109436249c87ce65a52fc564ec18a632176b10b289662f780ef1cc25f": {
+    "pl": "Wyjście = osobny agent, bez powiązania z pracującym",
+    "en": "A trip = a separate agent, not linked to a worker"
+  },
+  "0c327aae03addb7c7c1899ba9a1a81df766ab8865b770d746ae1cabed7006acc": {
+    "pl": "A-38",
+    "en": "A-38"
+  },
+  "ecd520dccebf275d288befad4e604aad648607ee6779bdb6664fb7551c3f7a21": {
+    "pl": "Godziny wyjść = GBR Gdańsk „dom–inne”",
+    "en": "Trip times = GBR Gdańsk „home–other”"
+  },
+  "9a463fa985efe7de64bb046db3c0084d4e66e81825118ed5ba7a62fc920ddcb9": {
+    "pl": "przedziały 5–20 h",
+    "en": "intervals 5–20 h"
+  },
+  "c796bf12c24ef00a38ad893d6748a7ad91955d6c2fe6bf842486323793723839": {
+    "pl": "D32, metropolia, nie Kutno",
+    "en": "D32, a metropolis, not Kutno"
+  },
+  "587f282a0dda0ee432b4f1c892f972720bd65f87aaa702e1a750f24fe88a3347": {
+    "pl": "A-39",
+    "en": "A-39"
+  },
+  "36168c221530ef0f79f5e7ab37511958baa47f801c20f2e7dff3ef2fff4bb106": {
+    "pl": "Czasy postoju",
+    "en": "Stop durations"
+  },
+  "9f8f39948436d98b70119379a0306739be244f0e3dcf069a8ed18d5faf878276": {
+    "pl": "rozdział 6.7",
+    "en": "chapter 6.7"
+  },
+  "b0765ecfa94b83369c80d96c532c6146e3c93ece8c6a6b79c2bcef77ece376cf": {
+    "pl": "D32, D36, GUS Budżet czasu 2023; `health` jak zakupy",
+    "en": "D32, D36, GUS Time Use Survey 2023; `health` as shopping"
+  },
+  "54f9741e8cf4ae1ae45fb50d6ea2b5a2b53e981550b8bfd4e4eac6de0e635991": {
+    "pl": "A-40",
+    "en": "A-40"
+  },
+  "f0c21d77156c1a587d029d6edd4c7e33007155d795d69c22690097f344e3f91e": {
+    "pl": "Cele: bez zależności od odległości (poza `escort`)",
+    "en": "Destinations: independent of distance (except `escort`)"
+  },
+  "57bc5577fbe599c0fd508c83810aeefd68f21c605a9e1a8e1948ad5121946266": {
+    "pl": "waga wg rozdziału 6.7",
+    "en": "weight per chapter 6.7"
+  },
+  "55c45371ea4fbddee9760d925935b4495c0101d3de4326b88005f6cb2a23562f": {
+    "pl": "D32, D34, D36",
+    "en": "D32, D34, D36"
+  },
+  "121b04e47bc04a09f58f5bd86db96818b5cdc43212e4a37e7b83136d97d62e12": {
+    "pl": "A-41",
+    "en": "A-41"
+  },
+  "d474135c930d6be9168c8827dfa638b2a67145633690ea06fc8de6310ffae7b1": {
+    "pl": "Sklepy: wszystkie `shop=*` poza `vacant`, Eurocash w typie c, OSM niekompletny",
+    "en": "Shops: all `shop=*` except `vacant`, Eurocash in type c, OSM incomplete"
+  },
+  "f6c39315c8b7e89a598104058603d57a3f7545cf31b9067f736357c7a8914c9e": {
+    "pl": "do 15 m od budynku",
+    "en": "within 15 m of a building"
+  },
+  "3eb26a8fb5642d8d35a75a86eb789ff002b659d841476dafaded078e3f2f3efc": {
+    "pl": "Zgodność konfiguracji",
+    "en": "Configuration consistency"
+  },
+  "7445b6d28bc9f782ca73308160637ea65bf602576a7a45a29eb5cbaf539e5570": {
+    "pl": "**R-1: `scenarios/kutno/plans.xml.gz` i `plans_25pct_bez_k1`** to pliki z etapów F5–D18, nieużywane przez obecne configi. `config_{10,25,100}pct.xml` wskazują plany `plans_g3r95_*pct`.",
+    "en": "**R-1: `scenarios/kutno/plans.xml.gz` and `plans_25pct_bez_k1`** are files from stages F5–D18, not used by current configs. `config_{10,25,100}pct.xml` point to plans `plans_g3r95_*pct`."
+  },
+  "ebc3caed20a8413cffc42b147d7a606f4449841c9dbacf5d95fe9120a335440f": {
+    "pl": "**R-2: brak jednego skryptu odtwarzającego całość.** Kolejność jest w rozdziale 2, a przepisy przy poszczególnych bazach są w raportach. `output/r3_runs.sh` jest poza gitem, a nowe runy i tak idą przez GitHub Actions.",
+    "en": "**R-2: no single script reproduces everything.** The order is in chapter 2, and recipes for individual baselines are in reports. `output/r3_runs.sh` is outside git, and new runs go through GitHub Actions anyway."
+  },
+  "4ae40b581f16fdba8e0bb578a4f3516483d58306c9e2676930b659ca8dc7630c": {
+    "pl": "**R-3:** `config_25pct.xml` ma 8 wątków, a runy na GitHub Actions używają 2 (`threads`). Wątki nie skracają runu, a 1 wątek daje inne wyniki niż 4 i 8.",
+    "en": "**R-3:** `config_25pct.xml` has 8 threads, while GitHub Actions runs use 2 (`threads`). Threads do not shorten a run, and 1 thread gives different results than 4 and 8."
+  },
+  "dea4bef4ca3ffbc2706219de7420435f6e2e90dea2cd30fb62943972fb058579": {
+    "pl": "Dane OSM: 72% budynków gminy ma `building=yes` bez typu, a `building:levels` jest w nich tylko w 2%. Wagi miejsc pracy (powierzchnia obrysu) są więc przybliżone.",
+    "en": "OSM data: 72% of the municipality's buildings have `building=yes` without type, and only 2% in them is `building:levels`. Therefore, the weights of workplaces (outline area) are approximate."
+  },
+  "15432bd5840e8af3bd18e0bca181a3d720b51c253c28405254e3e90b55e2756b": {
+    "pl": "Stawki wyjść mieszkańców pochodzą z całego województwa i dotyczą wszystkich środków transportu. Udział kierowcy jest z Radomia i Łódzkiego.",
+    "en": "Rates of resident trips come from the whole voivodeship and cover all transport modes. The driver share is from Radom and Łódzkie."
+  },
+  "1348f5b8fff91bc2d23a97e6bdbb3acb428da7346c8d7c88189f218a0b4cc014": {
+    "pl": "Dane godzinowe wyjść i dojazdów są z Gdańska. Lepsze wzorce dla miast średnich: `docs/research/badania_ruchu_PL.md`.",
+    "en": "Hourly data for trips and commuting are from Gdańsk. Better templates for mid-sized cities: `docs/research/badania_ruchu_PL.md`."
+  },
+  "d39e6d760ab4e4aec6248f71449ea31e8e70c981bcc71c8aed63c5311d0a005c": {
+    "pl": "Atrybuty osób nie krzyżują się z obwodem spisowym: wiek i płeć agenta nie wynikają ze struktury jego obwodu.",
+    "en": "Person attributes are not crossed with the census district: an agent's age and sex do not follow from the structure of their district."
+  },
+  "60a6c5a052e225e1dd6940b8e64ccf2f00c8258987b11f453f488f4b6e72c8d7": {
+    "pl": "**Ulice miejskie poza GPR są zaniżone mniej więcej o połowę (D37):** K1–K5 43,6% celu, Toruńska 22%. Na drogach z GPR model mieści się w ±15%, ale przekroje GPR są głównie tranzytowe, więc ruchu w mieście nie sprawdzają.",
+    "en": "**City streets outside GPR are underestimated by roughly half (D37):** K1–K5 43.6% of target, Toruńska 22%. On GPR roads the model is within ±15%, but GPR sections are mainly through roads, so they do not test traffic in the city."
+  },
+  "ac5e23ec437fcce6e4af713184359ef36138ea604e5bf92e2dd29efa96fe1a66": {
+    "pl": "Brak sygnalizacji i pierwszeństwa. Zakazy skrętu tylko w routerze. Kolejki są wynikiem capacity linku i `stuckTime`, nie konfliktów na skrzyżowaniu.",
+    "en": "No signals or right of way. Turn restrictions only in the router. Queues result from link capacity and `stuckTime`, not from conflicts at intersections."
+  },
+  "61aa97116ac7dca0e962cdeb15b47bcc2b797f6f3126aab225294f8960998d3f": {
+    "pl": "Czasy przejazdu nie są zwalidowane wg TAG (D25), a po R7b nie sprawdzano ich nowymi zapytaniami.",
+    "en": "Travel times are not validated by TAG (D25), and have not been checked with new queries after R7b."
+  },
+  "70cc7e9219ca0089e3bd890cd13ad2a3f989a7656f1cf88512c6d8841181eee4": {
+    "pl": "Scoring domyślny: wybór trasy jest prawdziwy, ale score nie jest kalibrowany i nie służy do wniosków. Strategie to tylko wybór planu i trasy, bez zmiany godzin i trybu.",
+    "en": "Default scoring: route choice is real, but the score is not calibrated and is not used for conclusions. Strategies only choose plans and routes, they do not change times or modes."
+  },
+  "4cb1d5ac37bb9fd63e24f394d6c5c970cf0544fd1f2e8932f650d77ce66b947f": {
+    "pl": "Wszyscy agenci jadą autem, więc atrybuty osób i rozkład GTFS jeszcze niczego nie zmieniają w symulacji.",
+    "en": "All agents travel by car, so person attributes and the GTFS timetable do not change anything in the simulation yet."
+  },
+  "734c37ce56769864dd0cc306ada27ffef18446975a269d6a5fe986b52e753359": {
+    "pl": "Stan na 2026-11-03. Pełna lista otwartych spraw i kolejność: `docs/projekt/ROADMAP.md`.",
+    "en": "Status as of 2026-11-03. The full list of open issues and their order: `docs/projekt/ROADMAP.md`."
+  },
+  "6ca3fdc3c3caed4b4d16fe6e317bf081e5a5362eb8846152367fee8bbc7436c5": {
+    "pl": "**Ruch na ulicach miejskich** poza GPR zaniżony ok. o połowę.",
+    "en": "**Traffic on city streets** outside GPR underestimated by about half."
+  },
+  "f36766ad1ad92c571601b6d75dc614001609d809876a2191ab43937d8fb7d88c": {
+    "pl": "znane ograniczenie (D37), do kroku 6 lub nowych danych",
+    "en": "known limitation (D37), until step 6 or new data"
+  },
+  "02fbfe08eefd62ed589f55889cc5d19d15314a56c9b8f606cdabb162db964d14": {
+    "pl": "**Szkoła** jako cel podróży.",
+    "en": "**School** as a trip purpose."
+  },
+  "b9d689e269fad5b0e6538b63b9b77aa9898c654cdce915ced3842f96e391b9b6": {
+    "pl": "plan bez wdrożenia, czeka na decyzję (D33)",
+    "en": "plan without implementation, awaiting decision (D33)"
+  },
+  "862f40c5573b98d01d592e1687f207302f9fac81237c2a6e34d8873cfd2d07d6": {
+    "pl": "**Transport publiczny, rower, pieszo, wybór trybu**. GTFS zaimportowany technicznie (22 linie, 446 kursów), bez agentów PT i bez kalibracji ASC.",
+    "en": "**Public transport, cycling, walking, mode choice**. GTFS imported technically (22 lines, 446 trips), without PT agents and without ASC calibration."
+  },
+  "dfb099031ca2500d02a5ae19774fbf73286c0363825fd16766c713de0de099f7": {
+    "pl": "kroki 5–6",
+    "en": "steps 5–6"
+  },
+  "1a0006264b58d3b73d91c4fca6ab92ff842afa0f5111f4be8d9e621d8df114ae": {
+    "pl": "**Łańcuchy dnia** pracujących.",
+    "en": "**Daily chains** of workers."
+  },
+  "6c7baf89be86cf0f404fdc12d039f40ca9ad738063976ee5106ab9f65c09bf9e": {
+    "pl": "wariant gotowy (`chains = on`), czeka na decyzję (D35)",
+    "en": "variant ready (`chains = on`), awaiting decision (D35)"
+  },
+  "d3bc86460c8ac00caab2257d6fa3de4b4ef0eb666c4e6f2f7fc335e945a3c7f2": {
+    "pl": "**Odległość w wyborze celu** wyjść.",
+    "en": "**Distance in destination choice** of resident trips."
+  },
+  "7e01ee4983c05cfd2ed6ccb268e782e05680b3836f407043d6e7019adfb6e90c": {
+    "pl": "pomiar bez wdrożenia, w Kutnie prawie bez efektu",
+    "en": "measured without implementation, almost no effect in Kutno"
+  },
+  "0c368a6563f2e86f05193e12fad501197e976abcfea1daf70e49842148eaa93a": {
+    "pl": "**Rozkład miejsc pracy w gminie**: wagi według powierzchni budynków, bez REGON i adresów zakładów.",
+    "en": "**Distribution of workplaces within the municipality**: weights by building area, without REGON and company addresses."
+  },
+  "50ab53c125138f22f3b232c6bdce5bdfe5c24a8218dd5a8b81197bffba87eea1": {
+    "pl": "znane ograniczenie G2",
+    "en": "known limitation of G2"
+  },
+  "f719e8cee700504a181cfc9dff50f752105ed726f47b1aa620ad600801bc54a9": {
+    "pl": "**Udział auta K1-1**: źródło z innych miast, brak danych lokalnych.",
+    "en": "**Car share K1-1**: source from other cities, no local data."
+  },
+  "40a5b03d2b0d7d1689ef9ecbd5b035cd0c0705a259147ff303be898d210838cb": {
+    "pl": "**Godziny wyjazdu z lokalnego źródła** (D10): dziś GBR Gdańsk, w tle profil Lisica.",
+    "en": "**Departure times from a local source** (D10): today GBR Gdańsk, Lisica profile for background."
+  },
+  "a546ab3b9ecf7b76f22a82e04d81ba418648ae1ec6fe268b50b1b72c35812466": {
+    "pl": "**Capacity ulic miejskich i sygnalizacja**: brak danych lokalnych, G1b bez walidacji.",
+    "en": "**Capacity of city streets and signals**: no local data, G1b without validation."
+  },
+  "dddd2a1d573967c7611287aa7a41a2605b867bb1cd5f28e24811b6cfcd2aa5c0": {
+    "pl": "ewentualnie po G1",
+    "en": "possibly after G1"
+  },
+  "f44f6b7e4c2f159d5580195e1569d23928b441f898ab7f1fa331c1e116d862c8": {
+    "pl": "**Prędkości `f`**: wartości „na dziś”, ponowna walidacja czasów wymaga zgody na nowe zapytania (D22).",
+    "en": "**Speeds `f`**: „as of today” values, re-validating times requires consent for new queries (D22)."
+  },
+  "471017df1777f17e972d91e3377810bdacc94ac27c25931478383e6087da46d6": {
+    "pl": "**Odtworzenie od zera** na czystym klonie i jeden skrypt.",
+    "en": "**Rebuild from scratch** on a clean clone and a single script."
+  },
+  "d44f3c8800f4bcd50d525018cf974767a7189663b587102cf96d2ca0a5bcf6ff": {
+    "pl": "krok 8",
+    "en": "step 8"
+  },
+  "08322cde0780a0e01aaada5e3e2d003b8f461a8a6bf4f59b8f666574de01d533": {
+    "pl": "Pytania otwarte z `docs/projekt/DECISIONS.md`, bez decyzji: szerokość bufora poza powiatem, parametry scoringu, rozkład czasu pracy.",
+    "en": "Open questions from `docs/projekt/DECISIONS.md`, without a decision: buffer width outside the county, scoring parameters, working-time distribution."
+  },
+  "3072256e8928187b52010cb59ee683f18fe2647fe14ac85d76462537a6d6b2ef": {
+    "pl": "fazy, stan, dalsze plany",
+    "en": "phases, status, further plans"
+  },
+  "df91ba47b8e9ba23b6b389ef8e00d071a5b39333ddc26a845c94fcbee0f90011": {
+    "pl": "decyzje D1–D37 (zmiana = nowy wpis)",
+    "en": "decisions D1–D37 (change = new entry)"
+  },
+  "acc7f9249a38b3f6b11dcd17bc2ed0cea75e4923504d7eec9373f6fce1cafdb1": {
+    "pl": "kontrakty faz F0–F6 i etapu 2",
+    "en": "phase contracts F0–F6 and stage 2"
+  },
+  "ed2309ab171eacc056617f41acc7872d2176d3e643de4a00bb44d00aa990b3d9": {
+    "pl": "`kutno.toml`, `network.properties`, profile godzin, uczestnictwo w wyjściach",
+    "en": "`kutno.toml`, `network.properties`, hourly profiles, trip participation"
+  },
+  "3274939a490bb0a8bc3d4aadb99ac5fb35fbeb4e0729ff34a2c172ddefc2caa8": {
+    "pl": "runy MATSim i estymacja O-D (rozdział 2)",
+    "en": "MATSim runs and O-D estimation (chapter 2)"
+  },
+  "5448fbeeb59637fe0a17521462321734a40cb7a2f550942735d4e8d529c80bbe": {
+    "pl": "sieć, plany, configi, popyt CSV (`*.xml.gz` wyłączone z gita)",
+    "en": "network, plans, configs, demand CSV (`*.xml.gz` excluded from git)"
+  },
+  "76701b16c5ad1e66976b0a74a2c07b019cc5bf7476e93da4710607c293df3190": {
+    "pl": "wejścia testów GHA: plany, pojazdy, meta wariantów `p0`–`p2`, także R9.5 (`r94e`)",
+    "en": "GHA test inputs: plans, vehicles, meta of variants `p0`–`p2`, also R9.5 (`r94e`)"
+  },
+  "c37990d00c2477d0fc5ec363084d69d1e85344e442853c6264dd720c3ad6e44a": {
+    "pl": "wejścia estymacji O-D: plany bez tła, config",
+    "en": "O-D estimation inputs: plans without background, config"
+  },
+  "c66739d154114d5f43bc99fc2648e93e7cffb1db277b1ba7517b97232846e04d": {
+    "pl": "import GTFS: rozkład, pojazdy, sieć z linkami PT (`pipeline/build_kutno_pt.sh`)",
+    "en": "GTFS import: schedule, vehicles, network with PT links (`pipeline/build_kutno_pt.sh`)"
+  },
+  "b33e5f7b49b74ddca486c5a50dc23ccd54f440c86a5f2c4bb393b274bf5d5059": {
+    "pl": "wejścia testów historycznych",
+    "en": "inputs of historical tests"
+  },
+  "3a80f6878a095fb7e0842bfd7532c955e5e3674fbf68f72952face2526acc768": {
+    "pl": "analizy i tło metodyczne",
+    "en": "analyses and methodological background"
+  },
+  "8fb8937858ecd6df113b170f037674922d31c6a178a48e3d4c30e3553806791d": {
+    "pl": "Odtwarzacz runów (wizualizer) jest w osobnym repozytorium, [easy-matplayer](https://github.com/GISBoost/easy-matplayer).",
+    "en": "The run player (visualizer) is in a separate repository, [easy-matplayer](https://github.com/GISBoost/easy-matplayer)."
+  },
+  "09ecd073c7b44afc1ead01e924615b30b7c7e6aa649bc1adc25d185a47d105e9": {
+    "pl": "**Wyniki referencyjne (aktualne):** baza R9.5, `reports/etap3/g_inne_cele/inne_cele.md` (25%, 3 seedy MATSim + 2 seedy planów, 50 iteracji). Wcześniejsze bazy: rozdział 11.3.",
+    "en": "**Current reference results:** baseline R9.5, `reports/etap3/g_inne_cele/inne_cele.md` (25%, 3 MATSim seeds + 2 plan seeds, 50 iterations). Earlier baselines: chapter 11.3."
+  },
+  "cbb7be9a9079dfe9fbfac2b47c3a44537e6a348d405d3754007d970c3bf6aa79": {
+    "pl": "D1–D37",
+    "en": "D1–D37"
+  },
+  "52f4a960dcbba534a3f939fa2b3f3032cb9f1918da21220d49f8b9d41cc2372d": {
+    "pl": "Gdański Biuro Rozwoju, Raport 3a (badanie mobilności, profil godzin)",
+    "en": "Gdańskie Badania Ruchu, Report 3a (mobility survey, hourly profile)"
+  },
+  "879fa4a8cf8e2e49f78973ff88c21c9366bd01ae6b75475efcca457782c7cf3c": {
+    "pl": "kroki kalibracji (`G5_plan_kalibracji.md`) i etapy projektu (`docs/projekt/TASKS.md`). W rozdziale 11 K1–K5 to punkty pomiarowe WIOŚ 2013",
+    "en": "calibration steps (`G5_plan_kalibracji.md`) and project phases (`docs/projekt/TASKS.md`). In chapter 11, K1–K5 are the WIOŚ 2013 count points"
+  },
+  "1a3cca8a42af7fe83d5a47dc056f5e1366543c3b2870763df4213e5bce49ffc0": {
+    "pl": "GHA",
+    "en": "GHA"
+  },
+  "fae83bd48c808f084dc6ad40e94127e7f6509b8b1fa2d6d0cc021108f3558bf1": {
+    "pl": "GitHub Actions",
+    "en": "GitHub Actions"
+  },
+  "9bdce4be4a45adcfb6142e5c412e9c2b6574ce2a208483f3d370db3865b39f62": {
+    "pl": "R6…R9.5",
+    "en": "R6…R9.5"
+  },
+  "a142978b4b5dc35a8974201368a61635caab250d9b20afb58aceeaf7801eeee9": {
+    "pl": "kolejne bazy modelu (rozdział 11.3)",
+    "en": "successive model baselines (chapter 11.3)"
+  },
+  "951a29a3ac8c31e691d09556360c5b4da24eb9ebaaef7d9ec9c0f8d102b87748": {
+    "pl": "WIOŚ",
+    "en": "WIOŚ"
+  },
+  "2009555d4d2ac3876213938fe19a7105c442cffbb8dcc08a9bef6dccd3d4ed6b": {
+    "pl": "Wojewódzki Inspektorat Ochrony Środowiska",
+    "en": "Voivodeship Inspectorate for Environmental Protection"
+  },
+  "eccffaeb810e58a7e4a5c843e6bda6baa0a6158b037465ef6b499eb1b9b3a0e1": {
+    "pl": "pierwszy zakres modelu, zamknięty: samochód, dom–praca–dom",
+    "en": "first model scope, closed: car, home–work–home"
+  },
+  "0d0c99761cedc13d94a8585de66a62e0583b750348c37ba32ea62323e970f3b8": {
+    "pl": "**Dane i wyniki z GUS**: CC BY 4.0 (wymagane podanie źródła: Główny Urząd Statystyczny).",
+    "en": "**Data and results from GUS**: CC BY 4.0 (source required: Główny Urząd Statystyczny)."
+  },
+  "d9ca91dc50b6bc3477c378b0f4270d2f2ba6d421a1b4b07b69955e3e4108a6bc": {
+    "pl": "G3: źródło wag domów od R9 (D28, `plans.py home_source=bdot`; klasy: jedno- i wielorodzinne, waga obrys × kondygnacje)",
+    "en": "G3: source of house weights from R9 (D28, `plans.py home_source=bdot`; classes: single- and multi-family, weight outline × floors)"
+  },
+  "799d3f87058993907d38987c972d62534d8c06ac8d8d7c778ef50e87e7a10b40": {
+    "pl": "GUS Mobilność 2024, tabl. 2, 5, 6 (atrybuty osób)",
+    "en": "GUS Mobility 2024, table 2, 5, 6 (person attributes)"
+  },
+  "2855e306dd5d0210f7cd2cc5be0d8a9f3b5fc071d9129b8bbbf8b3a20748fc7a": {
+    "pl": "POBRANE (G4), użyte w kroku 3",
+    "en": "Downloaded (G4), used in stage 3"
+  },
+  "7c1fb6cef1462ccc39814c33468f8faf4f68e853dc122e86cc74338caf57860d": {
+    "pl": "Łódzkie: prawo jazdy A lub B 1 314 406 z 2 168 761 członków gosp. 6+ (60,6%); samochody osobowe do dyspozycji gosp. 958 925 (0,44 na osobę 6+). Tylko województwo, bez wieku i gminy.",
+    "en": "Łódź: driver's license A or B | 1,314,406 from 2,168,761 households. 6+ (60.6%); passenger cars available to households 958,925 (0.44 per person 6+). Only the voivodeship, without age and commune."
+  },
+  "329df4859dd54674bcfd3b821b7f992be609a90450f165298ebfb48cb7d95626": {
+    "pl": "Próba; błąd względny łódzkie: auta 2,5%, prawo jazdy 1,9%.",
+    "en": "Attempt; relative error Łódź: cars 2.5%, driver's license 1.9%."
+  },
+  "a94bc6a73fff73747ed9cd8e3419810fb83519294243e17e3d9c096a12c1c78b": {
+    "pl": "krok 3 etapu 3",
+    "en": "stage 3 of stage commuters 3"
+  },
+  "41188867b34e9018337d8a979546572b80b39787d1df90ea8b1d47b88b7a9239": {
+    "pl": "GUS Mobilność 2024, tabl. 4, 8–11, 29, 30 (cele, liczba i czas podróży)",
+    "en": "GUS Mobilność 2024, table 4, 8–11, 29, 30 (goals, number and travel time)"
+  },
+  "5a25a9ccbe027243c3ad0f5fb83c29f9f8fd1bce3e80dea88bdc95460ab08e0f": {
+    "pl": "POBRANE (G4), użyte w kroku 4 (research)",
+    "en": "DOWNLOADED (G4), used in stage 4 (research)"
+  },
+  "f9e26a7326285a1e8c6781c3750baab597328a8347a13f7376c20640c8951513": {
+    "pl": "Łódzkie: 3 958 088 podróży/dobę, 1,84 na osobę 6+, 26,7% bez podróży, 70,6% podróżujących robi 2 podróże; cele końcowe: dom 46,0%, praca 19,7%, szkoła 6,7%, inne zakupy 7,4%, podwożenie 4,7%; dom–praca + praca–dom 35,2%.",
+    "en": "Łódź: 3,958,088 trips/day, 1.84 per person 6+, 26.7% without travel, 70.6% of travelers make 2 trips; final destinations: home 46.0%, work 19.7%, school 6.7%, other shopping 7.4%, carpooling 4.7%; home–work + work–home 35.2%."
+  },
+  "177de82baae5a767cc597e55182a9c3e7467dbc46248990208c8d0302f010c13": {
+    "pl": "Tylko województwa; błędy względne dom–usługi 22,5%, podwożenie–inne 20,3% (>20%), dom–zakupy w centrach 12,3%. Brak godzin, wieku, czasu pobytu.",
+    "en": "Only provinces; relative errors home–services 22.5%, commute–other 20.3% (>20%), home–shopping in centers 12.3%. No hours, age, or stay time."
+  },
+  "70b14f11c12eb9d45702b2485fa61a6594aafabf439c22b37c2e1b67900a44d8": {
+    "pl": "GUS Dobowy budżet czasu 2023, aneks (tabl. 1–2, wykresy) (`g_aktywnosci/`)",
+    "en": "GUS Daily time budget 2023, annex (table 1–2, charts) (`g_aktywnosci/`)"
+  },
+  "c8a5d6f697936bc4afbf1046f5ebbb81eb2e2c884a7bd1fbb43f68375eadee8c": {
+    "pl": "Zakupy i korzystanie z usług: 46,3% osób 15+ dziennie, śr. 57 min na wykonującego; nauka 62,3% osób 15–19 lat. Format czasu h.mm.",
+    "en": "Shopping and service usage: 46.3% of people aged 15+ daily, avg. 57 min for performing; learning 62.3% of people aged 15–19. Time format h.mm."
+  },
+  "a906686516a9e8caafb5cd49c4f88da93f4968365080f06b920d2105a5570d30": {
+    "pl": "15+, czas bez dojazdu, wlicza zakupy online; bez godzin.",
+    "en": "15+, time without commute, includes online shopping; without hours."
+  },
+  "cd7900ce5fc7caf6d3f7723cd0c1f59cedc073bb863bcece2c6a8e9a41d3e961": {
+    "pl": "krok 4 (czas pobytu, dolna granica)",
+    "en": "stage 4 (sojourn time, lower bound)"
+  },
+  "79af4f01b87f13c67bf7e172ff297963fa381e989e8b9002aeac2e7f98d1f723": {
+    "pl": "GBR 2022 raport 3a, rys. 46 (godzina rozpoczęcia podróży wg motywacji) (`gbr/`)",
+    "en": "GBR 2022 report 3a, fig. 46 (trip start time by motivation) (`gbr/`)"
+  },
+  "bfc2fe6661c906584644f8f9cd728e4d2bd8dfa4ceee0f95a3dd9f67edbd0f79": {
+    "pl": "SPRAWDZONE (wykres obejrzany)",
+    "en": "Checked (graph viewed)"
+  },
+  "66dd632ecff6d8f09e05c52377a0f110ad4f2ccf6cbfcd3130bd6fe3961ab0fa": {
+    "pl": "dom–szkoła szczyt 7:00–7:59 (ok. 60%), szkoła–dom 14:00–14:59 (ok. 36%), dom–inne 9:00–11:59 (ok. 17%).",
+    "en": "home–school peak 7:00–7:59 (approx. 60%), school–home 14:00–14:59 (approx. 36%), home–other 9:00–11:59 (approx. 17%)."
+  },
+  "f40261e6884997a9f35257b52636bbedddf1e295268746b8a1db2cdc85dcbc00": {
+    "pl": "Tylko wykres, Gdańsk (duże miasto), digitalizacja niewykonana.",
+    "en": "Only chart, Gdańsk (large city), digitalization not performed."
+  },
+  "f8e6541eacefcb332f80b784713ad0d2f8f3111ba62e4bb0c6e09d5cccb8d84d": {
+    "pl": "krok 4 (ZAŁOŻENIE godzin, D10 analogicznie)",
+    "en": "stage 4 (ASSUMPTION hours, D10 analogously)"
+  },
+  "528e171be8374404bcad38f437f3ae5df83565323c6dd03a83c51c92f6824916": {
+    "pl": "CEPiK (gov.pl), prawa jazdy i uprawnienia 2019",
+    "en": "CEPiK (gov.pl), driver's licenses and qualifications 2019"
+  },
+  "c3906161f2354a46de7b0e9fbc0ee50d4acef1e3cf08b2363a61b803a9659470": {
+    "pl": "POBRANE (krok 3), otwarty tylko plik praw jazdy",
+    "en": "DOWNLOADED (step 3), only the driver's license file is open"
+  },
+  "c81c3523bbf24a3cad7f9ec85f876af13a3557c9599d6770df26c063a352e02c": {
+    "pl": "Krajowa liczba praw jazdy wg płci i grup wieku 18–24 … 65+ (suma ok. 21,6 mln).",
+    "en": "National number of driver's licenses by gender and age groups 18–24 … 65+ (total approx. 21.6 million)."
+  },
+  "d00f0c6819c684ada59add369994bbfa7f512c94f95ac9bd5fe6ba8f0350ab2e": {
+    "pl": "Wszystkie kategorie, stan 31.12.2019, bez udziału (brak mianownika), grupy wieku inne niż NSP.",
+    "en": "All categories, status as of 31.12.2019, without participation (no nominative), age groups other than NSP."
+  },
+  "e3aa779d2734814e6cb3739684ef40e3316b0c9307df5a200752afbf34608276": {
+    "pl": "Rakow i in., VSPWP 24-22",
+    "en": "Rakow and others, VSPWP 24-22"
+  },
+  "b9f99e9f24c612a6aef5a3ddf60cfcac6b82d3dc3a8cca30d725a16c17f2047e": {
+    "pl": "Wejścia modelu: sieć 375 tys. linków (EPSG:3416), populacja 332 335 agentów (12,5% populacji mobilnej, atrybuty `subpopulation`, `carAvail`, `hasLicense`, `bikeAvailable`), PT 764 linie i 52 062 odjazdy, config. Pozwala przetestować wizualizer na modelu z PT, pieszymi i rowerem (raport w repozytorium `easy-matplayer`, `docs/research/wizualizer_test_blokerow_wieden.md`).",
+    "en": "Model inputs: network of 375k links (EPSG:3416), population of 332,335 agents (12.5% mobile population, attributes `subpopulation`, `carAvail`, `hasLicense`, `bikeAvailable`), PT 764 lines and 52,062 departures, config. Allows testing the visualizer on a model with PT, pedestrians and cycling (report in repository `easy-matplayer`, `docs/research/wizualizer_test_blokerow_wieden.md`)."
+  },
+  "d6f54782e9db32e40eddd58fc91b54610d0da57dd4f0b568df18b82f212514d2": {
+    "pl": "OSM sklepy `shop=*` (`data/raw/osm/lodzkie-261015.osm.pbf`)",
+    "en": "OSM shops `shop=*` (`data/raw/osm/lodzkie-261015.osm.pbf`)"
+  },
+  "9a40d3167f84ffcd672e1a788051bf9d658bafb6ecaa03a8d9edc707fd54bc96": {
+    "pl": "UŻYTE (wariant D34)",
+    "en": "USED (variant D34)"
+  },
+  "d1c5acec3515878455223e73c5e0fffee31efcfc0bf80d4b15741861ea59c20c": {
+    "pl": "264 sklepy w gm. Kutno (węzły i obszary), 20 `supermarket`, 52 `convenience`, 30 `clothes`; mediana 0,67 km od centrum",
+    "en": "264 shops in the Kutno commune (nodes and areas), 20 `supermarket`, 52 `convenience`, 30 `clothes`; median 0.67 km from the center"
+  },
+  "60f4d0ae35c3670cb78d4cee4ac73f96b5ec5eb62774ca1e799e0a8e72492aaa": {
+    "pl": "kompletność nieznana; urzędy i usługi słabo tagowane (dlatego u zostaje z BDOT); `supermarket` obejmuje hurtownię Eurocash",
+    "en": "completeness unknown; offices and services poorly tagged (that's why it stays with BDOT); `supermarket` includes the Eurocash warehouse"
+  },
+  "2a962881fa5c48d3df7bcc4e40196c6c006b9a00aa5fdd8801ea7fe04bb60b0a": {
+    "pl": "Radom GOFR, SUMP 2030+, Raport z aktualizacji modelu (CATI z dzienniczkiem, X 2022, n=750) (`badania_ruchu/radom_model_2023.pdf`)",
+    "en": "Radom GOFR, SUMP 2030+, Model update report (CATI with logbook, X 2022, n=750) (`badania_ruchu/radom_model_2023.pdf`)"
+  },
+  "44250081c406abdaf929d0f9c86abe937475adbc742367f314c38757da8e96c1": {
+    "pl": "PRZECZYTANE",
+    "en": "Read"
+  },
+  "5856704e68113d8c25fffe6e9a95554309ff4434a12881c1e1966a91890c3c27": {
+    "pl": "Ruchliwość 2,74; samochód 57,8% / pieszo 17,55% / TZ 14,2% / rower 10,45%; dom–praca 29,16% i praca–dom 26,69% podróży",
+    "en": "Mobility 2.74; car 57.8% / pedestrian 17.55% / TZ 14.2% / bicycle 10.45%; home–work 29.16% and work–home 26.69% trips"
+  },
+  "b745e4a8ccee6d2b32661ab9a9c4e1b6b69492e1e9433a95e3d13bc32aefd388": {
+    "pl": "CATI, n=750 na 13 gmin",
+    "en": "CATI, n=750 on 13 municipalities"
+  },
+  "08746fa91a75d413fb3f92c064741e1916640adaa1a30a73328acf17bb7645be": {
+    "pl": "Toruń MOFT, SUMP, prezentacja wyników badań (2022/23, n=4 447) (`badania_ruchu/torun_moft_sump_prezentacja_2023.pdf`)",
+    "en": "Toruń MOFT, SUMP, presentation of research results (2022/23, n=4 447) (`badania_ruchu/torun_moft_sump_prezentacja_2023.pdf`)"
+  },
+  "291ce05c279d9b6bc0e8be4c1bba6eab876883955ee22299797f3aa85ffb2b39": {
+    "pl": "Ruchliwość 1,7 (Toruń 1,9, poza 1,5); samochód Toruń 39,8%, poza 54,9%; czas 20 min",
+    "en": "Mobility 1.7 (Toruń 1.9, outside 1.5); car Toruń 39.8%, outside 54.9%; time 20 min"
+  },
+  "b4f8bf4053368f4ead4922b044b12a7161c8e6ff07a9d88ed8ed2955ae696e42": {
+    "pl": "Tylko prezentacja, wstępne wyniki",
+    "en": "Only presentation, preliminary results"
+  },
+  "94baef0a4cef9df666ff6357dc5f3b2eea77bc60585b5f7eab1f833506c1e02c": {
+    "pl": "j.w.",
+    "en": "stage"
+  },
+  "2982bf2123d36b2414208bb0ab95591ada450cb68e139920c2f48dadb3708e9e": {
+    "pl": "Olsztyn MOF, SUMBA 2018 (756 gosp., 1 511 os., 3 912 podr.) (`badania_ruchu/olsztyn_sumba_badania.pdf`)",
+    "en": "Olsztyn MOF, SUMBA 2018 (756 employed persons, 1 511 inhabitants, 3 912 trips) (`badania_ruchu/olsztyn_sumba_badania.pdf`)"
+  },
+  "54dccb41a3a611b42be8e0d6b6a45b8dcd23fee66dc6a06801557be5821ae739": {
+    "pl": "Ruchliwość 1,77; samochód 42,2 / TZ 30,1 / pieszo 25,3 / rower 2,0% (dzień roboczy); czas 25 min; porównanie miast 2016–18",
+    "en": "Mobility 1.77; car 42.2 / TZ 30.1 / pedestrian 25.3 / bicycle 2.0% (weekday); time 25 min; comparison of cities 2016–18"
+  },
+  "454293f6d3778aea5bae5f533b1628c1db50bad6ca3dff6653ae43c4c7c6a1c2": {
+    "pl": "Broszura, godziny tylko na wykresie",
+    "en": "Brochure, hours only on the chart"
+  },
+  "59fdb595911e13e33fbf59228449c372d903e1287f0dbdd6b9db510f86e83b32": {
+    "pl": "Szczecin KBR 2016, Raport Etap IV (`badania_ruchu/szczecin_kbr2016_etap4.pdf`)",
+    "en": "Szczecin KBR 2016, Report Stage IV (`badania_ruchu/szczecin_kbr2016_etap4.pdf`)"
+  },
+  "205b39fc394753637ed732d7e00c20e34c16d235557059c78cbdade095e888dc": {
+    "pl": "Ruchliwość 1,90; współczynniki na motywację (tab. 1)",
+    "en": "Mobility 1.90; factors for motivation (table 1)"
+  },
+  "ab308a9ca145a928abd7deb68b2ba5b05394153090106c6d735ef3bae0f9b419": {
+    "pl": "Podział modalny nieodczytany",
+    "en": "Modal split not read"
+  },
+  "7d329ad727c458be266615122747fc3c49a7702cd5861c2a919c60766a6e8351": {
+    "pl": "Kraków, „Mobilność – plan realizacji polityki transportowej” (KBR 2018) (`badania_ruchu/krakow_zal_368522.pdf`)",
+    "en": "Kraków, \"Mobility - transportation policy implementation plan\" (KBR 2018) (`badania_ruchu/krakow_zal_368522.pdf`)"
+  },
+  "85d3db0b9f9469e41f0d93a2e46050929dd8f2e01a5b92ff1ef0c34568c57fe7": {
+    "pl": "2,35 podróży/os.; szczyt 6–10 = 30% podróży, 7–8 = 13%",
+    "en": "2.35 trips/person; peak 6–10 = 30% of trips, 7–8 = 13%"
+  },
+  "348b776995d78b6d282f13ad1afbe6c07f8e0e68384666ac405cd9dbe2388d18": {
+    "pl": "Wykres modalny bez etykiet; KBR 2023 bez wyników",
+    "en": "Modal chart without labels; KBR 2023 without results"
+  },
+  "acef014811f8b897266a0e0bb334c074c92d6053aa7011cad68c2edd523e1565": {
+    "pl": "Wrocław KBR 2024, strona wyników (strona WWW)",
+    "en": "Wrocław KBR 2024, results page (web page)"
+  },
+  "9bcd6e1b9c79e6ec3a973f33acbbe9d5fdfa020908a5bd41ca1f7b44674e845c": {
+    "pl": "1,7 podróży; samochód 39,8%, pieszo 33,1%, TZ 21,6%; n=10,5 tys.",
+    "en": "1.7 trips; car 39.8%, pedestrian 33.1%, TZ 21.6%; n=10.5 thousand"
+  },
+  "2cebe58cd42e491ff28576a65829831808a1c3a0294b215b57ce02eb0685d7e7": {
+    "pl": "Brak raportu PDF",
+    "en": "No PDF report"
+  },
+  "5f37a19b816bfed0df82654c162c4bb1ebf46b9a6512977807a6d75e661eee18": {
+    "pl": "Warszawskie Badanie Ruchu 2024–25, artykuł UM (strona WWW)",
+    "en": "Warsaw Traffic Study 2024–25, UM article (website)"
+  },
+  "2b5894e82e89448fdff2c0a460a7e290afcb67aeece33e87ad3d322fa4f7baa5": {
+    "pl": "n≈40 tys.; podział modalny wg stref; praca zdalna 23%",
+    "en": "n≈40 thousand; modal split by districts; remote work 23%"
+  },
+  "05a877cddbbc3f0b350e03ff317d792225226daf0ca75bcb3740a90f50430bd7": {
+    "pl": "Bez ruchliwości i godzin",
+    "en": "Without mobility and hours"
+  },
+  "08af758681cb995e9b76c110e3d5317f4775edaa0f282535f28fe96c96061882": {
+    "pl": "Kalisz, plan transportu zbiorowego 2013 (CATI) (`badania_ruchu/kalisz_plan_transportowy_2013.pdf`)",
+    "en": "Kalisz, public transport plan 2013 (CATI) (`badania_ruchu/kalisz_plan_transportowy_2013.pdf`)"
+  },
+  "e3febbbb631337e76644d6ef12f7f2778d9913a35d96dfa3b1b0e1cefa69704f": {
+    "pl": "Ruchliwość deklarowana 2,2",
+    "en": "Declared mobility 2,2"
+  },
+  "8795987458ce4ad248b8b2e114ca3362adf6b475553fd3f519ffbfaf7d0c3c4b": {
+    "pl": "Stare, deklaratywne",
+    "en": "Old, declarative"
+  },
+  "8901618e5307a873584eb019d64941844511c133f0331f49b8125e0ed3e9af8d": {
+    "pl": "Kielce KOF SUMP 2022, synteza (`badania_ruchu/kielce_sump_synteza_2023.pdf`)",
+    "en": "Kielce KOF SUMP 2022, synthesis (`badania_ruchu/kielce_sump_synteza_2023.pdf`)"
+  },
+  "dbe04c58d678dd8534334b1cfa7059427e4edce83d0f6b534d7b434b25cd33f4": {
+    "pl": "Samochód 44,3%, TZ 21,6%, pieszo 20,9% (obligatoryjne)",
+    "en": "Car 44.3%, TZ 21.6%, pedestrian 20.9% (mandatory)"
+  },
+  "06b7fe22e96ac9293c500d85ac4ae4c9055738b30442e1ccade1622b2b402c0a": {
+    "pl": "Brak próby",
+    "en": "No attempt"
+  },
+  "db3222089d27076bc11da15817fada37e7577685c484fe2d4fa3c550781bbcc9": {
+    "pl": "Gdańskie Badania Ruchu 2016, broszura (`badania_ruchu/gbr_broszura.pdf`); Pomorskie BR 2024, prezentacja (`badania_ruchu/pbr2024_konferencja.pdf`)",
+    "en": "Gdańsk Traffic Studies 2016, brochure (`badania_ruchu/gbr_broszura.pdf`); Pomeranian TR 2024, presentation (`badania_ruchu/pbr2024_konferencja.pdf`)"
+  },
+  "9502ad18a1dc5b93acfdeadda44dd058597d698eb0f142caa86a7655232f7764": {
+    "pl": "Opis metody (PBR 2024: 20 tys. wywiadów)",
+    "en": "Method description (PBR 2024: 20 thousand interviews)"
+  },
+  "dade5abb0bf1028935389c1169b505c548d589191f365184d088fb76ee80adc4": {
+    "pl": "Bez wyników liczbowych",
+    "en": "Without numerical results"
+  },
+  "045ff9d445e063677dfd5aa8fd018842752450f50d17cdd4491fff58ea31e94a": {
+    "pl": "Rzeszów ROF, raport diagnostyczny SUMP 2025 (RBR 2022/23, GUS, PAPI) (`badania_ruchu/sump/rzeszow_rof_sump_diagnoza_2025.pdf`)",
+    "en": "Rzeszów ROF, diagnostic report SUMP 2025 (RBR 2022/23, GUS, PAPI) (`badania_ruchu/sump/rzeszow_rof_sump_diagnoza_2025.pdf`)"
+  },
+  "bacc182902280fa378f7e5dae7f684b0707a5560ce79a1007bbdbae171e5dd2f": {
+    "pl": "Rzeszów: kierowca 43,3%, pieszo 28,0%, autobus 15,7%, rower 1,3%; 2,4 podróży/podróżującego; powroty do domu 63,6–67,9%",
+    "en": "Rzeszów: driver 43.3%, pedestrian 28.0%, bus 15.7%, bicycle 1.3%; 2.4 trips/traveler; return home 63.6–67.9%"
+  },
+  "daf1cef52e8d1b47f8730ae7adf29fc07125272669a6e1e1c2546d44d3d36c57": {
+    "pl": "Dane z raportu, bez mikrodanych",
+    "en": "Data from the report, without microdata"
+  },
+  "c5d3e142b9bc8b42709e057c3b63073e30d7a76a641c2410db72400a4f122cea": {
+    "pl": "Śląskie, Subregion Zachodni, SUMP raport modelu ruchu 2023 (`badania_ruchu/sump/slaskie_subregion_zachodni_model_ruchu_2023.pdf`)",
+    "en": "Silesian, Western Subregion, SUMP traffic model report 2023 (`badania_ruchu/sump/slaskie_subregion_zachodni_model_ruchu_2023.pdf`)"
+  },
+  "9074836d3643c71ce3d8c8f845498a06621eb89a3246ab4f7cca6ad3f57b2e9f": {
+    "pl": "Ruchliwość 1,99–2,56 (CATI+KBR 2021); samochód/TZ per motywacja (tab. 5.2); podróże/dobę (tab. 5.1)",
+    "en": "Mobility 1.99–2.56 (CATI+KBR 2021); car/TZ per motivation (table 5.2); trips/day (table 5.1)"
+  },
+  "0429d30a91a68fd62eb7e98d38ff9a80dfe692d3452f14dfbc716855ae9f1687": {
+    "pl": "CATI; podział bez pieszych",
+    "en": "CATI; division without pedestrians"
+  },
+  "14756e92ab95995a77a9972763b1b72db6431254e3597a1acc6be81de6400fb3": {
+    "pl": "Bydgoski OF, SUMP (`badania_ruchu/sump/bydgoszcz_bydof_sump.pdf`)",
+    "en": "Bydgoszcz OF, SUMP (`badania_ruchu/sump/bydgoszcz_bydof_sump.pdf`)"
+  },
+  "916323b428a93a7f6c99e74215c9bd36b64f6faa1492f4714753cf6e75300890": {
+    "pl": "n=2 284 PAPI w 6 małych gminach: 1,73 podróży/os., >67% samochodem, szczyt 7–8 / 14–15",
+    "en": "n=2 284 PAPI in 6 small municipalities: 1.73 trips/person, >67% by car, peak 7–8 / 14–15"
+  },
+  "30dc645a23cf63611fae60b64902f9d955e3ac43e8657d1798c12c13b5920b53": {
+    "pl": "Brak rozbicia na gminy; podział ogółem (s. 48) o niejasnej metodzie",
+    "en": "No breakdown by municipalities; overall division (p. 48) with an unclear method"
+  },
+  "816cb488a4eef8fed06a017d81e11a14d43018a4d8745b8eac838cdba91e40cf": {
+    "pl": "OMGGS SUMP, załącznik 1 model ruchu 2023 (`badania_ruchu/sump/omggs_sump_model_zalacznik1_2023.pdf`)",
+    "en": "OMGGS SUMP, attachment 1 traffic model 2023 (`badania_ruchu/sump/omggs_sump_model_zalacznik1_2023.pdf`)"
+  },
+  "4c66cc6878c8ffe435d2a8ef62143086134bd1fdb64d60ae89dc2902ca324a55": {
+    "pl": "Metoda: udział pieszych jako funkcja odległości, logit; GBR 2022, ≥250 m",
+    "en": "Method: pedestrian share as a function of distance, logit; GBR 2022, ≥250 m"
+  },
+  "4fcd5270180ea571f0a98ac51601783669841ffb7c3467d6ae99545e4a8df744": {
+    "pl": "Tabele rozsypane w ekstrakcji; ta sama baza co GBR",
+    "en": "Tables scattered in the extraction; same baseline as GBR"
+  },
+  "469942be167a86cb3c50eb5062c4e40f44b73cd791839494143c263d207a1617": {
+    "pl": "Repozytorium SUMP, gov.pl, stan 30.09.2026 (`badania_ruchu/sump/repozytorium_sump_30092026.pdf`)",
+    "en": "SUMP repository, gov.pl, status as of 30.09.2026 (`badania_ruchu/sump/repozytorium_sump_30092026.pdf`)"
+  },
+  "97d85b8dca16c7f67e4081ad298b2fa29b0aaa32bb2b04ffc033d507d49e19e4": {
+    "pl": "53 MOF z ocenionymi SUMP, 61,2% ludności; wykaz gmin",
+    "en": "53 municipalities with assessed SUMP, 61.2% of the population; list of municipalities"
+  },
+  "e561f14de8426c06dcf3045468ea8b835c6d66e730ae61af78d29769b225c99b": {
+    "pl": "Brak linków do planów",
+    "en": "No links to plans"
+  },
+  "464d41ac75234dea2805929615cfee01410e70212a90b95b453b5d2a6f8197be": {
+    "pl": "SUMP dla Łódzkiego Obszaru Metropolitalnego 2024 + zał. 2 raport z badań społecznych (`badania_ruchu/sump_lodzkie/sump_lom_2024.pdf`, `sump_lom_zal2_badania_spoleczne.pdf`)",
+    "en": "SUMP for the Łódź Metropolitan Area 2024 + assumption 2 report from social surveys (`badania_ruchu/sump_lodzkie/sump_lom_2024.pdf`, `sump_lom_zal2_badania_spoleczne.pdf`)"
+  },
+  "9eb4d895eabef9ae71262f459fc378f4968c18a13629be210668869dbe338ce1": {
+    "pl": "Ankieta CATI/CAWI VI 2023, n=2 327; środek do pracy (wielokrotny wybór) kierowca 64,7%; model: 47,1% podróży zrównoważonych, motoryzacja 678/1000",
+    "en": "CATI/CAWI VI 2023 survey, n=2 327; place of work (multiple choice) driver 64.7%; model: 47.1% sustainable travel, motorization 678/1000"
+  },
+  "c1fbe36448c84dee8dbb597e5c7e7fe4360a0181fe66cf7bce0da8e73ae1405f": {
+    "pl": "Brak dzienniczka i modelu ruchu; ankieta nawyków, nie podział modalny",
+    "en": "No logbook and traffic model; habits survey, no modal split"
+  },
+  "6fddc0b94e205d41a0560d46cc816c446adff060e91b687becf9e2073008bfcd": {
+    "pl": "Winiewski i in., Łódź 2021, Moravian Geographical Reports 31(1) (`badania_ruchu/sump_lodzkie/lodz_mgr_2023.pdf`)",
+    "en": "Winiewski et al., Łódź 2021, Moravian Geographical Reports 31(1) (`badania_ruchu/sump_lodzkie/lodz_mgr_2023.pdf`)"
+  },
+  "fbea55e632b896bcf8f07f141e1350b9b6d42e34c46b3367da80f0fe804681d0": {
+    "pl": "n=6 118 (≥13 lat), dzienniczek dzień roboczy + niedziela; ruchliwość 1,37 / 0,82; kierowca 65,18%, pieszo 10,80%",
+    "en": "n=6 118 (≥13 years old), weekday diary + Sunday; mobility 1.37 / 0.82; driver 65.18%, pedestrian 10.80%"
+  },
+  "7f9d649414e5c9156ebb12066541540c3265e29b626680a81648b4094563386e": {
+    "pl": "COVID jesień 2021; niepełna tab. 3 (przypisanie wierszy)",
+    "en": "COVID autumn 2021; incomplete Table 3 (row assignment)"
+  },
+  "7a86d0d13f7b426c96a9cec219f596ff17ef5788271ace4f2bebae8da8479332": {
+    "pl": "Gadziński, Goras 2019, 50 lat badań zachowań transportowych (`badania_ruchu/sump_lodzkie/gadzinski_goras_2019_50lat.pdf`)",
+    "en": "Gadziński, Goras 2019, 50 years of `badania_ruchu/sump_lodzkie/gadzinski_goras_2019_50lat.pdf` transport behavior studies"
+  },
+  "13453299aea759582731cbfcfd6caa773a1f91740034085b4334bf73a8c14f20": {
+    "pl": "Przegląd KBR w Polsce; progi odległości pieszych 100–500 m utrudniają porównania",
+    "en": "Review of KBR in Poland; pedestrian distance thresholds of 100–500 m hinder comparisons"
+  },
+  "4e38ca30fb5a12875e05f69cdf5a7bb46f6b8d2f988128e5a48f5db04b16ead6": {
+    "pl": "Tab. 2 rozsypana w ekstrakcji, liczby nie użyte",
+    "en": "Table 2 spread out in the extraction, numbers not used"
+  },
+  "7af3ba7f1e9722cb07177d37af87b1def17b456202e285b67151f3e63f3e6c51": {
+    "pl": "GUS, Zasady metodologiczne ankietowego badania mobilności ludności (`badania_ruchu/sump_lodzkie/gus_zasady_metodologiczne_mobilnosc.pdf`)",
+    "en": "GUS, Methodological principles of the survey study on population mobility (`badania_ruchu/sump_lodzkie/gus_zasady_metodologiczne_mobilnosc.pdf`)"
+  },
+  "d8acb65c2714b523731438d4b1fcadebd49bb83e2c12fa57a603c3db89a3c447": {
+    "pl": "Kwestionariusz gospodarstwa i osobowy, zmienne do zbierania",
+    "en": "Household and personal questionnaire, variables to collect"
+  },
+  "da3f356345f72ad8d08e76cdb535553f95414e265b5251360066145997e2c885": {
+    "pl": "Prezentacja bez liczb",
+    "en": "Presentation without numbers"
+  },
+  "731808d7149eac3ac4f118716c715075a265d2e15cd5ade1f4aeaa22640aa101": {
+    "pl": "SUMP MOF Sieradz–Zduńska Wola–Łask 2026 + prezentacja z warsztatów (`badania_ruchu/sump_lodzkie/sieradz_zdunska_wola_lask_sump_2026.pdf`, `sieradz_sump_warsztat_2026-02-18.pdf`)",
+    "en": "SUMP MOF Sieradz–Zduńska Wola–Łask 2026 + presentation from workshops (`badania_ruchu/sump_lodzkie/sieradz_zdunska_wola_lask_sump_2026.pdf`, `sieradz_sump_warsztat_2026-02-18.pdf`)"
+  },
+  "5f277fbfc7a49e74fbc569839e92310ba0fdc80244e766c11d070c0984043bd7": {
+    "pl": "Ankieta diagnozy (uproszczona): samochód 64% (55% kierowca), autobus 15%, kolej 6%, rower 5%; dostęp do TZ 24,4%",
+    "en": "Diagnosis survey (simplified): car 64% (55% driver), bus 15%, rail 6%, bicycle 5%; access to TZ 24.4%"
+  },
+  "dbf6518e51a5e8757b7f8e26c0f7769fdc7086c038f37e3bf15a9f45f7e74c72": {
+    "pl": "Brak n, metody i terminu; bez dzienniczka i modelu",
+    "en": "No commuters methods and time; without logbook and model"
+  },
+  "4d4d997219b1a0c1add468cff09939463061b3a28f8eff8f7ac4e2ef0b3a9a60": {
+    "pl": "Projekt SUMP MOF Tomaszów Mazowiecki–Opoczno–Lubochnia, konsultacje 2024 (`badania_ruchu/sump_lodzkie/tomaszow_opoczno_lubochnia_sump_projekt_2024.pdf`)",
+    "en": "SUMP MOF Tomaszów Mazowiecki–Opoczno–Lubochnia project, consultations 2024 (`badania_ruchu/sump_lodzkie/tomaszow_opoczno_lubochnia_sump_projekt_2024.pdf`)"
+  },
+  "154c636cd4dc34e7434521e3c097b6413f04e49977123313cb7173294e3e6f1d": {
+    "pl": "Motoryzacja 2022: powiat opoczyński 671,1, tomaszowski 697,4; iloraz przepływów zatrudnienia 0,76→1,16",
+    "en": "Motorization 2022: Opoczyński county 671.1, Tomaszowski 697.4; employment flow ratio 0.76→1.16"
+  },
+  "dd342018b58322dfbc8e5b372d190f7065e2d21e39fbd649a15a65be9f795632": {
+    "pl": "Projekt, nie wersja uchwalona; brak badań podróży",
+    "en": "Project, not approved version; no travel surveys"
+  },
+  "c65eb99b3499b6b5ffd824f843a7c04c883009c2df2446436d0c644ca07c97a3": {
+    "pl": "Pomiary miejskie, łańcuchy i odległość celu (2026-10-31)",
+    "en": "Urban measurements, chains and target distance (2026-10-31)"
+  },
+  "2c82b2fd12e66fea88cfb2e2c85bfb676080afabceb1f1fd9eca4d8b7325456b": {
+    "pl": "WIOŚ Łódź, „Stan środowiska w woj. łódzkim w 2013”, rozdz. IV Hałas (`g_pomiary/wios_2013_halas.pdf`, https://www.wios.lodz.pl/files/docs/r14xivxhalas.pdf), tab. IV.1–IV.2, s. 130–131",
+    "en": "WIOŚ Łódź, \"Environmental status in the Łódź voivodeship in 2013\", Chapter IV Noise (`g_pomiary/wios_2013_halas.pdf`, https://www.wios.lodz.pl/files/docs/r14xivxhalas.pdf), table IV.1–IV.2, p. 130–131)"
+  },
+  "a6033794f84c530c88ed0dec8d6e5c20c4bc37335107840ef807e6e5cdfbf407": {
+    "pl": "POBRANE, UŻYTE",
+    "en": "Downloaded, used"
+  },
+  "11888227d04203dc47968741f4ce3155531bd3305dc0e0c4f4d424c9c6627dad": {
+    "pl": "Natężenie dzień (6–22) / noc, lekkie i ciężkie. K1 Toruńska: 12 dób, z tego 7 roboczych, średnio 10 663 poj./dobę (7 621–15 289). Doby: K2 Łąkoszyńska 6 911, K3 Grunwaldzka 3 143, K4 Kościuszki 3 476, K5 Łęczycka 8 136 (ciężkie w dzień 45,6%, tak w tabeli). Jedyne publiczne pomiary na ulicach miejskich",
+    "en": "Daytime (6–22) / night, light and heavy. K1 Toruńska: 12 days, of which 7 working days, average 10,663 veh./day (7,621–15,289). Days: K2 Łąkoszyńska 6,911, K3 Grunwaldzka 3,143, K4 Kościuszki 3,476, K5 Łęczycka 8,136 (heavy in daytime 45.6%, as in the table). Only public measurements on city streets"
+  },
+  "a02eed62c6c6268b87177be984ac51d5057d886ed40ab0c076dd66a9abd45387": {
+    "pl": "Rok 2013; K2–K5 po jednej dobie; bez godzin i kierunków; lokalizacja opisem (adres posesji)",
+    "en": "Year 2013; K2–K5 for one day; without hours and directions; location by description (property address)"
+  },
+  "fef2ae80df7c47c0be3b596f5f6537d203808dee826f329f124927ed45780e05": {
+    "pl": "GDDKiA GPR 2010, SDR w punktach pomiarowych DK (`g_pomiary/SDR_pkt_GPR2010_DK.pdf`, https://www.gov.pl/web/gddkia/generalny-pomiar-ruchu-w-2010)",
+    "en": "GDDKiA GPR 2010, SDR at measurement points DK (`g_pomiary/SDR_pkt_GPR2010_DK.pdf`, https://www.gov.pl/web/gddkia/generalny-pomiar-ruchu-w-2010)"
+  },
+  "0e9e2e8e99c5475b296c3dd27954390ec7cc5731a7a91556cf8c9d81cd7a6309": {
+    "pl": "SDR 2010: 91115 Łęczyca–Kutno 2 850, 11104 Kutno–Gostynin 5 983, 91123 Krośniewice–Kutno 8 269, 91124 Kutno/obwodnica 9 978, 91125 Kutno–Bedlno 6 862",
+    "en": "SDR 2010: 91115 Łęczyca–Kutno 2 850, 11104 Kutno–Gostynin 5 983, 91123 Krośniewice–Kutno 8 269, 91124 Kutno/obwodnica 9 978, 91125 Kutno–Bedlno 6 862"
+  },
+  "158f5f5e856c9358f5da736967d72c3c1633d4b65f1318f7b6dd8d502ed5d1b3": {
+    "pl": "Odcinki z lat 2015/2025 częściowo podzielone (91125 → 91869 + 91125)",
+    "en": "Segments from 2015/2025 partially divided (91125 → 91869 + 91125)"
+  },
+  "ddf6233f12bdde74d0cb034a11999d46aeeaabaf38e7c7c69609a94915256192": {
+    "pl": "wzrost S1",
+    "en": "S1 growth"
+  },
+  "ada31e5bf9abede896dd4f5aec819dec4be38f0268fe0a3b659f79eae67a1c18": {
+    "pl": "GDDKiA GPR 2015, wyniki i wykaz DK (`g_pomiary/WYNIKI_GPR2015_DK.pdf`, `WYKAZ_GPR2015_DK.pdf`, https://www.gov.pl/web/gddkia/generalny-pomiar-ruchu-w-roku-2015)",
+    "en": "GDDKiA GPR 2015, results and list of roads (`g_pomiary/WYNIKI_GPR2015_DK.pdf`, `WYKAZ_GPR2015_DK.pdf`, https://www.gov.pl/web/gddkia/generalny-pomiar-ruchu-w-roku-2015)"
+  },
+  "fb629265daed951f7744a644d2ebdc80625f1e5b2e99c5cd7f1f1816cca628f3": {
+    "pl": "SDR 2015: 91115 3 108, 91866 7 538, 11104 6 577, 91123 5 989, 91124 8 803, 91869 5 979, 91125 5 789, A1 19 587–20 000. Plik z gov.pl identyczny (sha256) z kopią archiwum GDDKiA w Wayback (pierwsze kopie Wayback były ucięte do 1 MiB)",
+    "en": "SDR 2015: 91115 3 108, 91866 7 538, 11104 6 577, 91123 5 989, 91124 8 803, 91869 5 979, 91125 5 789, A1 19 587–20 000. File from gov.pl identical (sha256) to the copy of the GDDKiA archive in Wayback (the first Wayback copies were truncated to 1 MiB)"
+  },
+  "33d53d345bb7fcc261e54ec749b6114941037e80cc5192a5cdf9d9e232576147": {
+    "pl": "Tekst PDF poprawny tylko w pełnej wersji pliku",
+    "en": "Text PDF correct only in the full version of the file"
+  },
+  "fcfaa10a875ded6a344c00231810ab0a7cda8b2bbb39e6571bc992cace8da2fe": {
+    "pl": "GUS Mobilność 2024, tabl. 10, łódzkie (pary motywacji)",
+    "en": "GUS Mobilność 2024, table 10, Łódź (commuting pairs)"
+  },
+  "acc450a76acfd83b1ebebf72ae1a0df5a2d02ca88b4e2a0846e087fc8d863417": {
+    "pl": "UŻYTE (D35)",
+    "en": "Used (D35)"
+  },
+  "af2eed2c5e43e9044c1cfb6715fc27891b969fec5dd7640203b3001b9f04bf91": {
+    "pl": "dom–praca 730 740, praca–dom 661 460, podwożenie–praca 33 866, dom–podwożenie 146 725; cele dom–inne: zakupy cc 102 892, inne zakupy 229 380, usługi 25 702, odwiedziny 70 062, rekreacja 90 163, medyczne 78 397",
+    "en": "home–work 730 740, work–home 661 460, drop-off–work 33 866, home–drop-off 146 725; home–other goals: shopping cc 102 892, other shopping 229 380, services 25 702, visits 70 062, recreation 90 163, medical 78 397"
+  },
+  "d83e953e0cff4b17b6fd086b7f9747d41d2b91dbeaadf48b0580bcb948b58d62": {
+    "pl": "Wszystkie tryby; tabela podaje tylko wybrane pary (bez praca–zakupy)",
+    "en": "All modes; the table shows only selected pairs (without work–shopping)"
+  },
+  "1ed7dca4b590f45d3181ffc4b207f1707543181a57b0473ed3c115c79cc4eac1": {
+    "pl": "KBR Szczecin 2016, etap 4, tab. 3 (`badania_ruchu/szczecin_kbr2016_etap4.pdf`)",
+    "en": "KBR Szczecin 2016, stage 4, table 3 (`badania_ruchu/szczecin_kbr2016_etap4.pdf`)"
+  },
+  "58ad72027e9d90d645b1b1dcc6579e3a6d327a44b33bf5a0d30df325ba1bba1d": {
+    "pl": "PRZECZYTANE (research)",
+    "en": "read (research)"
+  },
+  "f9d9435076ea749de17a14236ad3a4e1e5fc1ca25ec38fa3f9cf73687c55d124": {
+    "pl": "funkcja oporu dom–inne c = −0,08 (wariant A)",
+    "en": "home-to-other resistance function c = -0.08 (variant A)"
+  },
+  "d7724d8591bcb8fa999451d95ad244aa5de4f42b1d2bf7da8d4ef90ac06d8272": {
+    "pl": "Jednostka czasu i postać wzoru niepotwierdzone (ZAŁOŻENIE: exp(c·t), t w min)",
+    "en": "Time unit and pattern shape unconfirmed (ASSUMPTION: exp(c·t), t in minutes)"
+  },
+  "6f242de8409dfcc118d9a6d2211ce5d413fa89be285f13489f5430dcc229e4d5": {
+    "pl": "GBR 2022 raport 3a, rys. 53 i 49 (`gbr/GBR2022_raport3a.pdf`)",
+    "en": "GBR 2022 report 3a, fig. 53 and 49 (`gbr/GBR2022_raport3a.pdf`)"
+  },
+  "1b9ea0e056340867a8d0057afe5634a2f18843f8598f89ffbd30f64903b82c99": {
+    "pl": "dom–inne: ≤5 min 10,9%, 6–15 51,6%, 16–30 26,1%, 31–45 7,1%, >45 4,3%; średnio 18 min (inne–dom 21)",
+    "en": "home–other: ≤5 min 10.9%, 6–15 51.6%, 16–30 26.1%, 31–45 7.1%, >45 4.3%; average 18 min (other–home 21)"
+  },
+  "5cf0dd4ca214c3cf181b838e1d0d8f9d1e846dd92ff72c1da26e6c68d2759ac8": {
+    "pl": "Gdańsk, wszystkie tryby, czas rzeczywisty; w Kutnie czas swobodny autem prawie zawsze < 15 min, więc nie nadaje się na cel",
+    "en": "Gdańsk, all modes, real time; in Kutno free car travel time is almost always < 15 min, so it is not suitable as a target"
+  },
+  "a7a26041a72874a2a4270312cfe8725a9e3e11c2ddacbe6a846ef3781e67b39f": {
+    "pl": "Plan transportowy powiatu kutnowskiego, projekt 2013 (https://kutno-bip2.alfatv.pl/pobierz/5704), rozdz. 6",
+    "en": "Kutno county transport plan, project 2013 (https://kutno-bip2.alfatv.pl/pobierz/5704), chapter 6)"
+  },
+  "6704bd969eeccbf046694cae9ef29f4333439a8396bd08271f7b125b08fc5be0": {
+    "pl": "ZNALEZIONE",
+    "en": "Found"
+  },
+  "bccc0ec0dd465d1498d778d0773c481cd6c03223dbc6cc32cbb18008af53d5cf": {
+    "pl": "napełnienia przewozów powiatowych 2013, ankieta: 61% ma dostęp do auta; motoryzacja powiatu 698 (2009), 726 (2010)",
+    "en": "county transport fillings 2013, survey: 61% have access to a car; county motorization 698 (2009), 726 (2010)"
+  },
+  "809174e4c3a8abcb54849bfb9673165fba8e8576f4784c1deadcf70fabf31c0b": {
+    "pl": "Nie MZK; 2013",
+    "en": "Not MZK; 2013"
+  },
+  "ee20260beb8c63f671a7c050750ad2b78ed410fee4ca1684140a52aa2513441a": {
+    "pl": "Badanie popytu MZK Kutno (Public Transport Consulting), komunikat https://um.kutno.pl/print/pdf/node/3163",
+    "en": "MZK Kutno demand study (Public Transport Consulting), message https://um.kutno.pl/print/pdf/node/3163"
+  },
+  "6c51787c6172da8a2456684c724038b0a3de29c0855a2f502aab5fa042f9a637": {
+    "pl": "NIEDOSTĘPNE (wyniki tylko na wniosek; użytkownik: bez wniosków)",
+    "en": "Unavailable (results only upon request; user: without requests)"
+  },
+  "1d4dd11816e83906a58f0f3b92d66aad709e7f64caa22c0018e482d1881738a6": {
+    "pl": "wsiadający/wysiadający na przystankach",
+    "en": "boarding/alighting at stops"
+  },
+  "6080876b0379e8737aee13df5e5c82ec1221289fda162537ca5b74faa4ec1a80": {
+    "pl": "Rok nieustalony",
+    "en": "Year unspecified"
+  },
+  "3cae7ffc37ab27c4ae6147de07bdb3ec22be7c4a92180c4fdb6bef126338a3d2": {
+    "pl": "jw.",
+    "en": "stage"
+  },
+  "a979d902ae41f22c40dcb3a2c126d267f629a5faea2bf906f88df6b02cb0daa8": {
+    "pl": "dojazdy do pracy `home → work → home`: mieszkańcy Kutna pracujący w Kutnie, przyjeżdżający i wyjeżdżający (D17), z udziałem auta i obecności w pracy (K1-1, D19);",
+    "en": "commuting `home → work → home`: residents working in Kutno, inbound and outbound commuters (D17), with car share and presence at work (K1-1, D19);"
+  },
+  "0e4e7a8456be946cea50b9fe0b4b964beb1bc64697b7944f5a7f6328673e5055": {
+    "pl": "osobne wyjścia mieszkańców `home → cel → home`: zakupy i usługi (D32, D34), odwiedziny, rekreacja, zdrowie, podwożenie (D36);",
+    "en": "separate resident trips `home → cel → home`: shopping and services (D32, D34), visits, leisure, health, escorting (D36);"
+  },
+  "be88c50721a58ea139f573ed683da934864c37cb28977867ccbfb3dbf80f8a55": {
+    "pl": "Osobne wyjścia `home → cel → home`, tylko kierowca auta. Agent wyprawy jest osobną osobą, niepowiązaną z pracującym (**ZAŁOŻENIE**).",
+    "en": "Separate trips `home → cel → home`, car driver only. A trip agent is a separate person, not linked to a worker (**ASSUMPTION**)."
+  },
+  "7f0ebaac22ef0d48f8302fb4492aaea6181925a70ca5e5d8501b3f40d8d7d01c": {
+    "pl": "krok 4 etapu 3, `docs/research/G_aktywnosci_dodatkowe.md`",
+    "en": "step 4 of stage 3, `docs/research/G_aktywnosci_dodatkowe.md`"
+  },
+  "7b050d6a6fa54ac5d7ecb35b3cd6a5abbc621941fbd842619b3fa1d9bb467029": {
+    "pl": "`NetworkCleaner` usuwa węzły i linki nieosiągalne (F2: usunięto 116 węzłów i 127 linków).",
+    "en": "`NetworkCleaner` removes unreachable nodes and links (F2: 116 nodes and 127 links removed)."
+  },
+  "bf8b850fe6f5b9bb06d661f642e3b96c2dde65cff343b168c531151eb5eb4553": {
+    "pl": "`building=no` traktujemy jak brak budynku (plac komisu z `shop=car`, 3,6 ha, był największym „miejscem pracy”, R3/błąd 1).",
+    "en": "`building=no` is treated as no building (a car dealership yard with `shop=car`, 3.6 ha, was the largest „workplace”, R3/error 1)."
+  },
+  "555a21079eafc0618155f92933a326a7c327adc2d208bff9f4e904695786c4b1": {
+    "pl": "`matsim/` (matsim-example-project @ 74d23af)",
+    "en": "`matsim/` (matsim-example-project @ 74d23af)"
+  },
+  "f62c8083a091f15fdec0135d7d3e3eb2a64a7d9294db1cd5bd37ddfe0abbbaa7": {
+    "pl": "100 w configu; runy GitHub Actions 50 (`--iterations`)",
+    "en": "100 in the config; GitHub Actions runs use 50 (`--iterations`)"
+  },
+  "bfbd49dbb1385c132eb72f63efba79516e5cc657a38f903a5b487ecd9b991386": {
+    "pl": "D20: osobowe wyprzedzają ciężkie (80 km/h)",
+    "en": "D20: cars overtake heavy vehicles (80 km/h)"
+  },
+  "3e7e0b27ec46112fdb647b302c013dbbb90e80d7e31fcf218ab6c8d0781c8342": {
+    "pl": "`pipeline/demand.py` (asercje)",
+    "en": "`pipeline/demand.py` (assertions)"
+  },
+  "b80549ed4601b463dc9e0f054577157e2b640deb13a5a8ed9a02ccb0325c3d11": {
+    "pl": "`demand.py` (rozkład obwodów)",
+    "en": "`demand.py` (rozkład obwodów)"
+  },
+  "6c1a52cc0fb00446723730d009cc9b3651bd25f9025118e4c907ff84a2fe972b": {
+    "pl": "D32, Radom GOFR 2022 × GUS łódzkie",
+    "en": "D32, Radom GOFR 2022 × GUS Łódzkie"
+  },
+  "44fb97b5c1a06907add76a8bc543ff7f23ca3f4f898e32f741314414d99fd5b5": {
+    "pl": "**BDL P4508** „Pracujący wg siedziby pracy głównej” (`g2/bdl_kutno.json`, API BDL, sprawdzone ręcznie)",
+    "en": "**BDL P4508** \"Employed by main workplace location\" (`g2/bdl_kutno.json`, BDL API, checked manually)"
+  },
+  "e4597035ee18ae60e3e39a060188777d3073b535e1e1f303941a2d184b044ce5": {
+    "pl": "`SubtourModeChoice` waga 0,1, atrybut `carAvail`, 60 iteracji, innowacja wyłączana przy 0,7;",
+    "en": "`SubtourModeChoice` weight 0.1, attribute `carAvail`, 60 iterations, innovation disabled at 0.7;"
+  },
+  "7afd4e09c8b021f9a99c5d40d1306c3d7ebb0a15520e27f854c752d0674f33d0": {
+    "pl": "`g5_gpr.py`: udział kierunku DK",
+    "en": "`g5_gpr.py`: udział kierunku DK"
+  },
+  "454881b17c0c253517e6c870bdc21bb7d57f3fe9a9176f0a06a54123fd168c08": {
+    "pl": "G5: ciężarowe (PCE)",
+    "en": "G5: ciężarowe (PCE)"
   }
 }

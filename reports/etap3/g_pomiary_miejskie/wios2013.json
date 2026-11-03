@@ -1,0 +1,309 @@
+{
+ "k1_doby": [
+  {
+   "data": "2013-06-12",
+   "d_lek": 10249,
+   "d_cie": 1826,
+   "n_lek": 453,
+   "n_cie": 47,
+   "dzien_tyg": "Wednesday",
+   "roboczy": true,
+   "doba": 12575,
+   "ciez": 1873
+  },
+  {
+   "data": "2013-06-13",
+   "d_lek": 12236,
+   "d_cie": 2527,
+   "n_lek": 474,
+   "n_cie": 52,
+   "dzien_tyg": "Thursday",
+   "roboczy": true,
+   "doba": 15289,
+   "ciez": 2579
+  },
+  {
+   "data": "2013-06-14",
+   "d_lek": 9129,
+   "d_cie": 1315,
+   "n_lek": 527,
+   "n_cie": 79,
+   "dzien_tyg": "Friday",
+   "roboczy": true,
+   "doba": 11050,
+   "ciez": 1394
+  },
+  {
+   "data": "2013-06-15",
+   "d_lek": 9084,
+   "d_cie": 1669,
+   "n_lek": 478,
+   "n_cie": 18,
+   "dzien_tyg": "Saturday",
+   "roboczy": false,
+   "doba": 11249,
+   "ciez": 1687
+  },
+  {
+   "data": "2013-06-16",
+   "d_lek": 9046,
+   "d_cie": 1751,
+   "n_lek": 489,
+   "n_cie": 94,
+   "dzien_tyg": "Sunday",
+   "roboczy": false,
+   "doba": 11380,
+   "ciez": 1845
+  },
+  {
+   "data": "2013-07-20",
+   "d_lek": 6637,
+   "d_cie": 1176,
+   "n_lek": 371,
+   "n_cie": 58,
+   "dzien_tyg": "Saturday",
+   "roboczy": false,
+   "doba": 8242,
+   "ciez": 1234
+  },
+  {
+   "data": "2013-07-21",
+   "d_lek": 8104,
+   "d_cie": 1632,
+   "n_lek": 371,
+   "n_cie": 42,
+   "dzien_tyg": "Sunday",
+   "roboczy": false,
+   "doba": 10149,
+   "ciez": 1674
+  },
+  {
+   "data": "2013-07-22",
+   "d_lek": 7521,
+   "d_cie": 1882,
+   "n_lek": 467,
+   "n_cie": 36,
+   "dzien_tyg": "Monday",
+   "roboczy": true,
+   "doba": 9906,
+   "ciez": 1918
+  },
+  {
+   "data": "2013-09-04",
+   "d_lek": 5152,
+   "d_cie": 2148,
+   "n_lek": 258,
+   "n_cie": 63,
+   "dzien_tyg": "Wednesday",
+   "roboczy": true,
+   "doba": 7621,
+   "ciez": 2211
+  },
+  {
+   "data": "2013-09-05",
+   "d_lek": 7579,
+   "d_cie": 2363,
+   "n_lek": 247,
+   "n_cie": 51,
+   "dzien_tyg": "Thursday",
+   "roboczy": true,
+   "doba": 10240,
+   "ciez": 2414
+  },
+  {
+   "data": "2013-09-06",
+   "d_lek": 5557,
+   "d_cie": 2006,
+   "n_lek": 325,
+   "n_cie": 72,
+   "dzien_tyg": "Friday",
+   "roboczy": true,
+   "doba": 7960,
+   "ciez": 2078
+  },
+  {
+   "data": "2013-09-07",
+   "d_lek": 7488,
+   "d_cie": 2148,
+   "n_lek": 708,
+   "n_cie": 19,
+   "dzien_tyg": "Saturday",
+   "roboczy": false,
+   "doba": 10363,
+   "ciez": 2167
+  }
+ ],
+ "k1_robocze": {
+  "n": 7,
+  "doba_srednia": 10663,
+  "rozrzut": [
+   7621,
+   15289
+  ],
+  "weekend_srednia": 10277
+ },
+ "gpr": [
+  {
+   "korytarz": "91123",
+   "y2010": 8269.0,
+   "y2015": 5989.0,
+   "y2025": 6241.0,
+   "y2013": 6901.0,
+   "f": 0.904,
+   "f_lo": 0.755,
+   "f_hi": 1.042
+  },
+  {
+   "korytarz": "91124",
+   "y2010": 9978.0,
+   "y2015": 8803.0,
+   "y2025": 9341.0,
+   "y2013": 9273.0,
+   "f": 1.007,
+   "f_lo": 0.936,
+   "f_hi": 1.061
+  },
+  {
+   "korytarz": "91115",
+   "y2010": 2850.0,
+   "y2015": 3108.0,
+   "y2025": 4089.0,
+   "y2013": 3004.8,
+   "f": 1.361,
+   "f_lo": 1.316,
+   "f_hi": 1.435
+  },
+  {
+   "korytarz": "11104",
+   "y2010": 5983.0,
+   "y2015": 6577.0,
+   "y2025": 9351.0,
+   "y2013": 6339.4,
+   "f": 1.475,
+   "f_lo": 1.422,
+   "f_hi": 1.563
+  },
+  {
+   "korytarz": "91125+91869",
+   "y2010": 6862.0,
+   "y2015": 5880.07,
+   "y2025": 9467.428,
+   "y2013": 6272.842,
+   "f": 1.509,
+   "f_lo": 1.38,
+   "f_hi": 1.61
+  },
+  {
+   "korytarz": "suma",
+   "y2010": 33942.0,
+   "y2015": 30357.07,
+   "y2025": 38489.428,
+   "y2013": 31791.042,
+   "f": 1.211,
+   "f_lo": 1.134,
+   "f_hi": 1.268
+  }
+ ],
+ "punkty": {
+  "K1": {
+   "ulica": "Toruńska",
+   "opis": "Toruńska 7 (naprzeciw KPP)",
+   "x": 523237,
+   "y": 485805,
+   "linki": [
+    "2514921470016f",
+    "2514921470016r"
+   ],
+   "odl_m": 18.1,
+   "doba_2013": 10663,
+   "doba_2013_min": 7621,
+   "doba_2013_max": 15289,
+   "ciezkie_proc_2013": 19.4,
+   "korytarz_gpr": "91123",
+   "f_s1": 0.904,
+   "f_s1_lo": 0.755,
+   "f_s1_hi": 1.042,
+   "f_suma": 1.211
+  },
+  "K2": {
+   "ulica": "Łąkoszyńska",
+   "opis": "Łąkoszyńska 11",
+   "x": 524952,
+   "y": 483973,
+   "linki": [
+    "2001600640010r",
+    "2001600640010f"
+   ],
+   "odl_m": 5.9,
+   "doba_2013": 6911,
+   "doba_2013_min": 6911,
+   "doba_2013_max": 6911,
+   "ciezkie_proc_2013": 11.7,
+   "korytarz_gpr": "suma",
+   "f_s1": 1.211,
+   "f_s1_lo": 1.134,
+   "f_s1_hi": 1.268,
+   "f_suma": 1.211
+  },
+  "K3": {
+   "ulica": "Grunwaldzka",
+   "opis": "Grunwaldzka 17 (kościół św. Jadwigi)",
+   "x": 525648,
+   "y": 484775,
+   "linki": [
+    "2456705250006f",
+    "2456705250006r"
+   ],
+   "odl_m": 0.1,
+   "doba_2013": 3143,
+   "doba_2013_min": 3143,
+   "doba_2013_max": 3143,
+   "ciezkie_proc_2013": 7.1,
+   "korytarz_gpr": "91125+91869",
+   "f_s1": 1.509,
+   "f_s1_lo": 1.38,
+   "f_s1_hi": 1.61,
+   "f_suma": 1.211
+  },
+  "K4": {
+   "ulica": "Tadeusza Kościuszki",
+   "opis": "brama terenów sportowych (al. Młodej Ligi = Centrum Małej Ligi Baseballowej)",
+   "x": 525596,
+   "y": 486409,
+   "linki": [
+    "2396494780008f",
+    "2396494780008r"
+   ],
+   "odl_m": 0.4,
+   "doba_2013": 3476,
+   "doba_2013_min": 3476,
+   "doba_2013_max": 3476,
+   "ciezkie_proc_2013": 9.1,
+   "korytarz_gpr": "11104",
+   "f_s1": 1.475,
+   "f_s1_lo": 1.422,
+   "f_s1_hi": 1.563,
+   "f_suma": 1.211
+  },
+  "K5": {
+   "ulica": "Łęczycka",
+   "opis": "Noskowskiego 1 (wsch. strona Łęczyckiej)",
+   "x": 523420,
+   "y": 484196,
+   "linki": [
+    "2541217110006f",
+    "2541217110006r"
+   ],
+   "odl_m": 0.0,
+   "doba_2013": 8136,
+   "doba_2013_min": 8136,
+   "doba_2013_max": 8136,
+   "ciezkie_proc_2013": 43.8,
+   "korytarz_gpr": "91115",
+   "f_s1": 1.361,
+   "f_s1_lo": 1.316,
+   "f_s1_hi": 1.435,
+   "f_suma": 1.211
+  }
+ }
+}

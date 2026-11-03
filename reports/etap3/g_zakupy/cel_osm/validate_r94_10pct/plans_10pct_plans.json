@@ -1,0 +1,211 @@
+{
+  "plans": "scenarios\\kutno\\plans_g3r94_10pct.xml.gz",
+  "sha256": "cfc51fea1f1b48925bbb4eb08e15759f76ed7dbd10d44f98fbdd96a20f284525",
+  "sha256_rerun": "cfc51fea1f1b48925bbb4eb08e15759f76ed7dbd10d44f98fbdd96a20f284525",
+  "deterministic": true,
+  "persons": 1495,
+  "expected": 1495,
+  "bad_chain": [],
+  "bad_chain_n": 0,
+  "home_outside_area": 0,
+  "work_outside_gmina": 0,
+  "outbound": {
+    "persons": 143,
+    "home_outside_gmina": 0,
+    "work_inside_gmina": 0,
+    "work_source": {
+      "exit": 95,
+      "osm": 48
+    },
+    "exit_links_used": {
+      "3890128470001f": 33,
+      "4918991020015f": 29,
+      "2473952100003f": 9,
+      "2902403630001r": 7,
+      "3751421790011r": 6,
+      "2934227590000r": 4,
+      "15488949470000r": 3,
+      "15488949440000r": 2,
+      "1931760520082f": 2
+    },
+    "excluded_persons_100pct": 188
+  },
+  "jobs_in_kutno_100pct": 22725,
+  "jobs_total_override": 0,
+  "car_factor": 0.5933,
+  "variant": "reg",
+  "return_home_differs": 0,
+  "activities_on_excluded_link_types": 0,
+  "activity_links_missing": 0,
+  "start_equals_profile_time_ok": true,
+  "tlo": {
+    "persons": 4785,
+    "expected": 4785,
+    "bad_chain_n": 0,
+    "links_missing": 0,
+    "same_link_od": 0,
+    "start_by_hour": {
+      "0": 30,
+      "1": 18,
+      "2": 15,
+      "3": 24,
+      "4": 40,
+      "5": 115,
+      "6": 238,
+      "7": 310,
+      "8": 288,
+      "9": 263,
+      "10": 255,
+      "11": 272,
+      "12": 305,
+      "13": 327,
+      "14": 351,
+      "15": 392,
+      "16": 395,
+      "17": 309,
+      "18": 275,
+      "19": 223,
+      "20": 148,
+      "21": 84,
+      "22": 72,
+      "23": 36
+    },
+    "profile": "config/hourly_profile_lisica2025.csv",
+    "od_file": "scenarios/kutno/demand/background_od_r93o_lcv_gpr.csv",
+    "ok": true
+  },
+  "ciezkie": {
+    "persons": 1936,
+    "expected": 1936,
+    "bad_chain_n": 0,
+    "links_missing": 0,
+    "same_link_od": 0,
+    "start_by_hour": {
+      "0": 31,
+      "1": 20,
+      "2": 25,
+      "3": 30,
+      "4": 57,
+      "5": 93,
+      "6": 106,
+      "7": 105,
+      "8": 123,
+      "9": 132,
+      "10": 134,
+      "11": 135,
+      "12": 127,
+      "13": 135,
+      "14": 114,
+      "15": 109,
+      "16": 117,
+      "17": 85,
+      "18": 74,
+      "19": 65,
+      "20": 45,
+      "21": 30,
+      "22": 25,
+      "23": 19
+    },
+    "profile": "config/hourly_profile_lisica2025.csv",
+    "od_file": "scenarios/kutno/demand/background_od_r93o_heavy_gpr.csv",
+    "ok": true
+  },
+  "vehicles": {
+    "heavy": true,
+    "vehicles": 8500,
+    "persons_all": 8500,
+    "persons_with_vehicle_attr": 8500,
+    "pce": {
+      "car": 1.0,
+      "ciezki": 2.5
+    },
+    "heavy_type_ok": true,
+    "others_car": true,
+    "ok": true
+  },
+  "excluded_gminas_gt_max_border_km": {
+    "max_border_km": 100,
+    "gminas": 30,
+    "persons_100pct": 235,
+    "top": [
+      "3064011: 45 os., 147 km",
+      "0264011: 23 os., 190 km",
+      "1262011: 16 os., 289 km",
+      "2262011: 15 os., 236 km",
+      "1261011: 14 os., 229 km",
+      "2261011: 13 os., 218 km",
+      "3262011: 8 os., 327 km",
+      "2469011: 8 os., 211 km",
+      "0461011: 7 os., 111 km",
+      "3021072: 7 os., 154 km"
+    ]
+  },
+  "max_border_km_included": 98.7,
+  "by_kind": {
+    "resident": 880,
+    "commuter": 472,
+    "outbound": 143
+  },
+  "home_source": {
+    "bdot": 1380,
+    "entry": 112,
+    "random": 3
+  },
+  "random_point_homes_keys": [
+    "6509214"
+  ],
+  "distinct_work_buildings": 402,
+  "top5_work_buildings_share": 0.157,
+  "entry_links_used": {
+    "2934227590000f": 19,
+    "2902403630001f": 18,
+    "2473952100003r": 17,
+    "3021014880009f": 15,
+    "3751421790011f": 11,
+    "3890128470001r": 10,
+    "3107258420023r": 9,
+    "15488949430000f": 4,
+    "15488949440000f": 4,
+    "3796965080015f": 3,
+    "2445763210015f": 1,
+    "1885522040087f": 1
+  },
+  "home_work_crowfly_km_median": {
+    "commuter": 13.2,
+    "outbound": 17.6,
+    "resident": 3.9
+  },
+  "times": {
+    "departure_profile": "config/departure_home_work_gbr2022.csv",
+    "work_max_dur": "08:00:00",
+    "departure_by_hour": {
+      "0": 9,
+      "1": 2,
+      "2": 3,
+      "3": 3,
+      "4": 1,
+      "5": 147,
+      "6": 359,
+      "7": 521,
+      "8": 234,
+      "9": 98,
+      "10": 35,
+      "11": 11,
+      "12": 15,
+      "13": 35,
+      "14": 8,
+      "15": 4,
+      "17": 2,
+      "18": 5,
+      "20": 1,
+      "22": 1,
+      "23": 1
+    }
+  },
+  "errands": {
+    "ok_chain": 284,
+    "bad_chain": 0,
+    "expected": 284
+  },
+  "ok": true
+}
